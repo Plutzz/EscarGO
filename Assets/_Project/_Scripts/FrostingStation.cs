@@ -10,6 +10,7 @@ public class FrostingStation : Interactable
     private bool isTracing = false;
     private bool success = false;
     private LayerMask minigameLayer;
+    private Ray ray;
 
     [SerializeField] private Vector3 startPoint;
     [SerializeField] private Vector3 endPoint;
@@ -21,7 +22,7 @@ public class FrostingStation : Interactable
 
     public override void DeActivate()
     {
-        Debug.Log("Deactivated");
+        //Debug.Log("Deactivated");
     }
 
     public override bool ActivityResult
@@ -37,6 +38,8 @@ public class FrostingStation : Interactable
 
     void Update()
     {
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
         if (Input.GetMouseButtonDown(0))
         {
             StartTracing();
@@ -53,13 +56,12 @@ public class FrostingStation : Interactable
 
     void StartTracing()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         if (Physics.Raycast(ray, out RaycastHit playerStart, Mathf.Infinity, minigameLayer))
         {
             if(Vector3.Distance(playerStart.point, startPoint) < threshHold)
             {
                 isTracing = true;
+                Debug.Log("starting trace");
             }
         }
     }
@@ -68,33 +70,39 @@ public class FrostingStation : Interactable
     {
         if (isTracing)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, minigameLayer))
             {
                 Debug.Log("tracing");
-                success = true;
             }
             else {
                 success = false;
                 Debug.Log("FAIL");
-                DeActivate();
+                //DeActivate(); if want to kick player out even if they dont finish
             }
         }
     }
 
     void StopTracing()
     {
+
         if (isTracing)
         {
             isTracing = false;
-            Debug.Log(isTracing);
 
-            // if(Vector3.Distance(traceStart.position, endPoint) < threshHold)
-            // {
-            //     DeActivate();
-            // } else {
-            // }
+            if (Physics.Raycast(ray, out RaycastHit release, Mathf.Infinity, minigameLayer))
+            {
+                if(Vector3.Distance(release.point, endPoint) < threshHold)
+                {
+                    success = true;
+                    Debug.Log("Success");
+                    DeActivate();
+                } else {
+                    success = false;
+                    Debug.Log("FAIL");
+                    DeActivate();
+                }
+            }
         }
     }
 
