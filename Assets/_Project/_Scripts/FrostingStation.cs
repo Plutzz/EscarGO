@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class FrostingStation : Interactable
 {
+    //[SerializeField] private float timeLimit = 10.0f;
+    [SerializeField] private float threshHold = 10.0f;
+
+    private bool isTracing = false;
     private bool success = false;
+    private int minigameLayer;
+
+    [SerializeField] private Vector3 startPoint;
+    [SerializeField] private Vector3 endPoint;
+
     public override void Activate()
     {
         
     }
 
-    public override void DeActivate()
+    public override bool DeActivate()
     {
-
+        return success;
     }
 
     public override bool ActivityResult
@@ -21,11 +30,9 @@ public class FrostingStation : Interactable
         set { success = value; }
     }
 
-    public List<Vector2> patternPoints; // Define the desired pattern points in the Inspector
-    public float matchThreshold = 0.1f; // Adjust the match threshold based on your requirements
-
-    private List<Vector2> userPoints = new List<Vector2>();
-    private bool isTracing = false;
+    private void Start() {
+        minigameLayer = LayerMask.GetMask("Minigame");
+    }
 
     void Update()
     {
@@ -45,17 +52,30 @@ public class FrostingStation : Interactable
 
     void StartTracing()
     {
-        isTracing = true;
-        userPoints.Clear();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit playerStart, Mathf.Infinity, minigameLayer))
+        {
+            if(Vector3.Distance(playerStart.point, startPoint) < threshHold)
+            {
+                isTracing = true;
+            }
+        }
     }
 
     void ContinueTracing()
     {
         if (isTracing)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            userPoints.Add(mousePosition);
-            DrawLine();
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, minigameLayer))
+            {
+                //Debug.Log(hitInfo.collider.gameObject.name);
+                //Debug.Log("tracing");
+            } else {
+                isTracing = false;
+            }
         }
     }
 
@@ -64,45 +84,19 @@ public class FrostingStation : Interactable
         if (isTracing)
         {
             isTracing = false;
-            CheckPattern();
+            Debug.Log(isTracing);
+
+            // if(Vector3.Distance(traceStart.position, endPoint) < threshHold)
+            // {
+            //     DeActivate();
+            // } else {
+            // }
         }
     }
 
-    void DrawLine()
+    public void SetPoints(Transform start, Transform end)
     {
-        for (int i = 0; i < userPoints.Count - 1; i++)
-        {
-            Debug.DrawLine(userPoints[i], userPoints[i + 1], Color.red);
-        }
-    }
-
-    void CheckPattern()
-    {
-        if (IsPatternMatched())
-        {
-            Debug.Log("Pattern matched!");
-        }
-        else
-        {
-            Debug.Log("Pattern not matched. Try again.");
-        }
-    }
-
-    bool IsPatternMatched()
-    {
-        if (userPoints.Count != patternPoints.Count)
-        {
-            return false;
-        }
-
-        for (int i = 0; i < userPoints.Count; i++)
-        {
-            if (Vector2.Distance(userPoints[i], patternPoints[i]) > matchThreshold)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        startPoint = start.position;
+        endPoint = end.position;
     }
 }

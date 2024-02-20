@@ -10,9 +10,9 @@ public class BakingStation : Interactable
         
     }
 
-    public override void DeActivate()
+    public override bool DeActivate()
     {
-
+        return success;
     }
 
     public override bool ActivityResult

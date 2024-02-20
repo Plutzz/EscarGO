@@ -8,6 +8,6 @@ public abstract class Interactable : MonoBehaviour
 
     public abstract void Activate();
 
-    public abstract void DeActivate();
+    public abstract bool DeActivate();
 
 }
