@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Knife : Interactable
+public class BakingStation : Interactable
 {
     private bool success = false;
     public override void Activate()
@@ -13,5 +13,11 @@ public class Knife : Interactable
     public override void DeActivate()
     {
 
+    }
+
+    public override bool ActivityResult
+    {
+        get { return success; }
+        set { success = value; }
     }
 }

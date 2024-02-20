@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
+    public abstract bool ActivityResult { get; set; }
+
     public abstract void Activate();
 
     public abstract void DeActivate();
