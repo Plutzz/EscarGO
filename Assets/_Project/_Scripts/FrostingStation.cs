@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class FrostingStation : Interactable
 {
-    //[SerializeField] private float timeLimit = 10.0f;
+    [SerializeField] private float timeLimit = 10.0f;
     [SerializeField] private float threshHold = 10.0f;
 
+    private bool startFrosting = false;
+    private float timer = 0.0f;
     private bool isTracing = false;
     private bool success = false;
     private LayerMask minigameLayer;
@@ -17,11 +19,13 @@ public class FrostingStation : Interactable
 
     public override void Activate()
     {
-        
+        timer = timeLimit;
+        startFrosting = true;
     }
 
     public override void DeActivate()
     {
+        startFrosting = false;
         //Debug.Log("Deactivated");
     }
 
@@ -38,6 +42,16 @@ public class FrostingStation : Interactable
 
     void Update()
     {
+        //Time limit
+        timer -= Time.deltaTime;
+
+        if ((Mathf.Clamp(timer, 0f, timeLimit) <= 0f))
+        {
+            Debug.Log("out of time");
+            DeActivate();
+        }
+
+        //Tracing frosting
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
         if (Input.GetMouseButtonDown(0))
