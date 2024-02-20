@@ -119,7 +119,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     private void Move()
     {
         // sprint logic (for now)
-        moveDirection = stateMachine.orientation.forward * inputVector.y + stateMachine.orientation.right * inputVector.x;
+        moveDirection = stateMachine.player.forward * inputVector.y + stateMachine.player.right * inputVector.x;
         rb.velocity = new Vector3(moveDirection.x * stateMachine.moveSpeed, rb.velocity.y, moveDirection.z * stateMachine.moveSpeed);
         // rb.AddForce(moveDirection.normalized * acceleration, ForceMode.Force);
 

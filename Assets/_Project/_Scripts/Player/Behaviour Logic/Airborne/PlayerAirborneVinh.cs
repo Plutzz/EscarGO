@@ -97,8 +97,7 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
     {
         if (inputVector == Vector2.zero) { return; }
 
-
-        Vector3 _moveDir = stateMachine.orientation.forward * inputVector.y + stateMachine.orientation.right * inputVector.x;
+        Vector3 _moveDir = stateMachine.player.forward * inputVector.y + stateMachine.player.right * inputVector.x;
         
         float forceMultiplier = 1;
 

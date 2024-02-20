@@ -52,7 +52,7 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public float timeOfLastJump;
 
 
-    public Transform orientation;
+    // public Transform orientation;
     public Transform player;
     public Transform playerObj;
     public Transform playerHitbox;
