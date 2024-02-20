@@ -63,38 +63,30 @@ public class PlayerStateMachine : MonoBehaviour
     public bool crouching { get; private set; }
 
 
-    [Header("Collision Handling")]
-    [SerializeField] private float sphereCastRadius;
 
-    [Header("Switch Characters")]
-    [SerializeField] private Character[] characters;
-    [SerializeField] private CharacterNames currentCharacter;
 
-    [Serializable]
-    public struct Character
-    {
-        [SerializeField] public CharacterNames name;
-        [SerializeField] public Mesh characterMesh;
-        [SerializeField] public AnimatorOverrideController animatorController;
-        [SerializeField] public Material characterMaterial;
-        [SerializeField] public Avatar characterAvatar;
+    // [Header("Switch Characters")]
+    // [SerializeField] private Character[] characters;
+    // [SerializeField] private CharacterNames currentCharacter;
 
-    }
-    [Serializable]
-    public enum CharacterNames
-    {
-        Baku,
-        Sangeo,
-        Etoile
-    };
+    // [Serializable]
+    // public struct Character
+    // {
+    //     [SerializeField] public CharacterNames name;
+    //     [SerializeField] public Mesh characterMesh;
+    //     [SerializeField] public AnimatorOverrideController animatorController;
+    //     [SerializeField] public Material characterMaterial;
+    //     [SerializeField] public Avatar characterAvatar;
+
+    // }
+    // [Serializable]
+    // public enum CharacterNames
+    // {
+
+    // };
 
     #endregion
-
     #region Debug Variables
-    private List<TextMeshProUGUI> debugMenuList = new List<TextMeshProUGUI>();
-    public GameObject debugMenuParent;
-    public TextMeshProUGUI debugMenuItemprefab;
-
     public Vector3 RespawnPos;
     public float teleportAmount;
     #endregion
@@ -174,6 +166,8 @@ public class PlayerStateMachine : MonoBehaviour
     public void Start()
     {
         TeleportPlayer(startPos);
+        currentState = initialState;
+        currentState.EnterLogic();
     }
     public void TeleportPlayer(Vector3 position)
     {
@@ -196,18 +190,18 @@ public class PlayerStateMachine : MonoBehaviour
             TeleportPlayer();
         }
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            SwitchCharacters();
+        // if (Input.GetKeyDown(KeyCode.Y))
+        // {
+        //     SwitchCharacters();
 
-            currentCharacter++;
+        //     currentCharacter++;
 
-            if ((int)currentCharacter >= characters.Length)
-            {
-                currentCharacter = 0;
-            }
+        //     if ((int)currentCharacter >= characters.Length)
+        //     {
+        //         currentCharacter = 0;
+        //     }
 
-        }
+        // }
 
         //Crouching logic
         crouching = playerInputActions.Player.Crouch.ReadValue<float>() == 1f;
@@ -217,7 +211,6 @@ public class PlayerStateMachine : MonoBehaviour
         else
             playerHitbox.localScale = new Vector3(playerHitbox.localScale.x, startYScale, gameObject.transform.localScale.z);
         currentState.UpdateState();
-
     }
 
 
@@ -315,10 +308,6 @@ public class PlayerStateMachine : MonoBehaviour
         transform.position = RespawnPos;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(gameObject.transform.position, sphereCastRadius);
-    }
 
     #endregion
 
@@ -390,22 +379,22 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
-    private void SwitchCharacters()
-    {
-        //Switch character objects
-        var _character = characters[(int)currentCharacter];
+    // private void SwitchCharacters()
+    // {
+    //     //Switch character objects
+    //     var _character = characters[(int)currentCharacter];
 
-        //Switch animation controller
-        GetComponentInChildren<Animator>().runtimeAnimatorController = _character.animatorController;
+    //     //Switch animation controller
+    //     GetComponentInChildren<Animator>().runtimeAnimatorController = _character.animatorController;
 
-        //Switch Avatars
-        GetComponentInChildren<Animator>().avatar = _character.characterAvatar;
+    //     //Switch Avatars
+    //     GetComponentInChildren<Animator>().avatar = _character.characterAvatar;
 
-        //Switch Mesh
-        GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh = _character.characterMesh;
+    //     //Switch Mesh
+    //     GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh = _character.characterMesh;
 
-        //Switch Material
-        GetComponentInChildren<SkinnedMeshRenderer>().material = _character.characterMaterial;
-    }
+    //     //Switch Material
+    //     GetComponentInChildren<SkinnedMeshRenderer>().material = _character.characterMaterial;
+    // }
     #endregion
 }

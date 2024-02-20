@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "Moving", menuName = "Player Logic/Moving Logic/Normal Moving")]
+[CreateAssetMenu(fileName = "Moving", menuName = "Player Logic/Moving Logic/Default")]
 public class PlayerMovingVinh : PlayerMovingSOBase
 {
     [Header("Movement Variables")]
@@ -115,12 +115,13 @@ public class PlayerMovingVinh : PlayerMovingSOBase
         sprinting = playerInputActions.Player.Sprint.ReadValue<float>() == 1f;
     }
 
-    // moves the player by adding a force CHANGE TO VELOCITY
+    // Todo - CHANGE TO VELOCITY BASED SYSTEM
     private void Move()
     {
         // sprint logic (for now)
         moveDirection = stateMachine.orientation.forward * inputVector.y + stateMachine.orientation.right * inputVector.x;
-        rb.AddForce(moveDirection.normalized * acceleration, ForceMode.Force);
+        rb.velocity = new Vector3(moveDirection.x * stateMachine.moveSpeed, rb.velocity.y, moveDirection.z * stateMachine.moveSpeed);
+        // rb.AddForce(moveDirection.normalized * acceleration, ForceMode.Force);
 
     }
 
