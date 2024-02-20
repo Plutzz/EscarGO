@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 763da6f99c557774cbc5128ebcd1c2e7, type: 3}
-  m_Name: Sugar
+  m_Name: Flour
   m_EditorClassIdentifier: 
-  itemName: Sugar
-  itemSprite: {fileID: 21300000, guid: e64719cfcb2f3164eafb580aeeccd416, type: 3}
-  itemDescription: Literally Sugar
+  itemName: Flour
+  itemSprite: {fileID: 21300000, guid: 6c791a913105f3445ba4cd1bff724ab7, type: 3}
+  itemDescription: Flour looks like sugar

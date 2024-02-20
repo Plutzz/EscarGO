@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class InventorySpace : MonoBehaviour
 {
     [SerializeField] private Image iconSpace;
-
+    private void Awake()
+    {
+        AssignIcon(null);
+    }
     public void AssignIcon(Sprite sprite) {
         if (sprite == null) {
             iconSpace.gameObject.SetActive(false);

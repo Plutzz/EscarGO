@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cacao
   m_EditorClassIdentifier: 
   itemName: Cacao
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: f667104d49c792e428a133887c07c4f3, type: 3}
   itemDescription: Not sure how to say this word

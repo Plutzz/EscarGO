@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a3d5585b4328164ebf83b878805bdaa, type: 3}
-  m_Name: Chocolate
+  m_Name: Donut
   m_EditorClassIdentifier: 
-  itemName: Chocolate
-  itemSprite: {fileID: 21300000, guid: e4e5b9c011f0945428b6487c0a87e2c7, type: 3}
-  itemDescription: I love chocolate. Like seriously addicted right now, its just
-    so good
+  itemName: Donut
+  itemSprite: {fileID: 21300000, guid: 358e4757fbaa68f4794a9585967ff7e2, type: 3}
+  itemDescription: Why does Dough become Donut
   requiredIngredients:
-  - item: {fileID: 11400000, guid: 95b11a6da19090e4c999fd1884d12c6b, type: 2}
-    requiredAmount: 2
-  - item: {fileID: 11400000, guid: 2a86913b22551004d954b256718cc801, type: 2}
+  - item: {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385, type: 2}
+    requiredAmount: 1
+  - item: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
     requiredAmount: 1

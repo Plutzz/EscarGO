@@ -58,12 +58,15 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
+        Debug.Log("Can craft: " + craftableItem.itemName);
         //If reached here then it can be crafted
         foreach (Ingredient ingredient in craftableItem.requiredIngredients)
         {
+            Debug.Log($"Looking for: {ingredient.requiredAmount} x {ingredient.item.itemName}");
             int removedCount = 0;
-            for(int i = currentItems.Count - 1; i >= 0; i++)
+            for(int i = currentItems.Count - 1; i >= 0; i--)
             {
+                Debug.Log("I is " + i);
                 if (currentItems[i].itemName == ingredient.item.name) { 
                     currentItems.RemoveAt(i);
                     removedCount++;
@@ -74,10 +77,10 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
 
-            EditDictionary(ingredient.item.itemName, ingredient.requiredAmount);
+            EditDictionary(ingredient.item.itemName, -1 * ingredient.requiredAmount);
         }
 
-        UpdateInventory();
+        TryAddItemToInventory(craftableItem);
 
         return true;
     }
