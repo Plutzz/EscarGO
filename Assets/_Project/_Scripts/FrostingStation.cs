@@ -9,7 +9,7 @@ public class FrostingStation : Interactable
 
     private bool isTracing = false;
     private bool success = false;
-    private int minigameLayer;
+    private LayerMask minigameLayer;
 
     [SerializeField] private Vector3 startPoint;
     [SerializeField] private Vector3 endPoint;
@@ -19,9 +19,9 @@ public class FrostingStation : Interactable
         
     }
 
-    public override bool DeActivate()
+    public override void DeActivate()
     {
-        return success;
+        Debug.Log("Deactivated");
     }
 
     public override bool ActivityResult
@@ -32,6 +32,7 @@ public class FrostingStation : Interactable
 
     private void Start() {
         minigameLayer = LayerMask.GetMask("Minigame");
+
     }
 
     void Update()
@@ -71,10 +72,13 @@ public class FrostingStation : Interactable
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, minigameLayer))
             {
-                //Debug.Log(hitInfo.collider.gameObject.name);
-                //Debug.Log("tracing");
-            } else {
-                isTracing = false;
+                Debug.Log("tracing");
+                success = true;
+            }
+            else {
+                success = false;
+                Debug.Log("FAIL");
+                DeActivate();
             }
         }
     }

@@ -10,9 +10,9 @@ public class ToppingStation : Interactable
         
     }
 
-    public override bool DeActivate()
+    public override void DeActivate()
     {
-        return success;
+        
     }
 
     public override bool ActivityResult
