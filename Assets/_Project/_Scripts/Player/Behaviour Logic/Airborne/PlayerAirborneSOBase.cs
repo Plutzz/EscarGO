@@ -7,15 +7,13 @@ public class PlayerAirborneSOBase : PlayerStateSOBase
     protected PlayerStateMachine stateMachine;
     protected Rigidbody rb;
     protected GameObject gameObject;
-    protected PlayerInputActions playerInputActions;
     protected Vector2 inputVector;
 
-    public virtual void Initialize(GameObject gameObject, PlayerStateMachine stateMachine, PlayerInputActions playerInputActions)
+    public virtual void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
         this.gameObject = gameObject;
         this.stateMachine = stateMachine;
         rb = stateMachine.rb;
-        this.playerInputActions = playerInputActions;
     }
 
     public override void CheckTransitions()
@@ -24,11 +22,11 @@ public class PlayerAirborneSOBase : PlayerStateSOBase
         if (!stateMachine.GroundedCheck()) return;
 
         // Airborne => Moving
-        else if (playerInputActions.Player.Move.ReadValue<Vector2>() != Vector2.zero)
+        else if (InputManager.Instance.MoveInput != Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }
-        else if (playerInputActions.Player.Move.ReadValue<Vector2>() == Vector2.zero)
+        else if (InputManager.Instance.MoveInput == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }

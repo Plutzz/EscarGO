@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float playerHeight;
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
-    private PlayerInputActions playerInputActions;
     private Rigidbody rb;
     #endregion
 
@@ -47,21 +46,30 @@ public class Player : MonoBehaviour
         stateMachine = GetComponent<PlayerStateMachine>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
-        playerInputActions = stateMachine.playerInputActions;
-        playerInputActions.Player.Jump.performed += JumpPressed;
         currentStamina = maxStamina;
         canJump = true;
     }
 
     void Update()
     {
-        sprinting = playerInputActions.Player.Sprint.ReadValue<float>() != 0;
+        sprinting = InputManager.Instance.SprintIsPressed;
 
         currentState = stateMachine.currentState;
 
         if (jumpCooldown <= Time.time)
         {
             canJump = true;
+        }
+
+        if (InputManager.Instance.JumpPressedThisFrame)
+        {
+            lastJumpPressed = Time.time;
+            if (currentState == stateMachine.AirborneState) return;
+
+            if (canJump && lastJumpPressed + jumpBufferTime >= Time.time)
+            {
+                GroundedJump();
+            }
         }
 
         if (currentState == stateMachine.AirborneState) return;
@@ -113,17 +121,6 @@ public class Player : MonoBehaviour
         else
             canSprint = true;
 
-    }
-
-    private void JumpPressed(InputAction.CallbackContext context)
-    {
-        lastJumpPressed = Time.time;
-        if (currentState == stateMachine.AirborneState) return;
-
-        if (canJump && lastJumpPressed + jumpBufferTime >= Time.time)
-        {
-            GroundedJump();
-        }
     }
 
     private void GroundedJump()

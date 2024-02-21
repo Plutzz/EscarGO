@@ -29,9 +29,9 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 
 
 
-    public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine, PlayerInputActions playerInputActions)
+    public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
-        base.Initialize(gameObject, stateMachine, playerInputActions);
+        base.Initialize(gameObject, stateMachine);
     }
     public override void DoEnterLogic()
     {
@@ -74,7 +74,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
             stateMachine.ChangeState(stateMachine.AirborneState);
         }
         // Moving => Idle
-        else if (playerInputActions.Player.Move.ReadValue<Vector2>() == Vector2.zero && rb.velocity.magnitude < 3f)
+        else if (InputManager.Instance.MoveInput == Vector2.zero && rb.velocity.magnitude < 3f)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }

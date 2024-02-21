@@ -18,6 +18,10 @@ public class FirstPersonCamera : MonoBehaviour
     public float interactDist = 5f;
     private Camera cam;
 
+    void Awake()
+    {
+        cam = GetComponent<Camera>();
+    }
 
     void Update()
     {

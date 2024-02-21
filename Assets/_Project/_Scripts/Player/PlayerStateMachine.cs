@@ -33,7 +33,6 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
     #region Player Variables
-    public PlayerInputActions playerInputActions { get; private set; }
     public Rigidbody rb { get; private set; }
 
     [SerializeField] private LayerMask groundLayer;
@@ -60,19 +59,16 @@ public class PlayerStateMachine : MonoBehaviour
         PlayerAirborneBaseInstance = Instantiate(playerAirborneBase);
         PlayerInteractBaseInstance = Instantiate(playerInteractBase);
 
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
-
 
         IdleState = new PlayerIdleState(this);
         MovingState = new PlayerMovingState(this);
         AirborneState = new PlayerAirborneState(this);
         InteractState = new PlayerInteractState(this);
 
-        PlayerIdleBaseInstance.Initialize(gameObject, this, playerInputActions);
-        PlayerMovingBaseInstance.Initialize(gameObject, this, playerInputActions);
-        PlayerAirborneBaseInstance.Initialize(gameObject, this, playerInputActions);
-        PlayerInteractBaseInstance.Initialize(gameObject, this, playerInputActions);
+        PlayerIdleBaseInstance.Initialize(gameObject, this);
+        PlayerMovingBaseInstance.Initialize(gameObject, this);
+        PlayerAirborneBaseInstance.Initialize(gameObject, this);
+        PlayerInteractBaseInstance.Initialize(gameObject, this);
 
         initialState = IdleState;
         startYScale = gameObject.transform.localScale.y;
@@ -91,7 +87,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        crouching = playerInputActions.Player.Crouch.ReadValue<float>() == 1f;
+        crouching = InputManager.Instance.CrouchIsPressed;
         
         if (crouching)
             player.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);

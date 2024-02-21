@@ -8,7 +8,7 @@ public class PlayerState
     protected PlayerStateMachine stateMachine;
 
     /// <summary>
-    /// Constructor used to pass references of the stateMachine and playerInputActions
+    /// Constructor used to pass references of the stateMachine
     /// to the next state.
     /// </summary>
     /// <param name="stateMachine"></param>
