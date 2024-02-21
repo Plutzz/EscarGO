@@ -262,10 +262,12 @@ MonoBehaviour:
   playerIdleBase: {fileID: 11400000, guid: 19cff2f7ac66c2046b2bad19b9e8ed53, type: 2}
   playerMovingBase: {fileID: 11400000, guid: b4b583be0f7a9674bae4d2cbd2df79e7, type: 2}
   playerAirborneBase: {fileID: 11400000, guid: 632e1f98e53bf454ebf8f4cd688aa167, type: 2}
+  playerInteractBase: {fileID: 11400000, guid: da41ef0fbe17e2340af23aa64c52febf, type: 2}
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
   playerHeight: 2
+  moveSpeed: 5
   cameraTransform: {fileID: 1861167787}
   player: {fileID: 1028316716}
   crouchYScale: 0.5
@@ -405,6 +407,7 @@ MonoBehaviour:
   currentStamina: 0
   staminaDecreaseRate: 10
   staminaIncreaseRate: 5
+  canSprint: 1
   jumpForce: 5
   jumpCooldownDuration: 1
   jumpBufferTime: 0.1
@@ -939,7 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12da39f682edbf144a7f5ff35544be06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.23
+  sensitivity: 0.5
   yRotationLimit: 88
 --- !u!114 &1861167789
 MonoBehaviour:

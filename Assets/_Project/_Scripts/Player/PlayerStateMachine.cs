@@ -91,7 +91,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-
+        crouching = playerInputActions.Player.Crouch.ReadValue<float>() == 1f;
+        
         if (crouching)
             player.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
         else
