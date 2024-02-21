@@ -12,7 +12,7 @@ public class FirstPersonCamera : MonoBehaviour
     [Range(0.1f, 9f)][SerializeField] float sensitivity = 2f;
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
 
-    [SerializeField] Transform hand;
+    [SerializeField] private Transform hand;
     Vector2 rotation = Vector2.zero;
 
     public float interactDist = 5f;
@@ -33,7 +33,7 @@ public class FirstPersonCamera : MonoBehaviour
 
         transform.localRotation = xQuat * yQuat;
 
-        if (InputManager.Instance.JumpPressedThisFrame)
+        if (InputManager.Instance.InteractIsPressedThisFrame)
         {
             Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             Debug.DrawRay(ray.origin, ray.direction * interactDist, Color.red);
@@ -48,9 +48,11 @@ public class FirstPersonCamera : MonoBehaviour
             {
                 if (hand.childCount > 0)
                 {
-                    hand.GetChild(0).TryGetComponent<InteractableItem>(out var item);
-                    item.DetachFromHand();
+                    hand.GetChild(0).TryGetComponent<InteractableItem>(out var obj);
+                    Debug.Log("Trying to detach " + obj);
+                    obj.DetachFromHand();
                 }
+
             }
         }
     }

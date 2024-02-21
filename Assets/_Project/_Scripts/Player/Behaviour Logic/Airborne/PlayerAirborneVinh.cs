@@ -10,9 +10,9 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
     [SerializeField] private float upwardGravityAcceleration;   //When the player is moving upward there will be less gravity applied
     [SerializeField] private float downwardGravityAcceleration; //When the player is moving downward there will be more gravity applied
 
-    public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine, PlayerInputActions playerInputActions)
+    public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
-        base.Initialize(gameObject, stateMachine, playerInputActions);
+        base.Initialize(gameObject, stateMachine);
     }
     public override void DoEnterLogic()
     {
@@ -52,12 +52,12 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
     public override void CheckTransitions()
     {
         // Airborne => Moving
-        if (stateMachine.GroundedCheck() && playerInputActions.Player.Move.ReadValue<Vector2>() != Vector2.zero)
+        if (stateMachine.GroundedCheck() && InputManager.Instance.MoveInput != Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }
         // Airborne => Idle
-        else if (stateMachine.GroundedCheck() && playerInputActions.Player.Move.ReadValue<Vector2>() == Vector2.zero)
+        else if (stateMachine.GroundedCheck() && InputManager.Instance.MoveInput == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         } 
