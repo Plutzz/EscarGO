@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     public bool canJump = true;
     private float lastJumpPressed;
 
+    #endregion
+
     [Header("Temp Debug Variables")]
     [SerializeField] private GameObject pauseMenu;
 

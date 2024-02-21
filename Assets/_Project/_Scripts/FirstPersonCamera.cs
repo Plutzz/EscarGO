@@ -29,7 +29,7 @@ public class FirstPersonCamera : MonoBehaviour
 
         transform.localRotation = xQuat * yQuat;
 
-        if (playerInputActions.Player.Interact.ReadValue<float>() == 1f)
+        if (InputManager.Instance.JumpPressedThisFrame)
         {
             Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             Debug.DrawRay(ray.origin, ray.direction * interactDist, Color.red);

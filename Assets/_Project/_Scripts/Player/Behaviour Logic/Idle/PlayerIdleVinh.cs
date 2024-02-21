@@ -11,7 +11,6 @@ public class PlayerIdleVinh : PlayerIdleSOBase
     {
         base.DoEnterLogic();
         rb.drag = groundDrag;
-        stateMachine.StopAllCoroutines();
     }
 
     public override void DoExitLogic()
