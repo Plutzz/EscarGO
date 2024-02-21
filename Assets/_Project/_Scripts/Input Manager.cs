@@ -46,6 +46,8 @@ public class InputManager : Singleton<InputManager>
         InteractPressedThisFrame = interactAction.WasPressedThisFrame();
         InteractIsPressed = interactAction.IsPressed();
         InteractReleasedThisFrame = interactAction.WasReleasedThisFrame();
+
+        if (InteractIsPressed) Debug.Log("Interact");
     }
 
 
