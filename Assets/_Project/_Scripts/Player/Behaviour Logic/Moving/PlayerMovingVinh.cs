@@ -49,7 +49,6 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 
     public override void DoUpdateState()
     {
-        MovementSpeedHandler();
 
         base.DoUpdateState();
     }
@@ -74,40 +73,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     }
 
     #region Helper Methods
-    private void MovementSpeedHandler()
-    {
-        // Type - Sprinting
-        if (sprinting && !stateMachine.crouching)
-        {
-            stateMachine.desiredMoveSpeed = sprintSpeed;
-            //Debug.Log("The sprint speed is " + sprintSpeed);
-        }
-        // Type - Crouching
-        else if (stateMachine.crouching)
-        {
-            stateMachine.desiredMoveSpeed = crouchSpeed;
-        }
-        // Type - Walking
-        else
-        {
-            stateMachine.desiredMoveSpeed = walkSpeed;
-        }
 
-
-        if (Mathf.Abs(stateMachine.desiredMoveSpeed - stateMachine.lastDesiredMoveSpeed) > 1f && stateMachine.moveSpeed != 0)
-        {
-            //Debug.Log("START COROUTINE");
-            stateMachine.StopCoroutine(stateMachine.SmoothlyLerpMoveSpeed(acceleration));
-            stateMachine.StartCoroutine(stateMachine.SmoothlyLerpMoveSpeed(acceleration));
-        }
-        else
-        {
-            stateMachine.moveSpeed = stateMachine.desiredMoveSpeed;
-        }
-
-        stateMachine.lastDesiredMoveSpeed = stateMachine.desiredMoveSpeed;
-
-    }
 
     private void GetInput()
     {
