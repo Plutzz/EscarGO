@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    # region Object References
     [Header("Object References")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
@@ -12,7 +13,9 @@ public class Player : MonoBehaviour
     private PlayerState currentState;
     private PlayerInputActions playerInputActions;
     private Rigidbody rb;
+    #endregion
 
+    # region Stamina Variables
     [Header("Stamina Variables")]
     [SerializeField] private float maxStamina = 100f;
     public float currentStamina;
@@ -22,7 +25,9 @@ public class Player : MonoBehaviour
     private float moveSpeed;
     private bool sprinting = false;
     public bool canSprint = true;
+    #endregion
 
+    # region Jumping Variables
     [Header("Jumping Variables")]
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float jumpCooldownDuration = 1f;
@@ -31,6 +36,7 @@ public class Player : MonoBehaviour
     public bool canJump = true;
     private float lastJumpPressed;
 
+    #endregion
 
     void Start()
     {
