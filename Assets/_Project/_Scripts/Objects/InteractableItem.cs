@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InteractableItem : MonoBehaviour
+
+// This class can be used to be a parent class for any object that can be interacted with (originally an abstract class)
+public class InteractableItem : MonoBehaviour
 {
     public string itemName;
     public Rigidbody rb;
