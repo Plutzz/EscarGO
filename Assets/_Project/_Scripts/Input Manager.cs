@@ -8,6 +8,7 @@ public class InputManager : Singleton<InputManager>
 {
     // Move Input
     public Vector2 MoveInput {  get; private set; }
+
     // Interact input
     public bool InteractPressedThisFrame {  get; private set; }
     public bool InteractReleasedThisFrame { get; private set; }
@@ -46,11 +47,5 @@ public class InputManager : Singleton<InputManager>
         InteractPressedThisFrame = interactAction.WasPressedThisFrame();
         InteractIsPressed = interactAction.IsPressed();
         InteractReleasedThisFrame = interactAction.WasReleasedThisFrame();
-
-        if (InteractIsPressed) Debug.Log("Interact");
     }
-
-
-
-
 }
