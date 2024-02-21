@@ -292,11 +292,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc1ab28143b379d47b8584153bd973a7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 497966344}
+      addedObject: {fileID: 497966343}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cc1ab28143b379d47b8584153bd973a7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 497966343}
+      addedObject: {fileID: 497966348}
   m_SourcePrefab: {fileID: 100100000, guid: cc1ab28143b379d47b8584153bd973a7, type: 3}
 --- !u!4 &497966341 stripped
 Transform:
@@ -323,30 +323,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Wine
-  rb: {fileID: 1907547445}
-  col: {fileID: 1907547444}
---- !u!64 &497966344
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497966342}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: cc1ab28143b379d47b8584153bd973a7, type: 3}
+  rb: {fileID: 497966345}
+  col: {fileID: 497966348}
 --- !u!54 &497966345
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -374,6 +352,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &497966348
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497966342}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.15184015
+  m_Center: {x: 0, y: 0.15184015, z: 0}
 --- !u!1001 &703997846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -441,11 +440,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 82c0e0208647d164880d591d7d39f868,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 703997850}
+      addedObject: {fileID: 703997849}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 82c0e0208647d164880d591d7d39f868,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 703997849}
+      addedObject: {fileID: 703997854}
   m_SourcePrefab: {fileID: 100100000, guid: 82c0e0208647d164880d591d7d39f868, type: 3}
 --- !u!4 &703997847 stripped
 Transform:
@@ -472,30 +471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Meat
-  rb: {fileID: 1907547445}
-  col: {fileID: 1907547444}
---- !u!64 &703997850
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703997848}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 82c0e0208647d164880d591d7d39f868, type: 3}
+  rb: {fileID: 703997851}
+  col: {fileID: 703997854}
 --- !u!54 &703997851
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -523,6 +500,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &703997854
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703997848}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.19359004
+  m_Center: {x: -0.0027024075, y: 0.045072895, z: -0.000000044703484}
 --- !u!1 &908328930
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +879,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 2a34834afaeb91b4ab800550c7cb3939,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1059028831}
+      addedObject: {fileID: 1059028836}
   m_SourcePrefab: {fileID: 100100000, guid: 2a34834afaeb91b4ab800550c7cb3939, type: 3}
 --- !u!4 &1059028829 stripped
 Transform:
@@ -895,28 +893,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1059028828}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1059028831
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059028830}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 2a34834afaeb91b4ab800550c7cb3939, type: 3}
 --- !u!54 &1059028832
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -957,8 +933,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Meat
-  rb: {fileID: 0}
-  col: {fileID: 0}
+  rb: {fileID: 1059028832}
+  col: {fileID: 1059028836}
+--- !u!135 &1059028836
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059028830}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.24737877
+  m_Center: {x: 0.00000011175871, y: 0.083503835, z: 0.000000230968}
 --- !u!1 &1222902993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,11 +1061,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cd52ecba9c60ca44fadcf8e2d361683f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1313481929}
+      addedObject: {fileID: 1313481928}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cd52ecba9c60ca44fadcf8e2d361683f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1313481928}
+      addedObject: {fileID: 1313481933}
   m_SourcePrefab: {fileID: 100100000, guid: cd52ecba9c60ca44fadcf8e2d361683f, type: 3}
 --- !u!4 &1313481926 stripped
 Transform:
@@ -1095,30 +1092,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Meat
-  rb: {fileID: 1907547445}
-  col: {fileID: 1907547444}
---- !u!64 &1313481929
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313481927}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: cd52ecba9c60ca44fadcf8e2d361683f, type: 3}
+  rb: {fileID: 1313481930}
+  col: {fileID: 1313481933}
 --- !u!54 &1313481930
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1146,6 +1121,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1313481933
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313481927}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.18937859
+  m_Center: {x: 0.000039979815, y: 0.03180057, z: -0.00000045448542}
 --- !u!1001 &1354122182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1221,11 +1217,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: fab11868610aa234bab93486808aeeb7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1354122186}
+      addedObject: {fileID: 1354122185}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: fab11868610aa234bab93486808aeeb7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1354122185}
+      addedObject: {fileID: 1354122190}
   m_SourcePrefab: {fileID: 100100000, guid: fab11868610aa234bab93486808aeeb7, type: 3}
 --- !u!4 &1354122183 stripped
 Transform:
@@ -1253,29 +1249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Cheese
   rb: {fileID: 1354122187}
-  col: {fileID: 1354122186}
---- !u!64 &1354122186
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354122184}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: fab11868610aa234bab93486808aeeb7, type: 3}
+  col: {fileID: 1354122190}
 --- !u!54 &1354122187
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1303,6 +1277,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1354122190
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354122184}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.15246266
+  m_Center: {x: 0.042080708, y: 0.105289295, z: 0.0195776}
 --- !u!1 &1691579867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,11 +2009,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: fab11868610aa234bab93486808aeeb7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1907547444}
+      addedObject: {fileID: 1907547443}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: fab11868610aa234bab93486808aeeb7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1907547443}
+      addedObject: {fileID: 1907547448}
   m_SourcePrefab: {fileID: 100100000, guid: fab11868610aa234bab93486808aeeb7, type: 3}
 --- !u!4 &1907547441 stripped
 Transform:
@@ -2046,29 +2041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Cheese
   rb: {fileID: 1907547445}
-  col: {fileID: 1907547444}
---- !u!64 &1907547444
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907547442}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: fab11868610aa234bab93486808aeeb7, type: 3}
+  col: {fileID: 1907547448}
 --- !u!54 &1907547445
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2096,6 +2069,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1907547448
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907547442}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.15246266
+  m_Center: {x: 0.042080708, y: 0.105289295, z: 0.0195776}
 --- !u!43 &2009803232
 Mesh:
   m_ObjectHideFlags: 0
@@ -2328,11 +2322,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cd52ecba9c60ca44fadcf8e2d361683f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2064733882}
+      addedObject: {fileID: 2064733881}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: cd52ecba9c60ca44fadcf8e2d361683f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2064733881}
+      addedObject: {fileID: 2064733886}
   m_SourcePrefab: {fileID: 100100000, guid: cd52ecba9c60ca44fadcf8e2d361683f, type: 3}
 --- !u!4 &2064733879 stripped
 Transform:
@@ -2359,30 +2353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Meat
-  rb: {fileID: 1907547445}
-  col: {fileID: 1907547444}
---- !u!64 &2064733882
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064733880}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: cd52ecba9c60ca44fadcf8e2d361683f, type: 3}
+  rb: {fileID: 2064733883}
+  col: {fileID: 2064733886}
 --- !u!54 &2064733883
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2410,6 +2382,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &2064733886
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064733880}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.18937859
+  m_Center: {x: 0.000039979815, y: 0.03180057, z: -0.00000045448542}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
