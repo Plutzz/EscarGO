@@ -53,8 +53,8 @@ public class InputManager : Singleton<InputManager>
 
     protected override void Awake()
     {
+        base.Awake();
         playerInput = GetComponent<PlayerInput>();
-
         SetupInputActions();
     }
 
