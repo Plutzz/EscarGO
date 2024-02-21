@@ -31,6 +31,9 @@ public class Player : MonoBehaviour
     public bool canJump = true;
     private float lastJumpPressed;
 
+    [Header("Temp Debug Variables")]
+    [SerializeField] private GameObject pauseMenu;
+
 
     void Start()
     {
@@ -66,6 +69,19 @@ public class Player : MonoBehaviour
             IncreaseStamina();
         }
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!pauseMenu.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                pauseMenu.SetActive(false);
+            }
+        }
     }
 
 
@@ -111,12 +127,4 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
-
-    #region Logic Checks
-    public bool GroundedCheck()
-    {
-        Debug.DrawRay(transform.position, Vector3.down * playerHeight * 0.5f + Vector3.down * 0.2f);
-        return Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
-    }
-    #endregion
 }
