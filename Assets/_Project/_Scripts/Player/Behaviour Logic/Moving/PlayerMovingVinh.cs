@@ -85,8 +85,8 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 
     private void GetInput()
     {
-        inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
-        mouseDirection = playerInputActions.Player.Look.ReadValue<Vector2>();
+        inputVector = InputManager.Instance.MoveInput;
+        mouseDirection = InputManager.Instance.LookInput;
     }
 
     private void Move()
