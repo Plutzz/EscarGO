@@ -37,27 +37,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""0e5ce8a4-2f53-4a10-a9c0-8ba658e0f279"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""1787cf34-85d7-409d-9238-d2c3ab1cbc58"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Next Inventory Slot"",
-                    ""type"": ""Button"",
-                    ""id"": ""1036d6aa-0db1-426f-9918-9668cfa2a083"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Previous Inventory Slot"",
-                    ""type"": ""Button"",
-                    ""id"": ""e0e19c8c-4669-4fab-93a1-9204e5d88ebd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -91,13 +82,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""0e5ce8a4-2f53-4a10-a9c0-8ba658e0f279"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""Next Inventory Slot"",
+                    ""type"": ""Button"",
+                    ""id"": ""1036d6aa-0db1-426f-9918-9668cfa2a083"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous Inventory Slot"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0e19c8c-4669-4fab-93a1-9204e5d88ebd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -164,28 +164,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4cbb162d-877a-41fc-85d4-3c8da560b548"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Next Inventory Slot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4a754f32-3a81-42f4-9849-3e96cd2a700d"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Previous Inventory Slot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -276,6 +254,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4cbb162d-877a-41fc-85d4-3c8da560b548"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Next Inventory Slot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a754f32-3a81-42f4-9849-3e96cd2a700d"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous Inventory Slot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -291,13 +291,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_NextInventorySlot = m_Player.FindAction("Next Inventory Slot", throwIfNotFound: true);
-        m_Player_PreviousInventorySlot = m_Player.FindAction("Previous Inventory Slot", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_NextInventorySlot = m_Player.FindAction("Next Inventory Slot", throwIfNotFound: true);
+        m_Player_PreviousInventorySlot = m_Player.FindAction("Previous Inventory Slot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -360,25 +360,25 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_NextInventorySlot;
-    private readonly InputAction m_Player_PreviousInventorySlot;
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_NextInventorySlot;
+    private readonly InputAction m_Player_PreviousInventorySlot;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
+        public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @NextInventorySlot => m_Wrapper.m_Player_NextInventorySlot;
-        public InputAction @PreviousInventorySlot => m_Wrapper.m_Player_PreviousInventorySlot;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @NextInventorySlot => m_Wrapper.m_Player_NextInventorySlot;
+        public InputAction @PreviousInventorySlot => m_Wrapper.m_Player_PreviousInventorySlot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -391,15 +391,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @NextInventorySlot.started += instance.OnNextInventorySlot;
-            @NextInventorySlot.performed += instance.OnNextInventorySlot;
-            @NextInventorySlot.canceled += instance.OnNextInventorySlot;
-            @PreviousInventorySlot.started += instance.OnPreviousInventorySlot;
-            @PreviousInventorySlot.performed += instance.OnPreviousInventorySlot;
-            @PreviousInventorySlot.canceled += instance.OnPreviousInventorySlot;
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
@@ -409,9 +406,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
+            @NextInventorySlot.started += instance.OnNextInventorySlot;
+            @NextInventorySlot.performed += instance.OnNextInventorySlot;
+            @NextInventorySlot.canceled += instance.OnNextInventorySlot;
+            @PreviousInventorySlot.started += instance.OnPreviousInventorySlot;
+            @PreviousInventorySlot.performed += instance.OnPreviousInventorySlot;
+            @PreviousInventorySlot.canceled += instance.OnPreviousInventorySlot;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -419,15 +419,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @NextInventorySlot.started -= instance.OnNextInventorySlot;
-            @NextInventorySlot.performed -= instance.OnNextInventorySlot;
-            @NextInventorySlot.canceled -= instance.OnNextInventorySlot;
-            @PreviousInventorySlot.started -= instance.OnPreviousInventorySlot;
-            @PreviousInventorySlot.performed -= instance.OnPreviousInventorySlot;
-            @PreviousInventorySlot.canceled -= instance.OnPreviousInventorySlot;
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
@@ -437,9 +434,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
+            @NextInventorySlot.started -= instance.OnNextInventorySlot;
+            @NextInventorySlot.performed -= instance.OnNextInventorySlot;
+            @NextInventorySlot.canceled -= instance.OnNextInventorySlot;
+            @PreviousInventorySlot.started -= instance.OnPreviousInventorySlot;
+            @PreviousInventorySlot.performed -= instance.OnPreviousInventorySlot;
+            @PreviousInventorySlot.canceled -= instance.OnPreviousInventorySlot;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -469,12 +469,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnNextInventorySlot(InputAction.CallbackContext context);
-        void OnPreviousInventorySlot(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
+        void OnNextInventorySlot(InputAction.CallbackContext context);
+        void OnPreviousInventorySlot(InputAction.CallbackContext context);
     }
 }
