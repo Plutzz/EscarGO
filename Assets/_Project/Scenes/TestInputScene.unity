@@ -714,8 +714,10 @@ GameObject:
   - component: {fileID: 1176156206}
   - component: {fileID: 1176156208}
   - component: {fileID: 1176156207}
+  - component: {fileID: 1176156209}
+  - component: {fileID: 1176156210}
   m_Layer: 5
-  m_Name: Rebind Menu
+  m_Name: Keyboard Rebind Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,6 +783,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176156205}
   m_CullTransparentMesh: 1
+--- !u!114 &1176156209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176156205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9934055ef94a97f4a93a07b996c80121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputActions: {fileID: -944628639613478452, guid: 32d6c04ca13e71748bce5c9ffced3443,
+    type: 3}
+  _targetControlScheme: 
+--- !u!114 &1176156210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176156205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6c2da2db9374dada6761b5e35121c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: {fileID: -944628639613478452, guid: 32d6c04ca13e71748bce5c9ffced3443, type: 3}
 --- !u!1 &1195538616
 GameObject:
   m_ObjectHideFlags: 0
