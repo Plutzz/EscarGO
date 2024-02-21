@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 1028316715}
   - component: {fileID: 1028316714}
   - component: {fileID: 1028316711}
+  - component: {fileID: 1028316719}
   - component: {fileID: 1028316717}
   - component: {fileID: 1028316718}
   m_Layer: 0
@@ -384,6 +385,30 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1028316719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028316710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a65ce6324ecb6f14c8959f734693fe1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  playerHeight: 2
+  maxStamina: 100
+  currentStamina: 0
+  staminaDecreaseRate: 10
+  staminaIncreaseRate: 5
+  jumpForce: 5
+  jumpCooldownDuration: 1
+  jumpBufferTime: 0.1
+  canJump: 1
 --- !u!1 &1055959501
 GameObject:
   m_ObjectHideFlags: 0

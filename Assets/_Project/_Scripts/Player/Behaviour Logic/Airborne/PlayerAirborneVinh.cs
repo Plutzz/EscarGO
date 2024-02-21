@@ -40,7 +40,6 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
     public override void DoUpdateState()
     {
 
-
         base.DoUpdateState();
     }
 

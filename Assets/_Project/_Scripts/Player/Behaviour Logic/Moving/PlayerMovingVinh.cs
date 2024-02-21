@@ -11,9 +11,6 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 {
     [Header("Movement Variables")]
     [SerializeField] private float groundDrag = 1f;
-    [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float sprintSpeed = 10f;
-    private bool sprinting = false;
     private Vector3 moveDirection = Vector3.zero;
 
 
@@ -29,7 +26,6 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 
     [SerializeField]
     private Vector2 m_CurrentLooking = Vector2.zero;
-
 
 
 
@@ -62,7 +58,6 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     public override void DoUpdateState()
     {
         MoveCamera();
-        Debug.Log(moveDirection);
 
         base.DoUpdateState();
     }
@@ -88,22 +83,16 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 
     #region Helper Methods
 
-
     private void GetInput()
     {
         inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
-        sprinting = playerInputActions.Player.Sprint.ReadValue<float>() != 0;
         mouseDirection = playerInputActions.Player.Look.ReadValue<Vector2>();
     }
 
-    // Todo - CHANGE TO VELOCITY BASED SYSTEM
     private void Move()
     {
         moveDirection = (stateMachine.cameraTransform.forward * inputVector.y + stateMachine.cameraTransform.right * inputVector.x).normalized;
-        if (sprinting)
-            rb.velocity = new Vector3(moveDirection.x * sprintSpeed, rb.velocity.y, moveDirection.z * sprintSpeed);
-        else
-            rb.velocity = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, moveDirection.z * moveSpeed);
+        rb.velocity = new Vector3(moveDirection.x * stateMachine.moveSpeed, rb.velocity.y, moveDirection.z * stateMachine.moveSpeed);
     }
 
     private void MoveCamera()
@@ -114,7 +103,6 @@ public class PlayerMovingVinh : PlayerMovingSOBase
         var yQuat = Quaternion.AngleAxis(m_CurrentLooking.y, Vector3.left);
         stateMachine.cameraTransform.localRotation = xQuat * yQuat;
     }
-
 
     #endregion
 

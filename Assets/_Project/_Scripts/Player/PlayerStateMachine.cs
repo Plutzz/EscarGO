@@ -15,6 +15,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerIdleState IdleState;
     public PlayerMovingState MovingState;
     public PlayerAirborneState AirborneState;
+    public PlayerInteractState InteractState;
 
 
     #region ScriptableObject Variables
@@ -22,10 +23,12 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private PlayerIdleSOBase playerIdleBase;
     [SerializeField] private PlayerMovingSOBase playerMovingBase;
     [SerializeField] private PlayerAirborneSOBase playerAirborneBase;
+    [SerializeField] private PlayerInteractSOBase playerInteractBase;
 
     public PlayerIdleSOBase PlayerIdleBaseInstance { get; private set; }
     public PlayerMovingSOBase PlayerMovingBaseInstance { get; private set; }
     public PlayerAirborneSOBase PlayerAirborneBaseInstance { get; private set; }
+    public PlayerInteractSOBase PlayerInteractBaseInstance { get; private set; }
 
     #endregion
 
@@ -35,7 +38,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
-
+    public float moveSpeed = 5f;
     public Transform cameraTransform;
     public Transform player;
 
@@ -55,6 +58,7 @@ public class PlayerStateMachine : MonoBehaviour
         PlayerIdleBaseInstance = Instantiate(playerIdleBase);
         PlayerMovingBaseInstance = Instantiate(playerMovingBase);
         PlayerAirborneBaseInstance = Instantiate(playerAirborneBase);
+        PlayerInteractBaseInstance = Instantiate(playerInteractBase);
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
@@ -63,11 +67,12 @@ public class PlayerStateMachine : MonoBehaviour
         IdleState = new PlayerIdleState(this);
         MovingState = new PlayerMovingState(this);
         AirborneState = new PlayerAirborneState(this);
-
+        InteractState = new PlayerInteractState(this);
 
         PlayerIdleBaseInstance.Initialize(gameObject, this, playerInputActions);
         PlayerMovingBaseInstance.Initialize(gameObject, this, playerInputActions);
         PlayerAirborneBaseInstance.Initialize(gameObject, this, playerInputActions);
+        PlayerInteractBaseInstance.Initialize(gameObject, this, playerInputActions);
 
         initialState = IdleState;
         startYScale = gameObject.transform.localScale.y;
