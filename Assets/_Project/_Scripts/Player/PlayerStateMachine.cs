@@ -52,9 +52,8 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public float timeOfLastJump;
 
 
-    // public Transform orientation;
+    public Transform cameraTransform;
     public Transform player;
-    public Transform playerObj;
     public Transform playerHitbox;
 
     [Header("Crouching Variables")]
@@ -101,10 +100,10 @@ public class PlayerStateMachine : MonoBehaviour
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
-        playerInputActions.Player.Crouch.performed += StartCrouch;
-        playerInputActions.Player.Crouch.canceled += StopCrouch;
-        playerInputActions.Player.Sprint.performed += StartSprint;
-        playerInputActions.Player.Sprint.canceled += StopSprint;
+        // playerInputActions.Player.Crouch.performed += StartCrouch;
+        // playerInputActions.Player.Crouch.canceled += StopCrouch;
+        // playerInputActions.Player.Sprint.performed += StartSprint;
+        // playerInputActions.Player.Sprint.canceled += StopSprint;
 
 
         IdleState = new PlayerIdleState(this);
@@ -204,7 +203,7 @@ public class PlayerStateMachine : MonoBehaviour
         // }
 
         //Crouching logic
-        crouching = playerInputActions.Player.Crouch.ReadValue<float>() == 1f;
+        // crouching = playerInputActions.Player.Crouch.ReadValue<float>() == 1f;
 
         if (crouching)
             playerHitbox.localScale = new Vector3(playerHitbox.localScale.x, crouchYScale, gameObject.transform.localScale.z);
@@ -252,37 +251,6 @@ public class PlayerStateMachine : MonoBehaviour
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
     }
-
-    #endregion
-
-    #region Speed Control
-
-    public IEnumerator SmoothlyLerpMoveSpeed(float speedIncreaseMultiplier)
-    {
-        //smoothly lerp movementSpeed to desired value
-        float _time = 0;
-        float _difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
-        float _startValue = moveSpeed;
-
-        while (_time < _difference)
-        {
-            moveSpeed = Mathf.Lerp(_startValue, desiredMoveSpeed, _time / _difference);
-
-            _time += Time.deltaTime * speedIncreaseMultiplier;
-
-            yield return null;
-        }
-
-        moveSpeed = desiredMoveSpeed;
-    }
-
-    public IEnumerator CoyoteFrames(float _coyoteTime)
-    {
-        rb.useGravity = true;
-        yield return new WaitForSeconds(_coyoteTime);
-        ChangeState(AirborneState);
-    }
-
 
     #endregion
 

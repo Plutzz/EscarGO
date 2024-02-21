@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -17,6 +16,22 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     [SerializeField] private float groundDrag = 1f;
     private bool sprinting = false;
     private Vector3 moveDirection;
+
+
+    [Header("Camera Variables")]
+    [Range(0.1f, 9f)][SerializeField] float sensitivity = 2f;
+    [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
+    public float Sensitivity
+    {
+        get { return sensitivity; }
+        set { sensitivity = value; }
+    }
+    private Vector2 mouseDirection;
+
+    [SerializeField]
+    private float m_CurrentUpDown = 0;
+    private Vector2 m_CurrentMovement = Vector2.zero;
+    private Vector2 m_CurrentLooking = Vector2.zero;
 
     [Header("Crouching Variables")]
     [SerializeField] private float crouchSpeed = 3.5f;
@@ -43,13 +58,14 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     {
         GetInput();
         Move();
+        
 
         base.DoFixedUpdateState();
     }
 
     public override void DoUpdateState()
     {
-
+        MoveCamera();
         base.DoUpdateState();
     }
 
@@ -79,16 +95,24 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     {
         inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
         sprinting = playerInputActions.Player.Sprint.ReadValue<float>() == 1f;
+        mouseDirection = playerInputActions.Player.Look.ReadValue<Vector2>();
     }
 
     // Todo - CHANGE TO VELOCITY BASED SYSTEM
     private void Move()
     {
-        // sprint logic (for now)
-        moveDirection = stateMachine.player.forward * inputVector.y + stateMachine.player.right * inputVector.x;
+        moveDirection = (stateMachine.cameraTransform.forward * inputVector.y + stateMachine.cameraTransform.right * inputVector.x).normalized;
+        print(moveDirection);
         rb.velocity = new Vector3(moveDirection.x * stateMachine.moveSpeed, rb.velocity.y, moveDirection.z * stateMachine.moveSpeed);
-        // rb.AddForce(moveDirection.normalized * acceleration, ForceMode.Force);
+    }
 
+    private void MoveCamera()
+    {
+        m_CurrentLooking += mouseDirection * sensitivity;
+        m_CurrentLooking.y = Mathf.Clamp(m_CurrentLooking.y, -yRotationLimit, yRotationLimit);
+        var xQuat = Quaternion.AngleAxis(m_CurrentLooking.x, Vector3.up);
+        var yQuat = Quaternion.AngleAxis(m_CurrentLooking.y, Vector3.left);
+        stateMachine.cameraTransform.localRotation = xQuat * yQuat;
     }
 
 

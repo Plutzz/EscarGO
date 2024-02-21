@@ -64,7 +64,6 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
     public override void DoUpdateState()
     {
         GetInput();
-        MovementSpeedHandler();
 
         collisionTime -= Time.deltaTime;
 
@@ -79,18 +78,10 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
 
     private void GetInput()
     {
-        inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
         sprinting = playerInputActions.Player.Sprint.ReadValue<float>() != 0;
     }
-    private void MovementSpeedHandler()
-    {
 
-        stateMachine.StopCoroutine(stateMachine.SmoothlyLerpMoveSpeed(collisionAcceleration));
-        stateMachine.desiredMoveSpeed = speedOnEnter;
-        stateMachine.moveSpeed = stateMachine.desiredMoveSpeed;
-        
-        stateMachine.lastDesiredMoveSpeed = stateMachine.desiredMoveSpeed;
-    }
 
     // Todo - CHANGE THIS TO A VELOCITY BASED SYSTEM
     private void Move()
@@ -115,12 +106,12 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
     public override void CheckTransitions()
     {
         // Airborne => Moving
-        if (stateMachine.GroundedCheck() && playerInputActions.Player.Movement.ReadValue<Vector2>() != Vector2.zero)
+        if (stateMachine.GroundedCheck() && playerInputActions.Player.Move.ReadValue<Vector2>() != Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }
         // Airborne => Idle
-        else if (stateMachine.GroundedCheck() && playerInputActions.Player.Movement.ReadValue<Vector2>() == Vector2.zero)
+        else if (stateMachine.GroundedCheck() && playerInputActions.Player.Move.ReadValue<Vector2>() == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         } 
