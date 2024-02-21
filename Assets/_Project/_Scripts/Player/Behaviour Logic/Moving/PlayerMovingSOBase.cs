@@ -28,7 +28,7 @@ public class PlayerMovingSOBase : PlayerStateSOBase
             stateMachine.ChangeState(stateMachine.AirborneState);
         }
         // Moving => Idle
-        else if (playerInputActions.Player.Movement.ReadValue<Vector2>() == Vector2.zero)
+        else if (playerInputActions.Player.Move.ReadValue<Vector2>() == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }

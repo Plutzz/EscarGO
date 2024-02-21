@@ -10,12 +10,11 @@ using UnityEngine.UIElements;
 public class PlayerMovingVinh : PlayerMovingSOBase
 {
     [Header("Movement Variables")]
-    [SerializeField] private float walkSpeed = 7f;
-    [SerializeField] private float sprintSpeed = 15f;
-    [SerializeField] private float acceleration = 1f;
     [SerializeField] private float groundDrag = 1f;
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float sprintSpeed = 10f;
     private bool sprinting = false;
-    private Vector3 moveDirection;
+    private Vector3 moveDirection = Vector3.zero;
 
 
     [Header("Camera Variables")]
@@ -26,15 +25,12 @@ public class PlayerMovingVinh : PlayerMovingSOBase
         get { return sensitivity; }
         set { sensitivity = value; }
     }
-    private Vector2 mouseDirection;
+    private Vector2 mouseDirection = Vector2.zero;
 
     [SerializeField]
-    private float m_CurrentUpDown = 0;
-    private Vector2 m_CurrentMovement = Vector2.zero;
     private Vector2 m_CurrentLooking = Vector2.zero;
 
-    [Header("Crouching Variables")]
-    [SerializeField] private float crouchSpeed = 3.5f;
+
 
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine, PlayerInputActions playerInputActions)
@@ -58,7 +54,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     {
         GetInput();
         Move();
-        
+
 
         base.DoFixedUpdateState();
     }
@@ -66,6 +62,8 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     public override void DoUpdateState()
     {
         MoveCamera();
+        Debug.Log(moveDirection);
+
         base.DoUpdateState();
     }
 
@@ -81,7 +79,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
             stateMachine.ChangeState(stateMachine.AirborneState);
         }
         // Moving => Idle
-        else if (playerInputActions.Player.Movement.ReadValue<Vector2>() == Vector2.zero && rb.velocity.magnitude < 3f)
+        else if (playerInputActions.Player.Move.ReadValue<Vector2>() == Vector2.zero && rb.velocity.magnitude < 3f)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }
@@ -93,8 +91,8 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 
     private void GetInput()
     {
-        inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        sprinting = playerInputActions.Player.Sprint.ReadValue<float>() == 1f;
+        inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
+        sprinting = playerInputActions.Player.Sprint.ReadValue<float>() != 0;
         mouseDirection = playerInputActions.Player.Look.ReadValue<Vector2>();
     }
 
@@ -102,8 +100,10 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     private void Move()
     {
         moveDirection = (stateMachine.cameraTransform.forward * inputVector.y + stateMachine.cameraTransform.right * inputVector.x).normalized;
-        print(moveDirection);
-        rb.velocity = new Vector3(moveDirection.x * stateMachine.moveSpeed, rb.velocity.y, moveDirection.z * stateMachine.moveSpeed);
+        if (sprinting)
+            rb.velocity = new Vector3(moveDirection.x * sprintSpeed, rb.velocity.y, moveDirection.z * sprintSpeed);
+        else
+            rb.velocity = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, moveDirection.z * moveSpeed);
     }
 
     private void MoveCamera()
