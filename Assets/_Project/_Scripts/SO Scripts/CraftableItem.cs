@@ -7,10 +7,25 @@ using UnityEngine;
 public class CraftableItem : Item
 {
     public List<Ingredient> requiredIngredients = new List<Ingredient>();
+
+    public override void CopyData(Item item)
+    {
+        base.CopyData(item);
+
+        if (item is CraftableItem craftableItem)
+        {
+            this.requiredIngredients = craftableItem.requiredIngredients;
+        }
+        else {
+            Debug.LogError("Non craftable object passed into a craftable object copy data");
+        }
+    }
 }
 
 [Serializable]
 public class Ingredient {
     public Item item;
     public int requiredAmount;
+
+    
 }

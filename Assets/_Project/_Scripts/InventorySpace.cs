@@ -9,6 +9,7 @@ public class InventorySpace : MonoBehaviour
     [SerializeField] private Color selectedColor;
     [SerializeField] private Color unselectedColor;
     [SerializeField] private Image iconSpace;
+    [SerializeField] private Image burnedFill;
     private void Awake()
     {
         AssignIcon(null);
@@ -31,5 +32,15 @@ public class InventorySpace : MonoBehaviour
         iconSpace.gameObject.SetActive(true);
         iconSpace.sprite = sprite;
 
+    }
+
+    public void SetTime(float currentTime, float maxTime) {
+        if (maxTime <= 0) {
+            return;
+        }
+
+        
+
+        burnedFill.fillAmount = currentTime/maxTime;
     }
 }

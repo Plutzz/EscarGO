@@ -26,10 +26,39 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
+        UpdateTimeInInventory();
         if (Input.GetAxis("Mouse ScrollWheel") != 0) { 
             currentItemIndex = (inventorySpaces.Count + currentItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaces.Count;
             UpdateInventory();
         }
+    }
+
+    private void UpdateTimeInInventory() {
+        for(int i = 0; i < currentItems.Count; i++) {
+            currentItems[i].currentTimeInInventory += Time.deltaTime;
+            if (currentItems[i].currentTimeInInventory > currentItems[i].maxTimeInInventory) {
+                if (currentItems[i].failedItem != null) {
+                    SpoilItem(i);
+                }
+                
+            }
+            inventorySpaces[i].SetTime(currentItems[i].currentTimeInInventory, currentItems[i].maxTimeInInventory);
+
+        }
+    }
+
+    private void SpoilItem(int itemIndex) {
+        if (currentItems.Count <= itemIndex) {
+            return;
+        }
+        if (currentItems[itemIndex].failedItem == null) {
+            return;
+        }
+        EditDictionary(currentItems[itemIndex].itemName, -1);
+        EditDictionary(currentItems[itemIndex].failedItem.itemName, 1);
+        currentItems[itemIndex] = currentItems[itemIndex].failedItem;
+        UpdateInventory();
+        inventorySpaces[itemIndex].SetTime(0, 1);
     }
 
     private void UpdateInventory() { 
@@ -42,6 +71,7 @@ public class PlayerInventory : MonoBehaviour
         for (int i = currentItems.Count; i < inventorySpaces.Count; i++)
         {
             inventorySpaces[i].AssignIcon(null);
+            inventorySpaces[i].SetTime(0, 1);
             inventorySpaces[i].SetUnselected();
         }
         inventorySpaces[currentItemIndex].SetSelected();
@@ -51,8 +81,10 @@ public class PlayerInventory : MonoBehaviour
         if (currentItems.Count == inventorySpaces.Count) {
             return false;
         }
+        Item playerCopy = ScriptableObject.CreateInstance<Item>();
+        playerCopy.CopyData(item);
 
-        currentItems.Add(item);
+        currentItems.Add(playerCopy);
 
         EditDictionary(item.itemName, 1);
 
