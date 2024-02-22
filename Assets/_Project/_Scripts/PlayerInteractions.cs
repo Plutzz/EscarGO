@@ -10,6 +10,7 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private float radius;
 
     [SerializeField] private LayerMask interactables;
+    [SerializeField] private LayerMask trashLayer;
 
     private PlayerInventory playerInventory;
 
@@ -22,6 +23,9 @@ public class PlayerInteractions : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) { 
             CheckForInteractable();
         }
+        if (Input.GetMouseButtonDown(1)) { 
+            CheckForTrash();
+        }
     }
 
     private void CheckForInteractable() {
@@ -32,6 +36,18 @@ public class PlayerInteractions : MonoBehaviour
             {
                 interactable.Interact(playerInventory);
             }
+        }
+    }
+
+    private void CheckForTrash()
+    {
+        Collider[] trashColliders = Physics.OverlapSphere(transform.position + transform.forward * offset, radius, trashLayer);
+        if (trashColliders.Length > 0)
+        {
+            playerInventory.RemoveSelectedItem();
+        }
+        else {
+            TipsManager.Instance.SetTip("No Trashcan here", 2f);
         }
     }
 

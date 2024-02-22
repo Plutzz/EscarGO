@@ -5,11 +5,23 @@ using UnityEngine.UI;
 
 public class InventorySpace : MonoBehaviour
 {
+    [SerializeField] private Image backdrop;
+    [SerializeField] private Color selectedColor;
+    [SerializeField] private Color unselectedColor;
     [SerializeField] private Image iconSpace;
     private void Awake()
     {
         AssignIcon(null);
     }
+
+    public void SetSelected() { 
+        backdrop.color = selectedColor;
+    }
+
+    public void SetUnselected() { 
+        backdrop.color = unselectedColor;
+    }
+
     public void AssignIcon(Sprite sprite) {
         if (sprite == null) {
             iconSpace.gameObject.SetActive(false);

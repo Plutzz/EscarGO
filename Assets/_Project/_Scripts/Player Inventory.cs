@@ -7,6 +7,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] GameObject inventoryParent;
     private List<InventorySpace> inventorySpaces = new List<InventorySpace>();
     private List<Item> currentItems = new List<Item>();
+    private int currentItemIndex;
     private Dictionary<string, int> items = new Dictionary<string, int>();
     void Awake()
     {
@@ -18,18 +19,32 @@ public class PlayerInventory : MonoBehaviour
                 space.AssignIcon(null);
             }
         }
+
+        currentItemIndex = 0;
+        UpdateInventory();
+    }
+
+    private void Update()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") != 0) { 
+            currentItemIndex = (inventorySpaces.Count + currentItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaces.Count;
+            UpdateInventory();
+        }
     }
 
     private void UpdateInventory() { 
         for (int i = 0; i < currentItems.Count; i++)
         {
             inventorySpaces[i].AssignIcon(currentItems[i].itemSprite);
+            inventorySpaces[i].SetUnselected();
         }
 
         for (int i = currentItems.Count; i < inventorySpaces.Count; i++)
         {
             inventorySpaces[i].AssignIcon(null);
+            inventorySpaces[i].SetUnselected();
         }
+        inventorySpaces[currentItemIndex].SetSelected();
     }
 
     public bool TryAddItemToInventory(Item item) {
@@ -96,6 +111,18 @@ public class PlayerInventory : MonoBehaviour
         {
             items.Add(key, change);
         }
+    }
+
+    public void RemoveSelectedItem() {
+        if (currentItems.Count <= currentItemIndex) {
+            TipsManager.Instance.SetTip("No item selected", 2f);
+            return;
+        }
+
+        TipsManager.Instance.SetTip("Tossing the " + currentItems[currentItemIndex].itemName, 2f);
+        EditDictionary(currentItems[currentItemIndex].itemName, -1);
+        currentItems.RemoveAt(currentItemIndex);
+        UpdateInventory();
     }
     
 }
