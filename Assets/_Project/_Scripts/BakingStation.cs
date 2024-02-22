@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BakingStation : Interactable
+public class BakingStation : SuperStation
 {
     private bool success = false;
     public override void Activate()

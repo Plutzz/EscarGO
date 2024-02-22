@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrostingStation : Interactable
+public class FrostingStation : SuperStation
 {
     [SerializeField] private float timeLimit = 10.0f;
     [SerializeField] private float threshHold = 10.0f;
