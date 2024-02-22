@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class FrostingStation : SuperStation
 {
+    [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timeLimit = 10.0f;
     [SerializeField] private float threshHold = 10.0f;
-
-    private bool startFrosting = false;
+    public bool startFrosting = false; //change to private after testing
     private float timer = 0.0f;
     private bool isTracing = false;
     private bool success = false;
@@ -26,7 +27,7 @@ public class FrostingStation : SuperStation
     public override void DeActivate()
     {
         startFrosting = false;
-        //Debug.Log("Deactivated");
+
     }
 
     public override bool ActivityResult
@@ -37,34 +38,39 @@ public class FrostingStation : SuperStation
 
     private void Start() {
         minigameLayer = LayerMask.GetMask("Minigame");
-
+        timer = timeLimit; //remove after testing
+        startFrosting = true; //remove after testing
     }
 
     void Update()
     {
-        //Time limit
-        timer -= Time.deltaTime;
+        if(startFrosting == true)
+        {
+            //Time limit
+            if ((Mathf.Clamp(timer, 0f, timeLimit) <= 0f))
+            {
+                Debug.Log("out of time");
+                DeActivate();
+            } else {
+                timer -= Time.deltaTime;
+                timerText.text = timer.ToString("F2");
+            }
 
-        if ((Mathf.Clamp(timer, 0f, timeLimit) <= 0f))
-        {
-            Debug.Log("out of time");
-            DeActivate();
-        }
-
-        //Tracing frosting
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartTracing();
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            ContinueTracing();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            StopTracing();
+            //Tracing frosting
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartTracing();
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                ContinueTracing();
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                StopTracing();
+            }
         }
     }
 
