@@ -128,7 +128,7 @@ public class FrostingStation : SuperStation
         success = true;
         DeActivate();
         yield return new WaitForSeconds(1.0f);
-        cutNumber.color = Color.black;
+        timerText.color = Color.black;
         //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
         Activate();
@@ -140,7 +140,7 @@ public class FrostingStation : SuperStation
         success = false;
         DeActivate();
         yield return new WaitForSeconds(1.0f);
-        cutNumber.color = Color.black;
+        timerText.color = Color.black;
         //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
         Activate();
