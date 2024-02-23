@@ -63,6 +63,7 @@ public class CuttingStation : SuperStation
 
     public override void DeActivate()
     {
+        success = false;
         isCutting = false;
         cutNumber.text = "0";
 
@@ -183,6 +184,7 @@ public class CuttingStation : SuperStation
     private IEnumerator Succeed()
     {
         cutNumber.color = Color.green;
+        success = true;
         DeActivate();
         yield return new WaitForSeconds(1.0f);
         cutNumber.color = Color.black;
@@ -194,6 +196,7 @@ public class CuttingStation : SuperStation
     private IEnumerator Fail()
     {
         cutNumber.color = Color.red;
+        success = false;
         DeActivate();
         yield return new WaitForSeconds(1.0f);
         cutNumber.color = Color.black;

@@ -26,6 +26,7 @@ public class FrostingStation : SuperStation
 
     public override void DeActivate()
     {
+        success = false;
         isFrosting = false;
         isTracing = false;
         timerText.text = "0";
