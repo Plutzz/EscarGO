@@ -8,8 +8,9 @@ public class StartMenu : MonoBehaviour
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject settingMenu;
 
-    public void GoLobby()
+    public void LoadLobby()
     {
         // Go Lobby here
+        SceneManager.LoadScene("Lobby");
     }
 }
