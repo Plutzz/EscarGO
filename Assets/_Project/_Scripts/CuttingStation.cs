@@ -186,8 +186,6 @@ public class CuttingStation : SuperStation
         cutNumber.color = Color.green;
         success = true;
         DeActivate();
-        yield return new WaitForSeconds(1.0f);
-        cutNumber.color = Color.black;
         //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
         Activate();
@@ -198,8 +196,6 @@ public class CuttingStation : SuperStation
         cutNumber.color = Color.red;
         success = false;
         DeActivate();
-        yield return new WaitForSeconds(1.0f);
-        cutNumber.color = Color.black;
         //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
         Activate();
