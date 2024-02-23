@@ -9,6 +9,7 @@ public class FirstPersonCamera : MonoBehaviour
         get { return sensitivity; }
         set { sensitivity = value; }
     }
+    
     [Range(0.1f, 9f)][SerializeField] float sensitivity = 2f;
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
 
@@ -18,14 +19,13 @@ public class FirstPersonCamera : MonoBehaviour
     public float interactDist = 5f;
     private Camera cam;
 
-    void Awake()
+    void Start()
     {
         cam = GetComponent<Camera>();
     }
 
     void Update()
     {
-
         rotation += InputManager.Instance.LookInput * sensitivity;
         rotation.y = Mathf.Clamp(rotation.y, -yRotationLimit, yRotationLimit);
         var xQuat = Quaternion.AngleAxis(rotation.x, Vector3.up);
@@ -33,7 +33,7 @@ public class FirstPersonCamera : MonoBehaviour
 
         transform.localRotation = xQuat * yQuat;
 
-        if (InputManager.Instance.InteractIsPressedThisFrame)
+        if (InputManager.Instance.InteractPressedThisFrame)
         {
             Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             Debug.DrawRay(ray.origin, ray.direction * interactDist, Color.red);
