@@ -20,14 +20,15 @@ public class FrostingStation : SuperStation
 
     public override void Activate()
     {
-        timer = timeLimit;
         isFrosting = true;
         timerText.color = Color.black;
+        timer = timeLimit;
     }
 
     public override void DeActivate()
     {
         isFrosting = false;
+        isTracing = false;
         timerText.color = Color.black;
         timerText.text = "0";
     }
@@ -127,10 +128,10 @@ public class FrostingStation : SuperStation
     {
         timerText.color = Color.green;
         success = true;
-        isFrosting = false;
-        isTracing = false;
+        isFrosting = false; //needs even though in deactivate so that it can stop further inputs after succeeding or failing
         yield return new WaitForSeconds(1.0f);
         DeActivate();
+        //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
         Activate();
     }
@@ -139,10 +140,10 @@ public class FrostingStation : SuperStation
     {
         timerText.color = Color.red;
         success = false;
-        isFrosting = false;
-        isTracing = false;
+        isFrosting = false;  //needs even though in deactivate so that it can stop further inputs after succeeding or failing
         yield return new WaitForSeconds(1.0f);
         DeActivate();
+        //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
         Activate();
     }
