@@ -6,9 +6,9 @@ using TMPro;
 public class FrostingStation : SuperStation
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float timeLimit = 10.0f;
-    [SerializeField] private float threshHold = 10.0f;
-    public bool startFrosting = false; //change to private after testing
+    [SerializeField] private float timeLimit = 5.0f;
+    [SerializeField] private float threshHold = 1.0f;
+    public bool isFrosting = false; //change to private after testing
     private float timer = 0.0f;
     private bool isTracing = false;
     private bool success = false;
@@ -21,13 +21,15 @@ public class FrostingStation : SuperStation
     public override void Activate()
     {
         timer = timeLimit;
-        startFrosting = true;
+        isFrosting = true;
+        timerText.color = Color.black;
     }
 
     public override void DeActivate()
     {
-        startFrosting = false;
-
+        isFrosting = false;
+        timerText.color = Color.black;
+        timerText.text = "0";
     }
 
     public override bool ActivityResult
@@ -39,18 +41,17 @@ public class FrostingStation : SuperStation
     private void Start() {
         minigameLayer = LayerMask.GetMask("Minigame");
         timer = timeLimit; //remove after testing
-        startFrosting = true; //remove after testing
+        isFrosting = true; //remove after testing
     }
 
     void Update()
     {
-        if(startFrosting == true)
+        if(isFrosting == true)
         {
             //Time limit
-            if ((Mathf.Clamp(timer, 0f, timeLimit) <= 0f))
+            if ((Mathf.Clamp(timer, 0.000f, timeLimit) <= 0f))
             {
-                Debug.Log("out of time");
-                DeActivate();
+                StartCoroutine(Failed());
             } else {
                 timer -= Time.deltaTime;
                 timerText.text = timer.ToString("F2");
@@ -76,12 +77,12 @@ public class FrostingStation : SuperStation
 
     void StartTracing()
     {
-        if (Physics.Raycast(ray, out RaycastHit playerStart, Mathf.Infinity, minigameLayer))
+        if (Physics.Raycast(ray, out RaycastHit playerStart, 900f, minigameLayer))
         {
             if(Vector3.Distance(playerStart.point, startPoint) < threshHold)
             {
                 isTracing = true;
-                Debug.Log("starting trace");
+                timerText.color = Color.blue;
             }
         }
     }
@@ -90,15 +91,9 @@ public class FrostingStation : SuperStation
     {
         if (isTracing)
         {
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, minigameLayer))
+            if (!Physics.Raycast(ray, out RaycastHit hitInfo, 900f, minigameLayer))
             {
-                Debug.Log("tracing");
-            }
-            else {
-                success = false;
-                Debug.Log("FAIL");
-                //DeActivate(); if want to kick player out even if they dont finish
+                StartCoroutine(Failed());
             }
         }
     }
@@ -110,17 +105,13 @@ public class FrostingStation : SuperStation
         {
             isTracing = false;
 
-            if (Physics.Raycast(ray, out RaycastHit release, Mathf.Infinity, minigameLayer))
+            if (Physics.Raycast(ray, out RaycastHit release, 900f, minigameLayer))
             {
                 if(Vector3.Distance(release.point, endPoint) < threshHold)
                 {
-                    success = true;
-                    Debug.Log("Success");
-                    DeActivate();
+                    StartCoroutine(Succeed());
                 } else {
-                    success = false;
-                    Debug.Log("FAIL");
-                    DeActivate();
+                    StartCoroutine(Failed());
                 }
             }
         }
@@ -130,5 +121,29 @@ public class FrostingStation : SuperStation
     {
         startPoint = start.position;
         endPoint = end.position;
+    }
+
+    private IEnumerator Succeed()
+    {
+        timerText.color = Color.green;
+        success = true;
+        isFrosting = false;
+        isTracing = false;
+        yield return new WaitForSeconds(1.0f);
+        DeActivate();
+        yield return new WaitForSeconds(1.0f);
+        Activate();
+    }
+
+    private IEnumerator Failed()
+    {
+        timerText.color = Color.red;
+        success = false;
+        isFrosting = false;
+        isTracing = false;
+        yield return new WaitForSeconds(1.0f);
+        DeActivate();
+        yield return new WaitForSeconds(1.0f);
+        Activate();
     }
 }
