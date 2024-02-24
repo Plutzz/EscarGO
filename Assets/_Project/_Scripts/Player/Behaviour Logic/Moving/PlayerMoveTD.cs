@@ -1,17 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "Moving", menuName = "Player Logic/Moving Logic/Default")]
-public class PlayerMovingVinh : PlayerMovingSOBase
+[CreateAssetMenu(fileName = "Moving", menuName = "Player Logic/Moving Logic/Top Down")]
+public class PlayerMoveTD : PlayerMovingSOBase
 {
     [Header("Movement Variables")]
     private Vector3 moveDirection = Vector3.zero;
-
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
@@ -30,7 +25,6 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     public override void DoFixedUpdateState()
     {
         Move();
-
         base.DoFixedUpdateState();
     }
 
@@ -44,6 +38,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     {
         base.ResetValues();
     }
+
     public override void CheckTransitions()
     {
         // Moving => Airborne
@@ -56,22 +51,17 @@ public class PlayerMovingVinh : PlayerMovingSOBase
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }
-
     }
-
-    #region Helper Methods
 
     private void GetInput()
     {
-        inputVector = InputManager.Instance.MoveInput;
+        moveDirection = new Vector3(InputManager.Instance.MoveInput.x, 0, InputManager.Instance.MoveInput.y);
+        moveDirection = stateMachine.cameraTransform.TransformDirection(moveDirection);
+        moveDirection.y = 0;
     }
 
     private void Move()
     {
-        moveDirection = (stateMachine.cameraTransform.forward * inputVector.y + stateMachine.cameraTransform.right * inputVector.x).normalized;
         rb.velocity = new Vector3(moveDirection.x * stateMachine.moveSpeed, rb.velocity.y, moveDirection.z * stateMachine.moveSpeed);
     }
-
-    #endregion
-
 }
