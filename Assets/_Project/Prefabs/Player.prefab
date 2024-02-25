@@ -394,6 +394,7 @@ MonoBehaviour:
   yRotationLimit: 88
   hand: {fileID: 5775809413446238165}
   interactDist: 5
+  cam: {fileID: 0}
 --- !u!114 &7008615595358212417
 MonoBehaviour:
   m_ObjectHideFlags: 0

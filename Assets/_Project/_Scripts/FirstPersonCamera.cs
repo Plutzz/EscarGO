@@ -17,11 +17,11 @@ public class FirstPersonCamera : MonoBehaviour
     Vector2 rotation = Vector2.zero;
 
     public float interactDist = 5f;
+    [SerializeField]
     private Camera cam;
 
     void Start()
     {
-        cam = GetComponent<Camera>();
     }
 
     void Update()
