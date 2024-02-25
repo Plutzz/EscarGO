@@ -73,17 +73,13 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
             return;
         }
 
-        float targetAngle = Mathf.Atan2(inputVector.x, inputVector.y) * Mathf.Rad2Deg + stateMachine.cameraTransform.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(gameObject.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-        gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f);
         float speed = this.speed;
-
         if (InputManager.Instance.SprintIsPressed)
         {
             speed = speed * 2;
         }
 
-        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        Vector3 moveDir = (stateMachine.cameraTransform.forward * inputVector.y + stateMachine.cameraTransform.right * inputVector.x).normalized;
         rb.velocity = new Vector3(moveDir.x * speed, rb.velocity.y, moveDir.z * speed);
     }
 }
