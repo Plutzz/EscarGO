@@ -7,6 +7,9 @@ public class BakingStation : SuperStation
     [SerializeField] private GameObject leftKnob;
     [SerializeField] private GameObject middleKnob;
     [SerializeField] private GameObject rightKnob;
+    [SerializeField] private GameObject turnTarget;
+
+
     private bool success = false;
     private LayerMask minigameLayer;
     private Ray ray;
@@ -29,12 +32,20 @@ public class BakingStation : SuperStation
 
     private void Start() {
         minigameLayer = LayerMask.GetMask("Minigame");
+        GameObject leftTarget = Instantiate(turnTarget, leftKnob.transform.position, leftKnob.transform.rotation);
+        GameObject middleTarget = Instantiate(turnTarget, middleKnob.transform.position, leftKnob.transform.rotation);
+        GameObject rightTarget = Instantiate(turnTarget, rightKnob.transform.position, leftKnob.transform.rotation);
     }
 
     private void Update() {
 
         //Tracing frosting
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if(Input.GetMouseButtonDown(0) && HitKnob())
+        {
+            //check
+        }
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
@@ -54,7 +65,7 @@ public class BakingStation : SuperStation
 
     private void TurnKnob(GameObject knob)
     {
-        knob.transform.Rotate(Vector3.up * -30, Space.World);
+        knob.transform.Rotate(Vector3.up * -30);
     }
 
     private bool HitKnob()
@@ -63,10 +74,16 @@ public class BakingStation : SuperStation
         {
             if(hit.collider.CompareTag("Knob"))
             {
+                TurnKnob(hit.collider.gameObject);
                 return true;
             }
         }
 
         return false;
+    }
+
+    private void SetTemperature()
+    {
+
     }
 }
