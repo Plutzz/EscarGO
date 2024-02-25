@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ToppingCircle
+  - Knob
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - Water
   - UI
   - Minigame
-  - 
-  - 
+  - Interactable
+  - Trash
   - 
   - 
   - 
