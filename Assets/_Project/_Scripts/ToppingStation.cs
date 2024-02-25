@@ -57,7 +57,6 @@ public class ToppingStation : SuperStation
         if(toppingCircleLeft == 0)
         {
             success = true;
-            Debug.Log("done");
         }
     }
 
