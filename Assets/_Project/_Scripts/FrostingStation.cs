@@ -46,7 +46,7 @@ public class FrostingStation : SuperStation
 
     void Update()
     {
-        if(isFrosting == true)
+        if(isFrosting)
         {
             //Time limit
             if ((Mathf.Clamp(timer, 0.000f, timeLimit) <= 0f))

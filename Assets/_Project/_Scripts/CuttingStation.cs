@@ -24,7 +24,7 @@ public class CuttingStation : SuperStation
     {
         isCutting = true;
         cutNumber.color = Color.black;
-        neededcuts = Random.Range(minCuts, maxCuts);
+        neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
         if(cuts == 0)
         {
@@ -83,7 +83,7 @@ public class CuttingStation : SuperStation
     {
         // remove after testing
         isCutting = true;
-        neededcuts = Random.Range(minCuts, maxCuts);
+        neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
         if(cuts == 0)
         {
@@ -125,10 +125,10 @@ public class CuttingStation : SuperStation
 
     private void Update() {
 
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if(isCutting == true)
+        if(isCutting)
         {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            
             if (Input.GetMouseButtonDown(0))
             {
                 if(CheckHit())
