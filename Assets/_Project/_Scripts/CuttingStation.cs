@@ -151,12 +151,15 @@ public class CuttingStation : SuperStation
 
     private bool CheckHit()
     {
-        if (Physics.Raycast(ray, out RaycastHit playerStart, 900f, minigameLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 900f, minigameLayer))
         {
-            return true;   
-        } else {
-            return false;
+            if(hit.collider.gameObject == cutIndicator)
+            {
+                return true;
+            }
         }
+
+        return false;
     }
 
     private void MoveNext()

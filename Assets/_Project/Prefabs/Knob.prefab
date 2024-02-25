@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5153441575904332265}
   - component: {fileID: 7287652993538688645}
   - component: {fileID: 6113444375909434550}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 6571691840078444389}
   - component: {fileID: 7279716336858993388}
   - component: {fileID: 1536574755014164745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 4093555724990465016}
   - component: {fileID: 7042823003747129353}
   - component: {fileID: 6601088159617422141}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Turn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
