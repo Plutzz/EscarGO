@@ -13,7 +13,6 @@ public class BakingStation : SuperStation
     public bool isBaking = false; //change to private after testing
     private bool success = false;
     private LayerMask minigameLayer;
-    private Ray ray;
 
     private GameObject leftTarget;
     private GameObject middleTarget;
@@ -67,8 +66,6 @@ public class BakingStation : SuperStation
 
         if(isBaking)
         {
-            //Tracing frosting
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if(Input.GetKeyDown(KeyCode.Q))
             {

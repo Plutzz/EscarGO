@@ -57,7 +57,7 @@ public class FrostingStation : SuperStation
                 timerText.text = timer.ToString("F2");
             }
 
-            //Tracing frosting
+            //Tracing mouse
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
             if (Input.GetMouseButtonDown(0))
