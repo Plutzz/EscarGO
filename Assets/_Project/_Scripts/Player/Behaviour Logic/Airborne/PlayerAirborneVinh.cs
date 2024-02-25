@@ -7,8 +7,10 @@ using UnityEngine;
 public class PlayerAirborneVinh : PlayerAirborneSOBase
 {
 
-    [SerializeField] private float upwardGravityAcceleration;   //When the player is moving upward there will be less gravity applied
-    [SerializeField] private float downwardGravityAcceleration; //When the player is moving downward there will be more gravity applied
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float turnSmoothTime = 0.1f;
+
+    private float turnSmoothVelocity;
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
@@ -26,20 +28,14 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
 
     public override void DoFixedUpdateState()
     {
+        Move();
         base.DoFixedUpdateState();
-        if (rb.velocity.y > 0)
-        {
-            rb.velocity += Time.fixedDeltaTime * upwardGravityAcceleration * Vector3.down;
-        }
-        else {
-            rb.velocity += downwardGravityAcceleration * Time.fixedDeltaTime * Vector3.down;
-        }
 
     }
 
     public override void DoUpdateState()
     {
-
+        GetInput();
         base.DoUpdateState();
     }
 
@@ -60,7 +56,34 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
         else if (stateMachine.GroundedCheck() && InputManager.Instance.MoveInput == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
-        } 
+        }
 
+    }
+
+    private void GetInput()
+    {
+        inputVector = InputManager.Instance.MoveInput;
+    }
+
+    private void Move()
+    {
+        if (inputVector == Vector2.zero)
+        {
+            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            return;
+        }
+
+        float targetAngle = Mathf.Atan2(inputVector.x, inputVector.y) * Mathf.Rad2Deg + stateMachine.cameraTransform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(gameObject.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        float speed = this.speed;
+
+        if (InputManager.Instance.SprintIsPressed)
+        {
+            speed = speed * 2;
+        }
+
+        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        rb.velocity = new Vector3(moveDir.x * speed, rb.velocity.y, moveDir.z * speed);
     }
 }
