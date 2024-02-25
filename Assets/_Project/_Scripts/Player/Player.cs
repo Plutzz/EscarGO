@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
             IncreaseStamina();
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && pauseMenu != null)
         {
             if (!pauseMenu.activeSelf)
             {
