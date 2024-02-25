@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
-    public Recipe order;
+    [SerializeField] private Recipe order;
     public float patienceTime = 60f; // Time in seconds until customer leaves
     private float timer;
     private bool orderRecieved;
