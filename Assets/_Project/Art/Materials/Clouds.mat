@@ -57,18 +57,18 @@ Material:
     - _BlendAmount: 0
     - _Brightness: 0.845
     - _CloudAmount: 0.53
-    - _CloudCutoff: 0.038
+    - _CloudCutoff: 0.083
     - _CloudScale: 0.89
     - _CloudSize: 0.259
     - _FadeStrength: 7
     - _GapScale: 5.63
     - _Gap_Amount: 0
     - _GradientCutoff: -0.04
-    - _GradientPower: 2.5
+    - _GradientPower: 1.9
     - _HardCloudCutoff: 0.025
     - _HighlightAmount: 0.5
     - _HighlightOffset: 0
-    - _HighlightPower: 100
+    - _HighlightPower: 21.4
     - _LargeCloudScale: 2.32
     - _Lerp: 0
     - _LerpAmount: 0
@@ -82,7 +82,7 @@ Material:
     - _SOFTCLOUDS: 0
     - _ShadowAmount: 0
     - _ShadowOffset: 0
-    - _ShadowPower: 44.5
+    - _ShadowPower: 0
     - _ShadowStrength: 0
     - _SmallCloudScale: 1.97
     - _SoftCloudCutoff: -0.9
@@ -90,9 +90,10 @@ Material:
     - _Speed: 2.25
     - _TaperPower: 0.59
     - _Transition: 0.578
+    - _aLerp: 0.507
     m_Colors:
     - _BaseColor: {r: 0.9198113, g: 0.99099964, b: 1, a: 0}
     - _CloudColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HighlightColor: {r: 1, g: 0.8874752, b: 0.7688679, a: 0}
-    - _ShadowColor: {r: 1, g: 0.7688679, b: 0.7688679, a: 0}
+    - _HighlightColor: {r: 1, g: 1, b: 1, a: 0}
+    - _ShadowColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
