@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6113444375909434550}
   m_Layer: 6
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Knob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 1536574755014164745}
   m_Layer: 6
   m_Name: Knob
-  m_TagString: Untagged
+  m_TagString: Knob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 6601088159617422141}
   m_Layer: 6
   m_Name: Turn
-  m_TagString: Untagged
+  m_TagString: Knob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

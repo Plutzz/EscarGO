@@ -36,14 +36,37 @@ public class BakingStation : SuperStation
         //Tracing frosting
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            TurnKnob(leftKnob);
+        }
+
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            TurnKnob(middleKnob);
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            TurnKnob(rightKnob);
+        }
+    }
+
+    private void TurnKnob(GameObject knob)
+    {
+        knob.transform.Rotate(Vector3.up * -30, Space.World);
+    }
+
+    private bool HitKnob()
+    {
         if(Physics.Raycast(ray, out RaycastHit hit, 900f, minigameLayer))
         {
-            if(hit.collider.gameObject == leftKnob)
+            if(hit.collider.CompareTag("Knob"))
             {
-                Debug.Log("knob");
-                leftKnob.transform.Rotate(Vector3.up * 30);
-                Debug.Log("rotated");
+                return true;
             }
         }
+
+        return false;
     }
 }
