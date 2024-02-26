@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Recipe_Display : MonoBehaviour
 {
-    public Recipe recipe;
-    public Recipe[] recipes; // Array of Recipe objects
+    private CraftableItem recipe;
+    [SerializeField] private CraftableItem[] recipes; // Array of CraftableItem items
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class Recipe_Display : MonoBehaviour
             int randomIndex = Random.Range(0, recipes.Length);
 
             // Get the recipe at the random index
-            Recipe randomRecipe = recipes[randomIndex];
+            CraftableItem randomRecipe = recipes[randomIndex];
 
             // Log the name of the random recipe
             Debug.Log(randomRecipe.name);
