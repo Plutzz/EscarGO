@@ -8,6 +8,7 @@ public class PlayerInteractions : MonoBehaviour
     [Header("Interactable Range")]
     [SerializeField] private float offset;
     [SerializeField] private float radius;
+    [SerializeField] private Transform orientation;
 
     [SerializeField] private LayerMask interactables;
     [SerializeField] private LayerMask trashLayer;
@@ -34,7 +35,7 @@ public class PlayerInteractions : MonoBehaviour
     }
 
     private void CheckForInteractable() {
-        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + transform.forward * offset, radius, interactables);
+        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, interactables);
         foreach (Collider col in interactableColliders) { 
             InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
             if (interactable != null)
@@ -46,7 +47,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void CheckForTrash()
     {
-        Collider[] trashColliders = Physics.OverlapSphere(transform.position + transform.forward * offset, radius, trashLayer);
+        Collider[] trashColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, trashLayer);
         if (trashColliders.Length > 0)
         {
             playerInventory.RemoveSelectedItem();
@@ -59,7 +60,7 @@ public class PlayerInteractions : MonoBehaviour
     private void CheckForStation()
     {
 
-        Collider[] stations = Physics.OverlapSphere(transform.position + transform.forward * offset, radius, minigameLayer);
+        Collider[] stations = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, minigameLayer);
 
         if(stations.Length == 0)
         {
@@ -78,6 +79,6 @@ public class PlayerInteractions : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + transform.forward * offset, radius);
+        Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
     }
 }

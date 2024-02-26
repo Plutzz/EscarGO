@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [Header("Object References")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
+    [SerializeField] private Transform orientation;
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     private Rigidbody rb;
@@ -39,11 +40,13 @@ public class Player : MonoBehaviour
 
     [Header("Temp Debug Variables")]
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private FirstPersonCamera cameraScript;
 
 
     void Start()
     {
         stateMachine = GetComponent<PlayerStateMachine>();
+        cameraScript = GetComponentInChildren<FirstPersonCamera>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         currentStamina = maxStamina;
@@ -97,6 +100,9 @@ public class Player : MonoBehaviour
                 pauseMenu.SetActive(false);
             }
         }
+
+        orientation.eulerAngles = new Vector3 (0f, cameraScript.transform.eulerAngles.y, 0f);
+
     }
 
 
