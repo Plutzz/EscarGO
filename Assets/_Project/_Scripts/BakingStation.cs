@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BakingStation : SuperStation
 {
+    [SerializeField] private GameObject virtualCamera;
     [SerializeField] private int maxTurns = 11;
     [SerializeField] private GameObject leftKnob;
     [SerializeField] private GameObject middleKnob;
     [SerializeField] private GameObject rightKnob;
     [SerializeField] private GameObject turnTarget;
 
-    public bool isBaking = false; //change to private after testing
+    private bool isBaking = false;
     private bool success = false;
-    private LayerMask minigameLayer;
 
     private GameObject leftTarget;
     private GameObject middleTarget;
@@ -35,6 +35,7 @@ public class BakingStation : SuperStation
         righTurns = 0;
         SetTargets();
         isBaking = true;
+        virtualCamera.SetActive(true);
     }
 
     public override void DeActivate()
@@ -46,7 +47,10 @@ public class BakingStation : SuperStation
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
+        isBaking = false;
         success = false;
+        virtualCamera.SetActive(false);
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult
@@ -55,11 +59,14 @@ public class BakingStation : SuperStation
         set { success = value; }
     }
 
+    public override GameObject VirtualCamera
+    {
+        get { return virtualCamera; }
+        set { virtualCamera = value; }
+    }
+
     private void Start() {
         Quaternion rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
-        minigameLayer = LayerMask.GetMask("Minigame");
-
-        SetTargets();
     }
 
     private void Update() {
@@ -104,6 +111,13 @@ public class BakingStation : SuperStation
     private void TurnKnob(GameObject knob)
     {
         knob.transform.Rotate(Vector3.up * -30);
+    }
+
+    private IEnumerator Succeed()
+    {
+        isBaking = false;
+        yield return new WaitForSeconds(1.0f);
+        DeActivate();
     }
 
     private void CheckKnobs()
@@ -156,15 +170,6 @@ public class BakingStation : SuperStation
         leftTarget = Instantiate(turnTarget, leftKnob.transform.position, Quaternion.Euler(new Vector3(0f, -30f, 0f) * turnTargetLeft));
         middleTarget = Instantiate(turnTarget, middleKnob.transform.position, Quaternion.Euler(new Vector3(0f, -30f, 0f) * turnTargetmiddle));
         rightTarget = Instantiate(turnTarget, rightKnob.transform.position, Quaternion.Euler(new Vector3(0f, -30f, 0f) * turnTargetright));
-    }
-
-    private IEnumerator Succeed()
-    {
-        Debug.Log("success");
-        isBaking = false;
-        yield return new WaitForSeconds(1.0f);
-        DeActivate();
-        Activate();
     }
 
     private void ResetKnobs()

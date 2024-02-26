@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ToppingStation : SuperStation
 {
+    [SerializeField] private GameObject virtualCamera;
     [SerializeField] private GameObject toppingCircle;
     [SerializeField] private int toppingCircleAmount = 5;
     [SerializeField] private float maxX = 0.37f;
@@ -28,6 +29,12 @@ public class ToppingStation : SuperStation
     {
         get { return success; }
         set { success = value; }
+    }
+
+    public override GameObject VirtualCamera
+    {
+        get { return virtualCamera; }
+        set { virtualCamera = value; }
     }
 
     private void Start() {

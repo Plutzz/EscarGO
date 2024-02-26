@@ -11,6 +11,7 @@ public class PlayerInteractions : MonoBehaviour
 
     [SerializeField] private LayerMask interactables;
     [SerializeField] private LayerMask trashLayer;
+    [SerializeField] private LayerMask minigameLayer;
 
     private PlayerInventory playerInventory;
 
@@ -25,6 +26,10 @@ public class PlayerInteractions : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1)) { 
             CheckForTrash();
+        }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            CheckForStation();
         }
     }
 
@@ -48,6 +53,25 @@ public class PlayerInteractions : MonoBehaviour
         }
         else {
             TipsManager.Instance.SetTip("No Trashcan here", 2f);
+        }
+    }
+
+    private void CheckForStation()
+    {
+
+        Collider[] stations = Physics.OverlapSphere(transform.position + transform.forward * offset, radius, minigameLayer);
+
+        if(stations.Length == 0)
+        {
+            return;
+        }
+        
+        SuperStation interactable = stations[0].gameObject.GetComponent<SuperStation>();
+
+        if (interactable != null)
+        {
+            InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+            interactable.Activate();
         }
     }
 

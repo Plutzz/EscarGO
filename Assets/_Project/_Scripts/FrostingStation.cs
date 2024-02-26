@@ -5,6 +5,7 @@ using TMPro;
 
 public class FrostingStation : SuperStation
 {
+    [SerializeField] private GameObject virtualCamera;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timeLimit = 5.0f;
     [SerializeField] private float threshHold = 1.0f;
@@ -36,6 +37,12 @@ public class FrostingStation : SuperStation
     {
         get { return success; }
         set { success = value; }
+    }
+
+    public override GameObject VirtualCamera
+    {
+        get { return virtualCamera; }
+        set { virtualCamera = value; }
     }
 
     private void Start() {

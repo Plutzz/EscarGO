@@ -6,6 +6,7 @@ using TMPro;
 public class CuttingStation : SuperStation
 {
     public CutPosition cutPosition;
+    [SerializeField] private GameObject virtualCamera;
     [SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
@@ -77,6 +78,12 @@ public class CuttingStation : SuperStation
     {
         get { return success; }
         set { success = value; }
+    }
+
+    public override GameObject VirtualCamera
+    {
+        get { return virtualCamera; }
+        set { virtualCamera = value; }
     }
 
     private void Start()

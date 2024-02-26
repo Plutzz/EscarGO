@@ -41,7 +41,7 @@ public class InputManager : Singleton<InputManager>
     public bool PreviousInventoryIsPressed { get; private set; }
 
 
-    private PlayerInput playerInput;
+    public PlayerInput playerInput;
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction interactAction;
