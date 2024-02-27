@@ -5,7 +5,14 @@ using UnityEngine;
 
 public class FMODEvents : Singleton<FMODEvents>
 {
-    [field: SerializeField] public EventReference jumpSound { get; private set; }
+    [field: Header("Ambience")]
+    [field: SerializeField] public EventReference Ambience { get; private set; }
+
+    [field: Header("Music")]
+    [field: SerializeField] public EventReference Music { get; private set; }
+
+    [field: Header("Player SFX")]
+    [field: SerializeField] public EventReference JumpSound { get; private set; }
 
 
 }
