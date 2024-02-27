@@ -14,7 +14,7 @@ public class LayeredClouds : MonoBehaviour
     public Camera camera;
     private Matrix4x4 matrix;
 
-    void Update()
+    void Start()
     {
         cloudMaterial.SetFloat("_MidYValue", transform.position.y);
         cloudMaterial.SetFloat("_CloudWidth", cloudHeight);

@@ -51,7 +51,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _HorizonBlend: 13.24
+    - _HorizonBlend: 8.01
     - _NadirBlend: 1.04
     - _QueueControl: 0
     - _QueueOffset: 0
