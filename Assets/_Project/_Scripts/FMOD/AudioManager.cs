@@ -24,7 +24,7 @@ public class AudioManager : Singleton<AudioManager>
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
 
-    private EventInstance ambienceEventInstance;
+    //private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
 
     protected override void Awake()
@@ -40,7 +40,7 @@ public class AudioManager : Singleton<AudioManager>
     }
     private void Start()
     {
-        InitializeAmbience(FMODEvents.Instance.Ambience);
+        //InitializeAmbience(FMODEvents.Instance.Ambience);
         InitializeMusic(FMODEvents.Instance.Music);
     }
 
@@ -52,11 +52,11 @@ public class AudioManager : Singleton<AudioManager>
         //sfxBus.setVolume(SFXVolume);
     }
 
-    private void InitializeAmbience(EventReference ambienceEventReference)
-    {
-        ambienceEventInstance = CreateInstance(ambienceEventReference);
-        ambienceEventInstance.start();
-    }
+    //private void InitializeAmbience(EventReference ambienceEventReference)
+    //{
+    //    ambienceEventInstance = CreateInstance(ambienceEventReference);
+    //    ambienceEventInstance.start();
+    //}
 
     private void InitializeMusic(EventReference musicEventReference)
     {
@@ -64,10 +64,10 @@ public class AudioManager : Singleton<AudioManager>
         musicEventInstance.start();
     }
 
-    public void SetAmbienceParameter(string parameterName, float parameterValue)
-    {
-        ambienceEventInstance.setParameterByName(parameterName, parameterValue);
-    }
+    //public void SetAmbienceParameter(string parameterName, float parameterValue)
+    //{
+    //    ambienceEventInstance.setParameterByName(parameterName, parameterValue);
+    //}
 
     public void SetMusicArea(MusicArea area)
     {
