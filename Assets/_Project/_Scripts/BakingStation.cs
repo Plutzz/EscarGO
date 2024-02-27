@@ -78,9 +78,9 @@ public class BakingStation : SuperStation
             {
                 TurnKnob(leftKnob);
                 leftTurns += 1;
-                if(leftTurns > 12)
+                if(leftTurns > maxTurns)
                 {
-                    leftTurns = 1;
+                    leftTurns = 0;
                 }
             }
 
@@ -88,9 +88,9 @@ public class BakingStation : SuperStation
             {
                 TurnKnob(middleKnob);
                 middleTurns += 1;
-                if(middleTurns > 12)
+                if(middleTurns > maxTurns)
                 {
-                    middleTurns = 1;
+                    middleTurns = 0;
                 }
             }
 
@@ -98,9 +98,9 @@ public class BakingStation : SuperStation
             {
                 TurnKnob(rightKnob);
                 righTurns += 1;
-                if(righTurns > 12)
+                if(righTurns > maxTurns)
                 {
-                    righTurns = 1;
+                    righTurns = 0;
                 }
             }
 
