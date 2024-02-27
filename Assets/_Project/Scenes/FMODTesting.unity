@@ -3154,6 +3154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64052f60374b19b4297b3c4489cf9171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 1
+  musicVolume: 1
+  ambienceVolume: 1
+  SFXVolume: 1
 --- !u!114 &1540887338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3166,13 +3170,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36abb99539a9f2047aa09cbe8535159c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <jumpSound>k__BackingField:
+  <Ambience>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Music>k__BackingField:
+    Guid:
+      Data1: -345211721
+      Data2: 1203381258
+      Data3: 929197966
+      Data4: 18254330
+    Path: event:/Music/Lobby Music
+  <JumpSound>k__BackingField:
     Guid:
       Data1: 1194980098
       Data2: 1223722205
       Data3: 1981227176
       Data4: 1495632634
-    Path: event:/CoinCollected
+    Path: event:/SFX/CoinCollected
 --- !u!1 &1550371582
 GameObject:
   m_ObjectHideFlags: 0
