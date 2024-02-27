@@ -134,7 +134,7 @@ Material:
     - _HardCloudCutoff: 0.025
     - _HighlightAmount: 0.5
     - _HighlightBlend: 1.02
-    - _HighlightOffset: -0.28
+    - _HighlightOffset: -0.34
     - _HighlightPower: 0.89
     - _LargeCloudScale: 2.32
     - _Lerp: 0
@@ -153,8 +153,8 @@ Material:
     - _SOFTCLOUDS: 0
     - _ScrollingSpeed: 1
     - _ShadowAmount: 0
-    - _ShadowBlend: 2.16
-    - _ShadowOffset: -0.15
+    - _ShadowBlend: 2.39
+    - _ShadowOffset: -0.21
     - _ShadowPower: 0.01
     - _ShadowStrength: 0
     - _SmallCloudScale: 1.97

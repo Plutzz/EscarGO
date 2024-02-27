@@ -50,5 +50,3 @@ MonoBehaviour:
   cloudHeight: 7.5
   quadMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   cloudMaterial: {fileID: 2100000, guid: 4f7f2fc09df0b8b418750306c865c90f, type: 2}
-  layer: 0
-  camera: {fileID: 0}
