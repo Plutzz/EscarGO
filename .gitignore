@@ -80,6 +80,7 @@ crashlytics-build.properties
 
 # Ignore the Cache folder since it is updated locally.
 /[Aa]ssets/Plugins/FMOD/Cache/*
+/FMOD Project/SolarSweetsFMOD/.unsaved/*
 
 # Ignore bank files in the StreamingAssets folder.
 /[Aa]ssets/StreamingAssets/**/*.bank
