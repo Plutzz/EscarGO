@@ -119,7 +119,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeThinness: 0.153
+    - _EdgeThinness: 0.1
     - _EnvironmentReflections: 1
     - _FLIPHIGHLIGHT: 1
     - _FLIPSHADOW: 1
@@ -153,8 +153,8 @@ Material:
     - _SOFTCLOUDS: 0
     - _ScrollingSpeed: 1
     - _ShadowAmount: 0
-    - _ShadowBlend: 0.98
-    - _ShadowOffset: -0.5
+    - _ShadowBlend: 2.16
+    - _ShadowOffset: -0.15
     - _ShadowPower: 0.01
     - _ShadowStrength: 0
     - _SmallCloudScale: 1.97
