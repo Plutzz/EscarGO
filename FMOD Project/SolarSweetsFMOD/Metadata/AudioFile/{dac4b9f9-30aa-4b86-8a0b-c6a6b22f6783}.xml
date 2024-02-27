@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{dac4b9f9-30aa-4b86-8a0b-c6a6b22f6783}">
 		<property name="assetPath">
-			<value>sad_horn.wav</value>
+			<value>SFX/sad_horn.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

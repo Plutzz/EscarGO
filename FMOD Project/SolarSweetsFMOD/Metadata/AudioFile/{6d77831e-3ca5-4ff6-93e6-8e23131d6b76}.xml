@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{6d77831e-3ca5-4ff6-93e6-8e23131d6b76}">
 		<property name="assetPath">
-			<value>caramel_calimari_INTENSE_FINAL.wav</value>
+			<value>Music/caramel_calimari_INTENSE_FINAL.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>
