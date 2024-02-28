@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class CuttingStation : SuperStation
 {
     public CutPosition cutPosition;
-    [SerializeField] private GameObject virtualCamera;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
@@ -23,12 +24,17 @@ public class CuttingStation : SuperStation
 
     public override void Activate()
     {
+        if(isCutting == true)
+        {
+            return;
+        }
+        
         isCutting = true;
         cutNumber.color = Color.black;
         neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
 
-        virtualCamera.SetActive(true);
+        virtualCamera.enabled = true;
 
         if(cuts == 0)
         {
@@ -71,7 +77,7 @@ public class CuttingStation : SuperStation
         isCutting = false;
         cutNumber.text = "0";
 
-        virtualCamera.SetActive(false);
+        virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
 
         if(cutIndicator != null)
@@ -86,14 +92,10 @@ public class CuttingStation : SuperStation
         set { success = value; }
     }
 
-    public override GameObject VirtualCamera
+    public override CinemachineVirtualCamera VirtualCamera
     {
         get { return virtualCamera; }
         set { virtualCamera = value; }
-    }
-
-    private void Start()
-    {
     }
 
     private void Update() {

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class BakingStation : SuperStation
 {
-    [SerializeField] private GameObject virtualCamera;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private int maxTurns = 11;
     [SerializeField] private GameObject leftKnob;
     [SerializeField] private GameObject middleKnob;
@@ -30,12 +31,17 @@ public class BakingStation : SuperStation
 
     public override void Activate()
     {
+        if(isBaking == true)
+        {
+            return;
+        }
+
         leftTurns = 0;
         middleTurns = 0;
         righTurns = 0;
         SetTargets();
         isBaking = true;
-        virtualCamera.SetActive(true);
+        virtualCamera.enabled = true;
     }
 
     public override void DeActivate()
@@ -49,9 +55,8 @@ public class BakingStation : SuperStation
         rightSuccess = false;
         isBaking = false;
         success = false;
-        virtualCamera.SetActive(false);
+        virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
-        Debug.Log("Switched to player");
     }
 
     public override bool ActivityResult
@@ -60,7 +65,7 @@ public class BakingStation : SuperStation
         set { success = value; }
     }
 
-    public override GameObject VirtualCamera
+    public override CinemachineVirtualCamera VirtualCamera
     {
         get { return virtualCamera; }
         set { virtualCamera = value; }

@@ -14,6 +14,7 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
 
+    private bool inStation = false;
     private PlayerInventory playerInventory;
 
     private void Awake()
