@@ -73,7 +73,7 @@ public class PlayerInteractions : MonoBehaviour
         if (interactable != null)
         {
             InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
-            Debug.Log("switched to minigames");
+            Debug.Log("switched to minigame: " + gameObject);
             interactable.Activate();
         }
     }
