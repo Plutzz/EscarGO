@@ -28,6 +28,8 @@ public class CuttingStation : SuperStation
         {
             return;
         }
+
+        success = false;
         
         isCutting = true;
         cutNumber.color = Color.black;
@@ -73,17 +75,12 @@ public class CuttingStation : SuperStation
 
     public override void DeActivate()
     {
-        success = false;
         isCutting = false;
         cutNumber.text = "0";
 
+        Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
-
-        if(cutIndicator != null)
-        {
-            Destroy(cutIndicator);
-        }
     }
 
     public override bool ActivityResult
@@ -98,11 +95,21 @@ public class CuttingStation : SuperStation
         set { virtualCamera = value; }
     }
 
+    private void Start() {
+        minigameLayer = LayerMask.GetMask("Minigame");
+    }
+
     private void Update() {
 
         if(isCutting)
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.point);
+            }
             
             if (Input.GetMouseButtonDown(0))
             {
@@ -163,6 +170,10 @@ public class CuttingStation : SuperStation
     {
         cutNumber.color = Color.green;
         success = true;
+        if(cutIndicator != null)
+        {
+            Destroy(cutIndicator);
+        }
         yield return new WaitForSeconds(1.0f);
         DeActivate();
     }
@@ -172,6 +183,10 @@ public class CuttingStation : SuperStation
         cutNumber.color = Color.red;
         success = false;
         yield return new WaitForSeconds(1.0f);
+        if(cutIndicator != null)
+        {
+            Destroy(cutIndicator);
+        }
         DeActivate();
     }
 }

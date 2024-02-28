@@ -37,6 +37,8 @@ public class ToppingStation : SuperStation
     {
 
         isTopping = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
 

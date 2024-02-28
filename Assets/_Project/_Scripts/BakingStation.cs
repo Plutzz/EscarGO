@@ -55,6 +55,8 @@ public class BakingStation : SuperStation
         rightSuccess = false;
         isBaking = false;
         success = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
     }

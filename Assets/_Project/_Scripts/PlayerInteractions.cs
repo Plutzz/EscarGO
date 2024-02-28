@@ -75,6 +75,7 @@ public class PlayerInteractions : MonoBehaviour
             InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
             Debug.Log("switched to minigame: " + gameObject);
             interactable.Activate();
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 

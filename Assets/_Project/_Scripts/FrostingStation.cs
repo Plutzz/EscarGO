@@ -39,6 +39,7 @@ public class FrostingStation : SuperStation
         isTracing = false;
         timerText.text = "0";
 
+        Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
     }

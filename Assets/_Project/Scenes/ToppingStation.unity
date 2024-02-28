@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &72417360
 Transform:
   m_ObjectHideFlags: 0
@@ -862,7 +862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutPosition: 2
-  virtualCamera: {fileID: 1038648949}
+  virtualCamera: {fileID: 1038648951}
   cutNumber: {fileID: 487921720}
   minCuts: 1
   maxCuts: 10
@@ -1182,7 +1182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b219ea3c6a0acd4e893f903a94417aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 1219150764}
+  virtualCamera: {fileID: 1219150766}
   maxTurns: 11
   leftKnob: {fileID: 452020004172335060}
   middleKnob: {fileID: 415718719}
@@ -1686,11 +1686,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc271a51f8c729d41aab02c4b52f12ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 72417359}
+  virtualCamera: {fileID: 72417361}
   timerText: {fileID: 874338658}
   timeLimit: 5
   threshHold: 1
-  isFrosting: 0
   startPoint: {x: -5.372908, y: 2.9445844, z: -3.8862567}
   endPoint: {x: -3.9564695, y: 3.919804, z: -3.8862567}
 --- !u!1 &1038648949
@@ -1709,7 +1708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1038648950
 Transform:
   m_ObjectHideFlags: 0
@@ -1984,7 +1983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1219150765
 Transform:
   m_ObjectHideFlags: 0
@@ -2008,7 +2007,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219150764}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
@@ -2056,7 +2055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1234589916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2520,7 +2519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1afdf4ebd794ed64190356da2ced7e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 1234589915}
+  virtualCamera: {fileID: 1234589916}
   toppingCircle: {fileID: 1376731491552901378, guid: a041584e6708f78459c0481fee857ed7,
     type: 3}
   toppingCircleAmount: 5
