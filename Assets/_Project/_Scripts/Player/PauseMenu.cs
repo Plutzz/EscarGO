@@ -2,26 +2,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
     [Header("Temp Debug Variables")]
     [SerializeField] private GameObject pauseMenu;
-    private PlayerInput playerInput;
+    [SerializeField] private Button resumeButton;
+    public bool ResumeButtonClicked = false;
 
     void Start()
     {
         if (pauseMenu != null)
             pauseMenu.SetActive(false);
-
-        playerInput = GetComponent<PlayerInput>();
-
+        resumeButton.onClick.AddListener(OnButtonClicked);
     }
 
     void Update()
     {
-        if (InputManager.Instance.PausePressedThisFrame && pauseMenu != null)
+        if (InputManager.Instance.PausePressedThisFrame && pauseMenu != null || ResumeButtonClicked)
         {
             if (!pauseMenu.activeSelf)
             {
@@ -35,6 +35,14 @@ public class PauseMenu : MonoBehaviour
                 pauseMenu.SetActive(false);
                 InputManager.Instance.SwitchActionMap("Player");
             }
+
+            ResumeButtonClicked = false;
         }
+    }
+
+
+    public void OnButtonClicked()
+    {
+        ResumeButtonClicked = true;
     }
 }
