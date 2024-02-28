@@ -1796,17 +1796,12 @@ PrefabInstance:
         type: 3}
       propertyPath: pauseMenu
       value: 
-      objectReference: {fileID: 550074140}
+      objectReference: {fileID: 540196852}
     - target: {fileID: 3206772780684805962, guid: 0d843f046d4b7ff468bf908a70a42440,
         type: 3}
       propertyPath: resumeButton
       value: 
       objectReference: {fileID: 876426231}
-    - target: {fileID: 3206772780684805962, guid: 0d843f046d4b7ff468bf908a70a42440,
-        type: 3}
-      propertyPath: ResumeButtonClicked
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4587299177109654923, guid: 0d843f046d4b7ff468bf908a70a42440,
         type: 3}
       propertyPath: cam
