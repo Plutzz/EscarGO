@@ -8,7 +8,6 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
 {
 
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float turnSmoothTime = 0.1f;
 
     private float turnSmoothVelocity;
 

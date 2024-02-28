@@ -1450,6 +1450,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -540688451612955572, guid: 0d843f046d4b7ff468bf908a70a42440,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 354870785860000598, guid: 0d843f046d4b7ff468bf908a70a42440,
+        type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 550074140}
+    - target: {fileID: 354870785860000598, guid: 0d843f046d4b7ff468bf908a70a42440,
+        type: 3}
+      propertyPath: playerControls.m_Id
+      value: d6ff7cdd-a468-4d93-a626-37ce641f0d64
+      objectReference: {fileID: 0}
+    - target: {fileID: 354870785860000598, guid: 0d843f046d4b7ff468bf908a70a42440,
+        type: 3}
+      propertyPath: playerControls.m_Name
+      value: Player Controls
+      objectReference: {fileID: 0}
     - target: {fileID: 3141356370038839228, guid: 0d843f046d4b7ff468bf908a70a42440,
         type: 3}
       propertyPath: m_Name

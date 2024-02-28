@@ -8,10 +8,7 @@ public class PlayerAirborneTD: PlayerAirborneSOBase
 {
 
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float turnSmoothTime = 0.1f;
     private Vector2 input;
-
-    private float turnSmoothVelocity;
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
