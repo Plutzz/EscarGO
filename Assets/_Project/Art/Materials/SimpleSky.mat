@@ -51,13 +51,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _HorizonBlend: 8.01
+    - _HorizonBlend: 4.33
     - _NadirBlend: 1.04
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ZenithBlend: 0.59
+    - _ZenithBlend: 0.16
     m_Colors:
-    - _HorizonColor: {r: 0.735849, g: 0.6237362, b: 0.5588287, a: 0}
+    - _HorizonColor: {r: 0.76862746, g: 0.9244779, b: 0.9529412, a: 0}
     - _NadirColor: {r: 0.2287736, g: 0.4013722, b: 0.5, a: 0}
     - _ZenithColor: {r: 0.14778392, g: 0.28969526, b: 0.38679248, a: 0}
   m_BuildTextureStacks: []

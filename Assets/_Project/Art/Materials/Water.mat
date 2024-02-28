@@ -108,7 +108,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NoiseScale: 5
+    - _NoiseScale: 0
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -127,8 +127,8 @@ Material:
     - _Surface: 0
     - _USENORMALTEXTURE: 0
     - _WaterDepth: 1.5
-    - _WaveScale: 0.1
-    - _WaveSpeed: 1
+    - _WaveScale: 0
+    - _WaveSpeed: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

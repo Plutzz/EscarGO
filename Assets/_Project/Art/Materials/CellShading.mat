@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CellShading
-  m_Shader: {fileID: -6465566751694194690, guid: f994d24828d5ae643a0ca45c3338aa9b,
+  m_Shader: {fileID: -6465566751694194690, guid: 1cab8a90510498e4785da7679c176a87,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -88,7 +88,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _AmbientStrength: 0.578
+    - _AmbientStrength: 0.43
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -102,11 +102,11 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _FalloffAmount: 0
-    - _FresnelSize: 0.408
+    - _FresnelSize: 0.5
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LightingCutoff: 0.432
+    - _LightingCutoff: 0.24
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -128,7 +128,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 1, g: 0.9840684, b: 0.8537736, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecularColor: {r: 0.7803922, g: 0.55294114, b: 0.42352936, a: 0}
+    - _SpecularColor: {r: 0.5, g: 0.37222683, b: 0.2995283, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5044203186606136985
 MonoBehaviour:

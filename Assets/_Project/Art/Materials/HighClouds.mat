@@ -25,9 +25,7 @@ Material:
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _FLIPHIGHLIGHT
-  - _FLIPSHADOW
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
@@ -110,19 +108,23 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CloudAmount: 0.53
-    - _CloudCutoff: 0.72
-    - _CloudScale: 0.1
+    - _CloudCutoff: 0.16
+    - _CloudScale: 0.18
     - _CloudSize: 0.259
+    - _CloudThickness: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeThinness: 0.1
+    - _EdgeAdd: 0.002
+    - _EdgeMultiply: 62
+    - _EdgePower: 1.8
+    - _EdgeThinness: 0.15
     - _EnvironmentReflections: 1
-    - _FLIPHIGHLIGHT: 1
-    - _FLIPSHADOW: 1
+    - _FLIPHIGHLIGHT: 0
+    - _FLIPSHADOW: 0
     - _FadeStrength: 13
     - _GapScale: 5.63
     - _Gap_Amount: 0
@@ -130,11 +132,11 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _GradientCutoff: -1
-    - _GradientPower: 15.5
+    - _GradientPower: 6
     - _HardCloudCutoff: 0.025
     - _HighlightAmount: 0.5
     - _HighlightBlend: 1.02
-    - _HighlightOffset: -0.34
+    - _HighlightOffset: 0
     - _HighlightPower: 0.89
     - _LargeCloudScale: 2.32
     - _Lerp: 0
@@ -153,8 +155,8 @@ Material:
     - _SOFTCLOUDS: 0
     - _ScrollingSpeed: 1
     - _ShadowAmount: 0
-    - _ShadowBlend: 2.39
-    - _ShadowOffset: -0.21
+    - _ShadowBlend: 0.94
+    - _ShadowOffset: -0.5
     - _ShadowPower: 0.01
     - _ShadowStrength: 0
     - _SmallCloudScale: 1.97
@@ -169,6 +171,7 @@ Material:
     - _Surface: 0
     - _TaperFade: -0.82
     - _TaperPower: 0.59
+    - _Test: 4
     - _Transition: 0.578
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -178,7 +181,7 @@ Material:
     - _CloudColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.9198113, g: 0.99099964, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HighlightColor: {r: 0.9811321, g: 0.85895336, b: 0.8284087, a: 0}
-    - _ShadowColor: {r: 0.34042364, g: 0.39293343, b: 0.4716981, a: 0}
+    - _HighlightColor: {r: 0.59607846, g: 0.78054047, b: 0.9529412, a: 0}
+    - _ShadowColor: {r: 0.45882353, g: 0.6070238, b: 0.65882355, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
