@@ -27,6 +27,7 @@ public class FrostingStation : SuperStation
             return;
         }
 
+        success = false;
         isFrosting = true;
         timer = timeLimit;
         virtualCamera.enabled = true;
@@ -34,7 +35,6 @@ public class FrostingStation : SuperStation
 
     public override void DeActivate()
     {
-        success = false;
         isFrosting = false;
         isTracing = false;
         timerText.text = "0";

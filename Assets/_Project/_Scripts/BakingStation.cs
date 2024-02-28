@@ -36,6 +36,7 @@ public class BakingStation : SuperStation
             return;
         }
 
+        success = false;
         leftTurns = 0;
         middleTurns = 0;
         righTurns = 0;
@@ -54,7 +55,6 @@ public class BakingStation : SuperStation
         middleSuccess = false;
         rightSuccess = false;
         isBaking = false;
-        success = false;
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;

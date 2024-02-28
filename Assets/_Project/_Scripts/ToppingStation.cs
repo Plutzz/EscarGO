@@ -24,6 +24,7 @@ public class ToppingStation : SuperStation
         minigameLayer = LayerMask.GetMask("Minigame");
 
         isTopping = true;
+        success = false;
 
         toppingCircleLeft = toppingCircleAmount;
 
@@ -82,6 +83,7 @@ public class ToppingStation : SuperStation
             if(toppingCircleLeft == 0)
             {
                 success = true;
+                DeActivate();
             }
         }
     }
