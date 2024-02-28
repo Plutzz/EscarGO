@@ -27,6 +27,9 @@ public class CuttingStation : SuperStation
         cutNumber.color = Color.black;
         neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
+
+        virtualCamera.SetActive(true);
+
         if(cuts == 0)
         {
             cuts = 1; //unlikely but just in case
@@ -68,6 +71,9 @@ public class CuttingStation : SuperStation
         isCutting = false;
         cutNumber.text = "0";
 
+        virtualCamera.SetActive(false);
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+
         if(cutIndicator != null)
         {
             Destroy(cutIndicator);
@@ -88,46 +94,6 @@ public class CuttingStation : SuperStation
 
     private void Start()
     {
-        // remove after testing
-        isCutting = true;
-        neededcuts = Random.Range(minCuts, maxCuts + 1);
-        cuts = neededcuts - 1;
-        if(cuts == 0)
-        {
-            cuts = 1; //unlikely but just in case
-        }
-        cutNumber.text = neededcuts.ToString();
-
-        minigameLayer = LayerMask.GetMask("Minigame");
-        
-        //remove after testing
-        Vector3 offSet = new Vector3(0f, 0f, 0f);
-        Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
-        
-        switch (cutPosition)
-        {
-            case CutPosition.Up:
-                offSet = new Vector3(0f, 0.53f, 0.4f); //change based on station location
-                rotation = Quaternion.Euler(90f, 90f, 0f);
-                break;
-            case CutPosition.Down:
-                offSet = new Vector3(0f, 0.53f, -0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
-                break;
-            case CutPosition.Left:
-                offSet = new Vector3(-0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
-                break;
-            case CutPosition.Right:
-                offSet = new Vector3(0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
-                break;
-            default:
-                Debug.Log("Invalid cutting direction");
-                break;
-        }
-
-        cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
     }
 
     private void Update() {
@@ -195,20 +161,16 @@ public class CuttingStation : SuperStation
     {
         cutNumber.color = Color.green;
         success = true;
-        DeActivate();
-        //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
-        Activate();
+        DeActivate();
     }
 
     private IEnumerator Fail()
     {
         cutNumber.color = Color.red;
         success = false;
-        DeActivate();
-        //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
-        Activate();
+        DeActivate();
     }
 }
 

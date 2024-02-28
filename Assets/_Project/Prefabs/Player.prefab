@@ -175,12 +175,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: 1.5
   radius: 1
+  orientation: {fileID: 0}
   interactables:
     serializedVersion: 2
     m_Bits: 128
   trashLayer:
     serializedVersion: 2
     m_Bits: 256
+  minigameLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &354870785860000598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +201,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   playerHeight: 2
+  orientation: {fileID: 0}
   maxStamina: 100
   currentStamina: 0
   staminaDecreaseRate: 10
@@ -207,6 +212,7 @@ MonoBehaviour:
   jumpBufferTime: 0.1
   canJump: 1
   pauseMenu: {fileID: 0}
+  cameraScript: {fileID: 0}
 --- !u!54 &3657045978795358490
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -300,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844507df2ca404f4e9b236b096ac7aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
 --- !u!1 &3799496545928371781
 GameObject:
   m_ObjectHideFlags: 0

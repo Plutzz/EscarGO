@@ -17,12 +17,14 @@ public class ToppingStation : SuperStation
 
     public override void Activate()
     {
-        
+        //virtualCamera.SetActive(true);
     }
 
     public override void DeActivate()
     {
-        
+
+        virtualCamera.SetActive(false);
+        //InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");   
     }
 
     public override bool ActivityResult

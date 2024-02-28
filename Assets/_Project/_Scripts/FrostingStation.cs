@@ -23,6 +23,7 @@ public class FrostingStation : SuperStation
     {
         isFrosting = true;
         timer = timeLimit;
+        virtualCamera.SetActive(true);
     }
 
     public override void DeActivate()
@@ -31,6 +32,9 @@ public class FrostingStation : SuperStation
         isFrosting = false;
         isTracing = false;
         timerText.text = "0";
+
+        virtualCamera.SetActive(false);
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult

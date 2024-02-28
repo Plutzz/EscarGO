@@ -51,6 +51,7 @@ public class BakingStation : SuperStation
         success = false;
         virtualCamera.SetActive(false);
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+        Debug.Log("Switched to player");
     }
 
     public override bool ActivityResult
@@ -115,6 +116,9 @@ public class BakingStation : SuperStation
 
     private IEnumerator Succeed()
     {
+        leftSuccess = false;
+        middleSuccess = false;
+        rightSuccess = false;
         isBaking = false;
         yield return new WaitForSeconds(1.0f);
         DeActivate();
