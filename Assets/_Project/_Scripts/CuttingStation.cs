@@ -50,20 +50,20 @@ public class CuttingStation : SuperStation
         switch (cutPosition)
         {
             case CutPosition.Up:
-                offSet = new Vector3(0f, 0.53f, 0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
-                break;
-            case CutPosition.Down:
-                offSet = new Vector3(0f, 0.53f, -0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
-                break;
-            case CutPosition.Left:
                 offSet = new Vector3(-0.4f, 0.53f, 0f);
                 rotation = Quaternion.Euler(90f, 0f, 0f);
                 break;
-            case CutPosition.Right:
+            case CutPosition.Down:
                 offSet = new Vector3(0.4f, 0.53f, 0f);
                 rotation = Quaternion.Euler(90f, 0f, 0f);
+                break;
+            case CutPosition.Left:
+                offSet = new Vector3(0f, 0.53f, 0.4f);
+                rotation = Quaternion.Euler(90f, 90f, 0f);
+                break;
+            case CutPosition.Right:
+                offSet = new Vector3(0f, 0.53f, -0.4f);
+                rotation = Quaternion.Euler(90f, 90f, 0f);
                 break;
             default:
                 Debug.Log("Invalid cutting direction");
@@ -71,6 +71,11 @@ public class CuttingStation : SuperStation
         }
 
         cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
+
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        Cursor.lockState = CursorLockMode.None;
+
+        Debug.Log("activate");
     }
 
     public override void DeActivate()
@@ -81,6 +86,8 @@ public class CuttingStation : SuperStation
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+
+        Debug.Log("deactivate");
     }
 
     public override bool ActivityResult
@@ -104,15 +111,11 @@ public class CuttingStation : SuperStation
         if(isCutting)
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                Debug.Log(hit.point);
-            }
             
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("press left click");
+
                 if(CheckHit())
                 {
                     cutNumber.color = Color.blue;
@@ -120,10 +123,9 @@ public class CuttingStation : SuperStation
                     Mathf.Clamp(neededcuts -= 1, 0, maxCuts);
                     if(neededcuts <= 0)
                     {
+                        Debug.Log("success");
                         StartCoroutine(Succeed());
                     }
-                } else {
-                    StartCoroutine(Fail());
                 }
             }
 

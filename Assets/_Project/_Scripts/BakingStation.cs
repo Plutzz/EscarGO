@@ -43,6 +43,9 @@ public class BakingStation : SuperStation
         SetTargets();
         isBaking = true;
         virtualCamera.enabled = true;
+
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public override void DeActivate()

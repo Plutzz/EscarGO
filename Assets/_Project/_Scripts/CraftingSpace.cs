@@ -5,11 +5,12 @@ using UnityEngine;
 public class CraftingSpace : InteractableSpace
 {
     public CraftableItem craftableItem;
+    public SuperStation station;
     public override void Interact(PlayerInventory inventory)
     {
         if (inventory.CanCraft(craftableItem) == true) { 
             TipsManager.Instance.SetTip("Made a " + craftableItem.itemName, 3f);
-            // Start Minigame
+            station.Activate();
         }
         else
         {

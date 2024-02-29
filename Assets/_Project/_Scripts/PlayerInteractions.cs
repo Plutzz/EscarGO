@@ -36,7 +36,7 @@ public class PlayerInteractions : MonoBehaviour
     }
 
     private void CheckForInteractable() {
-        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, interactables);
+        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, minigameLayer);
         foreach (Collider col in interactableColliders) { 
             InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
             if (interactable != null)
@@ -72,10 +72,10 @@ public class PlayerInteractions : MonoBehaviour
 
         if (interactable != null)
         {
-            InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
-            Debug.Log("switched to minigame: " + gameObject);
-            interactable.Activate();
-            Cursor.lockState = CursorLockMode.None;
+            // InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+            // Debug.Log("switched to minigame: " + gameObject);
+            // interactable.Activate();
+            // Cursor.lockState = CursorLockMode.None;
         }
     }
 
