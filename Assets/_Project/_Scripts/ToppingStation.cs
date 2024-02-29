@@ -5,6 +5,9 @@ using Cinemachine;
 
 public class ToppingStation : SuperStation
 {
+    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private CraftableItem dough;
+    [SerializeField] private CraftableItem chocolate;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private GameObject toppingCircle;
     [SerializeField] private int toppingCircleAmount = 5;
@@ -85,6 +88,8 @@ public class ToppingStation : SuperStation
             if(toppingCircleLeft == 0)
             {
                 success = true;
+                inventory.Craft(dough);
+                inventory.Craft(chocolate);
                 DeActivate();
             }
         }
