@@ -36,11 +36,19 @@ public class BakingStation : SuperStation
             return;
         }
 
+        if(leftTarget != null || middleTarget != null || rightTarget != null)
+        {
+            Destroy(leftTarget);
+            Destroy(middleTarget);
+            Destroy(rightTarget);
+        }
+
+        SetTargets();
+
         success = false;
         leftTurns = 0;
         middleTurns = 0;
         righTurns = 0;
-        SetTargets();
         isBaking = true;
         virtualCamera.enabled = true;
 
@@ -124,13 +132,12 @@ public class BakingStation : SuperStation
         knob.transform.Rotate(Vector3.up * -30);
     }
 
-    private IEnumerator Succeed()
+    private void Succeed()
     {
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
         isBaking = false;
-        yield return new WaitForSeconds(1.0f);
         DeActivate();
     }
 
@@ -169,7 +176,7 @@ public class BakingStation : SuperStation
         if(leftSuccess && middleSuccess && rightSuccess)
         {
             success = true;
-            StartCoroutine(Succeed());
+            Succeed();
         } else {
             success = false;
         }

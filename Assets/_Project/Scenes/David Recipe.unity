@@ -460,6 +460,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: BakingStation
       objectReference: {fileID: 0}
+    - target: {fileID: 1650108879682132979, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650108879682132979, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650108879682132979, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 5755586919895933059, guid: 89b1481575f3deb42b9909e1d0028d3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -509,6 +524,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891028839554628552, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891028839554628552, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891028839554628552, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977801968084468313, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977801968084468313, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977801968084468313, guid: 89b1481575f3deb42b9909e1d0028d3f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
