@@ -23,16 +23,16 @@ public class PlayerInteractions : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) { 
+        if (Input.GetKeyDown(KeyCode.F)) { 
             CheckForInteractable();
         }
         if (Input.GetMouseButtonDown(1)) { 
             CheckForTrash();
         }
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            CheckForStation();
-        }
+        // if(Input.GetKeyDown(KeyCode.F))
+        // {
+        //     CheckForStation();
+        // }
     }
 
     private void CheckForInteractable() {

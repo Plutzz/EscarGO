@@ -74,8 +74,6 @@ public class CuttingStation : SuperStation
 
         InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
-
-        Debug.Log("activate");
     }
 
     public override void DeActivate()
@@ -86,8 +84,6 @@ public class CuttingStation : SuperStation
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
-
-        Debug.Log("deactivate");
     }
 
     public override bool ActivityResult

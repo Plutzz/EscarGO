@@ -32,6 +32,9 @@ public class ToppingStation : SuperStation
         {
             toppingCircleObjects.Add(Instantiate(toppingCircle, transform.position + new Vector3(Random.Range(-maxX, maxX), 0.54f, Random.Range(-maxZ, maxZ)), transform.rotation));
         }
+
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public override void DeActivate()
@@ -76,7 +79,6 @@ public class ToppingStation : SuperStation
                 if(HitToppingCircle())
                 {
                     toppingCircleLeft -= 1;
-                    Debug.Log(toppingCircleLeft);
                 }
             }
 
