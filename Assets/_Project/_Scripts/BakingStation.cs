@@ -141,7 +141,10 @@ public class BakingStation : SuperStation
         middleSuccess = false;
         rightSuccess = false;
         isBaking = false;
-        inventory.Craft(donut);
+        if(inventory.CanCraft(donut)) //maybe other player knocks items out of inventory
+        {
+            inventory.Craft(donut);
+        }
         DeActivate();
     }
 
