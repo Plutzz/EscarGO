@@ -101,7 +101,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        orientation.eulerAngles = new Vector3 (0f, cameraScript.transform.eulerAngles.y, 0f);
+        if(orientation != null)
+            orientation.eulerAngles = new Vector3 (0f, cameraScript.transform.eulerAngles.y, 0f);
 
     }
 
