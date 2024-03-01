@@ -2704,9 +2704,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8837194606072665034, guid: 0a8e2e7b78e499548808594817b0bbf1,
         type: 3}
+      propertyPath: chocolate
+      value: 
+      objectReference: {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385,
+        type: 2}
+    - target: {fileID: 8837194606072665034, guid: 0a8e2e7b78e499548808594817b0bbf1,
+        type: 3}
       propertyPath: cutNumber
       value: 
       objectReference: {fileID: 780364509}
+    - target: {fileID: 8837194606072665034, guid: 0a8e2e7b78e499548808594817b0bbf1,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 817443154}
+    - target: {fileID: 8837194606072665034, guid: 0a8e2e7b78e499548808594817b0bbf1,
+        type: 3}
+      propertyPath: cutPosition
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
