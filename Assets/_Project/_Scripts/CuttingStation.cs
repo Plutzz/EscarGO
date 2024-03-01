@@ -7,6 +7,8 @@ using Cinemachine;
 public class CuttingStation : SuperStation
 {
     public CutPosition cutPosition;
+    [SerializeField] private CraftableItem chocolate;
+    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
@@ -50,11 +52,11 @@ public class CuttingStation : SuperStation
         switch (cutPosition)
         {
             case CutPosition.Up:
-                offSet = new Vector3(-0.4f, 0.53f, 0f);
+                offSet = new Vector3(0.4f, 0.53f, 0f);
                 rotation = Quaternion.Euler(90f, 0f, 0f);
                 break;
             case CutPosition.Down:
-                offSet = new Vector3(0.4f, 0.53f, 0f);
+                offSet = new Vector3(-0.4f, 0.53f, 0f);
                 rotation = Quaternion.Euler(90f, 0f, 0f);
                 break;
             case CutPosition.Left:
@@ -168,6 +170,7 @@ public class CuttingStation : SuperStation
     {
         cutNumber.color = Color.green;
         success = true;
+        inventory.Craft(chocolate);
         if(cutIndicator != null)
         {
             Destroy(cutIndicator);
