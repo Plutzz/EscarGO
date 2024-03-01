@@ -23,7 +23,7 @@ public class PlayerInteractions : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F)) { 
+        if (InputManager.Instance.InteractPressedThisFrame) { 
             CheckForInteractable();
         }
         if (Input.GetMouseButtonDown(1)) { 

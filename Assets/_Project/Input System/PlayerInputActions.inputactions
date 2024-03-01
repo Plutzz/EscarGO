@@ -192,7 +192,7 @@
                 {
                     "name": "",
                     "id": "58f9d30b-20aa-49be-a51b-3f19ba61bfa4",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
