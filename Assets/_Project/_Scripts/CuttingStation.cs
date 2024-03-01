@@ -122,7 +122,7 @@ public class CuttingStation : SuperStation
                     if(neededcuts <= 0)
                     {
                         Debug.Log("success");
-                        StartCoroutine(Succeed());
+                        Succeed();
                     }
                 }
             }
