@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 2479384974613480693}
   serializedVersion: 2
   m_LocalRotation: {x: -0.093957596, y: -0.73852, z: 0.011409963, w: 0.6675553}
-  m_LocalPosition: {x: -1.2, y: 1.3, z: 42.2}
+  m_LocalPosition: {x: 0.14, y: 11.92, z: 40.66}
   m_LocalScale: {x: 3, y: 10, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,8 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3141356370038839228, guid: 0d843f046d4b7ff468bf908a70a42440, type: 3}
-  patienceTime: 5
+  patienceTime: 60
   interactionDistance: 2
+  movementController: {fileID: 0}
 --- !u!114 &7999536262768886706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customerPrefab: {fileID: 2479384974613480693}
+  movementController: {fileID: 2479384974613480693}
 --- !u!114 &-4012893780502171611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,8 +174,8 @@ MonoBehaviour:
   chairs:
   - {fileID: 7321623340871455025, guid: 79be57e2dab93c14db4294a4a27fdcae, type: 3}
   - {fileID: 628431143559000089, guid: fc8994c1d73ac164790cf4169a40e509, type: 3}
-  customer: {fileID: 2479384974613480693}
-  speed: 1
+  - {fileID: 5331413450396869962, guid: 5de25ed1d49de61408628790f7553794, type: 3}
+  speed: 5
 --- !u!114 &5201058189433728573
 MonoBehaviour:
   m_ObjectHideFlags: 0

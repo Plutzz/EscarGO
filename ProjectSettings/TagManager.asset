@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ToppingCircle
   - Knob
+  - Chair
   layers:
   - Default
   - TransparentFX

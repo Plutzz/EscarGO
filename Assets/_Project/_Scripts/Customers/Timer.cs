@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public float timerDuration = 60f; // Default timer duration
+    public float timerDuration = 30f; 
 
     public void StartTimer(Customer customer)
     {
@@ -15,17 +15,5 @@ public class Timer : MonoBehaviour
     {
         yield return new WaitForSeconds(timerDuration);
         customer.Leave();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

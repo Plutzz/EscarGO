@@ -6,7 +6,9 @@ public class Customer : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     private Recipe order;
-    [SerializeField] private float patienceTime = 60f; // Time in seconds until customer leaves
+    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
+    [SerializeField] private Recipe order;
+    public float patienceTime = 60f; // Time in seconds until customer leaves
     private float timer;
     private bool orderRecieved;
     [SerializeField] private float interactionDistance = 2f;
@@ -68,5 +70,5 @@ public class Customer : MonoBehaviour
         Debug.Log("You take too long! I'm out");
         gameObject.SetActive(false); // Use "SetActive" instead of "setActive"
     }
-}
+} 
 
