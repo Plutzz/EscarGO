@@ -166,28 +166,30 @@ public class CuttingStation : SuperStation
         }
     }
 
-    private IEnumerator Succeed()
+    private void Succeed()
     {
         cutNumber.color = Color.green;
         success = true;
         inventory.Craft(chocolate);
+        
         if(cutIndicator != null)
         {
             Destroy(cutIndicator);
         }
-        yield return new WaitForSeconds(1.0f);
+
         DeActivate();
     }
 
-    private IEnumerator Fail()
+    private void Fail()
     {
         cutNumber.color = Color.red;
         success = false;
-        yield return new WaitForSeconds(1.0f);
+
         if(cutIndicator != null)
         {
             Destroy(cutIndicator);
         }
+
         DeActivate();
     }
 }
