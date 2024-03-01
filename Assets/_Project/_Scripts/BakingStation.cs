@@ -5,6 +5,9 @@ using Cinemachine;
 
 public class BakingStation : SuperStation
 {
+
+    [SerializeField] private CraftableItem donut;
+    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private int maxTurns = 11;
     [SerializeField] private GameObject leftKnob;
@@ -138,6 +141,7 @@ public class BakingStation : SuperStation
         middleSuccess = false;
         rightSuccess = false;
         isBaking = false;
+        inventory.Craft(donut);
         DeActivate();
     }
 
