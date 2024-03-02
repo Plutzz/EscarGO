@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "Airborne", menuName = "Player Logic/Airborne Logic/Default")]
-public class PlayerAirborneVinh : PlayerAirborneSOBase
+[CreateAssetMenu(fileName = "AirborneTD", menuName = "Player Logic/Airborne Logic/Top Down")]
+public class PlayerAirborneTD: PlayerAirborneSOBase
 {
 
     [SerializeField] private float speed = 5f;
-
-    private float turnSmoothVelocity;
+    private Vector2 input;
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
@@ -61,12 +60,12 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
 
     private void GetInput()
     {
-        inputVector = InputManager.Instance.MoveInput;
+        input = InputManager.Instance.MoveInput;
     }
 
     private void Move()
     {
-        if (inputVector == Vector2.zero)
+        if (input == Vector2.zero)
         {
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             return;
@@ -78,7 +77,6 @@ public class PlayerAirborneVinh : PlayerAirborneSOBase
             speed = speed * 2;
         }
 
-        Vector3 moveDir = (stateMachine.cameraTransform.forward * inputVector.y + stateMachine.cameraTransform.right * inputVector.x).normalized;
-        rb.velocity = new Vector3(moveDir.x * speed, rb.velocity.y, moveDir.z * speed);
+        rb.velocity = new Vector3(input.x * speed, rb.velocity.y, input.y * speed);
     }
 }

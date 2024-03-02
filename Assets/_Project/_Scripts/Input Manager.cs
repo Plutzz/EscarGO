@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 public class InputManager : Singleton<InputManager>
 {
     // Move Input
-    public Vector2 MoveInput {  get; private set; }
+    public Vector2 MoveInput { get; private set; }
 
     // Look Input
     public Vector2 LookInput { get; private set; }
 
     // Interact input
-    public bool InteractPressedThisFrame {  get; private set; }
+    public bool InteractPressedThisFrame { get; private set; }
     public bool InteractReleasedThisFrame { get; private set; }
     public bool InteractIsPressed { get; private set; }
 
@@ -40,6 +40,11 @@ public class InputManager : Singleton<InputManager>
     public bool PreviousInventoryReleasedThisFrame { get; private set; }
     public bool PreviousInventoryIsPressed { get; private set; }
 
+    // Pause Input
+    public bool PausePressedThisFrame { get; private set; }
+    public bool PauseReleasedThisFrame { get; private set; }
+    public bool PauseIsPressed { get; private set; }
+
 
     private PlayerInput playerInput;
     private InputAction moveAction;
@@ -50,6 +55,7 @@ public class InputManager : Singleton<InputManager>
     private InputAction crouchAction;
     private InputAction nextInventoryAction;
     private InputAction previousInventoryAction;
+    private InputAction pauseAction;
 
     protected override void Awake()
     {
@@ -73,6 +79,7 @@ public class InputManager : Singleton<InputManager>
         interactAction = playerInput.actions["Interact"];
         nextInventoryAction = playerInput.actions["Next Inventory Slot"];
         previousInventoryAction = playerInput.actions["Previous Inventory Slot"];
+        pauseAction = playerInput.actions["Pause"];
     }
 
     private void UpdateInputs()
@@ -110,5 +117,16 @@ public class InputManager : Singleton<InputManager>
         PreviousInventoryPressedThisFrame = previousInventoryAction.WasPressedThisFrame();
         PreviousInventoryIsPressed = previousInventoryAction.IsPressed();
         PreviousInventoryReleasedThisFrame = previousInventoryAction.WasReleasedThisFrame();
+
+        // Pause Action
+        PausePressedThisFrame = pauseAction.WasPressedThisFrame();
+        PauseIsPressed = pauseAction.IsPressed();
+        PauseReleasedThisFrame = pauseAction.WasReleasedThisFrame();
+    }
+
+    public void SwitchActionMap(string actionMapName)
+    {
+        playerInput.SwitchCurrentActionMap(actionMapName);
+        SetupInputActions();
     }
 }

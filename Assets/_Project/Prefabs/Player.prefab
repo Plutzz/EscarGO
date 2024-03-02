@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 9212350127663853799}
   - component: {fileID: 8675043166058549555}
   - component: {fileID: 3298088267010530841}
+  - component: {fileID: 3206772780684805962}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -155,7 +156,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3141356370038839228}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e4a732d49c96754f8cb1efa378a2d90, type: 3}
   m_Name: 
@@ -168,7 +169,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3141356370038839228}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41632fa344fadb6419db4b32d0741544, type: 3}
   m_Name: 
@@ -193,10 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65ce6324ecb6f14c8959f734693fe1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  playerHeight: 2
   maxStamina: 100
   currentStamina: 0
   staminaDecreaseRate: 10
@@ -206,7 +203,6 @@ MonoBehaviour:
   jumpCooldownDuration: 1
   jumpBufferTime: 0.1
   canJump: 1
-  pauseMenu: {fileID: 0}
 --- !u!54 &3657045978795358490
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -300,6 +296,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844507df2ca404f4e9b236b096ac7aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3206772780684805962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141356370038839228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3eede612df79c4eb0cbc2a65b1f914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  resumeButton: {fileID: 0}
+  ResumeButtonClicked: 0
 --- !u!1 &3799496545928371781
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +405,7 @@ MonoBehaviour:
   yRotationLimit: 88
   hand: {fileID: 5775809413446238165}
   interactDist: 5
+  cam: {fileID: 0}
 --- !u!114 &7008615595358212417
 MonoBehaviour:
   m_ObjectHideFlags: 0

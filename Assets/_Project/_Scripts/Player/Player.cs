@@ -7,8 +7,6 @@ public class Player : MonoBehaviour
 {
     # region Object References
     [Header("Object References")]
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float playerHeight;
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     private Rigidbody rb;
@@ -36,10 +34,6 @@ public class Player : MonoBehaviour
     private float lastJumpPressed;
 
     #endregion
-
-    [Header("Temp Debug Variables")]
-    [SerializeField] private GameObject pauseMenu;
-
 
     void Start()
     {
@@ -82,20 +76,6 @@ public class Player : MonoBehaviour
         else
         {
             IncreaseStamina();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape) && pauseMenu != null)
-        {
-            if (!pauseMenu.activeSelf)
-            {
-                Cursor.lockState = CursorLockMode.Confined;
-                pauseMenu.SetActive(true);
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                pauseMenu.SetActive(false);
-            }
         }
     }
 
