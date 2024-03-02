@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class BakingStation : SuperStation
 {
+
+    [SerializeField] private CraftableItem donut;
+    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private int maxTurns = 11;
     [SerializeField] private GameObject leftKnob;
     [SerializeField] private GameObject middleKnob;
     [SerializeField] private GameObject rightKnob;
     [SerializeField] private GameObject turnTarget;
 
-    public bool isBaking = false; //change to private after testing
+    private bool isBaking = false;
     private bool success = false;
-    private LayerMask minigameLayer;
 
     private GameObject leftTarget;
     private GameObject middleTarget;
@@ -30,11 +34,29 @@ public class BakingStation : SuperStation
 
     public override void Activate()
     {
+        if(isBaking == true)
+        {
+            return;
+        }
+
+        if(leftTarget != null || middleTarget != null || rightTarget != null)
+        {
+            Destroy(leftTarget);
+            Destroy(middleTarget);
+            Destroy(rightTarget);
+        }
+
+        SetTargets();
+
+        success = false;
         leftTurns = 0;
         middleTurns = 0;
         righTurns = 0;
-        SetTargets();
         isBaking = true;
+        virtualCamera.enabled = true;
+
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public override void DeActivate()
@@ -46,7 +68,11 @@ public class BakingStation : SuperStation
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
-        success = false;
+        isBaking = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        virtualCamera.enabled = false;
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult
@@ -55,11 +81,14 @@ public class BakingStation : SuperStation
         set { success = value; }
     }
 
+    public override CinemachineVirtualCamera VirtualCamera
+    {
+        get { return virtualCamera; }
+        set { virtualCamera = value; }
+    }
+
     private void Start() {
         Quaternion rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
-        minigameLayer = LayerMask.GetMask("Minigame");
-
-        SetTargets();
     }
 
     private void Update() {
@@ -71,9 +100,9 @@ public class BakingStation : SuperStation
             {
                 TurnKnob(leftKnob);
                 leftTurns += 1;
-                if(leftTurns > 12)
+                if(leftTurns > maxTurns)
                 {
-                    leftTurns = 1;
+                    leftTurns = 0;
                 }
             }
 
@@ -81,9 +110,9 @@ public class BakingStation : SuperStation
             {
                 TurnKnob(middleKnob);
                 middleTurns += 1;
-                if(middleTurns > 12)
+                if(middleTurns > maxTurns)
                 {
-                    middleTurns = 1;
+                    middleTurns = 0;
                 }
             }
 
@@ -91,9 +120,9 @@ public class BakingStation : SuperStation
             {
                 TurnKnob(rightKnob);
                 righTurns += 1;
-                if(righTurns > 12)
+                if(righTurns > maxTurns)
                 {
-                    righTurns = 1;
+                    righTurns = 0;
                 }
             }
 
@@ -104,6 +133,19 @@ public class BakingStation : SuperStation
     private void TurnKnob(GameObject knob)
     {
         knob.transform.Rotate(Vector3.up * -30);
+    }
+
+    private void Succeed()
+    {
+        leftSuccess = false;
+        middleSuccess = false;
+        rightSuccess = false;
+        isBaking = false;
+        if(inventory.CanCraft(donut)) //maybe other player knocks items out of inventory
+        {
+            inventory.Craft(donut);
+        }
+        DeActivate();
     }
 
     private void CheckKnobs()
@@ -141,7 +183,7 @@ public class BakingStation : SuperStation
         if(leftSuccess && middleSuccess && rightSuccess)
         {
             success = true;
-            StartCoroutine(Succeed());
+            Succeed();
         } else {
             success = false;
         }
@@ -156,15 +198,6 @@ public class BakingStation : SuperStation
         leftTarget = Instantiate(turnTarget, leftKnob.transform.position, Quaternion.Euler(new Vector3(0f, -30f, 0f) * turnTargetLeft));
         middleTarget = Instantiate(turnTarget, middleKnob.transform.position, Quaternion.Euler(new Vector3(0f, -30f, 0f) * turnTargetmiddle));
         rightTarget = Instantiate(turnTarget, rightKnob.transform.position, Quaternion.Euler(new Vector3(0f, -30f, 0f) * turnTargetright));
-    }
-
-    private IEnumerator Succeed()
-    {
-        Debug.Log("success");
-        isBaking = false;
-        yield return new WaitForSeconds(1.0f);
-        DeActivate();
-        Activate();
     }
 
     private void ResetKnobs()

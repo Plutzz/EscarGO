@@ -8,10 +8,13 @@ public class PlayerInteractions : MonoBehaviour
     [Header("Interactable Range")]
     [SerializeField] private float offset;
     [SerializeField] private float radius;
+    [SerializeField] private Transform orientation;
 
     [SerializeField] private LayerMask interactables;
     [SerializeField] private LayerMask trashLayer;
+    [SerializeField] private LayerMask minigameLayer;
 
+    private bool inStation = false;
     private PlayerInventory playerInventory;
 
     private void Awake()
@@ -20,16 +23,20 @@ public class PlayerInteractions : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) { 
+        if (InputManager.Instance.InteractPressedThisFrame) { 
             CheckForInteractable();
         }
         if (Input.GetMouseButtonDown(1)) { 
             CheckForTrash();
         }
+        // if(Input.GetKeyDown(KeyCode.F))
+        // {
+        //     CheckForStation();
+        // }
     }
 
     private void CheckForInteractable() {
-        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + transform.forward * offset, radius, interactables);
+        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, minigameLayer);
         foreach (Collider col in interactableColliders) { 
             InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
             if (interactable != null)
@@ -41,7 +48,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void CheckForTrash()
     {
-        Collider[] trashColliders = Physics.OverlapSphere(transform.position + transform.forward * offset, radius, trashLayer);
+        Collider[] trashColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, trashLayer);
         if (trashColliders.Length > 0)
         {
             playerInventory.RemoveSelectedItem();
@@ -51,9 +58,30 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
+    private void CheckForStation()
+    {
+
+        Collider[] stations = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, minigameLayer);
+
+        if(stations.Length == 0)
+        {
+            return;
+        }
+        
+        SuperStation interactable = stations[0].gameObject.GetComponent<SuperStation>();
+
+        if (interactable != null)
+        {
+            // InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+            // Debug.Log("switched to minigame: " + gameObject);
+            // interactable.Activate();
+            // Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + transform.forward * offset, radius);
+        Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
     }
 }

@@ -93,7 +93,7 @@ public class PlayerInventory : MonoBehaviour
         return true;
     }
 
-    public bool TryCraft(CraftableItem craftableItem) {
+    public bool CanCraft(CraftableItem craftableItem) {
 
         //Check that player has all items in dictionary
         foreach (Ingredient ingredient in craftableItem.requiredIngredients) {
@@ -104,21 +104,26 @@ public class PlayerInventory : MonoBehaviour
                 return false;
             }
         }
-
         Debug.Log("Can craft: " + craftableItem.itemName);
-        //If reached here then it can be crafted
+        return true;
+    }
+
+    public void Craft(CraftableItem craftableItem)
+    {
         foreach (Ingredient ingredient in craftableItem.requiredIngredients)
         {
             Debug.Log($"Looking for: {ingredient.requiredAmount} x {ingredient.item.itemName}");
             int removedCount = 0;
-            for(int i = currentItems.Count - 1; i >= 0; i--)
+            for (int i = currentItems.Count - 1; i >= 0; i--)
             {
                 Debug.Log("I is " + i);
-                if (currentItems[i].itemName == ingredient.item.name) { 
+                if (currentItems[i].itemName == ingredient.item.name)
+                {
                     currentItems.RemoveAt(i);
                     removedCount++;
 
-                    if (removedCount >= ingredient.requiredAmount) {
+                    if (removedCount >= ingredient.requiredAmount)
+                    {
                         break;
                     }
                 }
@@ -128,8 +133,6 @@ public class PlayerInventory : MonoBehaviour
         }
 
         TryAddItemToInventory(craftableItem);
-
-        return true;
     }
 
     
