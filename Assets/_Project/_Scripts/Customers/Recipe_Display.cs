@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Recipe_Display : MonoBehaviour
 {
-    private CraftableItem recipe;
+    public CraftableItem recipe;
     [SerializeField] private CraftableItem[] recipes; // Array of CraftableItem items
 
     // Start is called before the first frame update

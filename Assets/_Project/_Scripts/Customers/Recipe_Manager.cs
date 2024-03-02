@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RecipeManager : MonoBehaviour
 {
-    public Recipe[] recipes; // Array of Recipe objects
+    public CraftableItem[] recipes; // Array of Recipe objects
 
     // Assign a random recipe to the specified object
     public void AssignRandomRecipe(GameObject obj)
@@ -13,7 +13,7 @@ public class RecipeManager : MonoBehaviour
         {
             int randomIndex = Random.Range(0, recipes.Length);
 
-            Recipe randomRecipe = recipes[randomIndex];
+            CraftableItem randomRecipe = recipes[randomIndex];
 
             Recipe_Display recipeDisplay = obj.GetComponent<Recipe_Display>();
             if (recipeDisplay != null)
