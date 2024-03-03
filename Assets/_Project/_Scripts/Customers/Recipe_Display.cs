@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Recipe_Display : MonoBehaviour
+public class RecipeDisplay : MonoBehaviour
 {
     public CraftableItem recipe;
     [SerializeField] private CraftableItem[] recipes; // Array of CraftableItem items

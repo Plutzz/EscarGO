@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Customer_Movement : MonoBehaviour
+public class CustomerMovement : MonoBehaviour
 {
     [SerializeField] private Chair[] chairs; // reference all chairs
     [SerializeField] private float speed;

@@ -15,7 +15,7 @@ public class RecipeManager : MonoBehaviour
 
             CraftableItem randomRecipe = recipes[randomIndex];
 
-            Recipe_Display recipeDisplay = obj.GetComponent<Recipe_Display>();
+            RecipeDisplay recipeDisplay = obj.GetComponent<RecipeDisplay>();
             if (recipeDisplay != null)
             {
                 recipeDisplay.recipe = randomRecipe;

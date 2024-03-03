@@ -17,7 +17,7 @@ public class CustomerSpawner : MonoBehaviour
             Debug.Log("Respawn Customer");
             timer = 0;
             GameObject spawnedCustomer = Instantiate(customerPrefab, transform.position, Quaternion.identity);
-            spawnedCustomer.GetComponent<Customer_Movement>().GetChairs(chairs);
+            spawnedCustomer.GetComponent<CustomerMovement>().GetChairs(chairs);
         }
     }
 }
