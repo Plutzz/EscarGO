@@ -155,7 +155,7 @@ Material:
     - _Radius: 0.12
     - _ReceiveShadows: 1
     - _SOFTCLOUDS: 0
-    - _ScrollingSpeed: 1
+    - _ScrollingSpeed: 0.5
     - _ShadowAmount: 0
     - _ShadowBlend: 0.7
     - _ShadowOffset: 0

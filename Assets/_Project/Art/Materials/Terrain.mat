@@ -61,7 +61,7 @@ Material:
     - _Plane_Height: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 1
+    - _Speed: 0.5
     - _Step: 3.15
     - _ValleyDivide: 10.8
     - _ValleyOffset: 0
