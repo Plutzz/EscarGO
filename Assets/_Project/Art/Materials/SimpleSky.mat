@@ -77,6 +77,9 @@ Material:
     m_Floats:
     - _AtmosphereThickness: 0.44
     - _Exposure: 2.05
+    - _Float_1: 0.2
+    - _Float_2: 0.2
+    - _Float_3: 0
     - _HorizonBlend: 4.25
     - _NadirBlend: 1
     - _QueueControl: 0

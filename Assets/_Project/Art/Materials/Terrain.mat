@@ -53,7 +53,7 @@ Material:
     m_Floats:
     - _ColorOffset: 0.24
     - _FlatnessCutoff: 0.23
-    - _Lowest_Elevation: 0
+    - _Lowest_Elevation: 0.09
     - _MountainTipHeight: 1.62
     - _Mountain_Cover_Height: 1.21
     - _Noise_Aplitude: 7.04
