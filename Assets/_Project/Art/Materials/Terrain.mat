@@ -51,23 +51,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ColorOffset: 0.14
+    - _ColorOffset: 0.24
     - _FlatnessCutoff: 0.23
-    - _Lowest_Elevation: 0.02
+    - _Lowest_Elevation: 0
     - _MountainTipHeight: 1.62
     - _Mountain_Cover_Height: 1.21
-    - _Noise_Aplitude: 8
-    - _Noise_Scale: 21.37
+    - _Noise_Aplitude: 7.04
+    - _Noise_Scale: 16.77
+    - _Plane_Height: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 1
     - _Step: 3.15
-    - _ValleyDivide: 7.51
-    - _ValleyOffset: -10
-    - _ValleyWidth: 1.38
+    - _ValleyDivide: 10.8
+    - _ValleyOffset: 0
+    - _ValleyWidth: 1
     m_Colors:
     - _Color: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0}
-    - _Lower_Base_Color: {r: 0.08851013, g: 0.14439303, b: 0.3679245, a: 0}
+    - _Lower_Base_Color: {r: 0.107645065, g: 0.19617215, b: 0.5566038, a: 0}
     - _Lower_Color: {r: 0, g: 0.33449188, b: 0.4433962, a: 0}
     - _Lower_Top_Color: {r: 0.07008721, g: 0.39096075, b: 0.4245283, a: 0}
     - _MountainTipColor: {r: 0.42435032, g: 0.6037736, b: 0.45908254, a: 0}
