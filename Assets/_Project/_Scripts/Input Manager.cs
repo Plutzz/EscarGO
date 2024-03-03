@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Custom input handler class to be able to have rebindable inputs
-public class InputManager : Singleton<InputManager>
+public class InputManager : NetworkBehaviour
 {
     // Move Input
     public Vector2 MoveInput { get; private set; }
@@ -57,9 +58,13 @@ public class InputManager : Singleton<InputManager>
     private InputAction previousInventoryAction;
     private InputAction pauseAction;
 
-    protected override void Awake()
+    public override void OnNetworkSpawn()
     {
-        base.Awake();
+        // If this script is not owned by the client
+        // Delete it so no input is picked up by it
+        if (!IsOwner)
+            Destroy(this);
+
         playerInput = GetComponent<PlayerInput>();
         SetupInputActions();
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
+using Unity.Netcode;
 
 public class FrostingStation : SuperStation
 {
@@ -33,6 +34,7 @@ public class FrostingStation : SuperStation
         virtualCamera.enabled = true;
     }
 
+
     public override void DeActivate()
     {
         isFrosting = false;
@@ -41,7 +43,9 @@ public class FrostingStation : SuperStation
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+
+        // Gets the inputManager of this client's player
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult

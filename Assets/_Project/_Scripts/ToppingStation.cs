@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Unity.Netcode;
 
 public class ToppingStation : SuperStation
 {
@@ -35,7 +36,7 @@ public class ToppingStation : SuperStation
             toppingCircleObjects.Add(Instantiate(toppingCircle, transform.position + new Vector3(Random.Range(-maxX, maxX), 0.54f, Random.Range(-maxZ, maxZ)), transform.rotation));
         }
 
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -46,7 +47,7 @@ public class ToppingStation : SuperStation
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
 
         foreach (GameObject obj in toppingCircleObjects)
         {

@@ -52,7 +52,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
             stateMachine.ChangeState(stateMachine.AirborneState);
         }
         // Moving => Idle
-        else if (InputManager.Instance.MoveInput == Vector2.zero && rb.velocity.magnitude < 3f)
+        else if (stateMachine.inputManager.MoveInput == Vector2.zero && rb.velocity.magnitude < 3f)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }
@@ -63,7 +63,7 @@ public class PlayerMovingVinh : PlayerMovingSOBase
 
     private void GetInput()
     {
-        inputVector = InputManager.Instance.MoveInput;
+        inputVector = stateMachine.inputManager.MoveInput;
     }
 
     private void Move()

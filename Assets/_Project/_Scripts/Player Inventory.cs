@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
-
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : NetworkBehaviour
 {
     [SerializeField] GameObject inventoryParent;
     private List<InventorySpace> inventorySpaces = new List<InventorySpace>();
     private List<Item> currentItems = new List<Item>();
     private int currentItemIndex;
     private Dictionary<string, int> items = new Dictionary<string, int>();
-    void Awake()
+    public override void OnNetworkSpawn()
     {
+        // If this script is not owned by the client
+        // Delete it so no input is picked up by it
+        if (!IsOwner)
+            Destroy(this);
+
         foreach (Transform child in inventoryParent.transform) { 
             InventorySpace space = child.GetComponent<InventorySpace>();
             if (space != null)

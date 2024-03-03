@@ -46,12 +46,12 @@ public class PlayerAirborneTD: PlayerAirborneSOBase
     public override void CheckTransitions()
     {
         // Airborne => Moving
-        if (stateMachine.GroundedCheck() && InputManager.Instance.MoveInput != Vector2.zero)
+        if (stateMachine.GroundedCheck() && stateMachine.inputManager.MoveInput != Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }
         // Airborne => Idle
-        else if (stateMachine.GroundedCheck() && InputManager.Instance.MoveInput == Vector2.zero)
+        else if (stateMachine.GroundedCheck() && stateMachine.inputManager.MoveInput == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }
@@ -60,7 +60,7 @@ public class PlayerAirborneTD: PlayerAirborneSOBase
 
     private void GetInput()
     {
-        input = InputManager.Instance.MoveInput;
+        input = stateMachine.inputManager.MoveInput;
     }
 
     private void Move()
@@ -72,7 +72,7 @@ public class PlayerAirborneTD: PlayerAirborneSOBase
         }
 
         float speed = this.speed;
-        if (InputManager.Instance.SprintIsPressed)
+        if (stateMachine.inputManager.SprintIsPressed)
         {
             speed = speed * 2;
         }

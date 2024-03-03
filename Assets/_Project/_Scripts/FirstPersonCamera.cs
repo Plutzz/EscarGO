@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class FirstPersonCamera : MonoBehaviour
+public class FirstPersonCamera : NetworkBehaviour
 {
+    private InputManager inputManager;
+
     public float Sensitivity
     {
         get { return sensitivity; }
@@ -20,13 +23,19 @@ public class FirstPersonCamera : MonoBehaviour
     [SerializeField]
     private Camera cam;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
+        // If this script is not owned by the client
+        // Delete it so no input is picked up by it
+        if (!IsOwner)
+            Destroy(this);
+
+        inputManager = transform.parent.GetComponent<InputManager>();
     }
 
     void Update()
     {
-        rotation += InputManager.Instance.LookInput * sensitivity;
+        rotation += inputManager.LookInput * sensitivity;
         rotation.y = Mathf.Clamp(rotation.y, -yRotationLimit, yRotationLimit);
         var xQuat = Quaternion.AngleAxis(rotation.x, Vector3.up);
         var yQuat = Quaternion.AngleAxis(rotation.y, Vector3.left);

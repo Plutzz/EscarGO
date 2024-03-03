@@ -22,11 +22,11 @@ public class PlayerAirborneSOBase : PlayerStateSOBase
         if (!stateMachine.GroundedCheck()) return;
 
         // Airborne => Moving
-        else if (InputManager.Instance.MoveInput != Vector2.zero)
+        else if (stateMachine.inputManager.MoveInput != Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }
-        else if (InputManager.Instance.MoveInput == Vector2.zero)
+        else if (stateMachine.inputManager.MoveInput == Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }

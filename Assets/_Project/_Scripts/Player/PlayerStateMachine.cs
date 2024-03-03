@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Unity.Netcode;
+using JetBrains.Annotations;
 
 
-public class PlayerStateMachine : MonoBehaviour
+public class PlayerStateMachine : NetworkBehaviour
 {
     public PlayerState currentState { get; private set; } // State that player is currently in
     private PlayerState initialState; // State that player starts as
@@ -35,6 +35,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     #region Player Variables
     public Rigidbody rb { get; private set; }
+    public InputManager inputManager { get; private set; }
 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
@@ -51,9 +52,15 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
 
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
+        // If this script is not owned by the client
+        // Delete it so no input is picked up by it
+        if (!IsOwner)
+            Destroy(this);
+
         rb = GetComponentInChildren<Rigidbody>();
+        inputManager = GetComponent<InputManager>();
 
         PlayerIdleBaseInstance = Instantiate(playerIdleBase);
         PlayerMovingBaseInstance = Instantiate(playerMovingBase);
@@ -80,7 +87,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void Start()
     {
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         currentState = initialState;
         currentState.EnterLogic();
     }
@@ -88,21 +95,18 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {
-        crouching = InputManager.Instance.CrouchIsPressed;
+        crouching = GetComponent<InputManager>().CrouchIsPressed;
         
         if (crouching)
             player.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
         else
             player.localScale = new Vector3(player.localScale.x, startYScale, gameObject.transform.localScale.z);
+
         currentState.UpdateState();
     }
-
-
-
     private void FixedUpdate()
     {
         currentState.FixedUpdateState();
-
     }
 
     public void ChangeState(PlayerState newState)

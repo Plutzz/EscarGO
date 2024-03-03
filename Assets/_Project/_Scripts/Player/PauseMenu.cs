@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -21,19 +22,19 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (InputManager.Instance.PausePressedThisFrame && pauseMenu != null || ResumeButtonClicked)
+        if (NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().PausePressedThisFrame && pauseMenu != null || ResumeButtonClicked)
         {
             if (!pauseMenu.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Confined;
                 pauseMenu.SetActive(true);
-                InputManager.Instance.SwitchActionMap("UI");
+                NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("UI");
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 pauseMenu.SetActive(false);
-                InputManager.Instance.SwitchActionMap("Player");
+                NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
             }
 
             ResumeButtonClicked = false;

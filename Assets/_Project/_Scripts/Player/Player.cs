@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        sprinting = InputManager.Instance.SprintIsPressed;
+        sprinting = stateMachine.inputManager.SprintIsPressed;
 
         currentState = stateMachine.currentState;
 
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
             canJump = true;
         }
 
-        if (InputManager.Instance.JumpPressedThisFrame)
+        if (stateMachine.inputManager.JumpPressedThisFrame)
         {
             lastJumpPressed = Time.time;
             if (currentState == stateMachine.AirborneState) return;

@@ -20,7 +20,7 @@ public class PlayerIdleSOBase : PlayerStateSOBase
         {
             stateMachine.ChangeState(stateMachine.AirborneState);
         }
-        else if (InputManager.Instance.MoveInput != Vector2.zero)
+        else if (stateMachine.inputManager.MoveInput != Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }

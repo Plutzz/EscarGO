@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
+using Unity.Netcode;
 
 public class CuttingStation : SuperStation
 {
@@ -74,7 +75,7 @@ public class CuttingStation : SuperStation
 
         cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
 
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -85,7 +86,7 @@ public class CuttingStation : SuperStation
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult

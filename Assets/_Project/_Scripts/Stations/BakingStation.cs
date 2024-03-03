@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Unity.Netcode;
 
 public class BakingStation : SuperStation
 {
@@ -55,7 +56,7 @@ public class BakingStation : SuperStation
         isBaking = true;
         virtualCamera.enabled = true;
 
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -72,7 +73,7 @@ public class BakingStation : SuperStation
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult

@@ -41,7 +41,7 @@ public class PlayerIdleVinh : PlayerIdleSOBase
             stateMachine.ChangeState(stateMachine.AirborneState);
         }
         // Idle => Moving
-        else if (InputManager.Instance.MoveInput != Vector2.zero)
+        else if (stateMachine.inputManager.MoveInput != Vector2.zero)
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }
