@@ -28,7 +28,7 @@ public class FirstPersonCamera : NetworkBehaviour
         // If this script is not owned by the client
         // Delete it so no input is picked up by it
         if (!IsOwner)
-            Destroy(this);
+            Destroy(gameObject);
 
         inputManager = transform.parent.GetComponent<InputManager>();
     }

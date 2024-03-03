@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         stateMachine = GetComponent<PlayerStateMachine>();
-        cameraScript = GetComponentInChildren<FirstPersonCamera>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         currentStamina = maxStamina;
@@ -101,7 +100,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(orientation != null)
+        if(orientation != null && cameraScript != null)
             orientation.eulerAngles = new Vector3 (0f, cameraScript.transform.eulerAngles.y, 0f);
 
     }

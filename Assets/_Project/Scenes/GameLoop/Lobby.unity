@@ -345,7 +345,7 @@ Transform:
   m_GameObject: {fileID: 678359349}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.995529, y: 2.33, z: -2.636469}
+  m_LocalPosition: {x: 4.46, y: 1.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1424,6 +1424,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WorldManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057413649684923085, guid: a219b3e70a639c54f9d496825580b074,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

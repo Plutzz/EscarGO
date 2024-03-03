@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour
 
     private async void Start()
     {
+        Application.targetFrameRate = 144;
+
         await UnityServices.InitializeAsync();
 
         if (AuthenticationService.Instance.IsSignedIn == false)

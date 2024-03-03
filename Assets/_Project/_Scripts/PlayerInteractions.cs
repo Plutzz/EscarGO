@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInventory))]
 public class PlayerInteractions : NetworkBehaviour
 {
     [Header("Interactable Range")]
@@ -21,8 +20,11 @@ public class PlayerInteractions : NetworkBehaviour
 
 
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
+        if (!IsOwner)
+            Destroy(this);
+
         playerInventory = GetComponent<PlayerInventory>();
         inputManager = GetComponent<InputManager>();
     }
