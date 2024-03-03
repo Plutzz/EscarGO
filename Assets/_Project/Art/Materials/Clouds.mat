@@ -167,7 +167,7 @@ Material:
     - _SoftCloudCutoff: -0.9
     - _SoftCloudSoftness: 2.39
     - _SpecularHighlights: 1
-    - _Speed: 20
+    - _Speed: 10
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
