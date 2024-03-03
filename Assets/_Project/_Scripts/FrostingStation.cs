@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class FrostingStation : SuperStation
 {
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timeLimit = 5.0f;
     [SerializeField] private float threshHold = 1.0f;
-    public bool isFrosting = false; //change to private after testing
+    private bool isFrosting = false;
     private float timer = 0.0f;
     private bool isTracing = false;
     private bool success = false;
@@ -20,16 +22,26 @@ public class FrostingStation : SuperStation
 
     public override void Activate()
     {
+        if(isFrosting == true)
+        {
+            return;
+        }
+
+        success = false;
         isFrosting = true;
         timer = timeLimit;
+        virtualCamera.enabled = true;
     }
 
     public override void DeActivate()
     {
-        success = false;
         isFrosting = false;
         isTracing = false;
         timerText.text = "0";
+
+        Cursor.lockState = CursorLockMode.Locked;
+        virtualCamera.enabled = false;
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult
@@ -38,10 +50,14 @@ public class FrostingStation : SuperStation
         set { success = value; }
     }
 
+    public override CinemachineVirtualCamera VirtualCamera
+    {
+        get { return virtualCamera; }
+        set { virtualCamera = value; }
+    }
+
     private void Start() {
         minigameLayer = LayerMask.GetMask("Minigame");
-        timer = timeLimit; //remove after testing
-        isFrosting = true; //remove after testing
     }
 
     void Update()

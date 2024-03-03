@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e651dbb3fbac04af2b8f5abf007ddc23, type: 3}
-  m_Name: DefaultNetworkPrefabs
+  m_Script: {fileID: 11500000, guid: 068ccb1b4ca691d44b64340756c1e2a1, type: 3}
+  m_Name: Moving TopDown
   m_EditorClassIdentifier: 
-  IsDefault: 1
-  List: []

@@ -33,26 +33,26 @@ public class FirstPersonCamera : MonoBehaviour
 
         transform.localRotation = xQuat * yQuat;
 
-        if (InputManager.Instance.InteractPressedThisFrame)
-        {
-            Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            Debug.DrawRay(ray.origin, ray.direction * interactDist, Color.red);
+        //if (InputManager.Instance.InteractPressedThisFrame)
+        //{
+        //    Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        //    Debug.DrawRay(ray.origin, ray.direction * interactDist, Color.red);
 
-            if (hand.childCount > 0)
-            {
-                hand.GetChild(0).TryGetComponent<InteractableItem>(out var obj);
-                Debug.Log("Trying to detach " + obj);
-                obj.DetachFromHand();
-            }
-            if (Physics.Raycast(ray, out RaycastHit hit, interactDist))
-            {
-                if (hit.transform.TryGetComponent<InteractableItem>(out var interactable))
-                {
-                    interactable.Interact(hand);
-                }
-            }
+        //    if (hand.childCount > 0)
+        //    {
+        //        hand.GetChild(0).TryGetComponent<InteractableItem>(out var obj);
+        //        Debug.Log("Trying to detach " + obj);
+        //        obj.DetachFromHand();
+        //    }
+        //    if (Physics.Raycast(ray, out RaycastHit hit, interactDist))
+        //    {
+        //        if (hit.transform.TryGetComponent<InteractableItem>(out var interactable))
+        //        {
+        //            interactable.Interact(hand);
+        //        }
+        //    }
 
-        }
+        //}
     }
 
 }

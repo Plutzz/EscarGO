@@ -192,7 +192,7 @@
                 {
                     "name": "",
                     "id": "58f9d30b-20aa-49be-a51b-3f19ba61bfa4",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -428,6 +428,34 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Previous Inventory Slot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "MiniGames",
+            "id": "71a565da-42fa-4771-8ef5-ee087284a630",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "136c3cdd-f0a7-412a-893d-290bdede7e1b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6c1c2b66-0176-412e-8043-5e9b982189c5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

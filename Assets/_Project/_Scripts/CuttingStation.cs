@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class CuttingStation : SuperStation
 {
     public CutPosition cutPosition;
+    [SerializeField] private CraftableItem chocolate;
+    [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
@@ -22,10 +26,20 @@ public class CuttingStation : SuperStation
 
     public override void Activate()
     {
+        if(isCutting == true)
+        {
+            return;
+        }
+
+        success = false;
+        
         isCutting = true;
         cutNumber.color = Color.black;
         neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
+
+        virtualCamera.enabled = true;
+
         if(cuts == 0)
         {
             cuts = 1; //unlikely but just in case
@@ -38,20 +52,20 @@ public class CuttingStation : SuperStation
         switch (cutPosition)
         {
             case CutPosition.Up:
-                offSet = new Vector3(0f, 0.53f, 0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
+                offSet = new Vector3(0.4f, 0.53f, 0f);
+                rotation = Quaternion.Euler(90f, 0f, 0f);
                 break;
             case CutPosition.Down:
-                offSet = new Vector3(0f, 0.53f, -0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
-                break;
-            case CutPosition.Left:
                 offSet = new Vector3(-0.4f, 0.53f, 0f);
                 rotation = Quaternion.Euler(90f, 0f, 0f);
                 break;
+            case CutPosition.Left:
+                offSet = new Vector3(0f, 0.53f, 0.4f);
+                rotation = Quaternion.Euler(90f, 90f, 0f);
+                break;
             case CutPosition.Right:
-                offSet = new Vector3(0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
+                offSet = new Vector3(0f, 0.53f, -0.4f);
+                rotation = Quaternion.Euler(90f, 90f, 0f);
                 break;
             default:
                 Debug.Log("Invalid cutting direction");
@@ -59,18 +73,19 @@ public class CuttingStation : SuperStation
         }
 
         cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
+
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public override void DeActivate()
     {
-        success = false;
         isCutting = false;
         cutNumber.text = "0";
 
-        if(cutIndicator != null)
-        {
-            Destroy(cutIndicator);
-        }
+        Cursor.lockState = CursorLockMode.Locked;
+        virtualCamera.enabled = false;
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
     }
 
     public override bool ActivityResult
@@ -79,48 +94,14 @@ public class CuttingStation : SuperStation
         set { success = value; }
     }
 
-    private void Start()
+    public override CinemachineVirtualCamera VirtualCamera
     {
-        // remove after testing
-        isCutting = true;
-        neededcuts = Random.Range(minCuts, maxCuts + 1);
-        cuts = neededcuts - 1;
-        if(cuts == 0)
-        {
-            cuts = 1; //unlikely but just in case
-        }
-        cutNumber.text = neededcuts.ToString();
+        get { return virtualCamera; }
+        set { virtualCamera = value; }
+    }
 
+    private void Start() {
         minigameLayer = LayerMask.GetMask("Minigame");
-        
-        //remove after testing
-        Vector3 offSet = new Vector3(0f, 0f, 0f);
-        Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
-        
-        switch (cutPosition)
-        {
-            case CutPosition.Up:
-                offSet = new Vector3(0f, 0.53f, 0.4f); //change based on station location
-                rotation = Quaternion.Euler(90f, 90f, 0f);
-                break;
-            case CutPosition.Down:
-                offSet = new Vector3(0f, 0.53f, -0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
-                break;
-            case CutPosition.Left:
-                offSet = new Vector3(-0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
-                break;
-            case CutPosition.Right:
-                offSet = new Vector3(0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
-                break;
-            default:
-                Debug.Log("Invalid cutting direction");
-                break;
-        }
-
-        cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
     }
 
     private void Update() {
@@ -131,6 +112,8 @@ public class CuttingStation : SuperStation
             
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("press left click");
+
                 if(CheckHit())
                 {
                     cutNumber.color = Color.blue;
@@ -138,10 +121,9 @@ public class CuttingStation : SuperStation
                     Mathf.Clamp(neededcuts -= 1, 0, maxCuts);
                     if(neededcuts <= 0)
                     {
-                        StartCoroutine(Succeed());
+                        Debug.Log("success");
+                        Succeed();
                     }
-                } else {
-                    StartCoroutine(Fail());
                 }
             }
 
@@ -184,24 +166,31 @@ public class CuttingStation : SuperStation
         }
     }
 
-    private IEnumerator Succeed()
+    private void Succeed()
     {
         cutNumber.color = Color.green;
         success = true;
+        inventory.Craft(chocolate);
+        
+        if(cutIndicator != null)
+        {
+            Destroy(cutIndicator);
+        }
+
         DeActivate();
-        //remove after testingvvv
-        yield return new WaitForSeconds(1.0f);
-        Activate();
     }
 
-    private IEnumerator Fail()
+    private void Fail()
     {
         cutNumber.color = Color.red;
         success = false;
+
+        if(cutIndicator != null)
+        {
+            Destroy(cutIndicator);
+        }
+
         DeActivate();
-        //remove after testingvvv
-        yield return new WaitForSeconds(1.0f);
-        Activate();
     }
 }
 
