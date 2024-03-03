@@ -81,7 +81,7 @@ Material:
     - _Float_2: 0.2
     - _Float_3: 0
     - _HorizonBlend: 4.25
-    - _NadirBlend: 1
+    - _NadirBlend: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rotation: 0
