@@ -5,22 +5,19 @@ using UnityEngine;
 public class CustomerSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject customerPrefab;
+    [SerializeField] private Chair[] chairs;
+    [SerializeField] private float spawnTime = 5f;
     private float timer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
 
-        if(timer > 10){
+        if(timer > spawnTime)
+        {
+            Debug.Log("Respawn Customer");
             timer = 0;
             GameObject spawnedCustomer = Instantiate(customerPrefab, transform.position, Quaternion.identity);
+            spawnedCustomer.GetComponent<Customer_Movement>().GetChairs(chairs);
         }
     }
 }
