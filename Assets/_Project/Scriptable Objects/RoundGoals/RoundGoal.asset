@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RoundGoal
   m_EditorClassIdentifier: 
   objectPairs:
-  - item: {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
-    need: 5
+  - item: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
+    need: 1
