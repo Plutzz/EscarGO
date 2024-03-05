@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/GameLoop/GameScene.unity
     guid: ade0f90b1419faf45aa6f47b4d21c02c
+  - enabled: 1
+    path: Assets/_Project/Scenes/David Recipe.unity
+    guid: 884b27148d2f0914cb510f19728f0b02
   m_configObjects: {}

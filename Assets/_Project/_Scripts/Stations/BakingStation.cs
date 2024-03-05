@@ -35,7 +35,9 @@ public class BakingStation : SuperStation
 
     public override void Activate()
     {
-        if(isBaking == true)
+        inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
+
+        if (isBaking == true)
         {
             return;
         }

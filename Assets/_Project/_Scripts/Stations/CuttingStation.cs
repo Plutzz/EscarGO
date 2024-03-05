@@ -27,6 +27,8 @@ public class CuttingStation : SuperStation
 
     public override void Activate()
     {
+        inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
+
         if(isCutting == true)
         {
             return;
@@ -81,6 +83,9 @@ public class CuttingStation : SuperStation
 
     public override void DeActivate()
     {
+        inventory = null;
+
+        Debug.Log("Deactivate");
         isCutting = false;
         cutNumber.text = "0";
 

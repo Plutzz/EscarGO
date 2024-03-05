@@ -23,6 +23,8 @@ public class ToppingStation : SuperStation
 
     public override void Activate()
     {
+        inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
+
         virtualCamera.enabled = true;
         minigameLayer = LayerMask.GetMask("Minigame");
 
