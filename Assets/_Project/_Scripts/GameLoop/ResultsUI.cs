@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class ResultsUI : MonoBehaviour
 {
+    private string playScene = "David Recipe"; //temporary until actual game scene
+
+    public void GameComplete()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+
     public void AnotherShift()
     {
         // Play another run of the game
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(playScene);
     }
 
     public void ClockOut()

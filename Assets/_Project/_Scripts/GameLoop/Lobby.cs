@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Lobby : MonoBehaviour
 {
-    
-
+    private string playScene = "David Recipe"; //temporary until actual game scene
     public void StartMatch()
     {
-        SceneManager.LoadScene("GameScene");
+        Cursor.lockState = CursorLockMode.Locked;
+        SceneManager.LoadScene(playScene);
     }
 }

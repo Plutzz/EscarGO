@@ -30,7 +30,8 @@ public class TurnIn : InteractableSpace
 
                     if(FulfilledAllCriteria())
                     {
-                        gameManager.GetComponent<ResultsUI>().ClockOut();
+                        Cursor.lockState = CursorLockMode.None;
+                        gameManager.GetComponent<ResultsUI>().GameComplete();
                     }
                 }
             }
