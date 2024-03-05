@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04c280ddd50ff647875c6e4148db003, type: 3}
   m_Name: RoundGoal
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
-  amount: 5
+  objectPairs:
+  - item: {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
+    need: 5

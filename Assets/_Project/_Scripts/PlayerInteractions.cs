@@ -13,6 +13,7 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private LayerMask interactables;
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
+    [SerializeField] private LayerMask serveLayer;
 
     private bool inStation = false;
     private PlayerInventory playerInventory;
@@ -28,6 +29,7 @@ public class PlayerInteractions : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1)) { 
             CheckForTrash();
+            CheckForServe();
         }
         // if(Input.GetKeyDown(KeyCode.F))
         // {
@@ -55,6 +57,25 @@ public class PlayerInteractions : MonoBehaviour
         }
         else {
             TipsManager.Instance.SetTip("No Trashcan here", 2f);
+        }
+    }
+
+    private void CheckForServe()
+    {
+        Collider[] serveColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, serveLayer);
+
+        if (serveColliders.Length > 0)
+        {
+            foreach (Collider col in serveColliders) { 
+                InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
+                if (interactable != null)
+                {
+                    interactable.Interact(playerInventory);
+                }
+            }
+        }
+        else {
+            TipsManager.Instance.SetTip("No Server here", 2f);
         }
     }
 

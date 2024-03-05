@@ -112,7 +112,6 @@ public class CuttingStation : SuperStation
             
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("press left click");
 
                 if(CheckHit())
                 {
