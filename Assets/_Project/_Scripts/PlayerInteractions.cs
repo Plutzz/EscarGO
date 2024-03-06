@@ -13,6 +13,7 @@ public class PlayerInteractions : NetworkBehaviour
     [SerializeField] private LayerMask interactables;
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
+    [SerializeField] private LayerMask serveLayer;
 
     [SerializeField] private Item donut;
 
@@ -40,6 +41,7 @@ public class PlayerInteractions : NetworkBehaviour
         }
         if (Input.GetMouseButtonDown(1)) { 
             CheckForTrash();
+            CheckForServe();
         }
     }
 
@@ -67,6 +69,46 @@ public class PlayerInteractions : NetworkBehaviour
         }
         else {
             TipsManager.Instance.SetTip("No Trashcan here", 2f);
+        }
+    }
+
+    private void CheckForServe()
+    {
+        Collider[] serveColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, serveLayer);
+
+        if (serveColliders.Length > 0)
+        {
+            foreach (Collider col in serveColliders) { 
+                InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
+                if (interactable != null)
+                {
+                    interactable.Interact(playerInventory);
+                }
+            }
+        }
+        else {
+            TipsManager.Instance.SetTip("No Server here", 2f);
+        }
+    }
+
+    private void CheckForStation()
+    {
+
+        Collider[] stations = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, minigameLayer);
+
+        if(stations.Length == 0)
+        {
+            return;
+        }
+        
+        SuperStation interactable = stations[0].gameObject.GetComponent<SuperStation>();
+
+        if (interactable != null)
+        {
+            // InputManager.Instance.playerInput.SwitchCurrentActionMap("MiniGames");
+            // Debug.Log("switched to minigame: " + gameObject);
+            // interactable.Activate();
+            // Cursor.lockState = CursorLockMode.None;
         }
     }
 

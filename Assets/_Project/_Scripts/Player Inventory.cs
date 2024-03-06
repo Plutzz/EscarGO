@@ -172,15 +172,41 @@ public class PlayerInventory : NetworkBehaviour
         UpdateInventory();
     }
 
-    public string GetSelectedItemName()
+    public void TurnInSelectedItems()
     {
-        if (currentItems.Count <= currentItemIndex)
-        {
+        if (currentItems.Count <= currentItemIndex) {
             TipsManager.Instance.SetTip("No item selected", 2f);
-            return null;
+            return;
         }
 
-        return currentItems[currentItemIndex].itemName;
+        TipsManager.Instance.SetTip("Turning in the " + currentItems[currentItemIndex].itemName, 2f);
+        EditDictionary(currentItems[currentItemIndex].itemName, -1);
+        currentItems.RemoveAt(currentItemIndex);
+        UpdateInventory();
     }
-    
+
+    public bool CurrentlyHasItem()
+    {
+        if (currentItems.Count <= currentItemIndex) {
+            TipsManager.Instance.SetTip("No item selected", 2f);
+            return false;
+        }
+
+        if(currentItems[currentItemIndex] != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public Item getCurrentItem()
+    {
+        if(currentItemIndex >= 0 || currentItemIndex < currentItems.Count)
+        {
+            return currentItems[currentItemIndex];
+        } else {
+            return null;
+        }
+    }
 }
