@@ -4,7 +4,8 @@ using Unity.Netcode;
 using UnityEngine;
 public class PlayerInventory : NetworkBehaviour
 {
-    [SerializeField] GameObject inventoryParent;
+    [SerializeField] private GameObject inventoryCanvasPrefab;
+    [SerializeField] private GameObject inventoryParent;
     private List<InventorySpace> inventorySpaces = new List<InventorySpace>();
     private List<Item> currentItems = new List<Item>();
     private int currentItemIndex;
@@ -14,7 +15,13 @@ public class PlayerInventory : NetworkBehaviour
         // If this script is not owned by the client
         // Delete it so no input is picked up by it
         if (!IsOwner)
+        {
             Destroy(this);
+            return;
+        }
+
+        inventoryParent = Instantiate(inventoryCanvasPrefab, transform);
+        inventoryParent = inventoryParent.transform.GetChild(0).gameObject;
 
         foreach (Transform child in inventoryParent.transform) { 
             InventorySpace space = child.GetComponent<InventorySpace>();
@@ -163,6 +170,17 @@ public class PlayerInventory : NetworkBehaviour
         EditDictionary(currentItems[currentItemIndex].itemName, -1);
         currentItems.RemoveAt(currentItemIndex);
         UpdateInventory();
+    }
+
+    public string GetSelectedItemName()
+    {
+        if (currentItems.Count <= currentItemIndex)
+        {
+            TipsManager.Instance.SetTip("No item selected", 2f);
+            return null;
+        }
+
+        return currentItems[currentItemIndex].itemName;
     }
     
 }

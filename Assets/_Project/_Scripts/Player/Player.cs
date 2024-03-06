@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     # region Object References
     [Header("Object References")]
@@ -43,8 +44,14 @@ public class Player : MonoBehaviour
     [SerializeField] private FirstPersonCamera cameraScript;
 
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
+        if(!IsOwner)
+        {
+            Destroy(this);
+            return;
+        }
+
         stateMachine = GetComponent<PlayerStateMachine>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;

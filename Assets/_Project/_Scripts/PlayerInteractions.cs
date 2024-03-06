@@ -14,6 +14,8 @@ public class PlayerInteractions : NetworkBehaviour
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
 
+    [SerializeField] private Item donut;
+
     private bool inStation = false;
     private PlayerInventory playerInventory;
     private InputManager inputManager;
@@ -23,7 +25,10 @@ public class PlayerInteractions : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsOwner)
+        {
             Destroy(this);
+            return;
+        }
 
         playerInventory = GetComponent<PlayerInventory>();
         inputManager = GetComponent<InputManager>();
@@ -54,6 +59,10 @@ public class PlayerInteractions : NetworkBehaviour
         Collider[] trashColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, trashLayer);
         if (trashColliders.Length > 0)
         {
+            if(playerInventory.GetSelectedItemName().Equals(donut.itemName))
+            {
+                GameManager.Instance.AddDonutServerRpc();
+            }
             playerInventory.RemoveSelectedItem();
         }
         else {

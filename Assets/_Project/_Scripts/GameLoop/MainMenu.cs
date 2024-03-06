@@ -71,7 +71,7 @@ public class MainMenu : MonoBehaviour
 
 
 
-    #region LobbyMethods
+    #region RelayMethods
 
     public async void HostRelay()
     {
