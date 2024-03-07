@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +13,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
     [SerializeField] private Transform orientation;
+    [SerializeField] private TextMeshPro nameTag;
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     private Rigidbody rb;
@@ -52,11 +55,26 @@ public class Player : NetworkBehaviour
             return;
         }
 
+        if (AuthenticationService.Instance.IsSignedIn)
+        {
+            SetupPlayerName();
+        }
+
         stateMachine = GetComponent<PlayerStateMachine>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         currentStamina = maxStamina;
         canJump = true;
+    }
+
+    private async void SetupPlayerName()
+    {
+        await AuthenticationService.Instance.GetPlayerNameAsync();
+
+        string _playerName = AuthenticationService.Instance.PlayerName;
+
+        gameObject.name = _playerName;
+        nameTag.text = _playerName;
     }
 
     void Update()

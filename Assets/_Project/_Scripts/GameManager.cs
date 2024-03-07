@@ -17,18 +17,6 @@ public class GameManager : NetworkSingleton<GameManager>
 
         StartGameClientRpc();
     }
-    private void teleportPlayers()
-    {
-        Transform _player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Transform>();
-
-        Debug.Log("Teleported Player to : " + spawnPos);
-
-        // Disables player movement
-        //player.GetComponent<PlayerStateMachine>().playerInputActions.Disable();
-        _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
-        _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
-    }
 
     [ServerRpc(RequireOwnership = false)]
     public void AddDonutServerRpc()
@@ -55,20 +43,37 @@ public class GameManager : NetworkSingleton<GameManager>
     private void StartGameClientRpc()
     {
         teleportPlayers();
-        NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.SetActive(true);
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void EndGameServerRpc()
     {
         EndGameClientRpc();
+        // Disable all player objects
+        foreach (var _player in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            _player.PlayerObject.gameObject.SetActive(false);
+        }
         gameObject.GetComponent<ResultsUI>().GameComplete();
     }
 
     [ClientRpc]
     private void EndGameClientRpc()
     {
-        NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.SetActive(false);
+    }
+
+    private void teleportPlayers()
+    {
+        Transform _player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Transform>();
+
+        Debug.Log("Teleported Player to : " + spawnPos);
+
+        // Disables player movement
+        //player.GetComponent<PlayerStateMachine>().playerInputActions.Disable();
+        _player.GetComponent<InputManager>().SwitchActionMap("UI");
+        _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
+        _player.GetComponent<InputManager>().SwitchActionMap("Player");
     }
 
 

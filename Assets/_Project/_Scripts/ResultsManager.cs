@@ -35,6 +35,12 @@ public class ResultsManager : NetworkSingleton<ResultsManager>
         DisplayPlayersReadyClientRpc(numPlayersReady, NetworkManager.Singleton.ConnectedClients.Count);
         if (numPlayersReady == NetworkManager.Singleton.ConnectedClients.Count)
         {
+            // Enable all player objects
+            foreach (var _player in NetworkManager.Singleton.ConnectedClientsList)
+            {
+                _player.PlayerObject.gameObject.SetActive(true);
+            }
+
             NetworkManager.Singleton.SceneManager.LoadScene(playScene, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
     }

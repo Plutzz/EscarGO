@@ -6,17 +6,17 @@ using UnityEngine;
 public class LobbyTrigger : NetworkBehaviour
 {
     [SerializeField] private string SceneName;
-    private NetworkVariable<int> numPlayersInCollider = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    private int numPlayersInCollider = 0;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!IsOwner) return;
+        if (!IsServer) return;
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            numPlayersInCollider.Value += 1;
+            numPlayersInCollider++;
 
-            if (numPlayersInCollider.Value >= 1)
+            if (numPlayersInCollider >= 1)
             {
                 Debug.Log("Loading Next Scene");
                 NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
@@ -25,11 +25,11 @@ public class LobbyTrigger : NetworkBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (!IsOwner) return;
+        if (!IsServer) return;
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            numPlayersInCollider.Value -= 1;
+            numPlayersInCollider -= 1;
         }
     }
 
