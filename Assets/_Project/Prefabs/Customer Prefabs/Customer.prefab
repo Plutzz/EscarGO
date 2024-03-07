@@ -158,9 +158,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chairs:
-  - {fileID: 7321623340871455025, guid: 79be57e2dab93c14db4294a4a27fdcae, type: 3}
-  - {fileID: 628431143559000089, guid: fc8994c1d73ac164790cf4169a40e509, type: 3}
-  - {fileID: 5331413450396869962, guid: 5de25ed1d49de61408628790f7553794, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   speed: 5
 --- !u!114 &5201058189433728573
 MonoBehaviour:
@@ -174,7 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292ca54603db5a04096d61fa2abccab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipe: {fileID: 0}
   recipes:
   - {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
   - {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385, type: 2}
+  customerPrefab: {fileID: 2479384974613480693}
+  orderOffset: {x: 0, y: 0.75, z: 0}

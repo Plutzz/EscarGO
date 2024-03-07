@@ -14,7 +14,7 @@ public class Customer : MonoBehaviour
     [SerializeField] private float interactionDistance = 2f;
     private bool hasOrder = false;
     
-    private bool registered = false;
+    //private bool registered = false;
 
     //public RecipeManager recipeManager; // Reference to the RecipeManager
 
@@ -50,7 +50,7 @@ public class Customer : MonoBehaviour
 
         if (orderRecieved == true)
         {
-            Leave();
+            Exit();
         }
     }
 
@@ -58,6 +58,12 @@ public class Customer : MonoBehaviour
     {
         Debug.Log("You take too long! I'm out");
         gameObject.SetActive(false); // Use "SetActive" instead of "setActive"
+    }
+
+    public void Exit()
+    {
+        Debug.Log("Thank you!");
+        gameObject.SetActive(false);
     }
 } 
 
