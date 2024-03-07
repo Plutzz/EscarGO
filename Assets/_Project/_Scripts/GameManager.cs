@@ -72,6 +72,7 @@ public class GameManager : NetworkSingleton<GameManager>
         //player.GetComponent<PlayerStateMachine>().playerInputActions.Disable();
         _player.GetComponent<InputManager>().SwitchActionMap("UI");
         _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Debug.Log("Teleport: " + spawnPos);
         _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
         _player.GetComponent<InputManager>().SwitchActionMap("Player");
     }
