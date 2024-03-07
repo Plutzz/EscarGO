@@ -15,25 +15,9 @@ public class GameManager : NetworkSingleton<GameManager>
         // If this is not called on the server, return
         if(!IsServer) return;
 
-        for (int i = 0; i < NetworkManager.Singleton.ConnectedClientsList.Count; i++)
-        {
-            var _player = NetworkManager.Singleton.ConnectedClientsIds[i];
-
-            // Targets each client individually and calls a client RPC on them
-            ClientRpcParams clientRpcParams = new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams
-                {
-                    TargetClientIds = new ulong[] { _player }
-                }
-            };
-
-            teleportPlayersClientRpc(clientRpcParams);
-        }
+        StartGameClientRpc();
     }
-
-    [ClientRpc]
-    private void teleportPlayersClientRpc(ClientRpcParams clientRpcParams)
+    private void teleportPlayers()
     {
         Transform _player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Transform>();
 
@@ -42,6 +26,7 @@ public class GameManager : NetworkSingleton<GameManager>
         // Disables player movement
         //player.GetComponent<PlayerStateMachine>().playerInputActions.Disable();
         _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
         _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
     }
 
@@ -54,7 +39,7 @@ public class GameManager : NetworkSingleton<GameManager>
         AddDonutClientRpc();
         if (donutsDelivered > 4)
         {
-            EndGame();
+            //EndGame();
         }
     }
 
@@ -66,15 +51,24 @@ public class GameManager : NetworkSingleton<GameManager>
         donutText.text = donutsDelivered + " Donuts Delivered";
     }
 
-    private void EndGame()
+    [ClientRpc]
+    private void StartGameClientRpc()
     {
+        teleportPlayers();
+        NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.SetActive(true);
+    }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void EndGameServerRpc()
+    {
+        EndGameClientRpc();
+        gameObject.GetComponent<ResultsUI>().GameComplete();
     }
 
     [ClientRpc]
     private void EndGameClientRpc()
     {
-        
+        NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.SetActive(false);
     }
 
 

@@ -48,7 +48,7 @@ public class Player : NetworkBehaviour
     {
         if(!IsOwner)
         {
-            Destroy(this);
+            enabled = false;
             return;
         }
 

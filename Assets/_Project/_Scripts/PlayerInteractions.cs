@@ -17,7 +17,6 @@ public class PlayerInteractions : NetworkBehaviour
 
     [SerializeField] private Item donut;
 
-    private bool inStation = false;
     private PlayerInventory playerInventory;
     private InputManager inputManager;
 
@@ -27,7 +26,7 @@ public class PlayerInteractions : NetworkBehaviour
     {
         if (!IsOwner)
         {
-            Destroy(this);
+            enabled = false;
             return;
         }
 
@@ -61,10 +60,6 @@ public class PlayerInteractions : NetworkBehaviour
         Collider[] trashColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, trashLayer);
         if (trashColliders.Length > 0)
         {
-            if(playerInventory.GetSelectedItemName().Equals(donut.itemName))
-            {
-                GameManager.Instance.AddDonutServerRpc();
-            }
             playerInventory.RemoveSelectedItem();
         }
         else {
