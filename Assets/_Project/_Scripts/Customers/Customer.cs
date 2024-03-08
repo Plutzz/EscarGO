@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
-    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
+    [Header("References")]
     [SerializeField] private Recipe order;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject movementController; // Reference to the Customer_Movement script
+    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
     private float timer;
     private bool orderRecieved;
     [SerializeField] private float interactionDistance = 2f;
     private bool hasOrder = false;
-    [SerializeField] private GameObject movementController; // Reference to the Customer_Movement script
-    private bool registered = false;
+    
+    //private bool registered = false;
 
     //public RecipeManager recipeManager; // Reference to the RecipeManager
 
@@ -21,8 +23,6 @@ public class Customer : MonoBehaviour
     {
         timer = patienceTime;
         orderRecieved = false;
-
-        RegisterWithMovementController();
         // if (recipeManager != null)
         // {
         //     // Assign a random recipe to this Customer
@@ -50,16 +50,7 @@ public class Customer : MonoBehaviour
 
         if (orderRecieved == true)
         {
-            Leave();
-        }
-    }
-
-    void RegisterWithMovementController()
-    {
-        if(!registered && movementController != null)
-        {
-            movementController.GetComponent<Customer_Movement>().RegisterCustomer(gameObject);
-            registered = true;
+            Exit();
         }
     }
 
@@ -67,6 +58,12 @@ public class Customer : MonoBehaviour
     {
         Debug.Log("You take too long! I'm out");
         gameObject.SetActive(false); // Use "SetActive" instead of "setActive"
+    }
+
+    public void Exit()
+    {
+        Debug.Log("Thank you!");
+        gameObject.SetActive(false);
     }
 } 
 
