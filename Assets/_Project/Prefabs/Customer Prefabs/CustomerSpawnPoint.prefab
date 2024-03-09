@@ -44,6 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2405132def4384488b636d1fc026aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customerPrefab: {fileID: 2479384974613480693, guid: 80bff56266e40004aa604947faf1761e, type: 3}
-  counter: {fileID: 0}
-  speed: 0
+  customerPrefab: {fileID: 2479384974613480693, guid: 80bff56266e40004aa604947faf1761e,
+    type: 3}
+  chairs:
+  - {fileID: 4326674285635553928, guid: 79be57e2dab93c14db4294a4a27fdcae, type: 3}
+  - {fileID: 5848043131301637024, guid: fc8994c1d73ac164790cf4169a40e509, type: 3}
+  - {fileID: 1183376589293944563, guid: 5de25ed1d49de61408628790f7553794, type: 3}
+  recipes:
+  - {fileID: 0}
+  - {fileID: 0}
+  orderOffset: {x: 0, y: 1, z: 0}
+  spawnTime: 5

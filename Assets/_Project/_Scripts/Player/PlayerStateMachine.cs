@@ -57,7 +57,11 @@ public class PlayerStateMachine : NetworkBehaviour
         // If this script is not owned by the client
         // Delete it so no input is picked up by it
         if (!IsOwner)
-            Destroy(this);
+        {
+            enabled = false;
+            return;
+        }
+            
 
         rb = GetComponentInChildren<Rigidbody>();
         inputManager = GetComponent<InputManager>();

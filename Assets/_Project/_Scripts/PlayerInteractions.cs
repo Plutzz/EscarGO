@@ -13,8 +13,11 @@ public class PlayerInteractions : NetworkBehaviour
     [SerializeField] private LayerMask interactables;
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
+    [SerializeField] private LayerMask serveLayer;
+    [SerializeField] private LayerMask customerLayer;
 
-    private bool inStation = false;
+    [SerializeField] private Item donut;
+
     private PlayerInventory playerInventory;
     private InputManager inputManager;
 
@@ -23,7 +26,10 @@ public class PlayerInteractions : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsOwner)
-            Destroy(this);
+        {
+            enabled = false;
+            return;
+        }
 
         playerInventory = GetComponent<PlayerInventory>();
         inputManager = GetComponent<InputManager>();
@@ -35,6 +41,8 @@ public class PlayerInteractions : NetworkBehaviour
         }
         if (Input.GetMouseButtonDown(1)) { 
             CheckForTrash();
+            CheckForServe();
+            CheckForCustomer();
         }
     }
 
@@ -58,6 +66,47 @@ public class PlayerInteractions : NetworkBehaviour
         }
         else {
             TipsManager.Instance.SetTip("No Trashcan here", 2f);
+        }
+    }
+
+    private void CheckForCustomer()
+    {
+        Collider[] customerColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, customerLayer);
+
+        if (customerColliders.Length > 0)
+        {
+            foreach (Collider col in customerColliders)
+            {
+                Customer customer = col.gameObject.GetComponent<Customer>();
+                if (customer != null)
+                {
+                    customer.TryCompleteOrder(playerInventory);
+                }
+
+            }
+        }
+        else
+        {
+            TipsManager.Instance.SetTip("No Server here", 2f);
+        }
+    }
+
+    private void CheckForServe()
+    {
+        Collider[] serveColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, serveLayer);
+
+        if (serveColliders.Length > 0)
+        {
+            foreach (Collider col in serveColliders) { 
+                InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
+                if (interactable != null)
+                {
+                    interactable.Interact(playerInventory);
+                }
+            }
+        }
+        else {
+            TipsManager.Instance.SetTip("No Server here", 2f);
         }
     }
 

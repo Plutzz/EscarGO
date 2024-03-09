@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 397472040218753220}
   - component: {fileID: 1384336147121961051}
   - component: {fileID: 1124499244486556277}
+  - component: {fileID: -2848077590611607418}
   - component: {fileID: 6572037729592484992}
   - component: {fileID: 7999536262768886706}
   - component: {fileID: -7427579404053888625}
-  - component: {fileID: -6357897981416192081}
   - component: {fileID: -4012893780502171611}
   - component: {fileID: 5201058189433728573}
   m_Layer: 0
@@ -89,6 +89,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-2848077590611607418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2479384974613480693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 92054865
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &6572037729592484992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,10 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04960cf883aa76b439fbc746fdd8c2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  order: {fileID: 0}
   player: {fileID: 3141356370038839228, guid: 0d843f046d4b7ff468bf908a70a42440, type: 3}
+  movementController: {fileID: 0}
   patienceTime: 60
   interactionDistance: 2
-  movementController: {fileID: 0}
 --- !u!114 &7999536262768886706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,20 +166,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6357897981416192081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2479384974613480693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2405132def4384488b636d1fc026aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customerPrefab: {fileID: 2479384974613480693}
-  movementController: {fileID: 2479384974613480693}
 --- !u!114 &-4012893780502171611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,9 +179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chairs:
-  - {fileID: 7321623340871455025, guid: 79be57e2dab93c14db4294a4a27fdcae, type: 3}
-  - {fileID: 628431143559000089, guid: fc8994c1d73ac164790cf4169a40e509, type: 3}
-  - {fileID: 5331413450396869962, guid: 5de25ed1d49de61408628790f7553794, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   speed: 5
 --- !u!114 &5201058189433728573
 MonoBehaviour:
@@ -188,6 +195,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292ca54603db5a04096d61fa2abccab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipes:
-  - {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
-  - {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385, type: 2}

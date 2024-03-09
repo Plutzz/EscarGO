@@ -1,72 +1,141 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Customer : MonoBehaviour
+public class Customer : NetworkBehaviour
 {
+    [Header("References")]
+    private Criteria criteria;
     [SerializeField] private GameObject player;
     [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
-    [SerializeField] private Recipe order;
+    [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
     private float timer;
     private bool orderRecieved;
     [SerializeField] private float interactionDistance = 2f;
     private bool hasOrder = false;
-    [SerializeField] private GameObject movementController; // Reference to the Customer_Movement script
-    private bool registered = false;
-
-    //public RecipeManager recipeManager; // Reference to the RecipeManager
 
     // Start is called before the first frame update
-    void Start()
+    public override void OnNetworkSpawn()
     {
+        if (!IsServer) return;
+
+        // Select a random index within the bounds of the recipes array
+        int randomIndex = Random.Range(0, CustomerSpawner.Instance.recipes.Length);
+
+        GetCustomerOrderClientRpc(randomIndex);
+
         timer = patienceTime;
         orderRecieved = false;
-
-        RegisterWithMovementController();
-        // if (recipeManager != null)
-        // {
-        //     // Assign a random recipe to this Customer
-        //     recipeManager.AssignRandomRecipe(gameObject);
-        // }
-        // else
-        // {
-        //     Debug.LogError("RecipeManager reference is not set in the Customer script.");
-        // }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsServer) return;
+
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            Leave();
+            LeaveServerRpc();
         }
 
-        if (Vector3.Distance(player.transform.position, this.transform.position) <= interactionDistance && hasOrder)
+        if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance && hasOrder)
         {
             orderRecieved = true;
         }
 
         if (orderRecieved == true)
         {
-            Leave();
+            Exit();
         }
     }
-
-    void RegisterWithMovementController()
+    [ClientRpc]
+    private void GetCustomerOrderClientRpc(int _index)
     {
-        if(!registered && movementController != null)
+        // Instantiate a new GameObject for the order sprite
+        GameObject orderObject = new GameObject("OrderSprite");
+        orderObject.transform.parent = transform; // Set customer as parent for proper positioning
+
+        // Position the order sprite above the customer
+        orderObject.transform.localPosition = orderOffset;
+
+        // Add a SpriteRenderer component to the order GameObject
+        SpriteRenderer orderRenderer = orderObject.AddComponent<SpriteRenderer>();
+
+        // Set the order sprite to the item's sprite
+        criteria = Instantiate(CustomerSpawner.Instance.recipes[_index]);
+
+        if (criteria != null && criteria.objectPairs[0].item.itemSprite != null)
         {
-            movementController.GetComponent<Customer_Movement>().RegisterCustomer(gameObject);
-            registered = true;
+            orderRenderer.sprite = criteria.objectPairs[0].item.itemSprite;
+        }
+        else
+        {
+            Debug.LogWarning("Order item or its sprite is not assigned!");
         }
     }
 
-    public void Leave()
+    [ServerRpc(RequireOwnership = false)]
+    public void LeaveServerRpc()
     {
-        Debug.Log("You take too long! I'm out");
-        gameObject.SetActive(false); // Use "SetActive" instead of "setActive"
+        LeaveClientRpc();
+        CustomerSpawner.Instance.customerCount--;
+        if(CustomerSpawner.Instance.customerCount <= 0)
+        {
+            GameManager.Instance.EndGameServerRpc();
+        }
     }
+    [ClientRpc]
+    public void LeaveClientRpc()
+    {
+        Destroy(gameObject);
+    }
+
+    public void Exit()
+    {
+        Debug.Log("Thank you!");
+        gameObject.SetActive(false);
+    }
+
+    public void TryCompleteOrder(PlayerInventory inventory)
+    {
+        if (inventory.CurrentlyHasItem())
+        {
+
+            foreach (Criteria.Required criteriaItem in criteria.objectPairs)
+            {
+
+                if (inventory.getCurrentItem().itemName == criteriaItem.item.itemName)
+                {
+                    inventory.TurnInSelectedItems();
+                    criteriaItem.turnIn();
+                    Debug.Log("Turned in " + criteriaItem.getHave() + " " + criteriaItem.item.itemName);
+
+                    if (FulfilledAllCriteria())
+                    {
+                        LeaveServerRpc();
+                    }
+                }
+            }
+        }
+        else
+        {
+            TipsManager.Instance.SetTip("Incorrect Order", 2f);
+        }
+    }
+    private bool FulfilledAllCriteria()
+    {
+        foreach (Criteria.Required criteriaItem in criteria.objectPairs)
+        {
+            if (criteriaItem.getHave() != criteriaItem.need)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 } 
 

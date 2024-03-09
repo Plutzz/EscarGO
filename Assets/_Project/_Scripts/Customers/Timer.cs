@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class Timer : NetworkBehaviour
 {
     public float timerDuration = 30f; 
 
@@ -14,6 +15,6 @@ public class Timer : MonoBehaviour
     private IEnumerator TimerCoroutine(Customer customer)
     {
         yield return new WaitForSeconds(timerDuration);
-        customer.Leave();
+        customer.LeaveServerRpc();
     }
 }

@@ -41,7 +41,7 @@ public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehavi
 public abstract class NetworkSingleton<T> : NetworkBehaviour where T : NetworkBehaviour
 {
     public static T Instance { get; private set; }
-    public override void OnNetworkSpawn()
+    private void Awake()
     {
         if (Instance != null)
             Destroy(gameObject);
