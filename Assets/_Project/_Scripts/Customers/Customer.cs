@@ -75,11 +75,21 @@ public class Customer : NetworkBehaviour
             Debug.LogWarning("Order item or its sprite is not assigned!");
         }
     }
+
     [ServerRpc(RequireOwnership = false)]
     public void LeaveServerRpc()
     {
-        Debug.Log("You take too long! I'm out");
-        gameObject.SetActive(false); // Use "SetActive" instead of "setActive"
+        LeaveClientRpc();
+        CustomerSpawner.Instance.customerCount--;
+        if(CustomerSpawner.Instance.customerCount <= 0)
+        {
+            GameManager.Instance.EndGameServerRpc();
+        }
+    }
+    [ClientRpc]
+    public void LeaveClientRpc()
+    {
+        Destroy(gameObject);
     }
 
     public void Exit()

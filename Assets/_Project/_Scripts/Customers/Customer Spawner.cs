@@ -10,15 +10,21 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     [SerializeField] public Criteria[] recipes;
     [SerializeField] private float spawnTime = 5f;
     private float timer;
-    private int customerCount = 0;
+    public int customerCount = 0;
+    private bool isSpawning = true;
 
-    void Update()
+    private void Update()
     {
         if (!IsServer) return;
 
         timer += Time.deltaTime;
 
-        if(timer > spawnTime && customerCount < chairs.Length)
+        if (customerCount == chairs.Length)
+        {
+            isSpawning = false;
+        }
+
+        if (isSpawning && timer > spawnTime)
         {
             Debug.Log("Respawn Customer");
             timer = 0;
@@ -26,7 +32,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         }
     }
 
-    void SpawnCustomer()
+    public void SpawnCustomer()
     {
         if (!IsServer) return;
 

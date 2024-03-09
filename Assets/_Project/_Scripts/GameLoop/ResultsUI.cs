@@ -7,10 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class ResultsUI : MonoBehaviour
 {
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Confined;
-    }
     public void GameComplete()
     {
         NetworkManager.Singleton.SceneManager.LoadScene("NetworkResults", UnityEngine.SceneManagement.LoadSceneMode.Single);

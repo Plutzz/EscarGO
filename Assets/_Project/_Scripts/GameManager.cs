@@ -9,40 +9,18 @@ public class GameManager : NetworkSingleton<GameManager>
 {
     [SerializeField] private Vector3 spawnPos;
     [SerializeField] private TextMeshProUGUI donutText;
-    private int donutsDelivered = 0;
     public override void OnNetworkSpawn()
     {
         // If this is not called on the server, return
         if(!IsServer) return;
         teleportPlayersClientRpc();
-        //StartGameClientRpc();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void AddDonutServerRpc()
-    {
-        if (!IsServer) return;
-
-        Debug.Log("AddDonut");
-        AddDonutClientRpc();
-        if (donutsDelivered > 4)
-        {
-            //EndGame();
-        }
-    }
-
-    [ClientRpc]
-    private void AddDonutClientRpc()
-    {
-        Debug.Log("AddDonutClientRPC");
-        donutsDelivered++;
-        donutText.text = donutsDelivered + " Donuts Delivered";
+        StartGameClientRpc();
     }
 
     [ClientRpc]
     private void StartGameClientRpc()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -60,6 +38,7 @@ public class GameManager : NetworkSingleton<GameManager>
     [ClientRpc]
     private void EndGameClientRpc()
     {
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     [ClientRpc]
