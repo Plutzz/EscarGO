@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class CustomerMovement : MonoBehaviour
+public class CustomerMovement : NetworkBehaviour
 {
-    [SerializeField] private Chair[] chairs; // reference all chairs
     [SerializeField] private float speed;
     private Chair assignedChair;
-    private void Start()
+    public override void OnNetworkSpawn()
     {
+        if (!IsServer) return;
+
         AssignCustomerToChair();
     }
 
     private void Update()
     {
+        if (!IsServer) return;
+
         // TODO: make customers stop moving when they arrive
         if (assignedChair != null)
         {
@@ -24,7 +28,9 @@ public class CustomerMovement : MonoBehaviour
 
     private void AssignCustomerToChair()
     {
-        foreach (Chair potentialChair in chairs)
+        if(!IsServer) return;
+
+        foreach (Chair potentialChair in CustomerSpawner.Instance.chairs)
         {
             if (!IsChairOccupied(potentialChair))
             {
@@ -35,6 +41,8 @@ public class CustomerMovement : MonoBehaviour
 
     private bool IsChairOccupied(Chair chair)
     {
+        if (!IsServer) return true;
+        Debug.Log(chair);
         if (chair.customer != null)
         {
             return true; // Chair is occupied by another customer
@@ -50,6 +58,6 @@ public class CustomerMovement : MonoBehaviour
 
     public void GetChairs(Chair[] _chairs)
     {
-        chairs = _chairs;
+        if (!IsServer) return;
     }
 }

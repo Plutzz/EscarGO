@@ -14,8 +14,8 @@ public class GameManager : NetworkSingleton<GameManager>
     {
         // If this is not called on the server, return
         if(!IsServer) return;
-
-        StartGameClientRpc();
+        teleportPlayersClientRpc();
+        //StartGameClientRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -42,7 +42,7 @@ public class GameManager : NetworkSingleton<GameManager>
     [ClientRpc]
     private void StartGameClientRpc()
     {
-        teleportPlayers();
+        
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -62,19 +62,17 @@ public class GameManager : NetworkSingleton<GameManager>
     {
     }
 
-    private void teleportPlayers()
+    [ClientRpc]
+    private void teleportPlayersClientRpc()
     {
-        Transform _player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Transform>();
+        Transform _player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.transform;
 
         Debug.Log("Teleported Player to : " + spawnPos);
 
         // Disables player movement
-        //player.GetComponent<PlayerStateMachine>().playerInputActions.Disable();
-        _player.GetComponent<InputManager>().SwitchActionMap("UI");
         _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log("Teleport: " + spawnPos);
         _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
-        _player.GetComponent<InputManager>().SwitchActionMap("Player");
+
     }
 
 
