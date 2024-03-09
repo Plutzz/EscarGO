@@ -15,6 +15,6 @@ public class Timer : NetworkBehaviour
     private IEnumerator TimerCoroutine(Customer customer)
     {
         yield return new WaitForSeconds(timerDuration);
-        customer.Leave();
+        customer.LeaveServerRpc();
     }
 }

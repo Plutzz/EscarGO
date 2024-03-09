@@ -6,7 +6,7 @@ using UnityEngine;
 public class Customer : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] private Recipe order;
+    private Criteria criteria;
     [SerializeField] private GameObject player;
     [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
@@ -37,7 +37,7 @@ public class Customer : NetworkBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            Leave();
+            LeaveServerRpc();
         }
 
         if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance && hasOrder)
@@ -51,7 +51,7 @@ public class Customer : NetworkBehaviour
         }
     }
     [ClientRpc]
-    private void GetCustomerOrderClientRpc(int _recipeIndex)
+    private void GetCustomerOrderClientRpc(int _index)
     {
         // Instantiate a new GameObject for the order sprite
         GameObject orderObject = new GameObject("OrderSprite");
@@ -64,19 +64,19 @@ public class Customer : NetworkBehaviour
         SpriteRenderer orderRenderer = orderObject.AddComponent<SpriteRenderer>();
 
         // Set the order sprite to the item's sprite
-        CraftableItem orderItem = CustomerSpawner.Instance.recipes[_recipeIndex];
+        criteria = Instantiate(CustomerSpawner.Instance.recipes[_index]);
 
-        if (orderItem != null && orderItem.itemSprite != null)
+        if (criteria != null && criteria.objectPairs[0].item.itemSprite != null)
         {
-            orderRenderer.sprite = orderItem.itemSprite;
+            orderRenderer.sprite = criteria.objectPairs[0].item.itemSprite;
         }
         else
         {
             Debug.LogWarning("Order item or its sprite is not assigned!");
         }
     }
-
-    public void Leave()
+    [ServerRpc(RequireOwnership = false)]
+    public void LeaveServerRpc()
     {
         Debug.Log("You take too long! I'm out");
         gameObject.SetActive(false); // Use "SetActive" instead of "setActive"
@@ -87,5 +87,45 @@ public class Customer : NetworkBehaviour
         Debug.Log("Thank you!");
         gameObject.SetActive(false);
     }
+
+    public void TryCompleteOrder(PlayerInventory inventory)
+    {
+        if (inventory.CurrentlyHasItem())
+        {
+
+            foreach (Criteria.Required criteriaItem in criteria.objectPairs)
+            {
+
+                if (inventory.getCurrentItem().itemName == criteriaItem.item.itemName)
+                {
+                    inventory.TurnInSelectedItems();
+                    criteriaItem.turnIn();
+                    Debug.Log("Turned in " + criteriaItem.getHave() + " " + criteriaItem.item.itemName);
+
+                    if (FulfilledAllCriteria())
+                    {
+                        LeaveServerRpc();
+                    }
+                }
+            }
+        }
+        else
+        {
+            TipsManager.Instance.SetTip("Incorrect Order", 2f);
+        }
+    }
+    private bool FulfilledAllCriteria()
+    {
+        foreach (Criteria.Required criteriaItem in criteria.objectPairs)
+        {
+            if (criteriaItem.getHave() != criteriaItem.need)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 } 
 

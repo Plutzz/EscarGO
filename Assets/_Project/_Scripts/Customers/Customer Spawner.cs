@@ -7,7 +7,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 {
     [SerializeField] private GameObject customerPrefab;
     [SerializeField] public Chair[] chairs;
-    [SerializeField] public CraftableItem[] recipes;
+    [SerializeField] public Criteria[] recipes;
     [SerializeField] private float spawnTime = 5f;
     private float timer;
     private int customerCount = 0;

@@ -71,7 +71,8 @@ public class GameManager : NetworkSingleton<GameManager>
 
         // Disables player movement
         _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        _player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
+        _player.GetComponent<Rigidbody>().position = spawnPos;
+        //_player.GetComponent<ClientNetworkTransform>().Teleport(spawnPos, Quaternion.identity, transform.localScale);
 
     }
 

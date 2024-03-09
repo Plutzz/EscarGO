@@ -384,6 +384,9 @@ MonoBehaviour:
   serveLayer:
     serializedVersion: 2
     m_Bits: 512
+  customerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   donut: {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
 --- !u!114 &354870785860000598
 MonoBehaviour:

@@ -2296,19 +2296,19 @@ PrefabInstance:
         type: 3}
       propertyPath: recipes.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275,
+      objectReference: {fileID: 11400000, guid: 5ee73db1c2b0192488925768a972931b,
         type: 2}
     - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
         type: 3}
       propertyPath: recipes.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882,
+      objectReference: {fileID: 11400000, guid: 87b7df20bfbd9d341b4afd87d30b794d,
         type: 2}
     - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
         type: 3}
       propertyPath: recipes.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385,
+      objectReference: {fileID: 11400000, guid: bf0d44bd03c2130428b784e181bbdae0,
         type: 2}
     - target: {fileID: 7983556728997276578, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
         type: 3}
@@ -4795,7 +4795,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1932528030
 MonoBehaviour:
   m_ObjectHideFlags: 0

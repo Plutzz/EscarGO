@@ -14,7 +14,7 @@ public class CraftableItem : Item
 
         if (item is CraftableItem craftableItem)
         {
-            this.requiredIngredients = craftableItem.requiredIngredients;
+            requiredIngredients = craftableItem.requiredIngredients;
         }
         else {
             Debug.LogError("Non craftable object passed into a craftable object copy data");

@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 1962732025010211279}
   - component: {fileID: 3896550248293296343}
   - component: {fileID: 5883625052867858416}
-  m_Layer: 0
+  - component: {fileID: 7655324474958824568}
+  m_Layer: 10
   m_Name: Network Customer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,9 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04960cf883aa76b439fbc746fdd8c2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  order: {fileID: 0}
   player: {fileID: 3141356370038839228, guid: 0d843f046d4b7ff468bf908a70a42440, type: 3}
   patienceTime: 60
+  orderOffset: {x: 0, y: 1, z: 0}
   interactionDistance: 2
 --- !u!54 &1962732025010211279
 Rigidbody:
@@ -194,3 +195,26 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!136 &7655324474958824568
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454256144848015126}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000002
+  m_Height: 0.99999994
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.000000059604645, z: 0}

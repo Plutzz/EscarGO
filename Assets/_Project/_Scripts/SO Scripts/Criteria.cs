@@ -6,7 +6,6 @@ using UnityEngine;
 public class Criteria : ScriptableObject {
 
     public List<Required> objectPairs = new List<Required>();
-
     public void ResetHave()
     {
         foreach(Required items in objectPairs)
@@ -18,6 +17,7 @@ public class Criteria : ScriptableObject {
     [System.Serializable]
     public class Required
     {
+
         public Item item;
         public int need;
         private int have = 0;
