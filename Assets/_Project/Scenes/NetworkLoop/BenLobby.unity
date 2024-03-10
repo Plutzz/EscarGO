@@ -1787,7 +1787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a4a6ceea8af404f8d6d7e8d73baebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: NetworkGameScene
+  SceneName: LevelDesignTesting
   LobbyText: {fileID: 1055732316}
 --- !u!1001 &1903438376
 PrefabInstance:
