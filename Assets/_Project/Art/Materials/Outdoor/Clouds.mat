@@ -111,7 +111,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _CloudAmount: 0.53
     - _CloudCutoff: 0.24
-    - _CloudScale: 0.18
+    - _CloudScale: 0.05
     - _CloudSize: 0.259
     - _CloudThickness: 0.66
     - _Cull: 2
