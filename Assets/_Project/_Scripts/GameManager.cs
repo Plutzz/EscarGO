@@ -8,7 +8,6 @@ using UnityEngine;
 public class GameManager : NetworkSingleton<GameManager>
 {
     [SerializeField] private Vector3 spawnPos;
-    [SerializeField] private TextMeshProUGUI donutText;
     public override void OnNetworkSpawn()
     {
         // If this is not called on the server, return
