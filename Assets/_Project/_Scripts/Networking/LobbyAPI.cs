@@ -3,7 +3,6 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class LobbyAPI : MonoBehaviour
@@ -11,10 +10,13 @@ public class LobbyAPI : MonoBehaviour
     private string lobbyName = "Lobby name";
     private int maxPlayers = 4;
     private float heartbeatTimeMax = 15f;
+    private float lobbyUpdateTimeMax = 1.1f;
     private int lobbyCount = 25;
 
     private Lobby hostLobby;
+    private Lobby joinedLobby;
     private float heartbeatTimer;
+    private float lobbyUpdateTimer;
 
     private string playerName;
 
@@ -36,6 +38,7 @@ public class LobbyAPI : MonoBehaviour
     private void Update()
     {
         HandleLobbyHeartbeat();
+        HandleLobbyPollUpdate();
     }
 
     private async void HandleLobbyHeartbeat()
@@ -53,6 +56,22 @@ public class LobbyAPI : MonoBehaviour
         }
     }
 
+    private async void HandleLobbyPollUpdate()
+    {
+        if (joinedLobby != null)
+        {
+            lobbyUpdateTimer -= Time.deltaTime;
+
+            if (lobbyUpdateTimer < 0f)
+            {
+                lobbyUpdateTimer = lobbyUpdateTimeMax;
+
+                Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
+                joinedLobby = lobby;
+            }
+        }
+    }
+
     // Created lobby
     private async void CreateLobby()
     {
@@ -62,13 +81,19 @@ public class LobbyAPI : MonoBehaviour
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
                 IsPrivate = true,
-                Player = GetPlayer()
+                Player = GetPlayer(),
+                Data = new Dictionary<string, DataObject>
+                {
+                    // Map, string name, and S1 allows us to filter later on
+                    {"Map", new DataObject(DataObject.VisibilityOptions.Public, "TempMap1", DataObject.IndexOptions.S1)}
+                }
             };
 
             // Currently a var because lobby.cs is confusing the system
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, lobbyOptions);
 
             hostLobby = lobby;
+            joinedLobby = hostLobby;
             
             Debug.Log("Create Lobby! " + lobby.Name + " " + lobby.MaxPlayers + " " + lobby.Id + " " + lobby.LobbyCode);
             Players(hostLobby);
@@ -107,7 +132,7 @@ public class LobbyAPI : MonoBehaviour
             Debug.Log("Lobbies Found: " + lobbies.Count);
             foreach (Lobby lobby in lobbies)
             {
-                Debug.Log(lobby.Name + " " + lobby.MaxPlayers);
+                Debug.Log(lobby.Name + " " + lobby.MaxPlayers + " " + lobby.Data["Map"].Value);
             }
         }
         catch(LobbyServiceException e)
@@ -127,11 +152,12 @@ public class LobbyAPI : MonoBehaviour
             };
             
 
-            Lobby joinedLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, joinLobbyByCodeOptions);
+            Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, joinLobbyByCodeOptions);
+            joinedLobby = lobby;
 
             Debug.Log("Joined Lobby with code " + lobbyCode);
 
-            Players(joinedLobby);
+            Players(lobby);
         }
         catch(LobbyServiceException e)
         {
@@ -166,10 +192,102 @@ public class LobbyAPI : MonoBehaviour
 
     private void Players(Lobby lobby)
     {
-        Debug.Log("Players in Lobby " + lobby.Name);
+        Debug.Log("Players in Lobby " + lobby.Name + " " + lobby.Data["Map"].Value);
         foreach(var player in lobby.Players)
         {
             Debug.Log(player.Id + " " + player.Data["PlayerName"].Value);
+        }
+    }
+
+    private async void UpdateLobbyMap(string map)
+    {
+        try
+        {
+            hostLobby = await Lobbies.Instance.UpdateLobbyAsync(hostLobby.Id, new UpdateLobbyOptions 
+            {
+                Data = new Dictionary<string, DataObject> 
+                {
+                    { "Map", new DataObject(DataObject.VisibilityOptions.Public, map)}
+                }
+            });
+            joinedLobby = hostLobby;
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+        
+    }
+
+    private async void UpdatePlayerName(string newPlayerName)
+    {
+        try
+        {
+            playerName = newPlayerName;
+            await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions
+            {
+                Data = new Dictionary<string, PlayerDataObject>
+                {
+                    { "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName)}
+
+                }
+            });
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void LeaveLobby()
+    {
+        try
+        {
+            await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void KickPlayer(string playerID)
+    {
+        try
+        {
+            await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, playerID);
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void MigrateLobbyHost()
+    {
+        try
+        {
+            hostLobby = await Lobbies.Instance.UpdateLobbyAsync(hostLobby.Id, new UpdateLobbyOptions 
+            {
+                HostId = joinedLobby.Players[1].Id
+            });
+            joinedLobby = hostLobby;
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void DeleteLobby()
+    {
+        try
+        {
+            await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
         }
     }
 }
