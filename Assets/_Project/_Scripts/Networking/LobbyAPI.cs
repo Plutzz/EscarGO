@@ -8,11 +8,15 @@ using UnityEngine;
 
 public class LobbyAPI : MonoBehaviour
 {
+    private string lobbyName = "Lobby name";
+    private int maxPlayers = 4;
     private float heartbeatTimeMax = 15f;
     private int lobbyCount = 25;
 
     private Lobby hostLobby;
     private float heartbeatTimer;
+
+    private string playerName;
 
     private async void Start()
     {
@@ -23,6 +27,9 @@ public class LobbyAPI : MonoBehaviour
         };
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+        playerName = "Emery" + Random.Range(10,99);
+        Debug.Log(playerName);
 
     }
 
@@ -51,15 +58,21 @@ public class LobbyAPI : MonoBehaviour
     {
         try
         {
-            string lobbyName = "Lobby name";
-            int maxPlayers = 4;
+            // Lobby options
+            CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
+            {
+                IsPrivate = true,
+                Player = GetPlayer()
+            };
 
             // Currently a var because lobby.cs is confusing the system
-            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers);
+            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, lobbyOptions);
 
             hostLobby = lobby;
+            
+            Debug.Log("Create Lobby! " + lobby.Name + " " + lobby.MaxPlayers + " " + lobby.Id + " " + lobby.LobbyCode);
+            Players(hostLobby);
 
-            Debug.Log("Create Lobby! " + lobby.Name + " " + lobby.MaxPlayers);
         }
         catch(LobbyServiceException e)
         {
@@ -101,6 +114,62 @@ public class LobbyAPI : MonoBehaviour
         {
             Debug.Log(e);
         }
+    }
+
+    // Join lobby with code
+    private async void JoinLobbyByCode(string lobbyCode)
+    {
+        try
+        {
+            JoinLobbyByCodeOptions joinLobbyByCodeOptions = new JoinLobbyByCodeOptions
+            {
+                Player = GetPlayer()
+            };
+            
+
+            Lobby joinedLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, joinLobbyByCodeOptions);
+
+            Debug.Log("Joined Lobby with code " + lobbyCode);
+
+            Players(joinedLobby);
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void QuickJoinLobby()
+    {
+        // Filters avaiable to pick specific maps and other stuff
+        try
+        {
+            await LobbyService.Instance.QuickJoinLobbyAsync();
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
         
+    }
+
+    private Unity.Services.Lobbies.Models.Player GetPlayer()
+    {
+        return new Unity.Services.Lobbies.Models.Player
+        {
+            Data = new Dictionary<string, PlayerDataObject>
+            {
+                { "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName)}
+            }
+        };
+    }
+
+    private void Players(Lobby lobby)
+    {
+        Debug.Log("Players in Lobby " + lobby.Name);
+        foreach(var player in lobby.Players)
+        {
+            Debug.Log(player.Id + " " + player.Data["PlayerName"].Value);
+        }
     }
 }
