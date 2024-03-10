@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Indoor
+  m_Name: Indoor Ceiling
   m_Shader: {fileID: -6465566751694194690, guid: 265d2b7e59041754d8f8f6d5dd249fbd,
     type: 3}
   m_Parent: {fileID: 0}
@@ -174,7 +174,7 @@ Material:
     - _DiffuseColor: {r: 1, g: 0.9254902, b: 0.8078431, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Highlight: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0}
+    - _Highlight: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 0}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.7803922, g: 0.55294114, b: 0.42352936, a: 0}
