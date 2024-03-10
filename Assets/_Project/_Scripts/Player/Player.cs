@@ -14,6 +14,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private float playerHeight;
     [SerializeField] private Transform orientation;
     [SerializeField] private TextMeshPro nameTag;
+    [SerializeField] private GameObject graphics;
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     private Rigidbody rb;
@@ -65,6 +66,7 @@ public class Player : NetworkBehaviour
         rb = stateMachine.rb;
         currentStamina = maxStamina;
         canJump = true;
+        graphics.SetActive(false);
     }
 
     private async void SetupPlayerName()

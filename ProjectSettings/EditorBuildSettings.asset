@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/NetworkLoop/NetworkResults.unity
     guid: fdb24288c73e1664f83249c142ea6871
+  - enabled: 1
+    path: Assets/_Project/Scenes/LevelDesignTesting.unity
+    guid: a539e12fe6d482d48a25c45a03ff15dd
   m_configObjects: {}
