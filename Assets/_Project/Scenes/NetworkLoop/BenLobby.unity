@@ -415,7 +415,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -1787,7 +1787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a4a6ceea8af404f8d6d7e8d73baebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: LevelDesignTesting
+  SceneName: Graphics
   LobbyText: {fileID: 1055732316}
 --- !u!1001 &1903438376
 PrefabInstance:
