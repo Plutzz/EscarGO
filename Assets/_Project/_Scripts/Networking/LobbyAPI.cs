@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -7,6 +9,8 @@ using UnityEngine;
 
 public class LobbyAPI : MonoBehaviour
 {
+    public event Action<List<Lobby>> LobbiesUpdated;
+
     private string lobbyName = "Lobby name";
     private int maxPlayers = 4;
     private float heartbeatTimeMax = 15f;
@@ -30,7 +34,7 @@ public class LobbyAPI : MonoBehaviour
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-        playerName = "Emery" + Random.Range(10,99);
+        playerName = "Emery" + UnityEngine.Random.Range(10,99);
         Debug.Log(playerName);
 
     }
@@ -73,14 +77,14 @@ public class LobbyAPI : MonoBehaviour
     }
 
     // Created lobby
-    private async void CreateLobby()
+    public async void CreateLobby()
     {
         try
         {
             // Lobby options
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
-                IsPrivate = true,
+                IsPrivate = false,
                 Player = GetPlayer(),
                 Data = new Dictionary<string, DataObject>
                 {
@@ -97,6 +101,8 @@ public class LobbyAPI : MonoBehaviour
             
             Debug.Log("Create Lobby! " + lobby.Name + " " + lobby.MaxPlayers + " " + lobby.Id + " " + lobby.LobbyCode);
             Players(hostLobby);
+
+            ListLobbies();
 
         }
         catch(LobbyServiceException e)
@@ -133,6 +139,11 @@ public class LobbyAPI : MonoBehaviour
             foreach (Lobby lobby in lobbies)
             {
                 Debug.Log(lobby.Name + " " + lobby.MaxPlayers + " " + lobby.Data["Map"].Value);
+            }
+
+            if (LobbiesUpdated != null)
+            {
+                LobbiesUpdated.Invoke(lobbies);
             }
         }
         catch(LobbyServiceException e)
@@ -288,6 +299,22 @@ public class LobbyAPI : MonoBehaviour
         catch(LobbyServiceException e)
         {
             Debug.Log(e);
+        }
+    }
+
+    // Getter methods
+    public async Task<List<Lobby>> GetLobbiesAsync()
+    {
+        try
+        {
+            QueryResponse queryResponse = await Lobbies.Instance.QueryLobbiesAsync();
+            List<Lobby> lobbies = queryResponse.Results;
+            return lobbies;
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+            return null;
         }
     }
 }
