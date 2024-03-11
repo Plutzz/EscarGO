@@ -17,7 +17,7 @@ public class FirstPersonCamera : NetworkBehaviour
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
 
     [SerializeField] private Transform hand;
-    Vector2 rotation = Vector2.zero;
+    public Vector2 rotation = Vector2.zero;
 
     public float interactDist = 5f;
     [SerializeField]

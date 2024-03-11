@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersReadyText: {fileID: 1744732050}
-  playScene: NetworkGameScene
+  playScene: Graphics
 --- !u!1 &504861003
 GameObject:
   m_ObjectHideFlags: 0

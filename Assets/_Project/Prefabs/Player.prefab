@@ -316,7 +316,7 @@ MonoBehaviour:
   playerInteractBase: {fileID: 11400000, guid: da41ef0fbe17e2340af23aa64c52febf, type: 2}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2049
   playerHeight: 2
   moveSpeed: 5
   cameraTransform: {fileID: 3622850964377700486}
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2049
   playerHeight: 2
   orientation: {fileID: 5350075544441386201}
   nameTag: {fileID: 2509209161154666850}
