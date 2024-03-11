@@ -43,6 +43,12 @@ public class PlayerInventory : NetworkBehaviour
             currentItemIndex = (inventorySpaces.Count + currentItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaces.Count;
             UpdateInventory();
         }
+
+        if(Input.GetKey(KeyCode.G))
+        {
+            ClearInventory();
+        }
+
     }
 
     private void UpdateTimeInInventory() {
@@ -169,6 +175,15 @@ public class PlayerInventory : NetworkBehaviour
         TipsManager.Instance.SetTip("Tossing the " + currentItems[currentItemIndex].itemName, 2f);
         EditDictionary(currentItems[currentItemIndex].itemName, -1);
         currentItems.RemoveAt(currentItemIndex);
+        UpdateInventory();
+    }
+
+    public void ClearInventory()
+    {
+        for(int i = 0; i < currentItems.Count; i++)
+        {
+            currentItems.RemoveAt(i);
+        }
         UpdateInventory();
     }
 

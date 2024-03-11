@@ -10,8 +10,8 @@ public class ResultsUI : MonoBehaviour
     public void GameComplete()
     {
         NetworkManager.Singleton.SceneManager.LoadScene("NetworkResults", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>().ClearInventory();
     }
-
     public void AnotherShift()
     {
         // Ready up for another run of the game
