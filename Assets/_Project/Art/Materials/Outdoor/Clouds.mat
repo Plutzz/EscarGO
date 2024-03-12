@@ -128,6 +128,7 @@ Material:
     - _FLIPHIGHLIGHT: 1
     - _FLIPSHADOW: 1
     - _FadeStrength: 13
+    - _Float: 0.001
     - _GapScale: 5.63
     - _Gap_Amount: 0
     - _GlossMapScale: 0

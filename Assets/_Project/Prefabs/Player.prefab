@@ -639,7 +639,7 @@ Transform:
   m_GameObject: {fileID: 7926796474246571935}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.846, z: 0}
+  m_LocalPosition: {x: 0, y: 0.532, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -661,6 +661,7 @@ MonoBehaviour:
   sensitivity: 0.5
   yRotationLimit: 88
   hand: {fileID: 5775809413446238165}
+  rotation: {x: 0, y: 0}
   interactDist: 5
   cam: {fileID: 0}
 --- !u!114 &7008615595358212417
