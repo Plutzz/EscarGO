@@ -11,8 +11,8 @@ public class LobbyAPI : MonoBehaviour
 {
     public event Action<List<Lobby>> LobbiesUpdated;
 
-    private string lobbyName = "Lobby name";
-    private int maxPlayers = 4;
+    // private string lobbyName = "Lobby name";
+    // private int maxPlayers = 4;
     private float heartbeatTimeMax = 15f;
     private float lobbyUpdateTimeMax = 1.1f;
     private int lobbyCount = 25;
@@ -77,19 +77,24 @@ public class LobbyAPI : MonoBehaviour
     }
 
     // Created lobby
-    public async void CreateLobby()
+    public async void CreateLobby(string lobbyName, 
+                                  int maxPlayers, 
+                                  bool isPriv, 
+                                  string mapName,
+                                  string gamemode)
     {
         try
         {
             // Lobby options
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
-                IsPrivate = false,
+                IsPrivate = isPriv,
                 Player = GetPlayer(),
                 Data = new Dictionary<string, DataObject>
                 {
                     // Map, string name, and S1 allows us to filter later on
-                    {"Map", new DataObject(DataObject.VisibilityOptions.Public, "TempMap1", DataObject.IndexOptions.S1)}
+                    {"Map", new DataObject(DataObject.VisibilityOptions.Public, mapName, DataObject.IndexOptions.S1)},
+                    {"Gamemode", new DataObject(DataObject.VisibilityOptions.Public, gamemode, DataObject.IndexOptions.S2)},
                 }
             };
 
