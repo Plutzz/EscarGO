@@ -10,7 +10,9 @@ public class LobbyUI : MonoBehaviour
 {
     [SerializeField] private LobbyAPI lobbyAPI;
 
-    [SerializeField] private TMP_Text lobbyListText;
+    [SerializeField] private GameObject lobbyHolder;
+    [SerializeField] private GameObject lobbyItemUI;
+    // [SerializeField] private TMP_Text lobbyListText;
 
     public void Start()
     {
@@ -30,13 +32,30 @@ public class LobbyUI : MonoBehaviour
 
     public void UpdateLobbyListText(List<Lobby> lobbies)
     {
-        string lobbyList = "Lobbies:\n";
+        // this foreach feels a bit costly
+        foreach (Transform child in lobbyHolder.transform)
+        {
+            if (child.CompareTag("LobbyItem"))
+            {
+                Destroy(child.gameObject);
+            }
+        }
 
         foreach (Lobby lobby in lobbies)
         {
-            lobbyList += lobby.Name + "\n";
+            BuildLobbyItem(lobby.Name, lobby.Data["Map"].Value, lobby.Players.Count, lobby.MaxPlayers);
         }
+    }
 
-        lobbyListText.text = lobbyList;
+    private void BuildLobbyItem(string lobbyName, string mapName, int currPlayers, int maxPlayers)
+    {
+        GameObject currLobbyItem = Instantiate(lobbyItemUI, lobbyHolder.transform);
+
+        LobbyUIItem lobbyItem = currLobbyItem.GetComponent<LobbyUIItem>();
+
+        lobbyItem.lobbyName = lobbyName;
+        lobbyItem.mapName = mapName;
+        lobbyItem.currentPlayers = currPlayers;
+        lobbyItem.maxPlayers = maxPlayers;
     }
 }

@@ -610,7 +610,7 @@ GameObject:
   - component: {fileID: 6430308288369207233}
   m_Layer: 5
   m_Name: Lobby UI Item
-  m_TagString: Untagged
+  m_TagString: LobbyItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -636,7 +636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -367.29, y: 238.86}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 695.164, y: 137.084}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6430308288369207233
@@ -651,9 +651,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f4fd4f9c9bac943897c2550a3565b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyName: TestName
-  mapName: BananaWorld
-  currentPlayers: 2
+  lobbyName: Lobby name
+  mapName: Unity.Services.Lobbies.Models.DataObject
+  currentPlayers: 1
   maxPlayers: 4
   lobbyNameUI: {fileID: 7588634439351765522}
   mapNameUI: {fileID: 5339750572471552307}

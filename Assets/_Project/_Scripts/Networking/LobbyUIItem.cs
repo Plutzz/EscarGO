@@ -11,9 +11,9 @@ public class LobbyUIItem : MonoBehaviour
     public int currentPlayers = 0;
     public int maxPlayers = 0;
 
-    public TMP_Text lobbyNameUI;
-    public TMP_Text mapNameUI;
-    public TMP_Text playerCountUI;
+    [SerializeField] private TMP_Text lobbyNameUI;
+    [SerializeField] private TMP_Text mapNameUI;
+    [SerializeField] private TMP_Text playerCountUI;
 
     // Update is called once per frame
     void Update()

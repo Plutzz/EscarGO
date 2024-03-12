@@ -2261,7 +2261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyAPI: {fileID: 1281466721}
-  lobbyListText: {fileID: 1980243533}
+  lobbyHolder: {fileID: 589558652}
+  lobbyItemUI: {fileID: 5913088520686577703, guid: 49856f8a0b080334ab21477931921f4d,
+    type: 3}
 --- !u!1 &1330848220
 GameObject:
   m_ObjectHideFlags: 0
