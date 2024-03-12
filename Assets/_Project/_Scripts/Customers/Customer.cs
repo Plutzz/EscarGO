@@ -8,6 +8,7 @@ public class Customer : NetworkBehaviour
     [Header("References")]
     private Criteria criteria;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject orderPrefab;
     [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
     private float timer;
@@ -54,21 +55,21 @@ public class Customer : NetworkBehaviour
     private void GetCustomerOrderClientRpc(int _index)
     {
         // Instantiate a new GameObject for the order sprite
-        GameObject orderObject = new GameObject("OrderSprite");
-        orderObject.transform.parent = transform; // Set customer as parent for proper positioning
+        GameObject orderObject = Instantiate(orderPrefab, transform);
 
         // Position the order sprite above the customer
         orderObject.transform.localPosition = orderOffset;
 
         // Add a SpriteRenderer component to the order GameObject
-        SpriteRenderer orderRenderer = orderObject.AddComponent<SpriteRenderer>();
+        Material itemMaterial = Instantiate(orderObject.GetComponent<Renderer>().material);
+        orderObject.GetComponent<Renderer>().material = itemMaterial;
 
         // Set the order sprite to the item's sprite
         criteria = Instantiate(CustomerSpawner.Instance.recipes[_index]);
 
         if (criteria != null && criteria.objectPairs[0].item.itemSprite != null)
         {
-            orderRenderer.sprite = criteria.objectPairs[0].item.itemSprite;
+            itemMaterial.SetTexture("_Texture", criteria.objectPairs[0].item.itemSprite.texture);
         }
         else
         {
