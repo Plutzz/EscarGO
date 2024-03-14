@@ -210,6 +210,43 @@ public class LobbyAPI : MonoBehaviour
         }
     }
 
+    // Join lobby with code
+    public async void JoinLobbyById(string lobbyID)
+    {
+        try
+        {
+            JoinLobbyByIdOptions joinLobbyByIdOptions = new JoinLobbyByIdOptions
+            {
+                Player = GetPlayer()
+            };
+            
+
+            Lobby lobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobbyID, joinLobbyByIdOptions);
+            joinedLobby = lobby;
+
+            Debug.Log("Joined Lobby with ID " + lobbyID);
+
+            // Joining relay
+            string joinCode = joinedLobby.Data["RelayCode"].Value;
+
+            Debug.Log("Joining Relay with " + joinCode);
+
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartClient();
+
+            Players(lobby);
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
     private async void QuickJoinLobby()
     {
         // Filters avaiable to pick specific maps and other stuff

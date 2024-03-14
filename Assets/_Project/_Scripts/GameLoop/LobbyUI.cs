@@ -54,7 +54,10 @@ public class LobbyUI : MonoBehaviour
 
         foreach (Lobby lobby in lobbies)
         {
-            BuildLobbyItem(lobby.Name, lobby.Data["Map"].Value, lobby.Data["Gamemode"].Value, lobby.Players.Count, lobby.MaxPlayers);
+            BuildLobbyItem(lobby.Name, lobby.Data["Map"].Value, lobby.Data["Gamemode"].Value, lobby.Players.Count, lobby.MaxPlayers, lobby.Id);
+            Debug.Log(lobby.Name);
+            Debug.Log(lobby.Id);
+            Debug.Log(lobby.LobbyCode);
         }
     }
 
@@ -69,7 +72,7 @@ public class LobbyUI : MonoBehaviour
         lobbyGameUI.SetActive(true);
     }
 
-    private void BuildLobbyItem(string lobbyName, string mapName, string gamemode, int currPlayers, int maxPlayers)
+    private void BuildLobbyItem(string lobbyName, string mapName, string gamemode, int currPlayers, int maxPlayers, string lobbyID)
     {
         GameObject currLobbyItem = Instantiate(lobbyItemUI, lobbyHolder.transform);
 
@@ -80,5 +83,11 @@ public class LobbyUI : MonoBehaviour
         lobbyItem.gamemode = gamemode;
         lobbyItem.currentPlayers = currPlayers;
         lobbyItem.maxPlayers = maxPlayers;
+        lobbyItem.lobbyID = lobbyID;
+        Debug.Log("Lobby ID: " + lobbyID);
+
+        lobbyItem.lobbyAPI = lobbyAPI;
+        lobbyItem.lobbyUI = this.gameObject;
+        lobbyItem.lobbyGameUI = lobbyGameUI;
     }
 }

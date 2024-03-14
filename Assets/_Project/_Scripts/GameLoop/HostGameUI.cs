@@ -32,7 +32,7 @@ public class HostGameUI : MonoBehaviour
         lobbyGameUI.SetActive(true);
     }
 
-    public void LobbyUI()
+    public void BackLobby()
     {
         lobbyUI.SetActive(true);
         this.gameObject.SetActive(false);
