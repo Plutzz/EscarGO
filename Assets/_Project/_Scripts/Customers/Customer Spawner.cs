@@ -6,12 +6,28 @@ using UnityEngine;
 public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 {
     [SerializeField] private GameObject customerPrefab;
-    [SerializeField] public Chair[] chairs;
     [SerializeField] public Criteria[] recipes;
     [SerializeField] private float spawnTime = 5f;
     private float timer;
     public int customerCount = 0;
     private bool isSpawning = true;
+    private int numCustomerToSpawn = 4;
+
+    [Header("Chairs")]
+    [SerializeField] public Chair[] playerOneChairs;
+    [SerializeField] public Chair[] playerTwoChairs;
+    [SerializeField] public Chair[] playerThreeChairs;
+    [SerializeField] public Chair[] playerFourChairs;
+    public Chair[][] chairs { get; private set; }
+
+    private void Start()
+    {
+        chairs = new Chair[4][];
+        chairs[0] = playerOneChairs;
+        chairs[1] = playerTwoChairs;
+        chairs[2] = playerThreeChairs;
+        chairs[3] = playerFourChairs;
+    }
 
     private void Update()
     {
@@ -19,7 +35,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 
         timer += Time.deltaTime;
 
-        if (customerCount == chairs.Length)
+        if (customerCount == numCustomerToSpawn)
         {
             isSpawning = false;
         }
@@ -51,7 +67,11 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         CustomerMovement customerMovement = spawnedCustomer.GetComponent<CustomerMovement>();
         if (customerMovement != null)
         {
-            customerMovement.GetChairs(chairs);
+            // Assigns a random ALIVE player to this customer
+            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[Random.Range(0, ScoringSingleton.Instance.alivePlayers.Count)];
+            Debug.Log($"assigned player {assignedPlayer} ");
+            customerMovement.assignedPlayer = assignedPlayer;
+            customerMovement.GetComponent<Customer>().assignedPlayer = assignedPlayer;
         }
         else
         {

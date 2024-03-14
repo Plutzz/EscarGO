@@ -6,6 +6,7 @@ using UnityEngine;
 public class Criteria : ScriptableObject {
 
     public List<Required> objectPairs = new List<Required>();
+    public int score;
     public void ResetHave()
     {
         foreach(Required items in objectPairs)

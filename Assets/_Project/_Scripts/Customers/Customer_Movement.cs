@@ -7,6 +7,7 @@ using UnityEngine;
 public class CustomerMovement : NetworkBehaviour
 {
     [SerializeField] private float speed;
+    public int assignedPlayer;
     private Chair assignedChair;
     private bool inChair;
     public override void OnNetworkSpawn()
@@ -44,9 +45,9 @@ public class CustomerMovement : NetworkBehaviour
 
     private void AssignCustomerToChair()
     {
-        if(!IsServer) return;
+        if (!IsServer) return;
 
-        foreach (Chair potentialChair in CustomerSpawner.Instance.chairs)
+        foreach (Chair potentialChair in CustomerSpawner.Instance.chairs[assignedPlayer])
         {
             if (!IsChairOccupied(potentialChair))
             {
@@ -70,10 +71,5 @@ public class CustomerMovement : NetworkBehaviour
             assignedChair = chair;
             return false; // Chair is not occupied
         }
-    }
-
-    public void GetChairs(Chair[] _chairs)
-    {
-        if (!IsServer) return;
     }
 }

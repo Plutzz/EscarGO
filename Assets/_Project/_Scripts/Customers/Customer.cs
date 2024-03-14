@@ -13,6 +13,7 @@ public class Customer : NetworkBehaviour
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
     private float timer;
     private bool orderRecieved;
+    public int assignedPlayer;
     [SerializeField] private float interactionDistance = 2f;
     private bool hasOrder = false;
 
@@ -82,11 +83,18 @@ public class Customer : NetworkBehaviour
     {
         LeaveClientRpc();
         CustomerSpawner.Instance.customerCount--;
-        if(CustomerSpawner.Instance.customerCount <= 0)
-        {
-            GameManager.Instance.EndGameServerRpc();
-        }
+        ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void FufillOrderServerRpc()
+    {
+        LeaveClientRpc();
+        CustomerSpawner.Instance.customerCount--;
+        ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
+    }
+
+    
     [ClientRpc]
     public void LeaveClientRpc()
     {
