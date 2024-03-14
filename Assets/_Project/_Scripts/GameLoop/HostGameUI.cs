@@ -9,10 +9,12 @@ public class HostGameUI : MonoBehaviour
     [SerializeField] private LobbyAPI lobbyAPI;
 
     [SerializeField] private TMP_InputField lobbyName;
-    [SerializeField] private TMP_InputField maxPlayers;
+    [SerializeField] private TMP_Dropdown maxPlayers;
     [SerializeField] private Toggle privateLobby;
     [SerializeField] private TMP_Dropdown map;
     [SerializeField] private TMP_Dropdown gameMd;
+    [SerializeField] private GameObject lobbyGameUI;
+
 
     // This exists for testing
     [SerializeField] private GameObject lobbyUI;
@@ -20,13 +22,17 @@ public class HostGameUI : MonoBehaviour
     public void HostLobby()
     {
         lobbyAPI.CreateLobby(lobbyName.text, 
-                             int.Parse(maxPlayers.text),
+                             int.Parse(maxPlayers.options[maxPlayers.value].text),
                              privateLobby.isOn,
                              map.options[map.value].text,
                              gameMd.options[gameMd.value].text);
+
+        lobbyName.text = "";
+        this.gameObject.SetActive(false);
+        lobbyGameUI.SetActive(true);
     }
 
-    public void LobbyUI()
+    public void BackLobby()
     {
         lobbyUI.SetActive(true);
         this.gameObject.SetActive(false);

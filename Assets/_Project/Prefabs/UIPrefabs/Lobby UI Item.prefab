@@ -731,7 +731,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2678718256680584412}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6430308288369207233}
+        m_TargetAssemblyTypeName: LobbyUIItem, Assembly-CSharp
+        m_MethodName: JoinGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5913088520686577703
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +803,10 @@ MonoBehaviour:
   gamemode: 
   currentPlayers: 1
   maxPlayers: 4
+  lobbyCode: 
+  lobbyAPI: {fileID: 0}
+  lobbyUI: {fileID: 0}
+  lobbyGameUI: {fileID: 0}
   lobbyNameUI: {fileID: 7588634439351765522}
   mapNameUI: {fileID: 5339750572471552307}
   gamemodeUI: {fileID: 6972395652444424800}
