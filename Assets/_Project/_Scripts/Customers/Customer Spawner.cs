@@ -11,15 +11,19 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] private float spawnTime = 5f;
     private float timer;
 
+    void Start()
+    {
+        timer = spawnTime; // Start the timer at spawn time to immediately spawn a customer
+    }
+
     void Update()
     {
-        timer += Time.deltaTime;
+        timer -= Time.deltaTime;
 
-        if(timer > spawnTime)
+        if(timer <= 0f)
         {
-            Debug.Log("Respawn Customer");
-            timer = 0;
             SpawnCustomer();
+            timer = spawnTime; // Reset the timer
         }
     }
 
@@ -31,7 +35,6 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-
         // Select a random index within the bounds of the recipes array
         int randomIndex = Random.Range(0, recipes.Length);
 
@@ -39,7 +42,7 @@ public class CustomerSpawner : MonoBehaviour
         GameObject spawnedCustomer = Instantiate(customerPrefab, transform.position, Quaternion.identity);
 
         // Instantiate a new GameObject for the order sprite
-        GameObject orderObject = new GameObject("OrderSprite");
+        GameObject orderObject = new GameObject("OrderSprite_" + spawnedCustomer.GetInstanceID());
         orderObject.transform.parent = spawnedCustomer.transform; // Set customer as parent for proper positioning
 
         // Position the order sprite above the customer
@@ -70,4 +73,5 @@ public class CustomerSpawner : MonoBehaviour
             Debug.LogError("Customer prefab is missing CustomerMovement component!");
         }
     }
+
 }

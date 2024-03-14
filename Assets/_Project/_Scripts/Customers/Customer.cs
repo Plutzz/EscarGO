@@ -5,36 +5,25 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Recipe order;
+    [SerializeField] private GameObject customerSpawn;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject movementController; // Reference to the Customer_Movement script
-    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
+    [SerializeField] private GameObject movementController;
+    [SerializeField] private GameObject timerObjectPrefab; 
+    [SerializeField] private float patienceTime; 
+    [SerializeField] private float interactionDistance = 2f; 
     private float timer;
-    private bool orderRecieved;
-    [SerializeField] private float interactionDistance = 2f;
+    private bool orderReceived;
     private bool hasOrder = false;
-    
-    //private bool registered = false;
+    private GameObject timerObject; 
+    private Chair currentChair;
 
-    //public RecipeManager recipeManager; // Reference to the RecipeManager
-
-    // Start is called before the first frame update
     void Start()
     {
         timer = patienceTime;
-        orderRecieved = false;
-        // if (recipeManager != null)
-        // {
-        //     // Assign a random recipe to this Customer
-        //     recipeManager.AssignRandomRecipe(gameObject);
-        // }
-        // else
-        // {
-        //     Debug.LogError("RecipeManager reference is not set in the Customer script.");
-        // }
+        orderReceived = false;
+        timerObject = Instantiate(timerObjectPrefab, transform);
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer -= Time.deltaTime;
@@ -43,27 +32,62 @@ public class Customer : MonoBehaviour
             Leave();
         }
 
-        if (Vector3.Distance(player.transform.position, this.transform.position) <= interactionDistance && hasOrder)
+        if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance && hasOrder)
         {
-            orderRecieved = true;
+            orderReceived = true;
+            //patienceFillObject.SetActive(true); // Show the patience fill object when order is received
         }
 
-        if (orderRecieved == true)
+        UpdateTimerScale();
+
+        if (orderReceived)
         {
             Exit();
         }
+
+    }
+
+    void UpdateTimerScale()
+    {
+        float scale = Mathf.Clamp01(1- timer / patienceTime)/85;
+        float xScale = scale * 7/2;
+        timerObject.transform.localScale = new Vector3(xScale, scale, 1f);
     }
 
     public void Leave()
     {
         Debug.Log("You take too long! I'm out");
-        gameObject.SetActive(false); // Use "SetActive" instead of "setActive"
+        gameObject.SetActive(false); // Deactivate the customer GameObject
+        if (currentChair != null)
+        {
+            currentChair.RemoveCustomer();
+            currentChair = null; // Reset the currentChair reference
+        }
     }
 
     public void Exit()
     {
         Debug.Log("Thank you!");
-        gameObject.SetActive(false);
+        gameObject.transform.position = customerSpawn.transform.position;
+        gameObject.SetActive(false); 
+        if (currentChair != null)
+        {
+            currentChair.RemoveCustomer();
+            currentChair = null; // Reset the currentChair reference
+        }
     }
-} 
+
+    public void SetOrder(CraftableItem orderItem)
+    {
+        if (orderItem != null)
+        {
+            hasOrder = true;
+        }
+    }
+
+    public void EnterChair(Chair chair)
+    {
+        currentChair = chair;
+    }
+}
 

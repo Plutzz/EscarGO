@@ -55,3 +55,7 @@ MonoBehaviour:
   - {fileID: 0}
   orderOffset: {x: 0, y: 1, z: 0}
   spawnTime: 5
+  timerObjectPrefab: {fileID: 4765523278395291635, guid: d0ec32c44bc3d054bb039030cdb828e5,
+    type: 3}
+  maxTimerScale: 2
+  timerColor: {r: 1, g: 0, b: 0, a: 1}

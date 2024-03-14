@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CustomerMovement : MonoBehaviour
 {
-    [SerializeField] private Chair[] chairs; // reference all chairs
+    [SerializeField] private Chair[] chairs; // Reference all chairs
     [SerializeField] private float speed;
     private Chair assignedChair;
+
     private void Start()
     {
         AssignCustomerToChair();
@@ -14,36 +15,49 @@ public class CustomerMovement : MonoBehaviour
 
     private void Update()
     {
-        // TODO: make customers stop moving when they arrive
+        // Stop moving when the customer arrives at the assigned chair
         if (assignedChair != null)
         {
-            Vector3 direction = assignedChair.transform.position - transform.position;
-            transform.position += direction.normalized * speed * Time.deltaTime;
+            float distance = Vector3.Distance(transform.position, assignedChair.transform.position);
+            if (distance > 0.01f) // Adjust this threshold as needed
+            {
+                Vector3 direction = assignedChair.transform.position - transform.position;
+                transform.position += direction.normalized * speed * Time.deltaTime;
+            }
+            else
+            {
+                // Customer has arrived, stop moving
+                Debug.Log("Customer arrived at chair.");
+            }
         }
     }
 
     private void AssignCustomerToChair()
     {
-        foreach (Chair potentialChair in chairs)
+        if(assignedChair == null)
         {
-            if (!IsChairOccupied(potentialChair))
+            foreach (Chair potentialChair in chairs)
             {
-                break;
+                if (!IsChairOccupied(potentialChair))
+                {
+                    break; // Found an unoccupied chair, stop searching
+                }
             }
         }
     }
 
     private bool IsChairOccupied(Chair chair)
     {
-        if (chair.customer != null)
+        if (chair.currentCustomer != null)
         {
             return true; // Chair is occupied by another customer
         }
         else
         {
-            Debug.Log("Add customer to chair");
-            chair.customer = GetComponent<Customer>();
+            // Assign this customer to the chair
+            chair.currentCustomer = GetComponent<Customer>();
             assignedChair = chair;
+            Debug.Log("Customer assigned to chair.");
             return false; // Chair is not occupied
         }
     }

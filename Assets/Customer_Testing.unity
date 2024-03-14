@@ -520,13 +520,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579676669}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.49, z: -10}
+  m_LocalRotation: {x: 0.041974913, y: 0.00091714086, z: -0.02182526, w: 0.99887985}
+  m_LocalPosition: {x: 0.14, y: 7.6, z: -19.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 4.813, y: 0, z: -2.503}
 --- !u!4 &868411024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2030256723756302534, guid: 79be57e2dab93c14db4294a4a27fdcae,
@@ -687,9 +687,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
         type: 3}
+      propertyPath: timerHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
+        type: 3}
+      propertyPath: timerPrefab
+      value: 
+      objectReference: {fileID: 4765523278395291635, guid: d0ec32c44bc3d054bb039030cdb828e5,
+        type: 3}
+    - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
+        type: 3}
+      propertyPath: timerSprite
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
+        type: 3}
+      propertyPath: orderOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
+        type: 3}
+      propertyPath: expirationTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
+        type: 3}
       propertyPath: chairs.Array.size
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
+        type: 3}
+      propertyPath: timerObjectPrefab
+      value: 
+      objectReference: {fileID: 4765523278395291635, guid: d0ec32c44bc3d054bb039030cdb828e5,
+        type: 3}
     - target: {fileID: 6488895724427853385, guid: 524b61dc84ca3e84eb0d9245d4ce0e25,
         type: 3}
       propertyPath: chairs.Array.data[0]
@@ -1323,7 +1355,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.421946, y: 0.37789226, z: 12.502}
-  m_LocalScale: {x: 2.3962, y: 1, z: 6.6146}
+  m_LocalScale: {x: 7.098982, y: 1, z: 6.6146}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
