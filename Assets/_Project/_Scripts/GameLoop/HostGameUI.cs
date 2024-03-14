@@ -13,6 +13,8 @@ public class HostGameUI : MonoBehaviour
     [SerializeField] private Toggle privateLobby;
     [SerializeField] private TMP_Dropdown map;
     [SerializeField] private TMP_Dropdown gameMd;
+    [SerializeField] private GameObject lobbyGameUI;
+
 
     // This exists for testing
     [SerializeField] private GameObject lobbyUI;
@@ -27,6 +29,7 @@ public class HostGameUI : MonoBehaviour
 
         lobbyName.text = "";
         this.gameObject.SetActive(false);
+        lobbyGameUI.SetActive(true);
     }
 
     public void LobbyUI()

@@ -90,6 +90,16 @@ public class LobbyAPI : MonoBehaviour
     {
         try
         {
+            // Host relay
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
+
+            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartHost();
+
             // Lobby options
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
@@ -100,6 +110,7 @@ public class LobbyAPI : MonoBehaviour
                     // Map, string name, and S1 allows us to filter later on
                     {"Map", new DataObject(DataObject.VisibilityOptions.Public, mapName, DataObject.IndexOptions.S1)},
                     {"Gamemode", new DataObject(DataObject.VisibilityOptions.Public, gamemode, DataObject.IndexOptions.S2)},
+                    {"RelayCode", new DataObject(DataObject.VisibilityOptions.Public, joinCode, DataObject.IndexOptions.S3)},
                 }
             };
 
@@ -122,11 +133,11 @@ public class LobbyAPI : MonoBehaviour
     }
 
     // Create list of lobbies
-    private async void ListLobbies()
+    public async void ListLobbies()
     {
         try 
         {
-            // Set up rules for hte query lobby
+            // Set up rules for the query lobby
             QueryLobbiesOptions queryLobbiesOptions = new QueryLobbiesOptions
             {
                 Count = lobbyCount,
@@ -163,7 +174,7 @@ public class LobbyAPI : MonoBehaviour
     }
 
     // Join lobby with code
-    private async void JoinLobbyByCode(string lobbyCode)
+    public async void JoinLobbyByCode(string lobbyCode)
     {
         try
         {
@@ -177,6 +188,19 @@ public class LobbyAPI : MonoBehaviour
             joinedLobby = lobby;
 
             Debug.Log("Joined Lobby with code " + lobbyCode);
+
+            // Joining relay
+            string joinCode = joinedLobby.Data["RelayCode"].Value;
+
+            Debug.Log("Joining Relay with " + joinCode);
+
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartClient();
 
             Players(lobby);
         }
@@ -326,5 +350,15 @@ public class LobbyAPI : MonoBehaviour
             Debug.Log(e);
             return null;
         }
+    }
+
+    public string GetLobbyCode()
+    {
+        if (joinedLobby == null)
+        {
+            return "";
+        }
+
+        return "Lobby Code: " + joinedLobby.LobbyCode;
     }
 }

@@ -14,6 +14,9 @@ public class LobbyUI : MonoBehaviour
     [SerializeField] private GameObject lobbyItemUI;
     
     [SerializeField] private GameObject hostGameUI;
+    [SerializeField] private GameObject lobbyGameUI;
+
+    [SerializeField] private TMP_InputField joinCodeInput;
 
     public void Start()
     {
@@ -30,6 +33,7 @@ public class LobbyUI : MonoBehaviour
     {
         hostGameUI.SetActive(true);
         this.gameObject.SetActive(false);
+        lobbyGameUI.SetActive(true);
     }
 
     public void StartMatch()
@@ -52,6 +56,17 @@ public class LobbyUI : MonoBehaviour
         {
             BuildLobbyItem(lobby.Name, lobby.Data["Map"].Value, lobby.Data["Gamemode"].Value, lobby.Players.Count, lobby.MaxPlayers);
         }
+    }
+
+    public void JoinWithCode()
+    {
+        string joinCode = joinCodeInput.text;
+
+        lobbyAPI.JoinLobbyByCode(joinCode);
+
+        joinCodeInput.text = "";
+        this.gameObject.SetActive(false);
+        lobbyGameUI.SetActive(true);
     }
 
     private void BuildLobbyItem(string lobbyName, string mapName, string gamemode, int currPlayers, int maxPlayers)
