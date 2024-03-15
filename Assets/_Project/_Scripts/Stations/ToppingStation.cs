@@ -10,6 +10,7 @@ public class ToppingStation : SuperStation
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private GameObject toppingCircle;
+    [SerializeField] private GameObject sprinkleParticles;
     [SerializeField] private int toppingCircleAmount = 5;
     [SerializeField] private float maxX = 0.37f;
     [SerializeField] private float maxZ = 0.37f;
@@ -83,6 +84,7 @@ public class ToppingStation : SuperStation
             {
                 if(HitToppingCircle())
                 {
+                    Instantiate(sprinkleParticles, transform.position + new Vector3(Random.Range(-maxX, maxX), 1f, Random.Range(-maxZ, maxZ)), transform.rotation);
                     toppingCircleLeft -= 1;
                 }
             }

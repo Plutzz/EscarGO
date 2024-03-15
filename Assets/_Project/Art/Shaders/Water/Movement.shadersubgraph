@@ -138,6 +138,7 @@
     "m_OutputNode": {
         "m_Id": "89d25f14579d4354a88cf62b13f5ba62"
     },
+    "m_SubDatas": [],
     "m_ActiveTargets": []
 }
 
@@ -176,7 +177,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.0,
+    "m_Value": 1.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -346,7 +347,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.0,
+    "m_Value": 1.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
