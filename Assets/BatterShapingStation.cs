@@ -7,6 +7,9 @@ using Unity.Netcode;
 public class BatterShapingStation : SuperStation
 {
 
+    [SerializeField] private float goal = 5f;
+    [SerializeField] private float goalRange = 1f;
+
     [SerializeField] private CraftableItem batter;
     private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
@@ -15,6 +18,8 @@ public class BatterShapingStation : SuperStation
 
     private bool isBattering = false;
     private bool squeezing = false;
+    private GameObject playerBatter;
+    public float playerHoldTimer = 0f;
 
     public override void Activate()
     {
@@ -52,9 +57,44 @@ public class BatterShapingStation : SuperStation
         {
             if(Input.GetMouseButtonDown(0))
             {
-                GameObject batter = Instantiate(batterCircle, transform.position + new Vector3(0, 0.52f, 0.018f), transform.rotation);
+                playerBatter = Instantiate(batterCircle, transform.position + new Vector3(0, 0.52f, 0.018f), transform.rotation);
+                squeezing = true;
+            }
+            
+            if(Input.GetMouseButtonUp(0))
+            {
+                squeezing = false;
+                CheckBatterSize();
+            }
+
+            if(squeezing)
+            {
+                playerHoldTimer += Time.deltaTime;
+                playerBatter.transform.localScale += new Vector3(0.05f, 0, 0.05f) * Time.deltaTime;
                 squeezing = true;
             }
         }
+    }
+
+    private void CheckBatterSize()
+    {
+        if((goal - goalRange) <= playerHoldTimer && playerHoldTimer <= (goal + goalRange))
+        {
+            Debug.Log("success");
+            Succeed();
+        } else {
+            //fail
+            Debug.Log("fail");
+        }
+    }
+
+    private void Succeed()
+    {
+        success = true;
+        if(inventory.CanCraft(batter))
+        {
+            inventory.Craft(batter);
+        }
+        DeActivate();
     }
 }
