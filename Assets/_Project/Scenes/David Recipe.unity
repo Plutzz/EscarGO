@@ -6159,7 +6159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   criteria: {fileID: 11400000, guid: 5ee73db1c2b0192488925768a972931b, type: 2}
-  gameManager: {fileID: 1186503860}
 --- !u!224 &786162861 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1433084927823417378, guid: 406c23b337b6eff46bae71f57cba1d2e,
@@ -6370,7 +6369,7 @@ Transform:
   m_GameObject: {fileID: 795738228}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: 2.01, z: -2.774}
+  m_LocalPosition: {x: 0.55, y: 2.542, z: -2.774}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7026,6 +7025,11 @@ PrefabInstance:
       propertyPath: minigameLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 77056854249281224, guid: 0d843f046d4b7ff468bf908a70a42440,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 52708864
+      objectReference: {fileID: 0}
     - target: {fileID: 354870785860000598, guid: 0d843f046d4b7ff468bf908a70a42440,
         type: 3}
       propertyPath: orientation
@@ -7109,7 +7113,11 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 1822616883}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3030832683318443524, guid: 0d843f046d4b7ff468bf908a70a42440,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0d843f046d4b7ff468bf908a70a42440, type: 3}
 --- !u!1 &1009630597
 GameObject:
