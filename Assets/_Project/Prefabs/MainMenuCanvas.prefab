@@ -3468,6 +3468,7 @@ GameObject:
   - component: {fileID: 6170372099056371639}
   - component: {fileID: 7916585621024372428}
   - component: {fileID: 8566426882980921224}
+  - component: {fileID: 6073431565363543972}
   m_Layer: 5
   m_Name: MainMenuCanvas
   m_TagString: Untagged
@@ -3562,6 +3563,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6073431565363543972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308361163743987093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3503390e9a95bb4eafb1bc24ba6e487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4332895308039162423
 GameObject:
   m_ObjectHideFlags: 0
@@ -4218,7 +4231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d725b249cbbcf49863b8ece346f9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyAPI: {fileID: 0}
+  lobbyAPI: {fileID: 6073431565363543972}
   lobbyName: {fileID: 271225204602642275}
   maxPlayers: {fileID: 2198857225870019430}
   privateLobby: {fileID: 7447625958944315551}
@@ -5922,6 +5935,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7292575815324711938}
+  - component: {fileID: 4870972433410548536}
   m_Layer: 5
   m_Name: LobbyHud
   m_TagString: Untagged
@@ -5949,6 +5963,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4870972433410548536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6394586958630459672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cc15975b95a86419a4ad73bcfe54ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyAPI: {fileID: 6073431565363543972}
+  lobbyCodeText: {fileID: 5212311658090628039}
 --- !u!1 &6439587261458496561
 GameObject:
   m_ObjectHideFlags: 0
@@ -6005,11 +6033,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f917f8190d5449bfd63252ef3809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyAPI: {fileID: 0}
+  lobbyAPI: {fileID: 6073431565363543972}
   lobbyHolder: {fileID: 5788536081908993339}
   lobbyItemUI: {fileID: 5913088520686577703, guid: 49856f8a0b080334ab21477931921f4d,
     type: 3}
-  hostGameUI: {fileID: 0}
+  hostGameUI: {fileID: 4781799544526532661}
   lobbyGameUI: {fileID: 6394586958630459672}
   joinCodeInput: {fileID: 7606285417714329131}
 --- !u!1 &6480692864862827944
@@ -6968,7 +6996,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6073431565363543972}
         m_TargetAssemblyTypeName: LobbyAPI, Assembly-CSharp
         m_MethodName: ListLobbies
         m_Mode: 1
