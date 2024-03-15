@@ -7,8 +7,6 @@ public class TurnIn : InteractableSpace
 
     [SerializeField]
     private Criteria criteria;
-    [SerializeField]
-    private GameObject gameManager;
 
     private void Start() {
         criteria.ResetHave();
@@ -26,12 +24,13 @@ public class TurnIn : InteractableSpace
                     inventory.TurnInSelectedItems();
                     criteriaItem.turnIn();
 
+                    //GameManager.Instance.AddDonutServerRpc();
                     Debug.Log("Turned in " + criteriaItem.getHave() + " " + criteriaItem.item.itemName);
 
                     if(FulfilledAllCriteria())
                     {
                         Cursor.lockState = CursorLockMode.None;
-                        gameManager.GetComponent<ResultsUI>().GameComplete();
+                        GameManager.Instance.EndGameServerRpc();
                     }
                 }
             }

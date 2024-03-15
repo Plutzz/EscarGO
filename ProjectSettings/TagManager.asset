@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ToppingCircle
   - Knob
+  - Chair
+  - LobbyItem
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - Interactable
   - Trash
   - Serve
-  - 
-  - 
+  - Customer
+  - Indoors
   - 
   - 
   - 

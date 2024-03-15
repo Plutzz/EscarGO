@@ -4,6 +4,5 @@ using UnityEngine;
 
 public abstract class InteractableSpace : MonoBehaviour
 {
-
     public abstract void Interact(PlayerInventory inventory);
 }

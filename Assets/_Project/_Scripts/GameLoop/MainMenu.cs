@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour
 
     private async void Start()
     {
+        Application.targetFrameRate = 144;
+
         await UnityServices.InitializeAsync();
 
         if (AuthenticationService.Instance.IsSignedIn == false)
@@ -35,8 +37,8 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            mainMenu.transform.parent.gameObject.SetActive(false);
-            //LeaveRelay();
+            //mainMenu.transform.parent.gameObject.SetActive(false);
+            LeaveRelay();
         }
     }
 
@@ -69,7 +71,7 @@ public class MainMenu : MonoBehaviour
 
 
 
-    #region LobbyMethods
+    #region RelayMethods
 
     public async void HostRelay()
     {
@@ -125,8 +127,7 @@ public class MainMenu : MonoBehaviour
     public void LeaveRelay()
     {
         Debug.Log("Disconnected Client");
-        NetworkManager.Singleton.GetComponent<UnityTransport>().Shutdown();
-        NetworkManager.Singleton.DisconnectClient(NetworkManager.Singleton.LocalClientId);
+        Destroy(NetworkManager.Singleton.LocalClient.PlayerObject.gameObject);
         NetworkManager.Singleton.Shutdown();
     }
     #endregion

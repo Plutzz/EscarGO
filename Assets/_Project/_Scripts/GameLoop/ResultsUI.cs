@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class ResultsUI : MonoBehaviour
 {
-    private string playScene = "David Recipe"; //temporary until actual game scene
-
     public void GameComplete()
     {
-        SceneManager.LoadScene("GameScene");
+        NetworkManager.Singleton.SceneManager.LoadScene("NetworkResults", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>().ClearInventory();
     }
-
     public void AnotherShift()
     {
-        // Play another run of the game
-        SceneManager.LoadScene(playScene);
+        // Ready up for another run of the game
+        ResultsManager.Instance.PlayerReadyServerRpc(NetworkManager.Singleton.LocalClientId);
     }
 
     public void ClockOut()
     {
-        // return to lobby
-        SceneManager.LoadScene("StartMenu");
+        // If any player presses this, bring them back to the lobby
+        NetworkManager.Singleton.SceneManager.LoadScene("BenLobby", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
+
+
 }

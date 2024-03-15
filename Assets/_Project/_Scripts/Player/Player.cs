@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     # region Object References
     [Header("Object References")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
     [SerializeField] private Transform orientation;
+    [SerializeField] private TextMeshPro nameTag;
+    [SerializeField] private GameObject graphics;
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     private Rigidbody rb;
@@ -43,19 +48,40 @@ public class Player : MonoBehaviour
     [SerializeField] private FirstPersonCamera cameraScript;
 
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
+        if(!IsOwner)
+        {
+            enabled = false;
+            return;
+        }
+
+        if (AuthenticationService.Instance.IsSignedIn)
+        {
+            SetupPlayerName();
+        }
+
         stateMachine = GetComponent<PlayerStateMachine>();
-        cameraScript = GetComponentInChildren<FirstPersonCamera>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         currentStamina = maxStamina;
         canJump = true;
+        graphics.SetActive(false);
+    }
+
+    private async void SetupPlayerName()
+    {
+        await AuthenticationService.Instance.GetPlayerNameAsync();
+
+        string _playerName = AuthenticationService.Instance.PlayerName;
+
+        gameObject.name = _playerName;
+        nameTag.text = _playerName;
     }
 
     void Update()
     {
-        sprinting = InputManager.Instance.SprintIsPressed;
+        sprinting = stateMachine.inputManager.SprintIsPressed;
 
         currentState = stateMachine.currentState;
 
@@ -64,7 +90,7 @@ public class Player : MonoBehaviour
             canJump = true;
         }
 
-        if (InputManager.Instance.JumpPressedThisFrame)
+        if (stateMachine.inputManager.JumpPressedThisFrame)
         {
             lastJumpPressed = Time.time;
             if (currentState == stateMachine.AirborneState) return;
@@ -101,7 +127,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(orientation != null)
+        if(orientation != null && cameraScript != null)
             orientation.eulerAngles = new Vector3 (0f, cameraScript.transform.eulerAngles.y, 0f);
 
     }

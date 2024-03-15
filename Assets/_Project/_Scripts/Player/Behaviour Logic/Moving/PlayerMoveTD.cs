@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Moving", menuName = "Player Logic/Moving Logic/Top Down")]
+[CreateAssetMenu(fileName = "MovingTD", menuName = "Player Logic/Moving Logic/Top Down")]
 public class PlayerMoveTD : PlayerMovingSOBase
 {
-    [Header("Movement Variables")]
-    private Vector3 moveDirection = Vector3.zero;
-
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
         base.Initialize(gameObject, stateMachine);
@@ -47,7 +44,7 @@ public class PlayerMoveTD : PlayerMovingSOBase
             stateMachine.ChangeState(stateMachine.AirborneState);
         }
         // Moving => Idle
-        else if (InputManager.Instance.MoveInput == Vector2.zero && rb.velocity.magnitude < 3f)
+        else if (stateMachine.inputManager.MoveInput == Vector2.zero && rb.velocity.magnitude < 3f)
         {
             stateMachine.ChangeState(stateMachine.IdleState);
         }
@@ -55,13 +52,11 @@ public class PlayerMoveTD : PlayerMovingSOBase
 
     private void GetInput()
     {
-        moveDirection = new Vector3(InputManager.Instance.MoveInput.x, 0, InputManager.Instance.MoveInput.y);
-        moveDirection = stateMachine.cameraTransform.TransformDirection(moveDirection);
-        moveDirection.y = 0;
+        inputVector = stateMachine.inputManager.MoveInput;
     }
 
     private void Move()
     {
-        rb.velocity = new Vector3(moveDirection.x * stateMachine.moveSpeed, rb.velocity.y, moveDirection.z * stateMachine.moveSpeed);
+        rb.velocity = new Vector3(inputVector.x * stateMachine.moveSpeed, rb.velocity.y, inputVector.y * stateMachine.moveSpeed);
     }
 }
