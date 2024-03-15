@@ -15,12 +15,31 @@ public class LobbyUI : MonoBehaviour
     
     [SerializeField] private GameObject hostGameUI;
     [SerializeField] private GameObject lobbyGameUI;
+    [SerializeField] private float autoRefreshTime = 10f;
+    private float refreshTimeCD;
 
     [SerializeField] private TMP_InputField joinCodeInput;
 
     public void Start()
     {
         lobbyAPI.LobbiesUpdated += UpdateLobbyListClient;
+        refreshTimeCD = autoRefreshTime;
+    }
+
+    void Update()
+    {
+        AutoRefreshLobby();
+    }
+
+    private void AutoRefreshLobby()
+    {
+        refreshTimeCD -= Time.deltaTime;
+
+        if (refreshTimeCD < 0)
+        {
+            lobbyAPI.ListLobbies();
+            refreshTimeCD = autoRefreshTime;
+        }
     }
 
     private void OnDestroy()
