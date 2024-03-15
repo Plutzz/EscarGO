@@ -6,6 +6,11 @@ using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using Unity.Netcode.Transports.UTP;
+using Unity.Netcode;
+using Unity.Networking.Transport.Relay;
+using Unity.Services.Relay.Models;
+using Unity.Services.Relay;
 
 public class LobbyAPI : MonoBehaviour
 {
@@ -85,6 +90,16 @@ public class LobbyAPI : MonoBehaviour
     {
         try
         {
+            // Host relay
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
+
+            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartHost();
+
             // Lobby options
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
@@ -95,6 +110,7 @@ public class LobbyAPI : MonoBehaviour
                     // Map, string name, and S1 allows us to filter later on
                     {"Map", new DataObject(DataObject.VisibilityOptions.Public, mapName, DataObject.IndexOptions.S1)},
                     {"Gamemode", new DataObject(DataObject.VisibilityOptions.Public, gamemode, DataObject.IndexOptions.S2)},
+                    {"RelayCode", new DataObject(DataObject.VisibilityOptions.Public, joinCode, DataObject.IndexOptions.S3)},
                 }
             };
 
@@ -117,11 +133,11 @@ public class LobbyAPI : MonoBehaviour
     }
 
     // Create list of lobbies
-    private async void ListLobbies()
+    public async void ListLobbies()
     {
         try 
         {
-            // Set up rules for hte query lobby
+            // Set up rules for the query lobby
             QueryLobbiesOptions queryLobbiesOptions = new QueryLobbiesOptions
             {
                 Count = lobbyCount,
@@ -158,7 +174,7 @@ public class LobbyAPI : MonoBehaviour
     }
 
     // Join lobby with code
-    private async void JoinLobbyByCode(string lobbyCode)
+    public async void JoinLobbyByCode(string lobbyCode)
     {
         try
         {
@@ -172,6 +188,56 @@ public class LobbyAPI : MonoBehaviour
             joinedLobby = lobby;
 
             Debug.Log("Joined Lobby with code " + lobbyCode);
+
+            // Joining relay
+            string joinCode = joinedLobby.Data["RelayCode"].Value;
+
+            Debug.Log("Joining Relay with " + joinCode);
+
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartClient();
+
+            Players(lobby);
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    // Join lobby with code
+    public async void JoinLobbyById(string lobbyID)
+    {
+        try
+        {
+            JoinLobbyByIdOptions joinLobbyByIdOptions = new JoinLobbyByIdOptions
+            {
+                Player = GetPlayer()
+            };
+            
+
+            Lobby lobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobbyID, joinLobbyByIdOptions);
+            joinedLobby = lobby;
+
+            Debug.Log("Joined Lobby with ID " + lobbyID);
+
+            // Joining relay
+            string joinCode = joinedLobby.Data["RelayCode"].Value;
+
+            Debug.Log("Joining Relay with " + joinCode);
+
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            NetworkManager.Singleton.StartClient();
 
             Players(lobby);
         }
@@ -321,5 +387,15 @@ public class LobbyAPI : MonoBehaviour
             Debug.Log(e);
             return null;
         }
+    }
+
+    public string GetLobbyCode()
+    {
+        if (joinedLobby == null)
+        {
+            return "";
+        }
+
+        return "Lobby Code: " + joinedLobby.LobbyCode;
     }
 }

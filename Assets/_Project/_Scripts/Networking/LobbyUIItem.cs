@@ -11,6 +11,12 @@ public class LobbyUIItem : MonoBehaviour
     public string gamemode = "";
     public int currentPlayers = 0;
     public int maxPlayers = 0;
+    public string lobbyID = "";
+    public LobbyAPI lobbyAPI;
+
+    // UI Elements to disable
+    public GameObject lobbyUI;
+    public GameObject lobbyGameUI;
 
     [SerializeField] private TMP_Text lobbyNameUI;
     [SerializeField] private TMP_Text mapNameUI;
@@ -24,5 +30,13 @@ public class LobbyUIItem : MonoBehaviour
         mapNameUI.text = mapName;
         gamemodeUI.text = gamemode;
         playerCountUI.text = currentPlayers + "/" + maxPlayers;
+    }
+
+    public void JoinGame()
+    {
+        lobbyAPI.JoinLobbyById(lobbyID);
+
+        lobbyUI.SetActive(false);
+        lobbyGameUI.SetActive(true);
     }
 }
