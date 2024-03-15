@@ -398,4 +398,9 @@ public class LobbyAPI : MonoBehaviour
 
         return "Lobby Code: " + joinedLobby.LobbyCode;
     }
+
+    public Lobby GetJoinedLobby()
+    {
+        return joinedLobby;
+    }
 }

@@ -67,9 +67,17 @@ public class LobbyUI : MonoBehaviour
 
         lobbyAPI.JoinLobbyByCode(joinCode);
 
-        joinCodeInput.text = "";
-        this.gameObject.SetActive(false);
-        lobbyGameUI.SetActive(true);
+        if (lobbyAPI.GetJoinedLobby() != null)
+        {
+            joinCodeInput.text = "";
+            this.gameObject.SetActive(false);
+            lobbyGameUI.SetActive(true);
+        }
+        else
+        {
+            // Any other logic here, perhaps error message
+            Debug.Log("Lobby NOT FOUND");
+        }
     }
 
     private void BuildLobbyItem(string lobbyName, string mapName, string gamemode, int currPlayers, int maxPlayers, string lobbyID)
