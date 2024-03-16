@@ -63,7 +63,7 @@ Material:
     - _Area_of_Rest: 4
     - _Areas_of_Rest: 2.15
     - _Float: 2.49
-    - _Fluffy_Amount: 1.77
+    - _Fluffy_Amount: 1.31
     - _Light_Strength: 1
     - _Noise_Multiply: 2.64
     - _Noise_Power: 6.76
@@ -72,11 +72,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SSS: 1
-    - _Smoothness: 0.3
+    - _Smoothness: 0.38
     - _Wind_Amplitude: 1.04
     - _Wind_Jitter: 2
     m_Colors:
-    - _Color: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 0}
-    - _SSS_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0}
+    - _Color: {r: 0.03304375, g: 0.14716971, b: 0.06087935, a: 0}
+    - _SSS_Color: {r: 0.29433942, g: 0.2615733, b: 0.2615733, a: 0}
     - _Vector2: {r: 4, g: 4, b: 0, a: 0}
   m_BuildTextureStacks: []
