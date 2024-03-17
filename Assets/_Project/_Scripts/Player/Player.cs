@@ -152,7 +152,7 @@ public class Player : NetworkBehaviour
     {
         canJump = false;
         jumpCooldown = Time.time + jumpCooldownDuration;
-
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.JumpSound, transform.position);
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
