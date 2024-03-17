@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6572037729592484992}
   - component: {fileID: -7427579404053888625}
   - component: {fileID: -4012893780502171611}
+  - component: {fileID: -572882811816455531}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Untagged
@@ -104,7 +105,7 @@ MonoBehaviour:
   movementController: {fileID: 0}
   timerObjectPrefab: {fileID: 4765523278395291635, guid: d0ec32c44bc3d054bb039030cdb828e5,
     type: 3}
-  patienceTime: 20
+  patienceTime: 9
   interactionDistance: 2
 --- !u!54 &-7427579404053888625
 Rigidbody:
@@ -150,3 +151,26 @@ MonoBehaviour:
   - {fileID: 5848043131301637024, guid: fc8994c1d73ac164790cf4169a40e509, type: 3}
   - {fileID: 1183376589293944563, guid: 5de25ed1d49de61408628790f7553794, type: 3}
   speed: 5
+--- !u!136 &-572882811816455531
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2479384974613480693}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000002
+  m_Height: 0.99999994
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.000000059604645, z: 0}

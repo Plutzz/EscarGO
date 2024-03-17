@@ -57,24 +57,24 @@ public class Customer : MonoBehaviour
     public void Leave()
     {
         Debug.Log("You take too long! I'm out");
-        gameObject.SetActive(false); // Deactivate the customer GameObject
         if (currentChair != null)
         {
             currentChair.RemoveCustomer();
-            currentChair = null; // Reset the currentChair reference
+            currentChair = null; 
         }
+        gameObject.SetActive(false); 
     }
 
     public void Exit()
     {
         Debug.Log("Thank you!");
-        gameObject.transform.position = customerSpawn.transform.position;
-        gameObject.SetActive(false); 
         if (currentChair != null)
         {
             currentChair.RemoveCustomer();
-            currentChair = null; // Reset the currentChair reference
+            currentChair = null; 
         }
+        gameObject.transform.position = customerSpawn.transform.position;
+        gameObject.SetActive(false);
     }
 
     public void SetOrder(CraftableItem orderItem)

@@ -50,6 +50,7 @@ public class CustomerMovement : MonoBehaviour
     {
         if (chair.currentCustomer != null)
         {
+            Debug.Log("Chair is occuppied");
             return true; // Chair is occupied by another customer
         }
         else
@@ -57,7 +58,7 @@ public class CustomerMovement : MonoBehaviour
             // Assign this customer to the chair
             chair.currentCustomer = GetComponent<Customer>();
             assignedChair = chair;
-            Debug.Log("Customer assigned to chair.");
+            Debug.Log("Customer assigned to chair: " + chair.gameObject.name);
             return false; // Chair is not occupied
         }
     }

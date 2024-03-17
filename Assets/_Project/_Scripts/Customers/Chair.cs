@@ -7,6 +7,7 @@ public class Chair : MonoBehaviour
     private bool isOccupied = false; // Indicates if the chair is occupied
     public Customer currentCustomer; // Reference to the current customer
 
+
     // Function to be called when a customer enters the chair trigger
     public void AssignCustomer(Customer customer)
     {
@@ -14,6 +15,7 @@ public class Chair : MonoBehaviour
         {
             currentCustomer = customer;
             isOccupied = true;
+            Debug.Log("Customer assigned to chair: " + gameObject.name);
             customer.EnterChair(this);
         }
     }
@@ -23,5 +25,6 @@ public class Chair : MonoBehaviour
     {
         currentCustomer = null;
         isOccupied = false;
+        Debug.Log("Customer removed from chair: " + gameObject.name);
     }
 }
