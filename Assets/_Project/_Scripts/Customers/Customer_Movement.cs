@@ -59,8 +59,9 @@ public class CustomerMovement : NetworkBehaviour
     private bool IsChairOccupied(Chair chair)
     {
         if (!IsServer) return true;
+
         Debug.Log(chair);
-        if (chair.customer != null)
+        if (chair.currentCustomer != null)
         {
             Debug.Log("Chair is occuppied");
             return true; // Chair is occupied by another customer

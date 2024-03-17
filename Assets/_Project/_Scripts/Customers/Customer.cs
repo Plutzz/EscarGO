@@ -9,19 +9,20 @@ public class Customer : NetworkBehaviour
     private Criteria criteria;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject orderPrefab;
-    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
+
+    [Header("Timer")]
     private float timer;
-    private bool orderRecieved;
+    [SerializeField] private GameObject timerObjectPrefab;
+    private GameObject timerObject;
+    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
+
+    [Header("Seating Variables")]
     public int assignedPlayer;
     [SerializeField] private float interactionDistance = 2f;
-    [SerializeField] private GameObject movementController;
-    [SerializeField] private GameObject timerObjectPrefab; 
-    [SerializeField] private float patienceTime; 
-    [SerializeField] private float interactionDistance = 2f; 
-    private float timer;
     private bool orderReceived;
     private bool hasOrder = false;
+    private Chair currentChair;
 
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
@@ -107,9 +108,12 @@ public class Customer : NetworkBehaviour
     
     [ClientRpc]
     public void LeaveClientRpc()
+    {
+        Destroy(gameObject);
+    }
     void UpdateTimerScale()
     {
-        float scale = Mathf.Clamp01(1- timer / patienceTime)/85;
+        float scale = Mathf.Clamp01(1 - timer / patienceTime) / 85;
         float xScale = scale * 7/2;
         timerObject.transform.localScale = new Vector3(xScale, scale, 1f);
     }
@@ -133,7 +137,7 @@ public class Customer : NetworkBehaviour
             currentChair.RemoveCustomer();
             currentChair = null; 
         }
-        gameObject.transform.position = customerSpawn.transform.position;
+        gameObject.transform.position = CustomerSpawner.Instance.transform.position;
         gameObject.SetActive(false);
     }
 
@@ -176,8 +180,6 @@ public class Customer : NetworkBehaviour
         return true;
     }
 
-} 
-
     public void SetOrder(CraftableItem orderItem)
     {
         if (orderItem != null)
@@ -191,4 +193,5 @@ public class Customer : NetworkBehaviour
         currentChair = chair;
     }
 }
+
 
