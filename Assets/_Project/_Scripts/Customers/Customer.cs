@@ -15,6 +15,12 @@ public class Customer : NetworkBehaviour
     private bool orderRecieved;
     public int assignedPlayer;
     [SerializeField] private float interactionDistance = 2f;
+    [SerializeField] private GameObject movementController;
+    [SerializeField] private GameObject timerObjectPrefab; 
+    [SerializeField] private float patienceTime; 
+    [SerializeField] private float interactionDistance = 2f; 
+    private float timer;
+    private bool orderReceived;
     private bool hasOrder = false;
 
     // Start is called before the first frame update
@@ -28,10 +34,10 @@ public class Customer : NetworkBehaviour
         GetCustomerOrderClientRpc(randomIndex);
 
         timer = patienceTime;
-        orderRecieved = false;
+        orderReceived = false;
+        timerObject = Instantiate(timerObjectPrefab, transform);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!IsServer) return;
@@ -44,13 +50,17 @@ public class Customer : NetworkBehaviour
 
         if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance && hasOrder)
         {
-            orderRecieved = true;
+            orderReceived = true;
+            //patienceFillObject.SetActive(true); // Show the patience fill object when order is received
         }
 
-        if (orderRecieved == true)
+        UpdateTimerScale();
+
+        if (orderReceived)
         {
             Exit();
         }
+
     }
     [ClientRpc]
     private void GetCustomerOrderClientRpc(int _index)
@@ -97,13 +107,33 @@ public class Customer : NetworkBehaviour
     
     [ClientRpc]
     public void LeaveClientRpc()
+    void UpdateTimerScale()
     {
-        Destroy(gameObject);
+        float scale = Mathf.Clamp01(1- timer / patienceTime)/85;
+        float xScale = scale * 7/2;
+        timerObject.transform.localScale = new Vector3(xScale, scale, 1f);
+    }
+
+    public void Leave()
+    {
+        Debug.Log("You take too long! I'm out");
+        if (currentChair != null)
+        {
+            currentChair.RemoveCustomer();
+            currentChair = null; 
+        }
+        gameObject.SetActive(false); 
     }
 
     public void Exit()
     {
         Debug.Log("Thank you!");
+        if (currentChair != null)
+        {
+            currentChair.RemoveCustomer();
+            currentChair = null; 
+        }
+        gameObject.transform.position = customerSpawn.transform.position;
         gameObject.SetActive(false);
     }
 
@@ -147,4 +177,18 @@ public class Customer : NetworkBehaviour
     }
 
 } 
+
+    public void SetOrder(CraftableItem orderItem)
+    {
+        if (orderItem != null)
+        {
+            hasOrder = true;
+        }
+    }
+
+    public void EnterChair(Chair chair)
+    {
+        currentChair = chair;
+    }
+}
 

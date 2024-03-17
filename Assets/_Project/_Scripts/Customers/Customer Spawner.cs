@@ -45,6 +45,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
             Debug.Log("Respawn Customer");
             timer = 0;
             SpawnCustomer();
+            timer = spawnTime; // Reset the timer
         }
     }
 
@@ -59,6 +60,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         }
 
         customerCount++;
+        int randomIndex = Random.Range(0, recipes.Length);
 
         // Instantiate the customer prefab
         GameObject spawnedCustomer = Instantiate(customerPrefab, transform.position, Quaternion.identity);
@@ -81,4 +83,5 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         // Spawn Customer on the server
         spawnedCustomer.GetComponent<NetworkObject>().Spawn(true);
     }
+
 }

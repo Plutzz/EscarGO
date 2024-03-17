@@ -62,13 +62,15 @@ public class CustomerMovement : NetworkBehaviour
         Debug.Log(chair);
         if (chair.customer != null)
         {
+            Debug.Log("Chair is occuppied");
             return true; // Chair is occupied by another customer
         }
         else
         {
-            Debug.Log("Add customer to chair");
-            chair.customer = GetComponent<Customer>();
+            // Assign this customer to the chair
+            chair.currentCustomer = GetComponent<Customer>();
             assignedChair = chair;
+            Debug.Log("Customer assigned to chair: " + chair.gameObject.name);
             return false; // Chair is not occupied
         }
     }
