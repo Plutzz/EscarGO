@@ -11,10 +11,8 @@ GameObject:
   - component: {fileID: 397472040218753220}
   - component: {fileID: -2848077590611607418}
   - component: {fileID: 6572037729592484992}
-  - component: {fileID: 7999536262768886706}
   - component: {fileID: -7427579404053888625}
   - component: {fileID: -4012893780502171611}
-  - component: {fileID: 5201058189433728573}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Untagged
@@ -71,22 +69,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3141356370038839228, guid: 0d843f046d4b7ff468bf908a70a42440, type: 3}
-  patienceTime: 60
+  orderPrefab: {fileID: 6484923049758110597, guid: 91726b78b6978a746bcfeae51e932201,
+    type: 3}
   orderOffset: {x: 0, y: 1, z: 0}
+  timerObjectPrefab: {fileID: 4765523278395291635, guid: d0ec32c44bc3d054bb039030cdb828e5,
+    type: 3}
+  patienceTime: 60
+  assignedPlayer: 0
   interactionDistance: 2
---- !u!114 &7999536262768886706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2479384974613480693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1b41f1409db61b45a1f749d1c720247, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerDuration: 5
 --- !u!54 &-7427579404053888625
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,18 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
---- !u!114 &5201058189433728573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2479384974613480693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292ca54603db5a04096d61fa2abccab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  assignedPlayer: 0
 --- !u!1 &5280933959488696751
 GameObject:
   m_ObjectHideFlags: 0

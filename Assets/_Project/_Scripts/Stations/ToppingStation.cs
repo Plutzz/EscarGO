@@ -84,7 +84,9 @@ public class ToppingStation : SuperStation
             {
                 if(HitToppingCircle())
                 {
-                    Instantiate(sprinkleParticles, transform.position + new Vector3(Random.Range(-maxX, maxX), 1f, Random.Range(-maxZ, maxZ)), transform.rotation);
+                    Vector3 screenPosition = Input.mousePosition;
+                    screenPosition.z = Camera.main.nearClipPlane + 0.1f;
+                    Instantiate(sprinkleParticles, Camera.main.ScreenToWorldPoint(screenPosition) , transform.rotation);
                     toppingCircleLeft -= 1;
                 }
             }
