@@ -8,10 +8,10 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     [SerializeField] private GameObject customerPrefab;
     [SerializeField] public Criteria[] recipes;
     [SerializeField] private float spawnTime = 5f;
-    private float timer;
-    public int customerCount = 0;
+    private float timer = 0;
+    [HideInInspector] public int customerCount = 0;
     private bool isSpawning = true;
-    private int numCustomerToSpawn = 4;
+    [SerializeField] private int numCustomerToSpawn = 4;
 
     [Header("Chairs")]
     [SerializeField] public Chair[] playerOneChairs;
@@ -33,17 +33,16 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     {
         if (!IsServer) return;
 
-        timer += Time.deltaTime;
+        timer -= Time.deltaTime;
 
         if (customerCount == numCustomerToSpawn)
         {
             isSpawning = false;
         }
 
-        if (isSpawning && timer > spawnTime)
+        if (isSpawning && timer <= 0)
         {
             Debug.Log("Respawn Customer");
-            timer = 0;
             SpawnCustomer();
             timer = spawnTime; // Reset the timer
         }
@@ -60,7 +59,6 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         }
 
         customerCount++;
-        int randomIndex = Random.Range(0, recipes.Length);
 
         // Instantiate the customer prefab
         GameObject spawnedCustomer = Instantiate(customerPrefab, transform.position, Quaternion.identity);
