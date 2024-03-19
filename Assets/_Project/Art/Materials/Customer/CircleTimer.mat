@@ -26,7 +26,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: f4e87d411e8e14041ac7d71c58cda9f7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 358e4757fbaa68f4794a9585967ff7e2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -43,7 +43,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Border_Thickness: 0.2
+    - _Border_Thickness: 0.331
     - _Fill_Amount: 1
     - _Float: -0.0455
     - _Float_1: -4.44
@@ -51,18 +51,18 @@ Material:
     - _Normal: 1
     - _Number_of_Gaps: 6.06
     - _Number_of_Spaces: 8
-    - _Outline_Thickness: 0.1
+    - _Outline_Thickness: 0.056
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radius: 1
-    - _Spacing_Width: 0.1
+    - _Spacing_Width: 0
     - _Texture_Scale: 1.98
     - _Thickness: 0.18
     - _Timer_Thickness: 0.225
     - _USE_INNER_OUTLINE: 0
     - _USE_TEXTURE: 1
     m_Colors:
-    - _Background_Color: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 0}
+    - _Background_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
     - _Color: {r: 0.6886792, g: 0.23713954, b: 0.23713954, a: 0}
     - _Color_When_High: {r: 0.1960783, g: 1, b: 0, a: 0}
     - _Color_When_Low: {r: 1, g: 0, b: 0, a: 0}
