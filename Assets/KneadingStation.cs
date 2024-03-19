@@ -9,6 +9,7 @@ public class KneadingStation : SuperStation
 {
     [SerializeField] private float goalSizeOfDough = 1f;
     [SerializeField] private GameObject squareOfDough;
+    [SerializeField] private GameObject rollingPin;
     private Vector3 doughOffset = new Vector3(0, 0.52f, 0.018f);
 
     [SerializeField] private CraftableItem kneadedDough;
