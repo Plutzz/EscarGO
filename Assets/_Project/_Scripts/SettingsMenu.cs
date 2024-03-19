@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class SettingsMenu : MonoBehaviour
+public class SettingsMenu : NetworkBehaviour
 {
-    private InputManager inputManager;
-    private void Start()
+    [SerializeField] private InputManager inputManager;
+    public override void OnNetworkSpawn()
     {
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().pauseMenu = this;
-        inputManager = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>();
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); // Disable gameObject on spawn (because you can't spawn a disabled game object)
+
+        if (!IsOwner)
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     public void OpenMenu()

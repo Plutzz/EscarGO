@@ -43,7 +43,7 @@ public class Player : NetworkBehaviour
     private float lastJumpPressed;
 
     #endregion
-    public SettingsMenu pauseMenu;
+    [SerializeField] private SettingsMenu pauseMenu;
     [SerializeField] private FirstPersonCamera cameraScript;
 
 

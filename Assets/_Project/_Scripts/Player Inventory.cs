@@ -4,7 +4,6 @@ using Unity.Netcode;
 using UnityEngine;
 public class PlayerInventory : NetworkBehaviour
 {
-    [SerializeField] private GameObject inventoryCanvasPrefab;
     [SerializeField] private GameObject inventoryParent;
     private List<InventorySpace> inventorySpaces = new List<InventorySpace>();
     private List<Item> currentItems = new List<Item>();
@@ -19,9 +18,6 @@ public class PlayerInventory : NetworkBehaviour
             enabled = false;
             return;
         }
-
-        inventoryParent = Instantiate(inventoryCanvasPrefab, transform);
-        inventoryParent = inventoryParent.transform.GetChild(0).gameObject;
 
         foreach (Transform child in inventoryParent.transform) { 
             InventorySpace space = child.GetComponent<InventorySpace>();
