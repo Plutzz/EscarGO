@@ -33,8 +33,9 @@ public class BakingStation : SuperStation
     private bool rightSuccess = false;
 
 
-    public override void Activate()
+    public override void Activate(Item successfulItem)
     {
+        resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
         if (isBaking == true)
@@ -144,10 +145,13 @@ public class BakingStation : SuperStation
         middleSuccess = false;
         rightSuccess = false;
         isBaking = false;
-        if(inventory.CanCraft(donut)) //maybe other player knocks items out of inventory
+
+        /*if(inventory.CanCraft(donut)) //maybe other player knocks items out of inventory
         {
             inventory.Craft(donut);
-        }
+        }*/
+        inventory.TryAddItemToInventory(resultingItem);
+
         DeActivate();
     }
 

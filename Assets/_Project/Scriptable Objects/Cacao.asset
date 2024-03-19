@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Cacao
   itemSprite: {fileID: 21300000, guid: f667104d49c792e428a133887c07c4f3, type: 3}
   itemDescription: Not sure how to say this word
-  maxTimeInInventory: 20
+  maxTimeInInventory: 40
   currentTimeInInventory: 0
   failedItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}

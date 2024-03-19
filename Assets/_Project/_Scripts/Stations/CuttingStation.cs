@@ -25,8 +25,9 @@ public class CuttingStation : SuperStation
     private int cuts = 0;
 
 
-    public override void Activate()
+    public override void Activate(Item successfulItem)
     {
+        resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
         if(isCutting == true)
@@ -175,7 +176,8 @@ public class CuttingStation : SuperStation
     {
         cutNumber.color = Color.green;
         success = true;
-        inventory.Craft(chocolate);
+        //inventory.Craft(chocolate);
+        inventory.TryAddItemToInventory(resultingItem);
         
         if(cutIndicator != null)
         {

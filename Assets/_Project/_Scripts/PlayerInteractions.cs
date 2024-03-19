@@ -62,7 +62,7 @@ public class PlayerInteractions : NetworkBehaviour
         Collider[] trashColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, trashLayer);
         if (trashColliders.Length > 0)
         {
-            playerInventory.RemoveSelectedItem();
+            playerInventory.RemoveActiveItem();
         }
         else {
             TipsManager.Instance.SetTip("No Trashcan here", 2f);

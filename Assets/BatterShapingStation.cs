@@ -23,8 +23,9 @@ public class BatterShapingStation : SuperStation
     private GameObject playerBatter;
     public float playerHoldTimer = 0f;
 
-    public override void Activate()
+    public override void Activate(Item successfulItem)
     {
+        resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
         virtualCamera.enabled = true;
         isBattering = true;
@@ -93,10 +94,11 @@ public class BatterShapingStation : SuperStation
     private void Succeed()
     {
         success = true;
-        if(inventory.CanCraft(batter))
+        inventory.TryAddItemToInventory(resultingItem);
+        /*if(inventory.CanCraft(batter))
         {
             inventory.Craft(batter);
-        }
+        }*/
 
         DeActivate();
     }
