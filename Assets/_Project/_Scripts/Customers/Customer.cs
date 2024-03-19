@@ -10,11 +10,11 @@ public class Customer : NetworkBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject orderPrefab;
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
+    private Material orderMaterial;
 
     [Header("Timer")]
     private float timer;
-    [SerializeField] private GameObject timerObjectPrefab;
-    private GameObject timerObject;
+    private bool timerStarted = false;
     [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
 
     [Header("Seating Variables")]
@@ -36,7 +36,6 @@ public class Customer : NetworkBehaviour
 
         timer = patienceTime;
         orderReceived = false;
-        timerObject = Instantiate(timerObjectPrefab, transform);
     }
 
     void Update()
@@ -52,11 +51,13 @@ public class Customer : NetworkBehaviour
         if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance && hasOrder)
         {
             orderReceived = true;
-            //patienceFillObject.SetActive(true); // Show the patience fill object when order is received
         }
 
-        UpdateTimerScale();
-
+        if (timerStarted)
+        {
+            UpdateTimerCircle();
+        }
+        
         if (orderReceived)
         {
             Exit();
@@ -73,20 +74,21 @@ public class Customer : NetworkBehaviour
         orderObject.transform.localPosition = orderOffset;
 
         // Add a SpriteRenderer component to the order GameObject
-        Material itemMaterial = Instantiate(orderObject.GetComponent<Renderer>().material);
-        orderObject.GetComponent<Renderer>().material = itemMaterial;
+        orderMaterial = Instantiate(orderObject.GetComponent<Renderer>().material);
+        orderObject.GetComponent<Renderer>().material = orderMaterial;
 
         // Set the order sprite to the item's sprite
         criteria = Instantiate(CustomerSpawner.Instance.recipes[_index]);
 
         if (criteria != null && criteria.objectPairs[0].item.itemSprite != null)
         {
-            itemMaterial.SetTexture("_Texture", criteria.objectPairs[0].item.itemSprite.texture);
+            orderMaterial.SetTexture("_Texture", criteria.objectPairs[0].item.itemSprite.texture);
         }
         else
         {
             Debug.LogWarning("Order item or its sprite is not assigned!");
         }
+        timerStarted = true;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -111,11 +113,10 @@ public class Customer : NetworkBehaviour
     {
         Destroy(gameObject);
     }
-    void UpdateTimerScale()
+    void UpdateTimerCircle()
     {
-        float scale = Mathf.Clamp01(1 - timer / patienceTime) / 85;
-        float xScale = scale * 7/2;
-        timerObject.transform.localScale = new Vector3(xScale, scale, 1f);
+        orderMaterial.SetFloat("_Fill_Amount", Mathf.Clamp01(timer));
+        //Mathf.InverseLerp(0, 1, timer);
     }
 
     public void Leave()
