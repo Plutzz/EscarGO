@@ -9,11 +9,11 @@ public class BatterShapingStation : SuperStation
     [SerializeField] private float goal = 5f;
     [SerializeField] private float goalRange = 1f;
     [SerializeField] private float goalSizeOfBatter = 0.7f;
+    [SerializeField] private GameObject batterCircle;
 
     [SerializeField] private CraftableItem batter;
     private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    [SerializeField] private GameObject batterCircle;
     private bool success = false;
 
     
@@ -84,11 +84,8 @@ public class BatterShapingStation : SuperStation
     {
         if((goal - goalRange) <= playerHoldTimer && playerHoldTimer <= (goal + goalRange))
         {
-            Debug.Log("success");
             Succeed();
         } else {
-            //fail
-            Debug.Log("fail");
             Reset();
         }
     }
