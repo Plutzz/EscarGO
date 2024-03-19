@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftableItem: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
-  station: {fileID: 0}
+  station: {fileID: 5411653407274854996}
 --- !u!114 &5411653407274854996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,10 +242,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e99ad384b9d2d4e9c49b22a67183e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batter: {fileID: 0}
+  goal: 5
+  goalRange: 1
+  goalSizeOfBatter: 0.7
+  batter: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   virtualCamera: {fileID: 3441638109003990563}
   batterCircle: {fileID: 6877433010303726648, guid: 694e9cc1cde2c474982427e832e7a957,
     type: 3}
+  playerHoldTimer: 0
 --- !u!1 &6520115595269549542
 GameObject:
   m_ObjectHideFlags: 0
