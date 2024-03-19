@@ -31,6 +31,8 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             playerStats[playerNumber].strikes--;
             Debug.Log($"PLAYER: {playerNumber} has {playerStats[playerNumber].strikes} strikes remaining");
             // Client rpc to PLAYER SPECIFIC CLIENT and give a strike on UI
+            RecieveStrikeClientRpc(new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
+
         }
 
         if (playerStats[playerNumber].strikes == 0) {
@@ -48,6 +50,12 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             }
 
         }
+    }
+
+    [ClientRpc]
+    private void RecieveStrikeClientRpc(ClientRpcParams sendParams)
+    {
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().RemoveStar();
     }
 
     private void FindWinningPlayer() {
