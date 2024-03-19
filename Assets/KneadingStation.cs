@@ -17,6 +17,17 @@ public class KneadingStation : SuperStation
     private PlayerInventory inventory;
     private bool success;
 
+    [Header ("RollingPin")]
+    [SerializeField] private Transform top;
+    [SerializeField] private Transform right;
+    [SerializeField] private Transform bottom;
+    [SerializeField] private Transform left;
+    [SerializeField] private float durationToMove = 0.5f;
+    private float startTime = 0f;
+    private bool isRolling = false;
+    private Vector3 rollingPinDefaultPosition;
+    private Quaternion rollingPinDefaultRotation;
+
     private GameObject playerDough;
     private bool isKneading = false;
     private int[] keySequence;
@@ -42,6 +53,9 @@ public class KneadingStation : SuperStation
         wantedKey = 0;
         Destroy(playerDough);
 
+        rollingPin.transform.position = rollingPinDefaultPosition;
+        rollingPin.transform.rotation = rollingPinDefaultRotation;
+
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         virtualCamera.enabled = false;
     }
@@ -58,11 +72,17 @@ public class KneadingStation : SuperStation
         set { virtualCamera = value; }
     }
 
+    private void Start() {
+        rollingPinDefaultPosition = rollingPin.transform.position;
+        rollingPinDefaultRotation = rollingPin.transform.rotation;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if(isKneading)
         {
+
             if(Input.GetKeyDown(KeyCode.W))
             {
                 if(noFirstKey)
@@ -74,6 +94,8 @@ public class KneadingStation : SuperStation
                 if(PressedSequence(2))
                 {
                     playerDough.transform.localScale += new Vector3(0, 0, 0.05f);
+                    rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 90f, 0f));
+                    isRolling = true;
                 }
 
             } else if(Input.GetKeyDown(KeyCode.A))
@@ -87,6 +109,8 @@ public class KneadingStation : SuperStation
                 if(PressedSequence(1))
                 {
                     playerDough.transform.localScale += new Vector3(0.05f, 0, 0);
+                    rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
+                    isRolling = true;
                 }
 
             } else if(Input.GetKeyDown(KeyCode.S))
@@ -100,6 +124,8 @@ public class KneadingStation : SuperStation
                 if(PressedSequence(4))
                 {
                     playerDough.transform.localScale += new Vector3(0, 0, 0.05f);
+                    rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 90f, 0f));
+                    isRolling = true;
                 }
 
             } else if(Input.GetKeyDown(KeyCode.D))
@@ -113,8 +139,28 @@ public class KneadingStation : SuperStation
                 if(PressedSequence(3))
                 {
                     playerDough.transform.localScale += new Vector3(0.05f, 0, 0);
+                    rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
+                    isRolling = true;
                 }
 
+            }
+
+            switch (wantedKey)
+            {
+                case 1:
+                    MoveRollingPin(top, bottom);
+                    break;
+                case 2:
+                    MoveRollingPin(right, left);
+                    break;
+                case 3:
+                    MoveRollingPin(bottom, top);
+                    break;
+                case 4:
+                    MoveRollingPin(left, right);
+                    break;
+                default:
+                    break;
             }
 
             if(playerDough.transform.localScale.x >= goalSizeOfDough && playerDough.transform.localScale.z >= goalSizeOfDough)
@@ -126,13 +172,10 @@ public class KneadingStation : SuperStation
 
     private bool PressedSequence(int pressed)
     {
-        Debug.Log("pressed = " + pressed + " | " + "wantedKey = " + wantedKey);
-
         if(pressed == wantedKey)
         {
-            Debug.Log("correct");
-
             wantedKey += 1;
+
             if(wantedKey > 4)
             {
                 wantedKey = 1;
@@ -141,7 +184,6 @@ public class KneadingStation : SuperStation
             return true;
         }
 
-        Debug.Log("wrong");
         return false;
     }
 
@@ -154,5 +196,19 @@ public class KneadingStation : SuperStation
         }
 
         DeActivate();
+    }
+
+    private void MoveRollingPin(Transform start, Transform end)
+    {
+        if(isRolling)
+        {
+            startTime = Time.time;
+            isRolling = false;
+        }
+
+        float t = (Time.time - startTime) / durationToMove;
+
+        // Set our position as a fraction of the distance between the markers.
+        rollingPin.transform.position = Vector3.Lerp(start.position, end.position, t);
     }
 }
