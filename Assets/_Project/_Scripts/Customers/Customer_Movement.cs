@@ -51,9 +51,22 @@ public class CustomerMovement : NetworkBehaviour
         {
             if (!IsChairOccupied(potentialChair))
             {
-                break;
+                return;
             }
         }
+
+        // If no valid chairs are found change the assigned player by adding 1 (might have some logic error)
+        // pick randomly from another player?
+        assignedPlayer++;
+
+        // If all chairs are taken
+        if (assignedPlayer >= NetworkManager.Singleton.ConnectedClientsList.Count)
+        {
+            // Destroy this customer
+            CustomerSpawner.Instance.customerCount--;
+            Destroy(gameObject);
+        }
+
     }
 
     private bool IsChairOccupied(Chair chair)
