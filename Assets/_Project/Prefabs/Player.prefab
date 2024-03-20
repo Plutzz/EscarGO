@@ -548,7 +548,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphics: {fileID: 2897538961485828115}
-  anim: {fileID: 8970131833315623029}
   playerStateMachine: {fileID: 0}
 --- !u!1 &3799496545928371781
 GameObject:
@@ -655,7 +654,7 @@ Transform:
   m_GameObject: {fileID: 7926796474246571935}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.532, z: 0}
+  m_LocalPosition: {x: 0, y: 0.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -790,12 +789,6 @@ PrefabInstance:
 --- !u!4 &322617808928759535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3037863127082860422, guid: 8397a2776f12c984da5b3eaaacbd0eb1,
-    type: 3}
-  m_PrefabInstance: {fileID: 3337874701462413673}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8970131833315623029 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5921895114960904476, guid: 8397a2776f12c984da5b3eaaacbd0eb1,
     type: 3}
   m_PrefabInstance: {fileID: 3337874701462413673}
   m_PrefabAsset: {fileID: 0}

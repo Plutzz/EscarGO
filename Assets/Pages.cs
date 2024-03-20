@@ -5,9 +5,9 @@ using Unity.Netcode;
 
 public class Pages : NetworkBehaviour
 {
-    public Texture2D[] pages;
-    public Shader nextPage;
-    public Shader previousPage;
+    public Texture[] pages;
+    public Material nextPage;
+    public Material previousPage;
 
     public int currentPage = 0;
     public override void OnNetworkSpawn()
@@ -17,8 +17,9 @@ public class Pages : NetworkBehaviour
             return;
         }
         currentPage = 0;
-        // nextPage._Texture2D.mainTexture = pages[currentPage];
-        // previousPage.GetPropertyAttributesmainTexture = pages[currentPage % pages.Length];
+
+        nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
     }
 
     void Update()
@@ -30,7 +31,9 @@ public class Pages : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // nextPage.material.mainTexture = pages[currentPage++ % pages.Length];
+            previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+            currentPage = (currentPage + 1) % pages.Length;
+            nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -38,7 +41,10 @@ public class Pages : NetworkBehaviour
             {
                 currentPage = pages.Length;
             }
-            // previousPage.material.mainTexture = pages[--currentPage % pages.Length];
+            
+            nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+            currentPage = (currentPage - 1 + pages.Length) % pages.Length;
+            previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
         }
     }
 }
