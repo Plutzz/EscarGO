@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Donut
-  m_Shader: {fileID: -6465566751694194690, guid: 0a697112b1ca67f4286d0a562c57d9c6,
+  m_Shader: {fileID: -6465566751694194690, guid: 7382b9d9a50b13945990f0c20af4b9eb,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
