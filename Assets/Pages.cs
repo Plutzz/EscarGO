@@ -12,7 +12,7 @@ public class Pages : NetworkBehaviour
     public int currentPage = 0;
     public override void OnNetworkSpawn()
     {
-        if (!IsOwner)
+        if (!IsServer)
         {
             return;
         }
@@ -22,29 +22,41 @@ public class Pages : NetworkBehaviour
         previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
     }
 
+    [ClientRpc]
+    public void ChangePageClientRpc(int page)
+    {
+        currentPage = page;
+        nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+    }
+
     void Update()
     {
-        if (!IsOwner)
-        {
-            return;
-        }
-
         if (Input.GetKeyDown(KeyCode.E))
         {
-            previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
-            currentPage = (currentPage + 1) % pages.Length;
-            nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+            ChangeNextPageServerRpc(currentPage);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (currentPage == 0)
-            {
-                currentPage = pages.Length;
-            }
-            
-            nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
-            currentPage = (currentPage - 1 + pages.Length) % pages.Length;
-            previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+            ChangePrevPageServerRpc(currentPage);
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangeNextPageServerRpc(int page)
+    {
+        currentPage = (page + 1) % pages.Length;
+        ChangePageClientRpc(currentPage);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangePrevPageServerRpc(int page)
+    {
+        if (currentPage == 0)
+        {
+            currentPage = pages.Length;
+        }
+        currentPage = (page - 1 + pages.Length) % pages.Length;
+        ChangePageClientRpc(currentPage);
     }
 }
