@@ -36,12 +36,31 @@ public class ButtonPromptCheck : MonoBehaviour
         // Need to delete these on exit but aside from that it works
         // Checks closest item in range
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+
+        // Tracks button prompts in the array of colliders
+        bool foundButtonPrompt = false;
+
         foreach(Collider col in colliders)
         {
 
             if (col.GetComponent<ButtonPromptSet>() != null)
             {
+                foundButtonPrompt = true;
+
                 List<ButtonPromptDetails> bpDetails = col.GetComponent<ButtonPromptSet>().buttonPromptSet;
+
+                // Keeps button prompts the same
+                if (buttonPromptObj.transform.childCount > 0)
+                {
+                    if (bpDetails[0] == buttonPromptObj.transform.GetChild(0).GetComponent<BPDetailsUI>().bpDetails)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        ClearUIItem();
+                    }
+                }
 
                 foreach (ButtonPromptDetails bpDetail in bpDetails)
                 {
@@ -49,9 +68,13 @@ public class ButtonPromptCheck : MonoBehaviour
                     details.GetComponent<BPDetailsUI>().bpDetails = bpDetail;
                 }
                 
+                break;
             }
-            
-            break;
+        }
+
+        if (!foundButtonPrompt)
+        {
+            ClearUIItem();
         }
     }
 
