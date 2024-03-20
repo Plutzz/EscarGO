@@ -21,7 +21,7 @@ public class TurnIn : InteractableSpace
                 
                 if(inventory.getCurrentItem().itemName == criteriaItem.item.itemName)
                 {
-                    inventory.TurnInSelectedItems();
+                    inventory.TurnInActiveItems();
                     criteriaItem.turnIn();
 
                     //GameManager.Instance.AddDonutServerRpc();

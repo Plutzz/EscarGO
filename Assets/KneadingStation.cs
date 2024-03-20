@@ -34,8 +34,9 @@ public class KneadingStation : SuperStation
     private int wantedKey = 0;
     private bool noFirstKey = true;
 
-    public override void Activate()
+    public override void Activate(Item successfulItem)
     {
+        resultingItem = successfulItem;
         playerDough = Instantiate(squareOfDough, transform.position + doughOffset, transform.rotation);
         isKneading = true;
 
@@ -190,10 +191,12 @@ public class KneadingStation : SuperStation
     private void Succeed()
     {
         success = true;
-        if(inventory.CanCraft(kneadedDough))
+
+        inventory.TryAddItemToInventory(resultingItem);
+        /*if(inventory.CanCraft(kneadedDough))
         {
             inventory.Craft(kneadedDough);
-        }
+        }*/
 
         DeActivate();
     }

@@ -151,7 +151,7 @@ public class Customer : NetworkBehaviour
 
                 if (inventory.getCurrentItem().itemName == criteriaItem.item.itemName)
                 {
-                    inventory.TurnInSelectedItems();
+                    inventory.TurnInActiveItems();
                     criteriaItem.turnIn();
                     Debug.Log("Turned in " + criteriaItem.getHave() + " " + criteriaItem.item.itemName);
 

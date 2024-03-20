@@ -6,8 +6,8 @@ public class PlayerInventory : NetworkBehaviour
 {
     [SerializeField] private GameObject inventoryParent;
     private List<InventorySpace> inventorySpaces = new List<InventorySpace>();
-    private List<Item> currentItems = new List<Item>();
-    private int currentItemIndex;
+    private List<InventoryItem> currentItems = new List<InventoryItem>();
+    private int activeItemIndex;
     private Dictionary<string, int> items = new Dictionary<string, int>();
     public override void OnNetworkSpawn()
     {
@@ -28,7 +28,7 @@ public class PlayerInventory : NetworkBehaviour
             }
         }
 
-        currentItemIndex = 0;
+        activeItemIndex = 0;
         UpdateInventory();
     }
 
@@ -36,7 +36,7 @@ public class PlayerInventory : NetworkBehaviour
     {
         UpdateTimeInInventory();
         if (Input.GetAxis("Mouse ScrollWheel") != 0) { 
-            currentItemIndex = (inventorySpaces.Count + currentItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaces.Count;
+            activeItemIndex = (inventorySpaces.Count + activeItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaces.Count;
             UpdateInventory();
         }
 
@@ -45,18 +45,29 @@ public class PlayerInventory : NetworkBehaviour
             ClearInventory();
         }
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ToggleCurrentInventorySlot();
+            UpdateInventory();
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            UseAllSelectedItems();
+            
+        }
     }
 
     private void UpdateTimeInInventory() {
         for(int i = 0; i < currentItems.Count; i++) {
-            currentItems[i].currentTimeInInventory += Time.deltaTime;
-            if (currentItems[i].currentTimeInInventory > currentItems[i].maxTimeInInventory) {
-                if (currentItems[i].failedItem != null) {
+            currentItems[i].timeInInventory += Time.deltaTime;
+            if (currentItems[i].timeInInventory > currentItems[i].item.maxTimeInInventory) {
+                if (currentItems[i].item.failedItem != null) {
                     SpoilItem(i);
                 }
                 
             }
-            inventorySpaces[i].SetTime(currentItems[i].currentTimeInInventory, currentItems[i].maxTimeInInventory);
+            inventorySpaces[i].SetTime(currentItems[i].timeInInventory, currentItems[i].item.maxTimeInInventory);
 
         }
     }
@@ -65,12 +76,15 @@ public class PlayerInventory : NetworkBehaviour
         if (currentItems.Count <= itemIndex) {
             return;
         }
-        if (currentItems[itemIndex].failedItem == null) {
+        Item failedItem = currentItems[itemIndex].item.failedItem;
+
+        if (failedItem == null) {
             return;
         }
-        EditDictionary(currentItems[itemIndex].itemName, -1);
-        EditDictionary(currentItems[itemIndex].failedItem.itemName, 1);
-        currentItems[itemIndex] = currentItems[itemIndex].failedItem;
+        EditDictionary(currentItems[itemIndex].item.itemName, -1);
+        EditDictionary(failedItem.itemName, 1);
+        currentItems[itemIndex] = new InventoryItem(failedItem);
+
         UpdateInventory();
         inventorySpaces[itemIndex].SetTime(0, 1);
     }
@@ -78,27 +92,32 @@ public class PlayerInventory : NetworkBehaviour
     private void UpdateInventory() { 
         for (int i = 0; i < currentItems.Count; i++)
         {
-            inventorySpaces[i].AssignIcon(currentItems[i].itemSprite);
-            inventorySpaces[i].SetUnselected();
+            inventorySpaces[i].AssignIcon(currentItems[i].item.itemSprite);
+            inventorySpaces[i].SetColor(currentItems[i].isSelected, activeItemIndex == i);
         }
 
         for (int i = currentItems.Count; i < inventorySpaces.Count; i++)
         {
             inventorySpaces[i].AssignIcon(null);
             inventorySpaces[i].SetTime(0, 1);
-            inventorySpaces[i].SetUnselected();
+            inventorySpaces[i].SetColor(false, activeItemIndex == i);
         }
-        inventorySpaces[currentItemIndex].SetSelected();
+
+        //inventorySpaces[activeItemIndex].SetActive();
     }
 
     public bool TryAddItemToInventory(Item item) {
+        if (item == null) {
+            return false;
+        }
         if (currentItems.Count == inventorySpaces.Count) {
             return false;
         }
-        Item playerCopy = ScriptableObject.CreateInstance<Item>();
-        playerCopy.CopyData(item);
+        /*Item playerCopy = ScriptableObject.CreateInstance<Item>();
+        playerCopy.CopyData(item);*/
+        InventoryItem inventoryItem = new InventoryItem(item);
 
-        currentItems.Add(playerCopy);
+        currentItems.Add(inventoryItem);
 
         EditDictionary(item.itemName, 1);
 
@@ -131,7 +150,7 @@ public class PlayerInventory : NetworkBehaviour
             for (int i = currentItems.Count - 1; i >= 0; i--)
             {
                 Debug.Log("I is " + i);
-                if (currentItems[i].itemName == ingredient.item.name)
+                if (currentItems[i].item.itemName == ingredient.item.name)
                 {
                     currentItems.RemoveAt(i);
                     removedCount++;
@@ -162,15 +181,15 @@ public class PlayerInventory : NetworkBehaviour
         }
     }
 
-    public void RemoveSelectedItem() {
-        if (currentItems.Count <= currentItemIndex) {
+    public void RemoveActiveItem() {
+        if (currentItems.Count <= activeItemIndex) {
             TipsManager.Instance.SetTip("No item selected", 2f);
             return;
         }
 
-        TipsManager.Instance.SetTip("Tossing the " + currentItems[currentItemIndex].itemName, 2f);
-        EditDictionary(currentItems[currentItemIndex].itemName, -1);
-        currentItems.RemoveAt(currentItemIndex);
+        TipsManager.Instance.SetTip("Tossing the " + currentItems[activeItemIndex].item.itemName, 2f);
+        EditDictionary(currentItems[activeItemIndex].item.itemName, -1);
+        currentItems.RemoveAt(activeItemIndex);
         UpdateInventory();
     }
 
@@ -183,27 +202,22 @@ public class PlayerInventory : NetworkBehaviour
         UpdateInventory();
     }
 
-    public void TurnInSelectedItems()
+    public void TurnInActiveItems()
     {
-        if (currentItems.Count <= currentItemIndex) {
-            TipsManager.Instance.SetTip("No item selected", 2f);
-            return;
-        }
+        RemoveActiveItem();
 
-        TipsManager.Instance.SetTip("Turning in the " + currentItems[currentItemIndex].itemName, 2f);
-        EditDictionary(currentItems[currentItemIndex].itemName, -1);
-        currentItems.RemoveAt(currentItemIndex);
-        UpdateInventory();
+        TipsManager.Instance.SetTip("Turning in the " + currentItems[activeItemIndex].item.itemName, 2f);
+        
     }
 
     public bool CurrentlyHasItem()
     {
-        if (currentItems.Count <= currentItemIndex) {
+        if (currentItems.Count <= activeItemIndex) {
             TipsManager.Instance.SetTip("No item selected", 2f);
             return false;
         }
 
-        if(currentItems[currentItemIndex] != null)
+        if(currentItems[activeItemIndex] != null)
         {
             return true;
         }
@@ -213,11 +227,54 @@ public class PlayerInventory : NetworkBehaviour
 
     public Item getCurrentItem()
     {
-        if(currentItemIndex >= 0 || currentItemIndex < currentItems.Count)
+        if(activeItemIndex >= 0 || activeItemIndex < currentItems.Count)
         {
-            return currentItems[currentItemIndex];
+            return currentItems[activeItemIndex].item;
         } else {
             return null;
         }
+    }
+
+    private void ToggleCurrentInventorySlot() {
+        if (activeItemIndex < 0 || activeItemIndex >= currentItems.Count) {
+            return;
+        }
+
+        currentItems[activeItemIndex].isSelected = !currentItems[activeItemIndex].isSelected;
+    }
+
+    public Dictionary<string, int> UseAllSelectedItems() { 
+        Dictionary<string, int> selectedItems = new Dictionary<string, int>();
+
+        for (int i = currentItems.Count - 1; i >= 0; i--) {
+            if (currentItems[i].isSelected) {
+                if (selectedItems.ContainsKey(currentItems[i].item.itemName))
+                {
+                    selectedItems[currentItems[i].item.itemName]++;
+                }
+                else {
+                    selectedItems[currentItems[i].item.itemName] = 1;
+                }
+
+
+                EditDictionary(currentItems[i].item.itemName, -1);
+
+                currentItems.RemoveAt(i);
+            }
+        }
+        UpdateInventory();
+        return selectedItems;
+    }
+}
+
+public class InventoryItem {
+    public Item item;
+    public float timeInInventory;
+    public bool isSelected;
+
+    public InventoryItem(Item item) { 
+        this.item = item;
+        timeInInventory = 0;
+        isSelected = false;
     }
 }

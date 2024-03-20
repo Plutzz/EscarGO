@@ -21,9 +21,10 @@ public class FrostingStation : SuperStation
     [SerializeField] private Vector3 startPoint;
     [SerializeField] private Vector3 endPoint;
 
-    public override void Activate()
+    public override void Activate(Item successfulItem)
     {
-        if(isFrosting == true)
+        resultingItem = successfulItem;
+        if (isFrosting == true)
         {
             return;
         }
@@ -152,7 +153,7 @@ public class FrostingStation : SuperStation
         timerText.color = Color.black;
         //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
-        Activate();
+        Activate(resultingItem);
     }
 
     private IEnumerator Failed()
@@ -164,6 +165,6 @@ public class FrostingStation : SuperStation
         timerText.color = Color.black;
         //remove after testingvvv
         yield return new WaitForSeconds(1.0f);
-        Activate();
+        Activate(resultingItem);
     }
 }

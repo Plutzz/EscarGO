@@ -91,8 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backdrop: {fileID: 4328939725346344094}
-  selectedColor: {r: 0, g: 0, b: 0, a: 1}
-  unselectedColor: {r: 0.5169811, g: 0.5169811, b: 0.5169811, a: 1}
+  activeAndSelectedColor: {r: 0.020408154, g: 1, b: 0, a: 1}
+  activeColor: {r: 0, g: 0, b: 0, a: 1}
+  selectedColor: {r: 0.23139195, g: 0.5924529, b: 0.2772728, a: 1}
+  normalColor: {r: 0.7056604, g: 0.7056604, b: 0.7056604, a: 1}
   iconSpace: {fileID: 7602055353352064407}
   burnedFill: {fileID: 1287857809239242584}
 --- !u!1 &7032379063183825838
