@@ -25,7 +25,7 @@ public class PlayerAnim : NetworkBehaviour
         anim = GetComponentInChildren<NetworkAnimator>();
         playerStateMachine = GetComponent<PlayerStateMachine>();
         playerInputActions = playerStateMachine.inputManager;
-
+        anim.SetTrigger("Idle"); // Set the default animation to idle
     }
 
     void Update()
@@ -39,6 +39,13 @@ public class PlayerAnim : NetworkBehaviour
         switch (_state)
         {
             case PlayerAirborneState _:
+                if (playerInputActions.MoveInput != Vector2.zero && playerInputActions.SprintIsPressed)
+                    anim.SetTrigger("Dance");
+                else if (playerInputActions.MoveInput != Vector2.zero)
+                    anim.SetTrigger("Jumping");
+                else
+                    anim.SetTrigger("Idle");
+                break;
             case PlayerMovingState _:
                 if (playerInputActions.SprintIsPressed)
                     anim.SetTrigger("Dance");
