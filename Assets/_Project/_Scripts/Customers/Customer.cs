@@ -115,8 +115,7 @@ public class Customer : NetworkBehaviour
     }
     void UpdateTimerCircle()
     {
-        orderMaterial.SetFloat("_Fill_Amount", Mathf.Clamp01(timer));
-        //Mathf.InverseLerp(0, 1, timer);
+        orderMaterial.SetFloat("_Fill_Amount", Mathf.InverseLerp(0, patienceTime, timer));
     }
 
     public void Leave()
