@@ -115,7 +115,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fluffy_Amount: 1.2
+    - _Fluffy_Amount: 1.77
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -128,13 +128,13 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SSS: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Wind_Jitter: 2
+    - _Wind_Jitter: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
