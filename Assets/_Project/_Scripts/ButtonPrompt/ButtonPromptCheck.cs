@@ -21,8 +21,18 @@ public class ButtonPromptCheck : MonoBehaviour
         CheckClosestItem();
     }
 
+    void ClearUIItem()
+    {
+        foreach (Transform child in buttonPromptObj.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     void CheckClosestItem()
     {
+        // ClearUIItem();
+
         // Need to delete these on exit but aside from that it works
         // Checks closest item in range
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
