@@ -32,6 +32,7 @@ public class CustomerMovement : NetworkBehaviour
                 if (direction.magnitude < 0.05)
                 {
                     inChair = true;
+                    GetComponent<Customer>().timerStarted = true;           // Start Patience Timer
                     transform.rotation = assignedChair.transform.rotation;
                 }
             }

@@ -14,7 +14,7 @@ public class Customer : NetworkBehaviour
 
     [Header("Timer")]
     private float timer;
-    private bool timerStarted = false;
+    [HideInInspector] public bool timerStarted = false;
     [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
 
     [Header("Seating Variables")]
@@ -42,7 +42,14 @@ public class Customer : NetworkBehaviour
     {
         if (!IsServer) return;
 
-        timer -= Time.deltaTime;
+
+        // Handle the timer
+        if (timerStarted)
+        {
+            timer -= Time.deltaTime;
+            UpdateTimerCircle();
+        }
+
         if (timer <= 0)
         {
             LeaveServerRpc();
@@ -53,10 +60,7 @@ public class Customer : NetworkBehaviour
             orderReceived = true;
         }
 
-        if (timerStarted)
-        {
-            UpdateTimerCircle();
-        }
+   
         
         if (orderReceived)
         {
@@ -88,7 +92,6 @@ public class Customer : NetworkBehaviour
         {
             Debug.LogWarning("Order item or its sprite is not assigned!");
         }
-        timerStarted = true;
     }
 
     [ServerRpc(RequireOwnership = false)]
