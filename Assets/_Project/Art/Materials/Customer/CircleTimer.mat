@@ -12,8 +12,7 @@ Material:
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _USE_TEXTURE
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -43,7 +42,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Border_Thickness: 0.331
+    - _Border_Thickness: 1
     - _Fill_Amount: 1
     - _Float: -0.0455
     - _Float_1: -4.44
@@ -60,7 +59,7 @@ Material:
     - _Thickness: 0.18
     - _Timer_Thickness: 0.225
     - _USE_INNER_OUTLINE: 0
-    - _USE_TEXTURE: 1
+    - _USE_TEXTURE: 0
     m_Colors:
     - _Background_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
     - _Color: {r: 0.6886792, g: 0.23713954, b: 0.23713954, a: 0}

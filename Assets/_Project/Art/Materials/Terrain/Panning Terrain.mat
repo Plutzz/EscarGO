@@ -174,10 +174,10 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 0.9960783, b: 0.972549, a: 1}
     - _Lower_Base_Color: {r: 0.54509807, g: 0.27058825, b: 0.07450981, a: 0}
-    - _Lower_Top_Color: {r: 0.33333334, g: 0.41960785, b: 0.18431373, a: 0}
+    - _Lower_Top_Color: {r: 0.14618191, g: 0.4245283, b: 0.1873063, a: 0}
     - _ShallowWater: {r: 0.090196066, g: 0.7058823, b: 1, a: 0.6980392}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Top_Color_Remap: {r: 0, g: 0.8, b: 0, a: 0}
     - _Upper_Base_Color: {r: 0.9411765, g: 0.91764706, b: 0.8392157, a: 0}
-    - _Upper_Top_Color: {r: 0.8862745, g: 0.44705883, b: 0.35686275, a: 0}
+    - _Upper_Top_Color: {r: 0.5943396, g: 0.34720322, b: 0.08130119, a: 0}
   m_BuildTextureStacks: []
