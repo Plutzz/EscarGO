@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3809503564088155738}
   - component: {fileID: 2745022377103576971}
   - component: {fileID: 3015414812899942628}
+  - component: {fileID: 157709289907607073}
   m_Layer: 6
   m_Name: ToppingStation
   m_TagString: Untagged
@@ -127,6 +128,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 3336348555597700333}
   toppingCircle: {fileID: 1376731491552901378, guid: a041584e6708f78459c0481fee857ed7,
     type: 3}
+  sprinkleParticles: {fileID: 0}
   toppingCircleAmount: 5
   maxX: 0.37
   maxZ: 0.37
@@ -144,6 +146,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftableItem: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   station: {fileID: 2745022377103576971}
+--- !u!114 &157709289907607073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690592718961510729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc9d726ba943e43ac59e4a3f86ded9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPromptSet:
+  - {fileID: 11400000, guid: f30226f7e84517c4ab72d1e7ec5fae98, type: 2}
+  - {fileID: 11400000, guid: f30226f7e84517c4ab72d1e7ec5fae98, type: 2}
 --- !u!1 &2540580351778014114
 GameObject:
   m_ObjectHideFlags: 0

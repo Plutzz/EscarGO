@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6328205035537388329}
   - component: {fileID: 4608862130040759153}
   - component: {fileID: 8837194606072665034}
+  - component: {fileID: 2602234188546771843}
   m_Layer: 6
   m_Name: CuttingStation
   m_TagString: Untagged
@@ -120,12 +121,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutPosition: 2
+  chocolate: {fileID: 0}
+  inventory: {fileID: 0}
   virtualCamera: {fileID: 4495592281453677286}
   cutNumber: {fileID: 0}
   minCuts: 1
   maxCuts: 10
   cutIndicatorPrefab: {fileID: 6583992201796392769, guid: c8c95d642f57c674fa974c948df332fa,
     type: 3}
+--- !u!114 &2602234188546771843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993321695680599760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc9d726ba943e43ac59e4a3f86ded9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPromptSet:
+  - {fileID: 11400000, guid: e9aad170dff11f544b126c7d1e6c7f2d, type: 2}
 --- !u!1 &2967215965936196236
 GameObject:
   m_ObjectHideFlags: 0
