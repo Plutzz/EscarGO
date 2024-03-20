@@ -106,9 +106,7 @@ MonoBehaviour:
   orderPrefab: {fileID: 6484923049758110597, guid: 91726b78b6978a746bcfeae51e932201,
     type: 3}
   orderOffset: {x: 0, y: 3, z: 0}
-  timerObjectPrefab: {fileID: 4765523278395291635, guid: d0ec32c44bc3d054bb039030cdb828e5,
-    type: 3}
-  patienceTime: 10
+  patienceTime: 3000
   assignedPlayer: 0
   interactionDistance: 2
 --- !u!54 &1962732025010211279

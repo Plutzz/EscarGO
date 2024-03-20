@@ -44,6 +44,11 @@ public class ToppingStation : SuperStation
         Cursor.lockState = CursorLockMode.None;
     }
 
+    public override void GetItem()
+    {
+        
+    }
+
     public override void DeActivate()
     {
 
