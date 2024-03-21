@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : NetworkSingletonPersistent<AudioManager>
 {
     [Header("Volume")]
     [Range(0, 1)]
@@ -27,21 +27,19 @@ public class AudioManager : Singleton<AudioManager>
     //private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
 
-    protected override void Awake()
+    public void Start()
     {
-        base.Awake();
+        base.OnNetworkSpawn();
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
+
+        //InitializeAmbience(FMODEvents.Instance.Ambience);
+        InitializeMusic(FMODEvents.Instance.Music);
 
         //masterBus = RuntimeManager.GetBus("bus:/");
         //musicBus = RuntimeManager.GetBus("bus:/Music");
         //ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
         //sfxBus = RuntimeManager.GetBus("bus:/SFX");
-    }
-    private void Start()
-    {
-        //InitializeAmbience(FMODEvents.Instance.Ambience);
-        InitializeMusic(FMODEvents.Instance.Music);
     }
 
     private void Update()
