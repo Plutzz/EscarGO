@@ -59,6 +59,8 @@ public class BakingStation : SuperStation
         virtualCamera.enabled = true;
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -76,6 +78,7 @@ public class BakingStation : SuperStation
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
     }
 
     public override bool ActivityResult

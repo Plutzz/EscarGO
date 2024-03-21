@@ -8,6 +8,8 @@ public class ButtonPromptCheck : MonoBehaviour
     [SerializeField] private GameObject buttonPromptDetailsObj;
     [SerializeField] private float rayLength = 5f;
 
+    private bool searchPrompts = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,10 +20,13 @@ public class ButtonPromptCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckClosestItem();
+        if (searchPrompts)
+        {
+            CheckClosestItem();
+        }
     }
 
-    void ClearUIItem()
+    public void ClearUIItem()
     {
         foreach (Transform child in buttonPromptObj.transform)
         {
@@ -70,5 +75,15 @@ public class ButtonPromptCheck : MonoBehaviour
         {
             ClearUIItem();
         }
+    }
+
+    public void DisablePrompts()
+    {
+        searchPrompts = false;
+    }
+
+    public void EnablePrompts()
+    {
+        searchPrompts = true;
     }
 }
