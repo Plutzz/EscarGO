@@ -105,7 +105,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FoamAmount: 1.5
+    - _FoamAmount: 0.75
     - _FoamCutoff: 1.01
     - _FoamScale: 2.75
     - _FoamSpeed: 4
@@ -145,7 +145,7 @@ Material:
     - _DeepWater: {r: 0.24056602, g: 0.80014896, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShallowWater: {r: 0.9411765, g: 0.91764706, b: 0.8392157, a: 0.6980392}
+    - _ShallowWater: {r: 0.6226415, g: 0.6019491, b: 0.5315949, a: 0.6980392}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1385477701594268639
