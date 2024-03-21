@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 5497603979795143256}
   - component: {fileID: 1928179772119252756}
   - component: {fileID: 8886470459481711780}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FoliageModel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.000011, y: 0.489, z: -0.000063}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.049999997}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 108810765642319961}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}

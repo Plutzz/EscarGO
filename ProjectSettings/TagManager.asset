@@ -7,7 +7,6 @@ TagManager:
   - ToppingCircle
   - Knob
   - Chair
-  - LobbyItem
   layers:
   - Default
   - TransparentFX
@@ -20,8 +19,8 @@ TagManager:
   - Trash
   - Serve
   - Customer
-  - Indoors
-  - NavMesh
+  - Potted Plants
+  - 
   - 
   - 
   - 

@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: 7682817420b265e40b3f5bc475a20e79, type: 3}
+        m_Texture: {fileID: 2800000, guid: 12457fdf6c24c5f4c88205bfc5391a6a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -115,7 +115,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fluffy_Amount: 1.77
+    - _Fluffy_Amount: 1.09
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -127,7 +127,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SSS: 1
+    - _SSS: 0.25
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -141,6 +141,6 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.0627451, g: 0.24705882, b: 0.047058824, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SSS_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _SSS_Color: {r: 0.023584902, g: 0.0052410895, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
