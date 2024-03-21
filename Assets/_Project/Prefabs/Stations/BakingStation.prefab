@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5934877578995926342}
   - component: {fileID: 227251044804726473}
   - component: {fileID: 4420376670329681521}
+  - component: {fileID: 1483860591471978292}
   m_Layer: 6
   m_Name: BakingStation
   m_TagString: Untagged
@@ -122,6 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b219ea3c6a0acd4e893f903a94417aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  donut: {fileID: 0}
+  inventory: {fileID: 0}
   virtualCamera: {fileID: 1682002310921270497}
   maxTurns: 11
   leftKnob: {fileID: 8920996482916525449}
@@ -129,6 +132,20 @@ MonoBehaviour:
   rightKnob: {fileID: 1605715643783202226}
   turnTarget: {fileID: 8282584804715741927, guid: 58a1bd1e00998be4a8c1f0773b509549,
     type: 3}
+--- !u!114 &1483860591471978292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238151154529500110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc9d726ba943e43ac59e4a3f86ded9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPromptSet:
+  - {fileID: 11400000, guid: 8fe1536dbf0041343a5d28341962350a, type: 2}
 --- !u!1 &515999985402119829
 GameObject:
   m_ObjectHideFlags: 0

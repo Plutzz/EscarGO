@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 1349474228553962947}
   - component: {fileID: 8569709070422852909}
   - component: {fileID: 5411653407274854996}
+  - component: {fileID: 6061257074215983325}
   m_Layer: 6
   m_Name: BatterShapingStation
   m_TagString: Untagged
@@ -245,11 +246,25 @@ MonoBehaviour:
   goal: 5
   goalRange: 1
   goalSizeOfBatter: 0.7
-  batter: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
-  virtualCamera: {fileID: 3441638109003990563}
   batterCircle: {fileID: 6877433010303726648, guid: 694e9cc1cde2c474982427e832e7a957,
     type: 3}
+  batter: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
+  virtualCamera: {fileID: 3441638109003990563}
   playerHoldTimer: 0
+--- !u!114 &6061257074215983325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6057126680882321067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc9d726ba943e43ac59e4a3f86ded9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPromptSet:
+  - {fileID: 11400000, guid: 1b37c5de611fb244c9b5382331e9a294, type: 2}
 --- !u!1 &6520115595269549542
 GameObject:
   m_ObjectHideFlags: 0

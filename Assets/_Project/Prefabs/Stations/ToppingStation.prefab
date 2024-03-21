@@ -159,8 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPromptSet:
-  - {fileID: 11400000, guid: f30226f7e84517c4ab72d1e7ec5fae98, type: 2}
-  - {fileID: 11400000, guid: f30226f7e84517c4ab72d1e7ec5fae98, type: 2}
+  - {fileID: 11400000, guid: 36db5ad310ddd014d917a48c3ce3ea4b, type: 2}
 --- !u!1 &2540580351778014114
 GameObject:
   m_ObjectHideFlags: 0

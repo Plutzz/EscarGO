@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 21388991234219185}
   - component: {fileID: 4612832656639900765}
   - component: {fileID: 6677311604230318006}
+  - component: {fileID: 1989529098447602245}
   m_Layer: 6
   m_Name: KneadingStation
   m_TagString: Untagged
@@ -141,6 +142,25 @@ MonoBehaviour:
   rollingPin: {fileID: 7361654189245218065}
   kneadedDough: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   virtualCamera: {fileID: 1534201414557340858}
+  top: {fileID: 0}
+  right: {fileID: 0}
+  bottom: {fileID: 0}
+  left: {fileID: 0}
+  durationToMove: 0.5
+--- !u!114 &1989529098447602245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186345720964773907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc9d726ba943e43ac59e4a3f86ded9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPromptSet:
+  - {fileID: 11400000, guid: f726e3ccd32d1aa47a493f1ec2c6c0c0, type: 2}
 --- !u!1 &5823032888429673119
 GameObject:
   m_ObjectHideFlags: 0

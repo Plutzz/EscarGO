@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPromptSet:
-  - {fileID: 11400000, guid: e9aad170dff11f544b126c7d1e6c7f2d, type: 2}
+  - {fileID: 11400000, guid: 3f1930bd82c7f1e43bbba09e0c628d4b, type: 2}
 --- !u!1 &2967215965936196236
 GameObject:
   m_ObjectHideFlags: 0
