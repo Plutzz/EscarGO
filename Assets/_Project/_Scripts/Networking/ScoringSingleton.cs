@@ -8,6 +8,16 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     private Dictionary<int, PlayerAttributes> playerStats = new Dictionary<int, PlayerAttributes>();
     public List<int> alivePlayers = new List<int>();
 
+
+    public override void OnNetworkSpawn()
+    {
+        if(!IsServer) 
+        {
+            return; 
+        }
+        ResetStrikesClientRpc();
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void AddScoreServerRpc(int playerNumber, int scoreChange)
     {
@@ -56,6 +66,13 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     private void RecieveStrikeClientRpc(ClientRpcParams sendParams)
     {
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().RemoveStar();
+    }
+
+    [ClientRpc]
+    private void ResetStrikesClientRpc()
+    {
+        // Hard coded to reset stars to three, might have to change if you want to have a different number of stars
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().ResetStars(3);
     }
 
     private void FindWinningPlayer() {
