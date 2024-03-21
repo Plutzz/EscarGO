@@ -31,44 +31,38 @@ public class ButtonPromptCheck : MonoBehaviour
 
     void CheckClosestItem()
     {
-        // ClearUIItem();
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit;
 
-        // Need to delete these on exit but aside from that it works
-        // Checks closest item in range
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-
-        // Tracks button prompts in the array of colliders
         bool foundButtonPrompt = false;
 
-        foreach(Collider col in colliders)
+        if (Physics.Raycast(ray, out hit, radius))
         {
+            foundButtonPrompt = true;
+
+            Collider col = hit.collider;
 
             if (col.GetComponent<ButtonPromptSet>() != null)
             {
-                foundButtonPrompt = true;
-
                 List<ButtonPromptDetails> bpDetails = col.GetComponent<ButtonPromptSet>().buttonPromptSet;
 
-                // Keeps button prompts the same
                 if (buttonPromptObj.transform.childCount > 0)
                 {
-                    if (bpDetails[0] == buttonPromptObj.transform.GetChild(0).GetComponent<BPDetailsUI>().bpDetails)
-                    {
-                        break;
-                    }
-                    else
+                    if (bpDetails[0] != buttonPromptObj.transform.GetChild(0).GetComponent<BPDetailsUI>().bpDetails)
                     {
                         ClearUIItem();
                     }
                 }
 
-                foreach (ButtonPromptDetails bpDetail in bpDetails)
+                if (buttonPromptObj.transform.childCount != bpDetails.Count)
                 {
-                    GameObject details = Instantiate(buttonPromptDetailsObj, buttonPromptObj.transform);
-                    details.GetComponent<BPDetailsUI>().bpDetails = bpDetail;
+                    foreach (ButtonPromptDetails bpDetail in bpDetails)
+                    {
+                        GameObject details = Instantiate(buttonPromptDetailsObj, buttonPromptObj.transform);
+                        details.GetComponent<BPDetailsUI>().bpDetails = bpDetail;
+                    }
                 }
                 
-                break;
             }
         }
 
@@ -76,11 +70,5 @@ public class ButtonPromptCheck : MonoBehaviour
         {
             ClearUIItem();
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
