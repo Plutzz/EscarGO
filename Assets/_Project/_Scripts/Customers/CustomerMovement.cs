@@ -10,6 +10,7 @@ public class CustomerMovement : NetworkBehaviour
     public int assignedPlayer;
     private Chair assignedChair;
     private NavMeshAgent agent;
+    private bool isLeaving;
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
@@ -122,6 +123,7 @@ public class CustomerMovement : NetworkBehaviour
 
     public void MoveToExit()
     {
+        isLeaving = true;
         transform.position = assignedChair.exitPoint;
         SetAgentActive(true);
         SetDestination(CustomerSpawner.Instance.transform.position);
@@ -131,18 +133,18 @@ public class CustomerMovement : NetworkBehaviour
     {
         if(!IsServer) return;
 
-        if (other.gameObject == assignedChair.gameObject && !GetComponent<Customer>().orderReceived)
+        if (other.gameObject == assignedChair.gameObject && !isLeaving)
         {
             SetAgentActive(false);
             transform.position = assignedChair.transform.position - Vector3.up;
-            transform.rotation = assignedChair.transform.rotation;
+            transform.forward = -assignedChair.transform.right;
 
             // Start Patience Timer
             GetComponent<Customer>().timerStarted = true;
             GetComponent<Customer>().EnterChair(assignedChair);
         }
 
-        if (other.gameObject.name == "CustomerSpawnPoint" && GetComponent<Customer>().orderReceived)
+        if (other.gameObject.name == "CustomerSpawnPoint" && isLeaving)
         {
             Destroy(gameObject);
         }

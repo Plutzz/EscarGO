@@ -107,7 +107,7 @@ MonoBehaviour:
     type: 3}
   orderOffset: {x: 0, y: 3, z: 0}
   timerStarted: 0
-  patienceTime: 10
+  patienceTime: 120
   assignedPlayer: 0
   interactionDistance: 2
   orderReceived: 0
@@ -214,7 +214,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8454256144848015126}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.55
+  m_Radius: 0.29
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -224,7 +224,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
 --- !u!1001 &4700652621311007033
