@@ -33,7 +33,7 @@ public class CustomerMovement : NetworkBehaviour
                 {
                     inChair = true;
                     GetComponent<Customer>().timerStarted = true;           // Start Patience Timer
-                    transform.rotation = assignedChair.transform.rotation;
+                    transform.forward = -assignedChair.transform.right;
                 }
             }
             else
