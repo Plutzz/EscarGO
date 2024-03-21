@@ -125,7 +125,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1916294941748271344}
-  m_Layer: 0
+  - component: {fileID: 6471073341492626524}
+  m_Layer: 12
   m_Name: Table Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,3 +149,19 @@ Transform:
   - {fileID: 2493353870187708892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6471073341492626524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964160649914305867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 1.85, y: 3, z: 1.93}
+  m_Center: {x: 0, y: -0.08, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff

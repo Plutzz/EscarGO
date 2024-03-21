@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class Customer : NetworkBehaviour
 {
-    [Header("References")]
+    [Header("Orders")]
     private Criteria criteria;
-    [SerializeField] private GameObject player;
-    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
+    [SerializeField] private GameObject orderPrefab;
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
+    private Material orderMaterial;
+
+    [Header("Timer")]
     private float timer;
-    private bool orderRecieved;
+    [HideInInspector] public bool timerStarted = false;
+    [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
+
+    [Header("Seating Variables")]
+    public int assignedPlayer;
     [SerializeField] private float interactionDistance = 2f;
-    private bool hasOrder = false;
+    public bool orderReceived;
+    private Chair currentChair;
 
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
@@ -26,49 +33,52 @@ public class Customer : NetworkBehaviour
         GetCustomerOrderClientRpc(randomIndex);
 
         timer = patienceTime;
-        orderRecieved = false;
+        orderReceived = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!IsServer) return;
 
-        timer -= Time.deltaTime;
-        if (timer <= 0)
+
+        // Handle the timer
+        if (timerStarted)
+        {
+            timer -= Time.deltaTime;
+            UpdateTimerCircle();
+        }
+
+        if (timer <= 0 && currentChair != null)
         {
             LeaveServerRpc();
         }
 
-        if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance && hasOrder)
-        {
-            orderRecieved = true;
-        }
-
-        if (orderRecieved == true)
+        
+        if (orderReceived)
         {
             Exit();
         }
+
     }
     [ClientRpc]
     private void GetCustomerOrderClientRpc(int _index)
     {
         // Instantiate a new GameObject for the order sprite
-        GameObject orderObject = new GameObject("OrderSprite");
-        orderObject.transform.parent = transform; // Set customer as parent for proper positioning
+        GameObject orderObject = Instantiate(orderPrefab, transform);
 
         // Position the order sprite above the customer
         orderObject.transform.localPosition = orderOffset;
 
         // Add a SpriteRenderer component to the order GameObject
-        SpriteRenderer orderRenderer = orderObject.AddComponent<SpriteRenderer>();
+        orderMaterial = Instantiate(orderObject.GetComponent<Renderer>().material);
+        orderObject.GetComponent<Renderer>().material = orderMaterial;
 
         // Set the order sprite to the item's sprite
         criteria = Instantiate(CustomerSpawner.Instance.recipes[_index]);
 
         if (criteria != null && criteria.objectPairs[0].item.itemSprite != null)
         {
-            orderRenderer.sprite = criteria.objectPairs[0].item.itemSprite;
+            orderMaterial.SetTexture("_Texture", criteria.objectPairs[0].item.itemSprite.texture);
         }
         else
         {
@@ -79,23 +89,52 @@ public class Customer : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void LeaveServerRpc()
     {
-        LeaveClientRpc();
+        //LeaveClientRpc();
         CustomerSpawner.Instance.customerCount--;
-        if(CustomerSpawner.Instance.customerCount <= 0)
-        {
-            GameManager.Instance.EndGameServerRpc();
-        }
+        ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
+        Exit();
     }
-    [ClientRpc]
-    public void LeaveClientRpc()
+
+    [ServerRpc(RequireOwnership = false)]
+    public void FufillOrderServerRpc()
     {
-        Destroy(gameObject);
+        //LeaveClientRpc();
+        CustomerSpawner.Instance.customerCount--;
+        ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
+        Exit();
+    }
+
+    
+    //[ClientRpc]
+    //public void LeaveClientRpc()
+    //{
+    //    Destroy(gameObject);
+    //}
+    private void UpdateTimerCircle()
+    {
+        orderMaterial.SetFloat("_Fill_Amount", Mathf.InverseLerp(0, patienceTime, timer));
+    }
+
+    public void Leave()
+    {
+        Debug.Log("You take too long! I'm out");
+        if (currentChair != null)
+        {
+            currentChair.RemoveCustomer();
+            currentChair = null; 
+        }
+        gameObject.SetActive(false); 
     }
 
     public void Exit()
     {
         Debug.Log("Thank you!");
-        gameObject.SetActive(false);
+        if (currentChair != null)
+        {
+            currentChair.RemoveCustomer();
+            currentChair = null; 
+        }
+        GetComponent<CustomerMovement>().MoveToExit();
     }
 
     public void TryCompleteOrder(PlayerInventory inventory)
@@ -108,7 +147,7 @@ public class Customer : NetworkBehaviour
 
                 if (inventory.getCurrentItem().itemName == criteriaItem.item.itemName)
                 {
-                    inventory.TurnInSelectedItems();
+                    inventory.TurnInActiveItems();
                     criteriaItem.turnIn();
                     Debug.Log("Turned in " + criteriaItem.getHave() + " " + criteriaItem.item.itemName);
 
@@ -136,6 +175,10 @@ public class Customer : NetworkBehaviour
 
         return true;
     }
+    public void EnterChair(Chair chair)
+    {
+        currentChair = chair;
+    }
+}
 
-} 
 

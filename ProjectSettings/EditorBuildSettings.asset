@@ -10,11 +10,8 @@ EditorBuildSettings:
     guid: 1e7ef1fd18dc0d04385052b6375b8a48
   - enabled: 1
     path: Assets/_Project/Scenes/NetworkLoop/NetworkGameScene.unity
-    guid: 17043b17cc206a2429daf12dd4bdc385
+    guid: 4643dc6fcbb43964baac058f7f40eb9b
   - enabled: 1
     path: Assets/_Project/Scenes/NetworkLoop/NetworkResults.unity
     guid: fdb24288c73e1664f83249c142ea6871
-  - enabled: 1
-    path: Assets/_Project/Scenes/Graphics.unity
-    guid: d6964d499467be74897cb3056d2f42a3
   m_configObjects: {}

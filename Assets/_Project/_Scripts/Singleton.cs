@@ -41,7 +41,7 @@ public abstract class SingletonPersistent<T> : Singleton<T> where T : MonoBehavi
 public abstract class NetworkSingleton<T> : NetworkBehaviour where T : NetworkBehaviour
 {
     public static T Instance { get; private set; }
-    private void Awake()
+    protected virtual void Awake()
     {
         if (Instance != null)
             Destroy(gameObject);
@@ -59,5 +59,17 @@ public abstract class NetworkSingleton<T> : NetworkBehaviour where T : NetworkBe
     {
         Debug.Log("Network Despawn destroyed: " + this + " Singleton instance");
         Instance = null;
+    }
+}
+
+public abstract class NetworkSingletonPersistent<T> : NetworkSingleton<T> where T : NetworkBehaviour
+{
+    protected override void Awake()
+    {
+        if (Instance != null)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+        base.Awake();
     }
 }

@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class InventorySpace : MonoBehaviour
 {
     [SerializeField] private Image backdrop;
+    [SerializeField] private Color activeAndSelectedColor;
+    [SerializeField] private Color activeColor;
     [SerializeField] private Color selectedColor;
-    [SerializeField] private Color unselectedColor;
+    [SerializeField] private Color normalColor;
     [SerializeField] private Image iconSpace;
     [SerializeField] private Image burnedFill;
     private void Awake()
@@ -15,13 +17,31 @@ public class InventorySpace : MonoBehaviour
         AssignIcon(null);
     }
 
-    public void SetSelected() { 
-        backdrop.color = selectedColor;
+    public void SetColor(bool isSelected, bool isActive) {
+        if (isSelected && isActive) 
+        {
+            backdrop.color = activeAndSelectedColor;
+        }
+        else if (isActive) 
+        { 
+            backdrop.color = activeColor;
+        }
+        else if (isSelected) 
+        {
+            backdrop.color = selectedColor;
+        }
+        else
+        {
+            backdrop.color = normalColor;
+        }
     }
+    /*public void SetActive() { 
+        backdrop.color -= normalColor;
+    }*/
 
-    public void SetUnselected() { 
-        backdrop.color = unselectedColor;
-    }
+    /*public void SetUnselected() { 
+        backdrop.color = normalColor;
+    }*/
 
     public void AssignIcon(Sprite sprite) {
         if (sprite == null) {

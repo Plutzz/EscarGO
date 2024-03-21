@@ -12,6 +12,8 @@ public class GameManager : NetworkSingleton<GameManager>
     {
         // If this is not called on the server, return
         if(!IsServer) return;
+
+        ScoringSingleton.Instance.AssignPlayerNumbers();
         teleportPlayersClientRpc();
         StartGameClientRpc();
     }
@@ -20,6 +22,7 @@ public class GameManager : NetworkSingleton<GameManager>
     private void StartGameClientRpc()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     [ServerRpc(RequireOwnership = false)]

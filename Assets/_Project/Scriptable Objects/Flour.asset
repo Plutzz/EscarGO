@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Flour
   itemSprite: {fileID: 21300000, guid: 6c791a913105f3445ba4cd1bff724ab7, type: 3}
   itemDescription: Flour looks like sugar
-  maxTimeInInventory: 20
-  currentTimeInInventory: 8.398665
+  maxTimeInInventory: 40
+  currentTimeInInventory: 9.217351
   failedItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}

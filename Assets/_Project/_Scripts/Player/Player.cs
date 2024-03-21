@@ -18,6 +18,7 @@ public class Player : NetworkBehaviour
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     private Rigidbody rb;
+    private InputManager inputManager;
     #endregion
 
     # region Stamina Variables
@@ -42,9 +43,7 @@ public class Player : NetworkBehaviour
     private float lastJumpPressed;
 
     #endregion
-
-    [Header("Temp Debug Variables")]
-    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private SettingsMenu pauseMenu;
     [SerializeField] private FirstPersonCamera cameraScript;
 
 
@@ -62,11 +61,13 @@ public class Player : NetworkBehaviour
         }
 
         stateMachine = GetComponent<PlayerStateMachine>();
+
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         currentStamina = maxStamina;
         canJump = true;
         graphics.SetActive(false);
+        inputManager = GetComponent<InputManager>();
     }
 
     private async void SetupPlayerName()
@@ -113,18 +114,9 @@ public class Player : NetworkBehaviour
             IncreaseStamina();
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape) && pauseMenu != null)
+        if(inputManager.PausePressedThisFrame && pauseMenu != null)
         {
-            if (!pauseMenu.activeSelf)
-            {
-                Cursor.lockState = CursorLockMode.Confined;
-                pauseMenu.SetActive(true);
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                pauseMenu.SetActive(false);
-            }
+            pauseMenu.OpenMenu();
         }
 
         if(orientation != null && cameraScript != null)
@@ -160,7 +152,7 @@ public class Player : NetworkBehaviour
     {
         canJump = false;
         jumpCooldown = Time.time + jumpCooldownDuration;
-
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.JumpSound, transform.position);
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
