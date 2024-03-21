@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class Customer : NetworkBehaviour
 {
-    [Header("References")]
+    [Header("Orders")]
     private Criteria criteria;
-    [SerializeField] private GameObject player;
     [SerializeField] private GameObject orderPrefab;
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
     private Material orderMaterial;
@@ -20,8 +19,7 @@ public class Customer : NetworkBehaviour
     [Header("Seating Variables")]
     public int assignedPlayer;
     [SerializeField] private float interactionDistance = 2f;
-    private bool orderReceived;
-    private bool hasOrder = false;
+    public bool orderReceived;
     private Chair currentChair;
 
     // Start is called before the first frame update
@@ -50,17 +48,11 @@ public class Customer : NetworkBehaviour
             UpdateTimerCircle();
         }
 
-        if (timer <= 0)
+        if (timer <= 0 && currentChair != null)
         {
             LeaveServerRpc();
         }
 
-        if (Vector3.Distance(player.transform.position, transform.position) <= interactionDistance && hasOrder)
-        {
-            orderReceived = true;
-        }
-
-   
         
         if (orderReceived)
         {
@@ -97,26 +89,28 @@ public class Customer : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void LeaveServerRpc()
     {
-        LeaveClientRpc();
+        //LeaveClientRpc();
         CustomerSpawner.Instance.customerCount--;
         ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
+        Exit();
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void FufillOrderServerRpc()
     {
-        LeaveClientRpc();
+        //LeaveClientRpc();
         CustomerSpawner.Instance.customerCount--;
         ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
+        Exit();
     }
 
     
-    [ClientRpc]
-    public void LeaveClientRpc()
-    {
-        Destroy(gameObject);
-    }
-    void UpdateTimerCircle()
+    //[ClientRpc]
+    //public void LeaveClientRpc()
+    //{
+    //    Destroy(gameObject);
+    //}
+    private void UpdateTimerCircle()
     {
         orderMaterial.SetFloat("_Fill_Amount", Mathf.InverseLerp(0, patienceTime, timer));
     }
@@ -140,8 +134,7 @@ public class Customer : NetworkBehaviour
             currentChair.RemoveCustomer();
             currentChair = null; 
         }
-        gameObject.transform.position = CustomerSpawner.Instance.transform.position;
-        gameObject.SetActive(false);
+        GetComponent<CustomerMovement>().MoveToExit();
     }
 
     public void TryCompleteOrder(PlayerInventory inventory)
@@ -182,15 +175,6 @@ public class Customer : NetworkBehaviour
 
         return true;
     }
-
-    public void SetOrder(CraftableItem orderItem)
-    {
-        if (orderItem != null)
-        {
-            hasOrder = true;
-        }
-    }
-
     public void EnterChair(Chair chair)
     {
         currentChair = chair;

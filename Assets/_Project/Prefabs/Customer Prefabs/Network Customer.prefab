@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 3896550248293296343}
   - component: {fileID: 5883625052867858416}
   - component: {fileID: 7655324474958824568}
+  - component: {fileID: 3722144760181536659}
   m_Layer: 10
   m_Name: Network Customer
   m_TagString: Untagged
@@ -102,15 +103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04960cf883aa76b439fbc746fdd8c2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3141356370038839228, guid: 0d843f046d4b7ff468bf908a70a42440, type: 3}
   orderPrefab: {fileID: 6484923049758110597, guid: 91726b78b6978a746bcfeae51e932201,
     type: 3}
   orderOffset: {x: 0, y: 3, z: 0}
-  timerObjectPrefab: {fileID: 4765523278395291635, guid: d0ec32c44bc3d054bb039030cdb828e5,
-    type: 3}
+  timerStarted: 0
   patienceTime: 10
   assignedPlayer: 0
   interactionDistance: 2
+  orderReceived: 0
 --- !u!54 &1962732025010211279
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -205,6 +205,28 @@ CapsuleCollider:
   m_Height: 2.06
   m_Direction: 1
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!195 &3722144760181536659
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454256144848015126}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.55
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1
 --- !u!1001 &4700652621311007033
 PrefabInstance:
   m_ObjectHideFlags: 0

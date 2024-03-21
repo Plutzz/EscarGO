@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Chair : MonoBehaviour
 {
+    public Vector3 exitPoint { get; private set; }
+    [SerializeField] private Vector3 exitOffset = new Vector3(0, 1f, -1.5f);
     private bool isOccupied = false; // Indicates if the chair is occupied
     public Customer currentCustomer; // Reference to the current customer
 
+    private void Start()
+    {
+        exitPoint = transform.position + Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * exitOffset;
+    }
 
     // Function to be called when a customer enters the chair trigger
     public void AssignCustomer(Customer customer)

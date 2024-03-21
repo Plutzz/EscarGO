@@ -17,12 +17,9 @@ public class Demo_Customer_Movement : MonoBehaviour
         DrawPath();
         
     }
-
     public void SetDestination(Vector3 destination) { 
         agent.destination = destination;
     }
-
-
     public void SetAgentActive(bool state) { 
         agent.enabled = state;
     }

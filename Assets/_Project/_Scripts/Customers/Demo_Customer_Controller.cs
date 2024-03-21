@@ -20,7 +20,7 @@ public class Demo_Customer_Controller : MonoBehaviour
     public void HasEaten(Vector3 exitPosition) {
         eaten = true;
         transform.position = desiredChair.exitPoint;
-        movement.SetAgentActive( true);
+        movement.SetAgentActive(true);
         movement.SetDestination(exitPosition);
 
         Demo_Customer_Seating.Instance.ChairAvailable(desiredChair);

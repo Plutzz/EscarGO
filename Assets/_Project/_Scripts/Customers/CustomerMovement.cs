@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CustomerMovement : NetworkBehaviour
 {
     [SerializeField] private float speed;
     public int assignedPlayer;
     private Chair assignedChair;
-    private bool inChair;
+    private NavMeshAgent agent;
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
-
+        agent = GetComponent<NavMeshAgent>();
         AssignCustomerToChair();
     }
 
@@ -23,23 +23,29 @@ public class CustomerMovement : NetworkBehaviour
 
         if (assignedChair != null)
         {
-            Vector3 direction = assignedChair.transform.position - transform.position;
-            // Move the customer until they get to the chair
-            if(!inChair)
-            {
-                transform.position += direction.normalized * speed * Time.deltaTime;
-                // If customer is close to the chair, stop moving them
-                if (direction.magnitude < 0.05)
-                {
-                    inChair = true;
-                    GetComponent<Customer>().timerStarted = true;           // Start Patience Timer
-                    transform.forward = -assignedChair.transform.right;
-                }
-            }
-            else
-            {
 
-            }
+            DrawPath();
+
+
+
+
+            //Vector3 direction = assignedChair.transform.position - transform.position;
+            //// Move the customer until they get to the chair
+            //if(!inChair)
+            //{
+            //    transform.position += direction.normalized * speed * Time.deltaTime;
+            //    // If customer is close to the chair, stop moving them
+            //    if (direction.magnitude < 0.05)
+            //    {
+            //        inChair = true;
+            //        GetComponent<Customer>().timerStarted = true;           // Start Patience Timer
+            //        transform.forward = -assignedChair.transform.right;
+            //    }
+            //}
+            //else
+            //{
+
+            //}
             
         }
     }
@@ -52,6 +58,7 @@ public class CustomerMovement : NetworkBehaviour
         {
             if (!IsChairOccupied(potentialChair))
             {
+                agent.destination = assignedChair.transform.position;
                 return;
             }
         }
@@ -68,6 +75,29 @@ public class CustomerMovement : NetworkBehaviour
             Destroy(gameObject);
         }
 
+    }
+    private void DrawPath()
+    {
+        if (agent != null && agent.hasPath)
+        {
+            Vector3[] corners = agent.path.corners;
+
+            // Draw lines between each corner of the path
+            for (int i = 0; i < corners.Length - 1; i++)
+            {
+                Debug.DrawLine(corners[i], corners[i + 1], Color.red);
+            }
+        }
+    }
+
+    public void SetAgentActive(bool state)
+    {
+        agent.enabled = state;
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        agent.destination = destination;
     }
 
     private bool IsChairOccupied(Chair chair)
@@ -87,6 +117,33 @@ public class CustomerMovement : NetworkBehaviour
             assignedChair = chair;
             Debug.Log("Customer assigned to chair: " + chair.gameObject.name);
             return false; // Chair is not occupied
+        }
+    }
+
+    public void MoveToExit()
+    {
+        transform.position = assignedChair.exitPoint;
+        SetAgentActive(true);
+        SetDestination(CustomerSpawner.Instance.transform.position);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(!IsServer) return;
+
+        if (other.gameObject == assignedChair.gameObject && !GetComponent<Customer>().orderReceived)
+        {
+            SetAgentActive(false);
+            transform.position = assignedChair.transform.position - Vector3.up;
+            transform.rotation = assignedChair.transform.rotation;
+
+            // Start Patience Timer
+            GetComponent<Customer>().timerStarted = true;
+        }
+
+        if (other.gameObject.name == "CustomerSpawnPoint" && GetComponent<Customer>().orderReceived)
+        {
+            Destroy(gameObject);
         }
     }
 }
