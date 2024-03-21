@@ -6,7 +6,7 @@ public class ButtonPromptCheck : MonoBehaviour
 {
     [SerializeField] private GameObject buttonPromptObj;
     [SerializeField] private GameObject buttonPromptDetailsObj;
-    [SerializeField] private float radius = 5f;
+    [SerializeField] private float rayLength = 5f;
 
 
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class ButtonPromptCheck : MonoBehaviour
 
         bool foundButtonPrompt = false;
 
-        if (Physics.Raycast(ray, out hit, radius))
+        if (Physics.Raycast(ray, out hit, rayLength))
         {
             foundButtonPrompt = true;
 
