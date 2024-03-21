@@ -88,7 +88,7 @@ public class Customer : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void LeaveServerRpc(bool gotOrder)
     {
-        //LeaveClientRpc();
+        LeaveClientRpc();
 
         CustomerSpawner.Instance.customerCount--;
         if (gotOrder)
@@ -112,12 +112,12 @@ public class Customer : NetworkBehaviour
         Exit();
     }
 
-    
-    //[ClientRpc]
-    //public void LeaveClientRpc()
-    //{
-    //    Destroy(gameObject);
-    //}
+
+    [ClientRpc]
+    public void LeaveClientRpc()
+    {
+        
+    }
     private void UpdateTimerCircle()
     {
         orderMaterial.SetFloat("_Fill_Amount", Mathf.InverseLerp(0, patienceTime, timer));
