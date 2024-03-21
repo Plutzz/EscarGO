@@ -139,6 +139,7 @@ public class CustomerMovement : NetworkBehaviour
 
             // Start Patience Timer
             GetComponent<Customer>().timerStarted = true;
+            GetComponent<Customer>().EnterChair(assignedChair);
         }
 
         if (other.gameObject.name == "CustomerSpawnPoint" && GetComponent<Customer>().orderReceived)
