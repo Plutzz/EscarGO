@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Indoor Ceiling
-  m_Shader: {fileID: -6465566751694194690, guid: 265d2b7e59041754d8f8f6d5dd249fbd,
+  m_Shader: {fileID: -6465566751694194690, guid: 7382b9d9a50b13945990f0c20af4b9eb,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseTexture:
-        m_Texture: {fileID: 2800000, guid: 70b3bd7cd5bd7d54e94abad628fa7bfc, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -139,6 +139,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _FRESNEL: 0
     - _FalloffAmount: 0
     - _Float: 2.86
     - _FresnelSize: 0.05
@@ -153,6 +154,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _SPECULAR: 0
     - _SampleGI: 0
     - _Scale: 1
     - _Smoothness: 0
@@ -171,7 +173,7 @@ Material:
     - _Color1: {r: 0.13995185, g: 0.8018868, b: 0.7230697, a: 0}
     - _Color2: {r: 0.107022054, g: 0.23195574, b: 0.34905657, a: 0}
     - _Cutoff: {r: 0.4, g: 0.6, b: 0, a: 0}
-    - _DiffuseColor: {r: 1, g: 0.9254902, b: 0.8078431, a: 0}
+    - _DiffuseColor: {r: 0.4433962, g: 0.3322305, b: 0.2237896, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 0}
     - _Highlight: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 0}

@@ -206,7 +206,7 @@ public class PlayerInventory : NetworkBehaviour
     {
         RemoveActiveItem();
 
-        TipsManager.Instance.SetTip("Turning in the " + currentItems[activeItemIndex].item.itemName, 2f);
+        //TipsManager.Instance.SetTip("Turning in the " + currentItems[activeItemIndex].item.itemName, 2f);
         
     }
 

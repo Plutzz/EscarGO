@@ -11,7 +11,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     private float timer = 0;
     [HideInInspector] public int customerCount = 0;
     private bool isSpawning = true;
-    [SerializeField] private int numCustomerToSpawn = 4;
+    [SerializeField] private int numCustomerToSpawn;
 
     [Header("Chairs")]
     [SerializeField] public Chair[] playerOneChairs;

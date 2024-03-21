@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1098101701
+  GlobalObjectIdHash: 1051760579
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderPrefab: {fileID: 6484923049758110597, guid: 91726b78b6978a746bcfeae51e932201,
     type: 3}
-  orderOffset: {x: 0, y: 3, z: 0}
+  orderOffset: {x: 0, y: 2.5, z: 0}
   timerStarted: 0
   patienceTime: 120
   assignedPlayer: 0

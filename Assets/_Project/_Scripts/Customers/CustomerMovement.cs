@@ -55,13 +55,20 @@ public class CustomerMovement : NetworkBehaviour
     {
         if (!IsServer) return;
 
-        foreach (Chair potentialChair in CustomerSpawner.Instance.chairs[assignedPlayer])
+        // Get random chair number
+        int randomChair = Random.Range(0, CustomerSpawner.Instance.chairs[assignedPlayer].Length);
+
+        for(int i = 0; i < CustomerSpawner.Instance.chairs[assignedPlayer].Length; i++)
         {
-            if (!IsChairOccupied(potentialChair))
+            if (!IsChairOccupied(CustomerSpawner.Instance.chairs[assignedPlayer][randomChair]))
             {
                 agent.destination = assignedChair.transform.position;
                 return;
             }
+            
+            // Keeps checking consecutive chairs until it finds an empty one
+
+            randomChair = (randomChair + 1) % CustomerSpawner.Instance.chairs[assignedPlayer].Length;
         }
 
         // If no valid chairs are found change the assigned player by adding 1 (might have some logic error)

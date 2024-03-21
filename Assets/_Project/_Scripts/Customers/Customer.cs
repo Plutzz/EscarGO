@@ -18,7 +18,6 @@ public class Customer : NetworkBehaviour
 
     [Header("Seating Variables")]
     public int assignedPlayer;
-    [SerializeField] private float interactionDistance = 2f;
     public bool orderReceived;
     private Chair currentChair;
 
@@ -50,7 +49,7 @@ public class Customer : NetworkBehaviour
 
         if (timer <= 0 && currentChair != null)
         {
-            LeaveServerRpc();
+            LeaveServerRpc(false);
         }
 
         
@@ -87,11 +86,20 @@ public class Customer : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void LeaveServerRpc()
+    public void LeaveServerRpc(bool gotOrder)
     {
         //LeaveClientRpc();
+
         CustomerSpawner.Instance.customerCount--;
-        ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
+        if (gotOrder)
+        {
+            // Give player points
+        }
+        else
+        {
+            ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
+        }
+
         Exit();
     }
 
@@ -115,17 +123,6 @@ public class Customer : NetworkBehaviour
         orderMaterial.SetFloat("_Fill_Amount", Mathf.InverseLerp(0, patienceTime, timer));
     }
 
-    public void Leave()
-    {
-        Debug.Log("You take too long! I'm out");
-        if (currentChair != null)
-        {
-            currentChair.RemoveCustomer();
-            currentChair = null; 
-        }
-        gameObject.SetActive(false); 
-    }
-
     public void Exit()
     {
         Debug.Log("Thank you!");
@@ -137,7 +134,7 @@ public class Customer : NetworkBehaviour
         GetComponent<CustomerMovement>().MoveToExit();
     }
 
-    public void TryCompleteOrder(PlayerInventory inventory)
+    public bool TryCompleteOrder(PlayerInventory inventory)
     {
         if (inventory.CurrentlyHasItem())
         {
@@ -153,14 +150,16 @@ public class Customer : NetworkBehaviour
 
                     if (FulfilledAllCriteria())
                     {
-                        LeaveServerRpc();
+                        LeaveServerRpc(true);
                     }
                 }
             }
+            return true;
         }
         else
         {
             TipsManager.Instance.SetTip("Incorrect Order", 2f);
+            return false;
         }
     }
     private bool FulfilledAllCriteria()

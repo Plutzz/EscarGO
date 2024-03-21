@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8380785314998508634}
   m_Layer: 0
-  m_Name: MochiDonut (7)
+  m_Name: MochiDonut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

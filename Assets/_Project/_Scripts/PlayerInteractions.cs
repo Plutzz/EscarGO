@@ -13,7 +13,6 @@ public class PlayerInteractions : NetworkBehaviour
     [SerializeField] private LayerMask interactables;
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
-    [SerializeField] private LayerMask serveLayer;
     [SerializeField] private LayerMask customerLayer;
 
     [SerializeField] private Item donut;
@@ -41,7 +40,6 @@ public class PlayerInteractions : NetworkBehaviour
         }
         if (Input.GetMouseButtonDown(1)) { 
             CheckForTrash();
-            CheckForServe();
             CheckForCustomer();
         }
     }
@@ -80,32 +78,17 @@ public class PlayerInteractions : NetworkBehaviour
                 Customer customer = col.gameObject.GetComponent<Customer>();
                 if (customer != null)
                 {
-                    customer.TryCompleteOrder(playerInventory);
+                    // If a customer is found don't check any other customers
+                    if(customer.TryCompleteOrder(playerInventory))
+                    {
+                        return;
+                    }
                 }
 
             }
         }
         else
         {
-            TipsManager.Instance.SetTip("No Server here", 2f);
-        }
-    }
-
-    private void CheckForServe()
-    {
-        Collider[] serveColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, serveLayer);
-
-        if (serveColliders.Length > 0)
-        {
-            foreach (Collider col in serveColliders) { 
-                InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
-                if (interactable != null)
-                {
-                    interactable.Interact(playerInventory);
-                }
-            }
-        }
-        else {
             TipsManager.Instance.SetTip("No Server here", 2f);
         }
     }
