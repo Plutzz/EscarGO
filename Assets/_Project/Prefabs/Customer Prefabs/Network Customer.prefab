@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 3896550248293296343}
   - component: {fileID: 5883625052867858416}
   - component: {fileID: 7655324474958824568}
-  - component: {fileID: 3722144760181536659}
   m_Layer: 10
   m_Name: Network Customer
   m_TagString: Untagged
@@ -105,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderPrefab: {fileID: 6484923049758110597, guid: 91726b78b6978a746bcfeae51e932201,
     type: 3}
+  orderObject: {fileID: 0}
   orderOffset: {x: 0, y: 2.5, z: 0}
   patienceTime: 120
   assignedPlayer: 0
@@ -203,28 +203,6 @@ CapsuleCollider:
   m_Height: 2.06
   m_Direction: 1
   m_Center: {x: 0, y: 0.93, z: 0}
---- !u!195 &3722144760181536659
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8454256144848015126}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.29
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
 --- !u!1001 &4700652621311007033
 PrefabInstance:
   m_ObjectHideFlags: 0

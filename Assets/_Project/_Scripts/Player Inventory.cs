@@ -15,6 +15,7 @@ public class PlayerInventory : NetworkBehaviour
         // Delete it so no input is picked up by it
         if (!IsOwner)
         {
+            inventoryParent.SetActive(false);
             enabled = false;
             return;
         }

@@ -10,6 +10,7 @@ public class CustomerMovement : NetworkBehaviour
     public int assignedPlayer;
     private Chair assignedChair;
     private NavMeshAgent agent;
+    private Customer customer;
     private bool isLeaving;
     public override void OnNetworkSpawn()
     {
@@ -18,8 +19,15 @@ public class CustomerMovement : NetworkBehaviour
             return;
         }
 
-        agent = GetComponent<NavMeshAgent>();
+        customer = GetComponent<Customer>();
+        agent = gameObject.AddComponent<NavMeshAgent>();
+        SetNavMeshValues();
         AssignCustomerToChair();
+    }
+
+    private void SetNavMeshValues()
+    {
+        agent.radius = 0.25f;
     }
 
     private void Update()
@@ -102,7 +110,7 @@ public class CustomerMovement : NetworkBehaviour
         else
         {
             // Assign this customer to the chair
-            chair.currentCustomer = GetComponent<Customer>();
+            chair.currentCustomer = customer;
             assignedChair = chair;
             Debug.Log("Customer assigned to chair: " + chair.gameObject.name);
             return false; // Chair is not occupied
@@ -127,9 +135,15 @@ public class CustomerMovement : NetworkBehaviour
             transform.position = assignedChair.transform.position - Vector3.up;
             transform.forward = -assignedChair.transform.right;
 
+            // Select a random index within the bounds of the recipes array
+            int randomIndex = Random.Range(0, CustomerSpawner.Instance.recipes.Length);
+            customer.GetCustomerOrderClientRpc(randomIndex);
+
             // Start Patience Timer
-            GetComponent<Customer>().ActivateTimerClientRpc(true);
-            GetComponent<Customer>().EnterChair(assignedChair);
+            customer.ActivateTimerClientRpc(true);
+            customer.EnterChair(assignedChair);
+
+
         }
 
         if (other.gameObject.name == "CustomerSpawnPoint" && isLeaving)

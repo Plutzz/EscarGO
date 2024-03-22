@@ -9,6 +9,7 @@ public class Customer : NetworkBehaviour
     [Header("Orders")]
     private Criteria criteria;
     [SerializeField] private GameObject orderPrefab;
+    [SerializeField] private GameObject orderObject;
     [SerializeField] private Vector3 orderOffset = new Vector3(0f, 1f, 0f);
     private Material orderMaterial;
 
@@ -26,14 +27,22 @@ public class Customer : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         timer = patienceTime;
-        orderReceived = false;
+
+        // Instantiate a new GameObject for the order sprite
+        orderObject = Instantiate(orderPrefab, transform);
+
+        // Position the order sprite above the customer
+        orderObject.transform.localPosition = orderOffset;
+
+        // Add a SpriteRenderer component to the order GameObject
+        orderMaterial = Instantiate(orderObject.GetComponent<Renderer>().material);
+        orderObject.GetComponent<Renderer>().material = orderMaterial;
+
+        orderObject.SetActive(false);
 
         if (!IsServer) return;
 
-        // Select a random index within the bounds of the recipes array
-        int randomIndex = Random.Range(0, CustomerSpawner.Instance.recipes.Length);
 
-        GetCustomerOrderClientRpc(randomIndex);
     }
 
     void Update()
@@ -41,13 +50,12 @@ public class Customer : NetworkBehaviour
         // Called on every client
         TimerHandler();
 
+        if(!IsServer) return;
 
-        if (!IsServer) return;
-        if (orderReceived)
+        if (timer <= 0 && currentChair != null)
         {
-            Exit();
+            LeaveServerRpc(false);
         }
-
     }
 
     [ClientRpc]
@@ -64,26 +72,12 @@ public class Customer : NetworkBehaviour
             timer -= Time.deltaTime;
             UpdateTimerCircle();
         }
-
-        if (timer <= 0 && currentChair != null)
-        {
-            LeaveServerRpc(false);
-        }
     }
 
     [ClientRpc]
-    private void GetCustomerOrderClientRpc(int _index)
+    public void GetCustomerOrderClientRpc(int _index)
     {
-        // Instantiate a new GameObject for the order sprite
-        GameObject orderObject = Instantiate(orderPrefab, transform);
-
-        // Position the order sprite above the customer
-        orderObject.transform.localPosition = orderOffset;
-
-        // Add a SpriteRenderer component to the order GameObject
-        orderMaterial = Instantiate(orderObject.GetComponent<Renderer>().material);
-        orderObject.GetComponent<Renderer>().material = orderMaterial;
-
+        orderObject.SetActive(true);
         // Set the order sprite to the item's sprite
         criteria = Instantiate(CustomerSpawner.Instance.recipes[_index]);
 

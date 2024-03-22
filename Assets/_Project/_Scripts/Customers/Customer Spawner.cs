@@ -20,13 +20,15 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     [SerializeField] public Chair[] playerFourChairs;
     public Chair[][] chairs { get; private set; } 
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
         chairs = new Chair[4][];
         chairs[0] = playerOneChairs;
         chairs[1] = playerTwoChairs;
         chairs[2] = playerThreeChairs;
         chairs[3] = playerFourChairs;
+
+        timer = spawnTime;
     }
 
     private void Update()
