@@ -18,7 +18,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     [SerializeField] public Chair[] playerTwoChairs;
     [SerializeField] public Chair[] playerThreeChairs;
     [SerializeField] public Chair[] playerFourChairs;
-    public Chair[][] chairs { get; private set; }
+    public Chair[][] chairs { get; private set; } 
 
     private void Start()
     {

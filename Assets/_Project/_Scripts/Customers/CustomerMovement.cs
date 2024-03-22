@@ -13,7 +13,11 @@ public class CustomerMovement : NetworkBehaviour
     private bool isLeaving;
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return;
+        if (!IsServer)
+        {
+            return;
+        }
+
         agent = GetComponent<NavMeshAgent>();
         AssignCustomerToChair();
     }
@@ -24,30 +28,7 @@ public class CustomerMovement : NetworkBehaviour
 
         if (assignedChair != null)
         {
-
             DrawPath();
-
-
-
-
-            //Vector3 direction = assignedChair.transform.position - transform.position;
-            //// Move the customer until they get to the chair
-            //if(!inChair)
-            //{
-            //    transform.position += direction.normalized * speed * Time.deltaTime;
-            //    // If customer is close to the chair, stop moving them
-            //    if (direction.magnitude < 0.05)
-            //    {
-            //        inChair = true;
-            //        GetComponent<Customer>().timerStarted = true;           // Start Patience Timer
-            //        transform.forward = -assignedChair.transform.right;
-            //    }
-            //}
-            //else
-            //{
-
-            //}
-            
         }
     }
 
@@ -147,7 +128,7 @@ public class CustomerMovement : NetworkBehaviour
             transform.forward = -assignedChair.transform.right;
 
             // Start Patience Timer
-            GetComponent<Customer>().timerStarted = true;
+            GetComponent<Customer>().ActivateTimerClientRpc(true);
             GetComponent<Customer>().EnterChair(assignedChair);
         }
 

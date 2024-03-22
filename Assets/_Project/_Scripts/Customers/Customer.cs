@@ -14,7 +14,7 @@ public class Customer : NetworkBehaviour
 
     [Header("Timer")]
     private float timer;
-    [HideInInspector] public bool timerStarted = false;
+    private bool timerActive = false;
     [SerializeField] private float patienceTime = 30f; // Time in seconds until customer leaves
 
     [Header("Seating Variables")]
@@ -25,24 +25,41 @@ public class Customer : NetworkBehaviour
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
     {
+        timer = patienceTime;
+        orderReceived = false;
+
         if (!IsServer) return;
 
         // Select a random index within the bounds of the recipes array
         int randomIndex = Random.Range(0, CustomerSpawner.Instance.recipes.Length);
 
         GetCustomerOrderClientRpc(randomIndex);
-
-        timer = patienceTime;
-        orderReceived = false;
     }
 
     void Update()
     {
+        // Called on every client
+        TimerHandler();
+
+
         if (!IsServer) return;
+        if (orderReceived)
+        {
+            Exit();
+        }
 
+    }
 
+    [ClientRpc]
+    public void ActivateTimerClientRpc(bool isActive)
+    {
+        timerActive = isActive;
+    }
+
+    private void TimerHandler()
+    {
         // Handle the timer
-        if (timerStarted)
+        if (timerActive)
         {
             timer -= Time.deltaTime;
             UpdateTimerCircle();
@@ -52,14 +69,8 @@ public class Customer : NetworkBehaviour
         {
             LeaveServerRpc(false);
         }
-
-        
-        if (orderReceived)
-        {
-            Exit();
-        }
-
     }
+
     [ClientRpc]
     private void GetCustomerOrderClientRpc(int _index)
     {
@@ -95,7 +106,7 @@ public class Customer : NetworkBehaviour
         if (gotOrder)
         {
             ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
-            timerStarted = false;
+            ActivateTimerClientRpc(false);
             StartCoroutine(FufillOrderWait(10));
         }
         else
