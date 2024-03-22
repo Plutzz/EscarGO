@@ -127,6 +127,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 3336348555597700333}
   toppingCircle: {fileID: 1376731491552901378, guid: a041584e6708f78459c0481fee857ed7,
     type: 3}
+  sprinkleParticles: {fileID: 0}
   toppingCircleAmount: 5
   maxX: 0.37
   maxZ: 0.37
@@ -142,7 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595815043f550544282a830b98a7a847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftableItem: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
+  defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
+  possibleRecipes: []
   station: {fileID: 2745022377103576971}
 --- !u!1 &2540580351778014114
 GameObject:

@@ -56,6 +56,7 @@ public class InventorySpace : MonoBehaviour
 
     public void SetTime(float currentTime, float maxTime) {
         if (maxTime <= 0) {
+            burnedFill.fillAmount = 0;
             return;
         }
 

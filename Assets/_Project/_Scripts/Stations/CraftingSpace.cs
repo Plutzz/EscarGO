@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CraftingSpace : InteractableSpace
 {
-    public CraftableItem craftableItem;
+    public Item defaultItem;
 
     [Tooltip ("Place most expensive recipes at top of list")][SerializeField] private List<Recipe> possibleRecipes;
 
@@ -12,6 +12,11 @@ public class CraftingSpace : InteractableSpace
     public override void Interact(PlayerInventory inventory)
     {
         Dictionary<string, int> availableItems = inventory.UseAllSelectedItems();
+
+        if (availableItems.Count <= 0) {
+            TipsManager.Instance.SetTip("Please select items with F", 3f);
+            return;
+        }
         station.Activate(GetChosenRecipe(availableItems));
         /*if (inventory.CanCraft(craftableItem) == true) { 
             TipsManager.Instance.SetTip("Made a " + craftableItem.itemName, 3f);
@@ -31,7 +36,7 @@ public class CraftingSpace : InteractableSpace
             }
         }
 
-        return null;
+        return defaultItem;
     
     }
 
