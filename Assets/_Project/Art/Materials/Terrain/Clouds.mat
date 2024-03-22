@@ -102,6 +102,7 @@ Material:
     - _AlphaClipping: 1
     - _AlphaThreshold: 0.5
     - _AlphaToMask: 0
+    - _Alpha_Clip: 0.5
     - _Blend: 0
     - _BlendAmount: 0
     - _BlendModePreserveSpecular: 1
@@ -128,7 +129,7 @@ Material:
     - _FLIPHIGHLIGHT: 1
     - _FLIPSHADOW: 1
     - _FadeStrength: 13
-    - _Float: 0.001
+    - _Float: 0.597
     - _GapScale: 5.63
     - _Gap_Amount: 0
     - _GlossMapScale: 0
