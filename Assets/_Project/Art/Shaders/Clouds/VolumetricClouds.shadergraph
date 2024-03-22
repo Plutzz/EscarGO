@@ -2453,7 +2453,7 @@
     "m_CastShadows": false,
     "m_ReceiveShadows": false,
     "m_SupportsLODCrossFade": false,
-    "m_CustomEditorGUI": "Fog {Mode OFF}",
+    "m_CustomEditorGUI": "",
     "m_SupportVFX": false
 }
 
