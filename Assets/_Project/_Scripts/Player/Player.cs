@@ -45,6 +45,7 @@ public class Player : NetworkBehaviour
     #endregion
     [SerializeField] private SettingsMenu pauseMenu;
     [SerializeField] private FirstPersonCamera cameraScript;
+    [SerializeField] private Vector3 spawnPos;
 
 
     public override void OnNetworkSpawn()
@@ -61,7 +62,6 @@ public class Player : NetworkBehaviour
         }
 
         stateMachine = GetComponent<PlayerStateMachine>();
-
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         currentStamina = maxStamina;
@@ -70,6 +70,11 @@ public class Player : NetworkBehaviour
         inputManager = GetComponent<InputManager>();
     }
 
+    private void Start()
+    {
+        rb.velocity = Vector3.zero;
+        rb.position = spawnPos;
+    }
     private async void SetupPlayerName()
     {
         await AuthenticationService.Instance.GetPlayerNameAsync();
