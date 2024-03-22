@@ -68,7 +68,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         if (customerMovement != null)
         {
             // Assigns a random ALIVE player to this customer
-            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[Random.Range(0, ScoringSingleton.Instance.alivePlayers.Count)];
+            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[Random.Range(0, ScoringSingleton.Instance.alivePlayers.Count)].playerNumber;
             Debug.Log($"assigned player {assignedPlayer} ");
             customerMovement.assignedPlayer = assignedPlayer;
             customerMovement.GetComponent<Customer>().assignedPlayer = assignedPlayer;

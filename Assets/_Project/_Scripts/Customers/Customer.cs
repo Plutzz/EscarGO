@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -90,25 +91,24 @@ public class Customer : NetworkBehaviour
     {
         LeaveClientRpc();
 
-        CustomerSpawner.Instance.customerCount--;
+        
         if (gotOrder)
         {
-            // Give player points
+            ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
+            timerStarted = false;
+            StartCoroutine(FufillOrderWait(10));
         }
         else
         {
+            CustomerSpawner.Instance.customerCount--;
             ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
+            Exit();
         }
-
-        Exit();
     }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void FufillOrderServerRpc()
+    private IEnumerator FufillOrderWait(float seconds)
     {
-        //LeaveClientRpc();
+        yield return new WaitForSeconds(seconds);
         CustomerSpawner.Instance.customerCount--;
-        ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
         Exit();
     }
 
@@ -116,8 +116,11 @@ public class Customer : NetworkBehaviour
     [ClientRpc]
     public void LeaveClientRpc()
     {
-        
+        DOTween.To(() => orderMaterial.GetFloat("_Radius"), x => orderMaterial.SetFloat("_Radius", x), 0, 2).SetEase(Ease.InOutExpo);
+        DOTween.To(() => orderMaterial.GetFloat("_Border_Thickness"), x => orderMaterial.SetFloat("_Border_Thickness", x), 1, 1).SetEase(Ease.InOutSine);
+        orderMaterial.SetFloat("_Spacing_Width", 0);
     }
+
     private void UpdateTimerCircle()
     {
         orderMaterial.SetFloat("_Fill_Amount", Mathf.InverseLerp(0, patienceTime, timer));

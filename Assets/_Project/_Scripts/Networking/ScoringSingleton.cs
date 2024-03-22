@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
 {
     private Dictionary<int, PlayerAttributes> playerStats = new Dictionary<int, PlayerAttributes>();
-    public List<int> alivePlayers = new List<int>();
+    public List<PlayerAttributes> alivePlayers = new List<PlayerAttributes>();
 
 
     public override void OnNetworkSpawn()
@@ -51,7 +52,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             // Set Player to Spectate mode
             // Despawn all of this player's customers
 
-            alivePlayers.Remove(playerNumber);
+            alivePlayers.Remove(playerStats[playerNumber]);
 
             // If there is 1 player remaining, end the game
             if (alivePlayers.Count <= 1)
@@ -113,15 +114,18 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         {
             playerStats.Add(playerNumber, new PlayerAttributes());
             playerStats[playerNumber].clientId = player.ClientId;
-            alivePlayers.Add(playerNumber);
+            playerStats[playerNumber].playerNumber = playerNumber;
+            alivePlayers.Add(playerStats[playerNumber]);
             playerNumber++;
         }
     }
     
 }
 
+[Serializable]
 public class PlayerAttributes {
     public ulong clientId;
+    public int playerNumber;
     public int score = 0;
     public int strikes = 3;
 }

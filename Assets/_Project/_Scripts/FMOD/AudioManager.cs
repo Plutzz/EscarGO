@@ -107,7 +107,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         }
     }
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
         CleanUp();
     }
