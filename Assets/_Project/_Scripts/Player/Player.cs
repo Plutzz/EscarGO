@@ -47,6 +47,10 @@ public class Player : NetworkBehaviour
     [SerializeField] private FirstPersonCamera cameraScript;
     [SerializeField] private Vector3 spawnPos;
 
+    [Header("Spectate Variables")]
+    [SerializeField] private Vector3 localCameraPosition;
+    [SerializeField] private List<GameObject> toggledGameObjects;
+    [SerializeField] private List<MonoBehaviour> toggledMonoBehaviours;
 
     public override void OnNetworkSpawn()
     {
@@ -160,5 +164,20 @@ public class Player : NetworkBehaviour
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.JumpSound, transform.position);
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    [ContextMenu("Spectate")]
+    public void Spectate() {
+        stateMachine.cameraTransform.localPosition = localCameraPosition;
+
+        foreach(GameObject gameObject in toggledGameObjects){ 
+            gameObject.SetActive(false);
+        }
+
+        foreach (MonoBehaviour thing in toggledMonoBehaviours) { 
+            thing.enabled = false;
+        }
+
+    
     }
 }

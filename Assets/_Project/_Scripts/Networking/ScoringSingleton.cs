@@ -50,6 +50,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             Debug.Log("FIRED");
 
             // Set Player to Spectate mode
+            SendToSpectateClientRpc(new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
             // Despawn all of this player's customers
 
             alivePlayers.Remove(playerStats[playerNumber]);
@@ -74,6 +75,12 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     {
         // Hard coded to reset stars to three, might have to change if you want to have a different number of stars
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().ResetStars(3);
+    }
+
+    [ClientRpc]
+    private void SendToSpectateClientRpc(ClientRpcParams sendParams)
+    {
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Player>().Spectate();
     }
 
     private void FindWinningPlayer() {

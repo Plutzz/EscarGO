@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1295093547
+  GlobalObjectIdHash: 1354851925
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 0
   ActiveSceneSynchronization: 1
@@ -499,6 +499,13 @@ MonoBehaviour:
   pauseMenu: {fileID: 4394117078202533137}
   cameraScript: {fileID: 4587299177109654923}
   spawnPos: {x: 38.35, y: 12.79, z: 19.41}
+  localCameraPosition: {x: 0, y: 0.2, z: 0}
+  toggledGameObjects:
+  - {fileID: 7926561385825900139}
+  - {fileID: 891927900331889327}
+  toggledMonoBehaviours:
+  - {fileID: -540688451612955572}
+  - {fileID: -3950531570982242769}
 --- !u!54 &3657045978795358490
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1016,6 +1023,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068348210971161479, guid: f6b10050f347a1b47bd473a7db65c37d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1552,6 +1564,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ed60127e7687d64eb5d4dd2d49a5d00, type: 3}
+--- !u!1 &891927900331889327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6039048236908914227, guid: 5ed60127e7687d64eb5d4dd2d49a5d00,
+    type: 3}
+  m_PrefabInstance: {fileID: 6894942667297092764}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1732436247160084299 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5162559235385566167, guid: 5ed60127e7687d64eb5d4dd2d49a5d00,
