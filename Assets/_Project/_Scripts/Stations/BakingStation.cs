@@ -7,7 +7,6 @@ using Unity.Netcode;
 public class BakingStation : SuperStation
 {
 
-    [SerializeField] private CraftableItem donut;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private int maxTurns = 11;
