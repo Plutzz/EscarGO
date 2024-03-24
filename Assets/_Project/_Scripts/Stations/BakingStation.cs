@@ -190,6 +190,7 @@ public class BakingStation : SuperStation
         Renderer leftRenderer = leftTarget.GetComponentInChildren<Renderer>();
         Renderer middleRenderer = middleTarget.GetComponentInChildren<Renderer>();
         Renderer rightRenderer = rightTarget.GetComponentInChildren<Renderer>();
+
         if(leftTurns == turnTargetLeft)
         {
             leftRenderer.material.color = Color.green;
