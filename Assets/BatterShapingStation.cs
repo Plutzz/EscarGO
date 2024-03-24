@@ -42,6 +42,7 @@ public class BatterShapingStation : SuperStation
     public override void DeActivate()
     {
         isBattering = false;
+        success = false;
         Destroy(playerBatter);
         playerHoldTimer = 0;
 

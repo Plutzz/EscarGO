@@ -11,10 +11,11 @@ public class CuttingStation : SuperStation
     [SerializeField] private CraftableItem chocolate;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    [SerializeField] private TextMeshProUGUI cutNumber;
+    //[SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
     [SerializeField] private GameObject cutIndicatorPrefab;
+    [SerializeField] private GameObject knife;
     private LayerMask minigameLayer;
     private bool success = false;
     private bool isCutting = false;
@@ -23,6 +24,7 @@ public class CuttingStation : SuperStation
     private GameObject cutIndicator;
     private int neededcuts = 0;
     private int cuts = 0;
+    private Vector3 knifeOffset = new Vector3(0f, 0.2f, 0f);
 
 
     public override void Activate(Item successfulItem)
@@ -38,7 +40,7 @@ public class CuttingStation : SuperStation
         success = false;
         
         isCutting = true;
-        cutNumber.color = Color.black;
+        //cutNumber.color = Color.black;
         neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
 
@@ -48,7 +50,7 @@ public class CuttingStation : SuperStation
         {
             cuts = 1; //unlikely but just in case
         }
-        cutNumber.text = neededcuts.ToString();
+        //cutNumber.text = neededcuts.ToString();
 
         Vector3 offSet = new Vector3(0f, 0f, 0f);
         Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -77,6 +79,9 @@ public class CuttingStation : SuperStation
         }
 
         cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
+        Debug.Log("pos" + cutIndicator.transform.position);
+
+        alignKnife();
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
@@ -95,7 +100,8 @@ public class CuttingStation : SuperStation
 
         Debug.Log("Deactivate");
         isCutting = false;
-        cutNumber.text = "0";
+        success = false;
+        //cutNumber.text = "0";
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
@@ -127,21 +133,20 @@ public class CuttingStation : SuperStation
             
             if (Input.GetMouseButtonDown(0))
             {
-
                 if(CheckHit())
                 {
-                    cutNumber.color = Color.blue;
+                    //cutNumber.color = Color.blue;
+                    StartCoroutine(knifeCut());
                     MoveNext();
                     Mathf.Clamp(neededcuts -= 1, 0, maxCuts);
                     if(neededcuts <= 0)
                     {
-                        Debug.Log("success");
                         Succeed();
                     }
                 }
             }
 
-            cutNumber.text = neededcuts.ToString();
+            //cutNumber.text = neededcuts.ToString();
         }
     }
 
@@ -170,6 +175,7 @@ public class CuttingStation : SuperStation
                 break;
             case CutPosition.Left:
                 cutIndicator.transform.position += transform.right * (0.8f/cuts);
+                Debug.Log("pos" + cutIndicator.transform.position);
                 break;
             case CutPosition.Right:
                 cutIndicator.transform.position -= transform.right * (0.8f/cuts);
@@ -182,7 +188,7 @@ public class CuttingStation : SuperStation
 
     private void Succeed()
     {
-        cutNumber.color = Color.green;
+        //cutNumber.color = Color.green;
         success = true;
         //inventory.Craft(chocolate);
         inventory.TryAddItemToInventory(resultingItem);
@@ -197,7 +203,7 @@ public class CuttingStation : SuperStation
 
     private void Fail()
     {
-        cutNumber.color = Color.red;
+        //cutNumber.color = Color.red;
         success = false;
 
         if(cutIndicator != null)
@@ -206,6 +212,36 @@ public class CuttingStation : SuperStation
         }
 
         DeActivate();
+    }
+
+    private IEnumerator knifeCut()
+    {
+        float elapsedTime = 0f;
+        float duration = 0.1f;
+        Vector3 startPosition = knife.transform.position;
+        Vector3 endPosition = cutIndicator.transform.position;
+        while (elapsedTime < duration)
+        {
+            // Calculate how far along the interpolation we are (0 to 1)
+            float t = elapsedTime / duration;
+            
+            // Move the object using Lerp
+            knife.transform.position = Vector3.Lerp(startPosition, endPosition, t);
+
+            // Increment the time elapsed
+            elapsedTime += Time.deltaTime;
+
+            // Wait for the end of frame before continuing
+            yield return null;
+        }
+
+        alignKnife();
+    }
+
+    private void alignKnife()
+    {
+        knife.transform.position = cutIndicator.transform.position + knifeOffset;
+        knife.transform.rotation = Quaternion.Euler(0, cutIndicator.transform.rotation.eulerAngles.y, 0);
     }
 }
 
