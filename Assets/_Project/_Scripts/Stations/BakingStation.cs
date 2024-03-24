@@ -34,11 +34,9 @@ public class BakingStation : SuperStation
     private bool middleSuccess = false;
     private bool rightSuccess = false;
     private bool itemReady = false;
-    private bool acceptingItem = true;
     public float timer = 0f;
     private Material timerMaterial;
     private float fillValue;
-
 
     public override void Activate(Item successfulItem)
     {
@@ -119,6 +117,9 @@ public class BakingStation : SuperStation
     private void Start() {
         Quaternion rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
         timerMaterial = timerObject.GetComponent<Renderer>().material;
+        // Make copy of timerMaterial
+        timerMaterial = Instantiate(timerMaterial);
+        timerObject.GetComponent<Renderer>().material = timerMaterial;
     }
 
     private void Update() {
@@ -161,7 +162,6 @@ public class BakingStation : SuperStation
         {
             fillValue = Mathf.Clamp(fillValue += Time.deltaTime/bakeTime, 0f, 1f);
             timerMaterial.SetFloat("_Fill_Amount", fillValue);
-            Debug.Log(fillValue);
         }
     }
 
@@ -177,14 +177,6 @@ public class BakingStation : SuperStation
         rightSuccess = false;
 
         StartCoroutine(Bake());
-
-
-        /*if(inventory.CanCraft(donut)) //maybe other player knocks items out of inventory
-        {
-            inventory.Craft(donut);
-        }*/
-
-        //inventory.TryAddItemToInventory(resultingItem);
 
         DeActivate();
     }
