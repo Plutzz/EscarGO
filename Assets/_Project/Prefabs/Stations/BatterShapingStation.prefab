@@ -229,7 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595815043f550544282a830b98a7a847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftableItem: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
+  defaultItem: {fileID: 0}
+  possibleRecipes: []
   station: {fileID: 5411653407274854996}
 --- !u!114 &5411653407274854996
 MonoBehaviour:
@@ -250,7 +251,6 @@ MonoBehaviour:
     type: 3}
   batter: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   virtualCamera: {fileID: 3441638109003990563}
-  playerHoldTimer: 0
 --- !u!114 &6061257074215983325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,6 +360,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaffleIron
       objectReference: {fileID: 0}
+    - target: {fileID: 4406387256988126281, guid: f4b5773b652b00945bda2374df90719d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7299191718890243379, guid: f4b5773b652b00945bda2374df90719d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -368,7 +373,7 @@ PrefabInstance:
     - target: {fileID: 7299191718890243379, guid: f4b5773b652b00945bda2374df90719d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.53
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7299191718890243379, guid: f4b5773b652b00945bda2374df90719d,
         type: 3}
@@ -411,7 +416,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7395107431583481892, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 8300439560780557248, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 106549074478041362, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 4514788531598637197, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 8219624790455276324, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 4111691529472067631, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 8598256154405250956, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 5502637765917982563, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 147284828928591850, guid: f4b5773b652b00945bda2374df90719d, type: 3}
+    - {fileID: 689633593192569584, guid: f4b5773b652b00945bda2374df90719d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4b5773b652b00945bda2374df90719d, type: 3}
