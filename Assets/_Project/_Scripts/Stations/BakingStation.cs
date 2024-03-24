@@ -16,7 +16,7 @@ public class BakingStation : SuperStation
     [SerializeField] private GameObject middleKnob;
     [SerializeField] private GameObject rightKnob;
     [SerializeField] private GameObject turnTarget;
-    [SerializeField] private GameObject timerVisual;
+    [SerializeField] private GameObject timerObject;
 
     private bool isBaking = false;
     private bool success = false;
@@ -36,12 +36,16 @@ public class BakingStation : SuperStation
     private bool itemReady = false;
     private bool acceptingItem = true;
     public float timer = 0f;
+    private Material timerMaterial;
+    private float fillValue;
 
 
     public override void Activate(Item successfulItem)
     {
 
         timer = 0f;
+        fillValue = 0; //only need if it does not start at 0 before game starts
+        timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
@@ -73,6 +77,8 @@ public class BakingStation : SuperStation
 
             success = false;
             itemReady = false;
+            fillValue = 0f;
+            timerMaterial.SetFloat("_Fill_Amount", fillValue);
 
             return;
         } else if(success && !itemReady)
@@ -112,6 +118,7 @@ public class BakingStation : SuperStation
 
     private void Start() {
         Quaternion rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
+        timerMaterial = timerObject.GetComponent<Renderer>().material;
     }
 
     private void Update() {
@@ -150,6 +157,11 @@ public class BakingStation : SuperStation
             }
 
             CheckKnobs();
+        } else if (success && !isBaking)
+        {
+            fillValue = Mathf.Clamp(fillValue += Time.deltaTime/bakeTime, 0f, 1f);
+            timerMaterial.SetFloat("_Fill_Amount", fillValue);
+            Debug.Log(fillValue);
         }
     }
 
