@@ -90,7 +90,7 @@ Material:
     - _SunDisk: 2
     - _SunSize: 0.09
     - _SunSizeConvergence: 3.32
-    - _ZenithBlend: 0.84
+    - _ZenithBlend: 0.66
     m_Colors:
     - _GroundColor: {r: 0.36899996, g: 0.34899998, b: 0.34099993, a: 1}
     - _HorizonColor: {r: 1, g: 0.6708895, b: 0.4764151, a: 0}
