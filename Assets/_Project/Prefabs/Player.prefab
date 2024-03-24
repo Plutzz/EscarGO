@@ -436,6 +436,7 @@ GameObject:
   - component: {fileID: 7308860182133355881}
   - component: {fileID: 8265052532220281180}
   - component: {fileID: 1208349345431071962}
+  - component: {fileID: 8093212699818107897}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -473,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1295093547
+  GlobalObjectIdHash: 1354851925
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 0
   ActiveSceneSynchronization: 1
@@ -503,6 +504,7 @@ MonoBehaviour:
   playerHeight: 2
   moveSpeed: 5
   cameraTransform: {fileID: 3622850964377700486}
+  orientation: {fileID: 5350075544441386201}
   player: {fileID: 5226382219086163930}
   crouchYScale: 0.5
 --- !u!114 &-3950531570982242769
@@ -736,6 +738,20 @@ MonoBehaviour:
   buttonPromptDetailsObj: {fileID: 8967317743496367340, guid: e54316cb2345eec439d7fd3d66f5e4c8,
     type: 3}
   rayLength: 5
+--- !u!114 &8093212699818107897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141356370038839228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd15fd356a0bf74d8cc773c7affd778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphics: {fileID: 2897538961485828115}
+  playerStateMachine: {fileID: 4733824996818514258}
 --- !u!1 &3799496545928371781
 GameObject:
   m_ObjectHideFlags: 0

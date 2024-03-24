@@ -41,8 +41,9 @@ public class PlayerStateMachine : NetworkBehaviour
     [SerializeField] private float playerHeight;
     public float moveSpeed = 5f;
     public Transform cameraTransform;
+    public Transform orientation;
     public Transform player;
-
+    private PlayerAnim playerAnim;
     [Header("Crouching Variables")]
     [SerializeField] private float crouchYScale = 0.5f;
     private float startYScale;
@@ -65,6 +66,7 @@ public class PlayerStateMachine : NetworkBehaviour
 
         rb = GetComponentInChildren<Rigidbody>();
         inputManager = GetComponent<InputManager>();
+        playerAnim = GetComponent<PlayerAnim>();
 
         PlayerIdleBaseInstance = Instantiate(playerIdleBase);
         PlayerMovingBaseInstance = Instantiate(playerMovingBase);
@@ -119,6 +121,7 @@ public class PlayerStateMachine : NetworkBehaviour
         currentState.ExitLogic();
         previousState = currentState;
         currentState = newState;
+        playerAnim.HandleAnimations(currentState);
         currentState.EnterLogic();
     }
 
