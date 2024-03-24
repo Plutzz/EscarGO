@@ -15,6 +15,7 @@ public class CuttingStation : SuperStation
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
     [SerializeField] private GameObject cutIndicatorPrefab;
+    [SerializeField] private GameObject knife;
     private LayerMask minigameLayer;
     private bool success = false;
     private bool isCutting = false;
@@ -93,6 +94,7 @@ public class CuttingStation : SuperStation
 
         Debug.Log("Deactivate");
         isCutting = false;
+        success = false;
         cutNumber.text = "0";
 
         Cursor.lockState = CursorLockMode.Locked;
