@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using JetBrains.Annotations;
 using Unity.Netcode.Components;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 public class PlayerAnim : NetworkBehaviour
 {
     public GameObject graphics;
@@ -18,11 +19,15 @@ public class PlayerAnim : NetworkBehaviour
         // Delete it so no input is picked up by it
         if (!IsOwner)
         {
+            // Render the player model if it is not the local client's player
+            graphics.layer = LayerMask.NameToLayer("Player");
+            foreach(Transform child in graphics.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Player");
+            }
             return;
         }
-        // Dont know why graphics is disabled by default
-        graphics.SetActive(true);
-        anim = GetComponentInChildren<NetworkAnimator>();
+        anim = GetComponentInChildren<ClientNetworkAnimator>();
         playerStateMachine = GetComponent<PlayerStateMachine>();
         playerInputActions = playerStateMachine.inputManager;
     }
