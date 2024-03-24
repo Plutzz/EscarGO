@@ -70,7 +70,6 @@ public class Player : NetworkBehaviour
         rb = stateMachine.rb;
         currentStamina = maxStamina;
         canJump = true;
-        graphics.SetActive(false);
         inputManager = GetComponent<InputManager>();
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using JetBrains.Annotations;
 using Unity.Netcode.Components;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 public class PlayerAnim : NetworkBehaviour
 {
     public GameObject graphics;
@@ -20,9 +21,7 @@ public class PlayerAnim : NetworkBehaviour
         {
             return;
         }
-        // Dont know why graphics is disabled by default
-        graphics.SetActive(true);
-        anim = GetComponentInChildren<NetworkAnimator>();
+        anim = GetComponentInChildren<ClientNetworkAnimator>();
         playerStateMachine = GetComponent<PlayerStateMachine>();
         playerInputActions = playerStateMachine.inputManager;
     }
