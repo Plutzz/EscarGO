@@ -21,7 +21,7 @@ public class BatterShapingStation : SuperStation
     private bool isBattering = false;
     private bool squeezing = false;
     private GameObject playerBatter;
-    public float playerHoldTimer = 0f;
+    private  float playerHoldTimer = 0f;
 
     public override void Activate(Item successfulItem)
     {
@@ -32,6 +32,11 @@ public class BatterShapingStation : SuperStation
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public override void GetItem()
+    {
+        
     }
     
     public override void DeActivate()

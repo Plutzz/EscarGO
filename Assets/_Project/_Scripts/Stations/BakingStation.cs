@@ -11,10 +11,12 @@ public class BakingStation : SuperStation
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private int maxTurns = 11;
+    [SerializeField] private float bakeTime = 5.0f;
     [SerializeField] private GameObject leftKnob;
     [SerializeField] private GameObject middleKnob;
     [SerializeField] private GameObject rightKnob;
     [SerializeField] private GameObject turnTarget;
+    [SerializeField] private GameObject timerObject;
 
     private bool isBaking = false;
     private bool success = false;
@@ -31,17 +33,22 @@ public class BakingStation : SuperStation
     private bool leftSuccess = false;
     private bool middleSuccess = false;
     private bool rightSuccess = false;
+    private bool itemReady = false;
+    private bool acceptingItem = true;
+    public float timer = 0f;
+    private Material timerMaterial;
+    private float fillValue;
 
 
     public override void Activate(Item successfulItem)
     {
+
+        timer = 0f;
+        fillValue = 0; //only need if it does not start at 0 before game starts
+        timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
-
-        if (isBaking == true)
-        {
-            return;
-        }
 
         if(leftTarget != null || middleTarget != null || rightTarget != null)
         {
@@ -52,7 +59,6 @@ public class BakingStation : SuperStation
 
         SetTargets();
 
-        success = false;
         leftTurns = 0;
         middleTurns = 0;
         righTurns = 0;
@@ -61,6 +67,25 @@ public class BakingStation : SuperStation
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public override void GetItem()
+    {
+        if (itemReady)
+        {
+            inventory.TryAddItemToInventory(resultingItem);
+
+            success = false;
+            itemReady = false;
+            fillValue = 0f;
+            timerMaterial.SetFloat("_Fill_Amount", fillValue);
+
+            return;
+        } else if(success && !itemReady)
+        {
+            Debug.Log("item not ready yet");
+            return;
+        }
     }
 
     public override void DeActivate()
@@ -93,11 +118,12 @@ public class BakingStation : SuperStation
 
     private void Start() {
         Quaternion rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
+        timerMaterial = timerObject.GetComponent<Renderer>().material;
     }
 
     private void Update() {
 
-        if(isBaking)
+        if(isBaking && !success)
         {
 
             if(Input.GetKeyDown(KeyCode.Q))
@@ -131,6 +157,11 @@ public class BakingStation : SuperStation
             }
 
             CheckKnobs();
+        } else if (success && !isBaking)
+        {
+            fillValue = Mathf.Clamp(fillValue += Time.deltaTime/bakeTime, 0f, 1f);
+            timerMaterial.SetFloat("_Fill_Amount", fillValue);
+            Debug.Log(fillValue);
         }
     }
 
@@ -144,13 +175,16 @@ public class BakingStation : SuperStation
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
-        isBaking = false;
+
+        StartCoroutine(Bake());
+
 
         /*if(inventory.CanCraft(donut)) //maybe other player knocks items out of inventory
         {
             inventory.Craft(donut);
         }*/
-        inventory.TryAddItemToInventory(resultingItem);
+
+        //inventory.TryAddItemToInventory(resultingItem);
 
         DeActivate();
     }
@@ -212,5 +246,14 @@ public class BakingStation : SuperStation
         leftKnob.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         middleKnob.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         rightKnob.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+    }
+
+    private IEnumerator Bake()
+    {
+        Debug.Log("baking");
+        success = true;
+        yield return new WaitForSeconds(bakeTime);
+        Debug.Log("baked");
+        itemReady = true;
     }
 }

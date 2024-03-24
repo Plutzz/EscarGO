@@ -35,6 +35,11 @@ public class FrostingStation : SuperStation
         virtualCamera.enabled = true;
     }
 
+    public override void GetItem()
+    {
+        
+    }
+
 
     public override void DeActivate()
     {

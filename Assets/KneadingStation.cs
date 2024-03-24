@@ -47,6 +47,11 @@ public class KneadingStation : SuperStation
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
     }
 
+    public override void GetItem()
+    {
+        
+    }
+
     public override void DeActivate()
     {
         isKneading = false;

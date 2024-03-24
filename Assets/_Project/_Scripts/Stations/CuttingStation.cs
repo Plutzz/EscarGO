@@ -82,6 +82,11 @@ public class CuttingStation : SuperStation
         Cursor.lockState = CursorLockMode.None;
     }
 
+    public override void GetItem()
+    {
+        
+    }
+
     public override void DeActivate()
     {
         inventory = null;
