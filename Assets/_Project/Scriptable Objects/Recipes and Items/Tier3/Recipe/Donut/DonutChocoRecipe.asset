@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10268f611078fa94785aa2538d6e6ccc, type: 3}
-  m_Name: Donut Recipe
+  m_Name: DonutChocoRecipe
   m_EditorClassIdentifier: 
-  result: {fileID: 0}
+  result: {fileID: 11400000, guid: 966468ba5368d214a9d29e600b112fcd, type: 2}
   requiredIngredients:
-  - item: {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385, type: 2}
+  - item: {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
     requiredAmount: 1
-  - item: {fileID: 11400000, guid: 2a86913b22551004d954b256718cc801, type: 2}
+  - item: {fileID: 11400000, guid: 47b3395b759a5c74c937d29226d107aa, type: 2}
     requiredAmount: 1
