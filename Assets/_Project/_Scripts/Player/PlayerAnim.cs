@@ -19,6 +19,12 @@ public class PlayerAnim : NetworkBehaviour
         // Delete it so no input is picked up by it
         if (!IsOwner)
         {
+            // Render the player model if it is not the local client's player
+            graphics.layer = LayerMask.NameToLayer("Player");
+            foreach(Transform child in graphics.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Player");
+            }
             return;
         }
         anim = GetComponentInChildren<ClientNetworkAnimator>();
