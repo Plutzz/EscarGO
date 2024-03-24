@@ -97,20 +97,20 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             }
         }
 
-        UpdatePlayersClientRpc(winningPlayerNumber);
+       //UpdatePlayersClientRpc(winningPlayerNumber);
     }
 
-    [ClientRpc]
-    public void UpdatePlayersClientRpc(int firstPlacePlayer)
-    {
-        if (NetworkManager.Singleton.LocalClientId == playerStats[firstPlacePlayer].clientId)
-        {
-            Debug.Log("You are winning");
-        }
-        else {
-            Debug.Log($"Player: {firstPlacePlayer} is winning");
-        }
-    }
+    //[ClientRpc]
+    //public void UpdatePlayersClientRpc(int firstPlacePlayer)
+    //{
+    //    if (NetworkManager.Singleton.LocalClientId == playerStats[firstPlacePlayer].clientId)
+    //    {
+    //        Debug.Log("You are winning");
+    //    }
+    //    else {
+    //        Debug.Log($"Player: {firstPlacePlayer} is winning");
+    //    }
+    //}
 
     // Assigns players a number for keeping track of customers, side of cafe, etc.
     public void AssignPlayerNumbers()
