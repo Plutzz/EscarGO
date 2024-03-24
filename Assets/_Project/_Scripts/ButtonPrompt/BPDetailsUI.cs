@@ -11,10 +11,16 @@ public class BPDetailsUI : MonoBehaviour
 
     public ButtonPromptDetails bpDetails;
 
-    void FixedUpdate()
+    void Start()
+    {
+        promptImage.color = new Color(1, 1, 1, 0);
+    }
+
+    void Update()
     {
         // Have this swap between keyboard and console
         promptImage.sprite = bpDetails.keyboardImgPrompt;
+        promptImage.color = new Color(1, 1, 1, 1);
         promptText.text = bpDetails.buttonPrompts;
     }
 
