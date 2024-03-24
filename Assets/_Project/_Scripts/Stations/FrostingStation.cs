@@ -33,6 +33,9 @@ public class FrostingStation : SuperStation
         isFrosting = true;
         timer = timeLimit;
         virtualCamera.enabled = true;
+
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
     }
 
     public override void GetItem()
@@ -52,6 +55,7 @@ public class FrostingStation : SuperStation
 
         // Gets the inputManager of this client's player
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
     }
 
     public override bool ActivityResult

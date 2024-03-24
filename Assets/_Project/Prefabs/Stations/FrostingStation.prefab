@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 227285696195658651}
   - component: {fileID: 2624621492771401336}
   - component: {fileID: 4195150876865310329}
+  - component: {fileID: 2481494196314106303}
   m_Layer: 6
   m_Name: FrostingStation
   m_TagString: Untagged
@@ -197,6 +198,20 @@ MonoBehaviour:
   threshHold: 1
   startPoint: {x: -5.372908, y: 2.9445844, z: -3.8862567}
   endPoint: {x: -3.9564695, y: 3.919804, z: -3.8862567}
+--- !u!114 &2481494196314106303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3994198717211464314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cc9d726ba943e43ac59e4a3f86ded9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPromptSet:
+  - {fileID: 11400000, guid: d9c2380cb2c498143a5c5bab96e1e18d, type: 2}
 --- !u!1 &7185462456312244597
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6328205035537388329}
   - component: {fileID: 4608862130040759153}
   - component: {fileID: 8837194606072665034}
-  - component: {fileID: 5085900670433591861}
+  - component: {fileID: 2602234188546771843}
   m_Layer: 6
   m_Name: CuttingStation
   m_TagString: Untagged
@@ -129,7 +129,7 @@ MonoBehaviour:
   maxCuts: 10
   cutIndicatorPrefab: {fileID: 6583992201796392769, guid: c8c95d642f57c674fa974c948df332fa,
     type: 3}
---- !u!114 &5085900670433591861
+--- !u!114 &2602234188546771843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,12 +138,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 993321695680599760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595815043f550544282a830b98a7a847, type: 3}
+  m_Script: {fileID: 11500000, guid: 18cc9d726ba943e43ac59e4a3f86ded9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
-  possibleRecipes: []
-  station: {fileID: 8837194606072665034}
+  buttonPromptSet:
+  - {fileID: 11400000, guid: 3f1930bd82c7f1e43bbba09e0c628d4b, type: 2}
 --- !u!1 &2967215965936196236
 GameObject:
   m_ObjectHideFlags: 0
