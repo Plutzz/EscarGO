@@ -11,18 +11,19 @@ public class CraftingSpace : InteractableSpace
     public SuperStation station;
     public override void Interact(PlayerInventory inventory)
     {
-        Dictionary<string, int> availableItems = inventory.UseAllSelectedItems();
 
         if (station.ActivityResult)
         {
             station.GetItem();
         }
-        else if (availableItems.Count <= 0) {
+        else if (inventory.UseAllSelectedItems().Count <= 0) {
+
             TipsManager.Instance.SetTip("Please select items with F", 3f);
             return;
         }
         else
         {
+            Dictionary<string, int> availableItems = inventory.UseAllSelectedItems();
             station.Activate(GetChosenRecipe(availableItems));
         }
         /*if (inventory.CanCraft(craftableItem) == true) { 
