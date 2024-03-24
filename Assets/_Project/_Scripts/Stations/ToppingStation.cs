@@ -12,6 +12,7 @@ public class ToppingStation : SuperStation
     [SerializeField] private GameObject toppingCircle;
     [SerializeField] private GameObject sprinkleParticles;
     [SerializeField] private int toppingCircleAmount = 5;
+    [SerializeField] private float heightOfCircles = 0.74f;
     [SerializeField] private float maxX = 0.37f;
     [SerializeField] private float maxZ = 0.37f;
     private bool success = false;
@@ -37,7 +38,7 @@ public class ToppingStation : SuperStation
 
         for(int i = 1; i <= toppingCircleAmount; i++)
         {
-            toppingCircleObjects.Add(Instantiate(toppingCircle, transform.position + new Vector3(Random.Range(-maxX, maxX), 0.54f, Random.Range(-maxZ, maxZ)), transform.rotation));
+            toppingCircleObjects.Add(Instantiate(toppingCircle, transform.position + new Vector3(Random.Range(-maxX, maxX), heightOfCircles, Random.Range(-maxZ, maxZ)), transform.rotation));
         }
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
