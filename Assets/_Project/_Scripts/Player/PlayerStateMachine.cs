@@ -41,6 +41,7 @@ public class PlayerStateMachine : NetworkBehaviour
     [SerializeField] private float playerHeight;
     public float moveSpeed = 5f;
     public Transform cameraTransform;
+    public Transform orientation;
     public Transform player;
     private PlayerAnim playerAnim;
     [Header("Crouching Variables")]
