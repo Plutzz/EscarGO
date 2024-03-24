@@ -69,6 +69,10 @@ public class ButtonPromptCheck : MonoBehaviour
                 }
                 
             }
+            else
+            {
+                ClearUIItem();
+            }
         }
 
         if (!foundButtonPrompt)
