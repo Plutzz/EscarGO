@@ -60,7 +60,7 @@ public class ToppingStation : SuperStation
         virtualCamera.enabled = false;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
-
+        success = false;
         foreach (GameObject obj in toppingCircleObjects)
         {
             Destroy(obj);

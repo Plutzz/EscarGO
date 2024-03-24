@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Unity.Netcode;
+using UnityEngine.Rendering;
 
 public class BakingStation : SuperStation
 {
@@ -78,6 +79,7 @@ public class BakingStation : SuperStation
             itemReady = false;
             fillValue = 0f;
             timerMaterial.SetFloat("_Fill_Amount", fillValue);
+            timerMaterial.DisableKeyword("_USE_TEXTURE");
 
             return;
         } else if(success && !itemReady)
@@ -119,6 +121,7 @@ public class BakingStation : SuperStation
     private void Start() {
         Quaternion rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
         timerMaterial = timerObject.GetComponent<Renderer>().material;
+
         // Make copy of timerMaterial
         timerMaterial = Instantiate(timerMaterial);
         timerObject.GetComponent<Renderer>().material = timerMaterial;
@@ -174,12 +177,11 @@ public class BakingStation : SuperStation
 
     private void Succeed()
     {
+        success = true;
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
-
         StartCoroutine(Bake());
-
         DeActivate();
     }
 
@@ -217,7 +219,6 @@ public class BakingStation : SuperStation
 
         if(leftSuccess && middleSuccess && rightSuccess)
         {
-            success = true;
             Succeed();
         } else {
             success = false;
@@ -246,6 +247,8 @@ public class BakingStation : SuperStation
     {
         Debug.Log("baking");
         success = true;
+        timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
+        timerMaterial.EnableKeyword("_USE_TEXTURE");
         yield return new WaitForSeconds(bakeTime);
         Debug.Log("baked");
         itemReady = true;

@@ -13,11 +13,18 @@ public class CraftingSpace : InteractableSpace
     {
         Dictionary<string, int> availableItems = inventory.UseAllSelectedItems();
 
-        if (availableItems.Count <= 0) {
+        if (station.ActivityResult)
+        {
+            station.GetItem();
+        }
+        else if (availableItems.Count <= 0) {
             TipsManager.Instance.SetTip("Please select items with F", 3f);
             return;
         }
-        station.Activate(GetChosenRecipe(availableItems));
+        else
+        {
+            station.Activate(GetChosenRecipe(availableItems));
+        }
         /*if (inventory.CanCraft(craftableItem) == true) { 
             TipsManager.Instance.SetTip("Made a " + craftableItem.itemName, 3f);
             station.Activate();
