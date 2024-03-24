@@ -78,6 +78,7 @@ public class BakingStation : SuperStation
             success = false;
             itemReady = false;
             fillValue = 0f;
+            timerObject.SetActive(false);
             timerMaterial.SetFloat("_Fill_Amount", fillValue);
             timerMaterial.DisableKeyword("_USE_TEXTURE");
 
@@ -125,6 +126,7 @@ public class BakingStation : SuperStation
         // Make copy of timerMaterial
         timerMaterial = Instantiate(timerMaterial);
         timerObject.GetComponent<Renderer>().material = timerMaterial;
+        timerObject.SetActive(false);
     }
 
     private void Update() {
@@ -248,9 +250,12 @@ public class BakingStation : SuperStation
     {
         Debug.Log("baking");
         success = true;
+        timerObject.SetActive(true);
+        timerMaterial.SetFloat("_Border_Thickness", 1);
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
         timerMaterial.EnableKeyword("_USE_TEXTURE");
         yield return new WaitForSeconds(bakeTime);
+        timerMaterial.SetFloat("_Border_Thickness", 0.3f);
         Debug.Log("baked");
         itemReady = true;
     }
