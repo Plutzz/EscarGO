@@ -16,6 +16,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         {
             return; 
         }
+        SendToSpectateClientRpc(false);
         ResetStrikesClientRpc();
     }
 
@@ -50,7 +51,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             Debug.Log("FIRED");
 
             // Set Player to Spectate mode
-            SendToSpectateClientRpc(new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
+            SendToSpectateClientRpc(true, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
             // Despawn all of this player's customers
 
             alivePlayers.Remove(playerStats[playerNumber]);
@@ -65,7 +66,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     }
 
     [ClientRpc]
-    private void RecieveStrikeClientRpc(ClientRpcParams sendParams)
+    private void RecieveStrikeClientRpc(ClientRpcParams sendParams = default)
     {
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().RemoveStar();
     }
@@ -77,10 +78,11 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().ResetStars(3);
     }
 
+    // If true, sends player to spectate, if false takes player out of spectate
     [ClientRpc]
-    private void SendToSpectateClientRpc(ClientRpcParams sendParams)
+    private void SendToSpectateClientRpc(bool isSpectating, ClientRpcParams sendParams = default)
     {
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Player>().Spectate();
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Player>().Spectate(isSpectating);
     }
 
     private void FindWinningPlayer() {

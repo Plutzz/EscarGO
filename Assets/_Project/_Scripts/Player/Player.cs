@@ -167,15 +167,15 @@ public class Player : NetworkBehaviour
     }
 
     [ContextMenu("Spectate")]
-    public void Spectate() {
+    public void Spectate(bool isSpectating) {
         stateMachine.cameraTransform.localPosition = localCameraPosition;
 
         foreach(GameObject gameObject in toggledGameObjects){ 
-            gameObject.SetActive(false);
+            gameObject.SetActive(!isSpectating);
         }
 
         foreach (MonoBehaviour thing in toggledMonoBehaviours) { 
-            thing.enabled = false;
+            thing.enabled = !isSpectating;
         }
 
     
