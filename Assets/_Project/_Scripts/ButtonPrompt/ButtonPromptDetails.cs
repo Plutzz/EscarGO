@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Button Prompt", menuName = "ButtonPrompt/Button Prompt Detail")]
 public class ButtonPromptDetails : ScriptableObject
 {
-    public Sprite keyboardImgPrompt;
-    public Sprite controllerImgPrompt;
-    public string buttonPrompts;
+    public string keyboardPrompt;
+    public Sprite buttonImgPrompt;
+    public string prompt;
 }
