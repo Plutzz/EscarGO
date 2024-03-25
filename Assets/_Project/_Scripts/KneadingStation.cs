@@ -56,6 +56,7 @@ public class KneadingStation : SuperStation
     {
         isKneading = false;
         noFirstKey = true;
+        success = false;
         wantedKey = 0;
         Destroy(playerDough);
 
