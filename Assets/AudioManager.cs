@@ -3,9 +3,9 @@ using System;
 using UnityEngine;
 
 
-public class AudioManager : MonoBehaviour
+public class AudioSettings : MonoBehaviour
 {
-    public static AudioManager Instance;
+    public static AudioSettings Instance;
 
     [SerializeField] private Sound[] sounds;
 
