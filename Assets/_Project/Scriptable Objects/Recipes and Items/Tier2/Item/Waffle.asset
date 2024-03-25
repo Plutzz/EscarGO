@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Waffle
   m_EditorClassIdentifier: 
   itemName: Waffle
-  itemSprite: {fileID: 21300000, guid: a1197760979472f489ca374b690fee99, type: 3}
+  itemSprite: {fileID: 21300000, guid: bd15b72c70f29464d9a9fb556f89c353, type: 3}
   itemDescription: wafflewafflewaffle
   maxTimeInInventory: 40
   currentTimeInInventory: 0

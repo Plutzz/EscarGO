@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DonutFruit
   m_EditorClassIdentifier: 
   itemName: Donut with Fruit
-  itemSprite: {fileID: 21300000, guid: 084f166e5b6867c4fa1140b50c8c49d9, type: 3}
+  itemSprite: {fileID: 21300000, guid: 358e4757fbaa68f4794a9585967ff7e2, type: 3}
   itemDescription: are you trying to feel healthy??
   maxTimeInInventory: 60
   currentTimeInInventory: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CroissantSugar
   m_EditorClassIdentifier: 
   itemName: Croissant with Sugar
-  itemSprite: {fileID: 21300000, guid: 66305a19e3614694f868c75a982e6b68, type: 3}
+  itemSprite: {fileID: 21300000, guid: 0a48484a32ea8cb4e96b1fd73cba6d16, type: 3}
   itemDescription: Best combination 10/10
   maxTimeInInventory: 60
   currentTimeInInventory: 0
