@@ -266,6 +266,21 @@ public class PlayerInventory : NetworkBehaviour
         UpdateInventory();
         return selectedItems;
     }
+
+    public int GetNumSelectedItems()
+    {
+        int count = 0;
+
+        for (int i = currentItems.Count - 1; i >= 0; i--)
+        {
+            if (currentItems[i].isSelected)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
 }
 
 public class InventoryItem {
