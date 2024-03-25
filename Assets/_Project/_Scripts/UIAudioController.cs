@@ -9,31 +9,31 @@ public class UIAudioController : MonoBehaviour
 
     public void ToggleMaster()
     {
-        AudioSettings.Instance.ToggleMaster();
+        AudioSystem.Instance.ToggleMaster();
     }
 
     public void ToggleMusic()
     {
-        AudioSettings.Instance.ToggleMusic();
+        AudioSystem.Instance.ToggleMusic();
     }
 
     public void ToggleSFX()
     {
-        AudioSettings.Instance.ToggleSFX();
+        AudioSystem.Instance.ToggleSFX();
     }
 
     public void MasterVolume()
     {
-        AudioSettings.Instance.MasterVolume(_masterSlider.value);
+        AudioSystem.Instance.MasterVolume(_masterSlider.value);
     }
 
     public void MusicVolume()
     {
-        AudioSettings.Instance.MusicVolume(_musicSlider.value);
+        AudioSystem.Instance.MusicVolume(_musicSlider.value);
     }
 
     public void SFXVolume()
     {
-        AudioSettings.Instance.SFXVolume(_sfxSlider.value);
+        AudioSystem.Instance.SFXVolume(_sfxSlider.value);
     }
 }
