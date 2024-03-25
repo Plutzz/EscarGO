@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1698903201
+  GlobalObjectIdHash: 2273549101
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -70,6 +70,7 @@ MonoBehaviour:
   recipes:
   - {fileID: 11400000, guid: 5ee73db1c2b0192488925768a972931b, type: 2}
   - {fileID: 11400000, guid: 87b7df20bfbd9d341b4afd87d30b794d, type: 2}
+  - {fileID: 11400000, guid: bf0d44bd03c2130428b784e181bbdae0, type: 2}
   - {fileID: 11400000, guid: bf0d44bd03c2130428b784e181bbdae0, type: 2}
   spawnTime: 5
   customerCount: 8
