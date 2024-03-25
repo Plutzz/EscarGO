@@ -16,13 +16,14 @@ public class CraftingSpace : InteractableSpace
         {
             station.GetItem();
         }
-        else if (inventory.UseAllSelectedItems().Count <= 0) {
+        else if (inventory.GetNumSelectedItems() <= 0) {
 
             TipsManager.Instance.SetTip("Please select items with F", 3f);
             return;
         }
         else
         {
+            Debug.Log(inventory.gameObject.name);
             Dictionary<string, int> availableItems = inventory.UseAllSelectedItems();
             station.Activate(GetChosenRecipe(availableItems));
         }
