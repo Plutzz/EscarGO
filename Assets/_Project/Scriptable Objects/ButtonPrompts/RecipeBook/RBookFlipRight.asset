@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RBookFlipRight
   m_EditorClassIdentifier: 
   keyboardPrompt: '[E]'
-  buttonImgPrompt: {fileID: 0}
+  buttonImgPrompt: {fileID: 21300000, guid: ed60ff0de79971e468ae179e077d66ca, type: 3}
   prompt: Flip Right

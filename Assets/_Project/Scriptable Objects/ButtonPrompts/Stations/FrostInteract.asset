@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FrostInteract
   m_EditorClassIdentifier: 
   keyboardPrompt: '[LMB]'
-  buttonImgPrompt: {fileID: 0}
+  buttonImgPrompt: {fileID: 21300000, guid: cde7469096582e04897fae80dfc34fbe, type: 3}
   prompt: Add Frosting

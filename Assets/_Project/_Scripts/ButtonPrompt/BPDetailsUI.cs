@@ -15,11 +15,10 @@ public class BPDetailsUI : MonoBehaviour
 
     void Start()
     {
-        // controllerButton.color = new Color(1, 1, 1, 0);
         inputManager = transform.parent.parent.parent.GetComponent<InputManager>();
 
-        controllerButton.enabled = false;
-        keyboardButton.enabled = false;
+        controllerButton.gameObject.SetActive(false);
+        keyboardButton.gameObject.SetActive(false);
     }
 
     void Update()
@@ -29,17 +28,17 @@ public class BPDetailsUI : MonoBehaviour
         {
             if (inputManager.playerInput.currentControlScheme == "Keyboard")
             {
-                controllerButton.enabled = false;
-                keyboardButton.enabled = true;
-
                 keyboardButton.text = bpDetails.keyboardPrompt;
+
+                controllerButton.gameObject.SetActive(false);
+                keyboardButton.gameObject.SetActive(true);
             }
             else if (inputManager.playerInput.currentControlScheme == "Gamepad")
             {
-                controllerButton.enabled = true;
-                keyboardButton.enabled = false;
-
                 controllerButton.sprite = bpDetails.buttonImgPrompt;
+
+                keyboardButton.gameObject.SetActive(false);
+                controllerButton.gameObject.SetActive(true);
             }
         }
         promptText.text = bpDetails.prompt;
