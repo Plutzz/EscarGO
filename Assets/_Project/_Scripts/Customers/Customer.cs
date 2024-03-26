@@ -23,6 +23,8 @@ public class Customer : NetworkBehaviour
     public bool orderReceived;
     private Chair currentChair;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
     {
@@ -39,6 +41,9 @@ public class Customer : NetworkBehaviour
         orderObject.GetComponent<Renderer>().material = orderMaterial;
 
         orderObject.SetActive(false);
+
+        animator = GetComponentInChildren<Animator>();
+        animator.SetBool("Seated", false);
 
         if (!IsServer) return;
 
@@ -133,6 +138,8 @@ public class Customer : NetworkBehaviour
 
     public void Exit()
     {
+        animator.SetBool("Seated", false);
+
         Debug.Log("Thank you!");
         if (currentChair != null)
         {
@@ -184,6 +191,8 @@ public class Customer : NetworkBehaviour
     }
     public void EnterChair(Chair chair)
     {
+        animator.SetBool("Seated", true);
+
         currentChair = chair;
     }
 }
