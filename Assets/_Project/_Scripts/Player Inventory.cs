@@ -35,7 +35,7 @@ public class PlayerInventory : NetworkBehaviour
 
     private void Update()
     {
-        UpdateTimeInInventory();
+        //UpdateTimeInInventory();
         if (Input.GetAxis("Mouse ScrollWheel") != 0) { 
             activeItemIndex = (inventorySpaces.Count + activeItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaces.Count;
             UpdateInventory();

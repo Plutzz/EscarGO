@@ -12,7 +12,7 @@ public class SettingsMenu : NetworkBehaviour
 
         if (!IsOwner)
         {
-            Destroy(gameObject);
+            enabled = false;
             return;
         }
     }

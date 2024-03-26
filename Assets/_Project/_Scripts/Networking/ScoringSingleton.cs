@@ -30,7 +30,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         {
             playerStats[playerNumber].score += scoreChange;
         }
-        UpdatePlayerScoreUIClientRPC(playerStats[playerNumber].score, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
+        UpdatePlayerScoreClientRPC(playerStats[playerNumber].score, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
         FindWinningPlayer();
     }
 
@@ -102,8 +102,9 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     }
 
     [ClientRpc]
-    private void UpdatePlayerScoreUIClientRPC(int score, ClientRpcParams clientRpcParams)
+    private void UpdatePlayerScoreClientRPC(int score, ClientRpcParams clientRpcParams)
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.JumpSound, transform.position);
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.text = score + " Points";
     }
 
