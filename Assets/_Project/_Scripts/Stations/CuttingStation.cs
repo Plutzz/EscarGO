@@ -25,10 +25,14 @@ public class CuttingStation : SuperStation
     private int neededcuts = 0;
     private int cuts = 0;
     private Vector3 knifeOffset = new Vector3(0f, 0.2f, 0f);
+    private Vector3 knifePosition;
+    private Quaternion knifeRotation;
 
 
     public override void Activate(Item successfulItem)
     {
+        Debug.Log("knife " + knife.transform.position);
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
@@ -36,6 +40,9 @@ public class CuttingStation : SuperStation
         {
             return;
         }
+
+        knifePosition = knife.transform.position;
+        knifeRotation = knife.transform.rotation;
 
         success = false;
         
@@ -98,7 +105,6 @@ public class CuttingStation : SuperStation
     {
         inventory = null;
 
-        Debug.Log("Deactivate");
         isCutting = false;
         success = false;
         //cutNumber.text = "0";
@@ -107,6 +113,8 @@ public class CuttingStation : SuperStation
         virtualCamera.enabled = false;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
+
+        //ResetKnife();
     }
 
     public override bool ActivityResult
@@ -235,13 +243,25 @@ public class CuttingStation : SuperStation
             yield return null;
         }
 
-        alignKnife();
+        if(cutIndicator != null)
+        {
+            alignKnife();
+        } else {
+            ResetKnife();
+        }
     }
 
     private void alignKnife()
     {
         knife.transform.position = cutIndicator.transform.position + knifeOffset;
         knife.transform.rotation = Quaternion.Euler(0, cutIndicator.transform.rotation.eulerAngles.y, 0);
+    }
+
+    private void ResetKnife()
+    {
+        knife.transform.position = knifePosition;
+        knife.transform.rotation = knifeRotation;
+        Debug.Log("knife " + knife.transform.position);
     }
 }
 
