@@ -10,6 +10,7 @@ public class Player : NetworkBehaviour
 {
     # region Object References
     [Header("Object References")]
+    public TextMeshProUGUI scoreText;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
     [SerializeField] private Transform orientation;
@@ -160,7 +161,6 @@ public class Player : NetworkBehaviour
     {
         canJump = false;
         jumpCooldown = Time.time + jumpCooldownDuration;
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.JumpSound, transform.position);
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }

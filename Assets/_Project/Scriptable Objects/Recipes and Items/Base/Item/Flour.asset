@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flour
   m_EditorClassIdentifier: 
   itemName: Flour
-  itemSprite: {fileID: 21300000, guid: 6c791a913105f3445ba4cd1bff724ab7, type: 3}
+  itemSprite: {fileID: 21300000, guid: a807b9cb910215d48bd5b73905cabb66, type: 3}
   itemDescription: Flour looks like sugar
   maxTimeInInventory: 40
   currentTimeInInventory: 9.217351

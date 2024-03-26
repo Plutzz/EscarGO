@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChopChocolate
   m_EditorClassIdentifier: 
   itemName: Chopped Chocolate
-  itemSprite: {fileID: 21300000, guid: 8ca452a2e0a7e4741b47d0eab36fb5b0, type: 3}
+  itemSprite: {fileID: 21300000, guid: e3831ebf6f9f2724b9ff31a32adac1ab, type: 3}
   itemDescription: lil chocolate
   maxTimeInInventory: 40
   currentTimeInInventory: 0

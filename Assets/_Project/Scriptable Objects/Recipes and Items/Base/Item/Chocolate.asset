@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chocolate
   m_EditorClassIdentifier: 
   itemName: Chocolate
-  itemSprite: {fileID: 21300000, guid: 8ca452a2e0a7e4741b47d0eab36fb5b0, type: 3}
+  itemSprite: {fileID: 21300000, guid: 875a053bfaf872f46a973c2bb4901e2b, type: 3}
   itemDescription: I love chocolate. Like seriously addicted right now, its just
     so good
   maxTimeInInventory: 40

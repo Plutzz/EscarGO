@@ -41,6 +41,7 @@ public class GameManager : NetworkSingleton<GameManager>
     private void EndGameClientRpc()
     {
         Cursor.lockState = CursorLockMode.Confined;
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.text = "0 Points";
     }
 
     [ClientRpc]

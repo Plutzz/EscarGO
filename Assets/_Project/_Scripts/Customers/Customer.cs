@@ -105,6 +105,7 @@ public class Customer : NetworkBehaviour
         if (gotOrder)
         {
             ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.JumpSound, transform.position);
             ActivateTimerClientRpc(false);
             StartCoroutine(FufillOrderWait(10));
         }

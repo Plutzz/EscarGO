@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         {
             playerStats[playerNumber].score += scoreChange;
         }
-
+        UpdatePlayerScoreUIClientRPC(playerStats[playerNumber].score, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
         FindWinningPlayer();
     }
 
@@ -98,6 +99,12 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         }
 
        //UpdatePlayersClientRpc(winningPlayerNumber);
+    }
+
+    [ClientRpc]
+    private void UpdatePlayerScoreUIClientRPC(int score, ClientRpcParams clientRpcParams)
+    {
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.text = score + " Points";
     }
 
     //[ClientRpc]

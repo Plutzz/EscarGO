@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Donut
   m_EditorClassIdentifier: 
   itemName: Donut
-  itemSprite: {fileID: 21300000, guid: 358e4757fbaa68f4794a9585967ff7e2, type: 3}
+  itemSprite: {fileID: 21300000, guid: da11f7035368f754881472ef3e64a5ae, type: 3}
   itemDescription: Why does Dough become Donut
   maxTimeInInventory: 1000
   currentTimeInInventory: 0
