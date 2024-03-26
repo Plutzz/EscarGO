@@ -10,6 +10,7 @@ public class BatterShapingStation : SuperStation
     [SerializeField] private float goalRange = 1f;
     [SerializeField] private float goalSizeOfBatter = 0.7f;
     [SerializeField] private GameObject batterCircle;
+    [SerializeField] private GameObject batterSpawnPoint;
 
     [SerializeField] private CraftableItem batter;
     private PlayerInventory inventory;
@@ -17,21 +18,21 @@ public class BatterShapingStation : SuperStation
     private bool success = false;
 
     
-    private Vector3 batterOffset = new Vector3(0, 0.52f, 0.018f);
     private bool isBattering = false;
     private bool squeezing = false;
     private GameObject playerBatter;
-    private  float playerHoldTimer = 0f;
+    [SerializeField]private float playerHoldTimer = 0f;
 
     public override void Activate(Item successfulItem)
     {
+        isBattering = true;
+        playerHoldTimer = 0;
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
-        virtualCamera.enabled = true;
-        isBattering = true;
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
+        virtualCamera.enabled = true;
     }
 
     public override void GetItem()
@@ -68,7 +69,7 @@ public class BatterShapingStation : SuperStation
         {
             if(Input.GetMouseButtonDown(0))
             {
-                playerBatter = Instantiate(batterCircle, transform.position + batterOffset, transform.rotation);
+                playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
                 squeezing = true;
             }
             
@@ -113,6 +114,6 @@ public class BatterShapingStation : SuperStation
     {
         playerHoldTimer = 0;
         Destroy(playerBatter);
-        playerBatter = Instantiate(batterCircle, transform.position + batterOffset, transform.rotation);
+        playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
     }
 }
