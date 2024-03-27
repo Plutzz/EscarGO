@@ -503,7 +503,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2049
   playerHeight: 2
-  moveSpeed: 5
+  moveSpeed: 2.5
   cameraTransform: {fileID: 3622850964377700486}
   orientation: {fileID: 5350075544441386201}
   player: {fileID: 5226382219086163930}
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12da39f682edbf144a7f5ff35544be06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.5
+  sensitivity: 0.75
   yRotationLimit: 88
   hand: {fileID: 5775809413446238165}
   rotation: {x: 0, y: 0}
