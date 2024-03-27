@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   result: {fileID: 11400000, guid: 3b6d53c87bcad5546a8b747bf3d93fae, type: 2}
   requiredIngredients:
-  - item: {fileID: 11400000, guid: 1d5da0cf9e624fe438ca449fa2c78943, type: 2}
-    requiredAmount: 1
   - item: {fileID: 11400000, guid: 47b3395b759a5c74c937d29226d107aa, type: 2}
+    requiredAmount: 1
+  - item: {fileID: 11400000, guid: 1d5da0cf9e624fe438ca449fa2c78943, type: 2}
     requiredAmount: 1

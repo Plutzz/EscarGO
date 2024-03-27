@@ -9,18 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a3d5585b4328164ebf83b878805bdaa, type: 3}
+  m_Script: {fileID: 11500000, guid: 763da6f99c557774cbc5128ebcd1c2e7, type: 3}
   m_Name: Chocolate
   m_EditorClassIdentifier: 
   itemName: Chocolate
   itemSprite: {fileID: 21300000, guid: 875a053bfaf872f46a973c2bb4901e2b, type: 3}
-  itemDescription: I love chocolate. Like seriously addicted right now, its just
-    so good
-  maxTimeInInventory: 40
+  itemDescription: Chocolate
+  maxTimeInInventory: 0
   currentTimeInInventory: 0
   failedItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
-  requiredIngredients:
-  - item: {fileID: 11400000, guid: 95b11a6da19090e4c999fd1884d12c6b, type: 2}
-    requiredAmount: 2
-  - item: {fileID: 11400000, guid: 2a86913b22551004d954b256718cc801, type: 2}
-    requiredAmount: 1
