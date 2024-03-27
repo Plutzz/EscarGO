@@ -196,10 +196,8 @@ public class PlayerInventory : NetworkBehaviour
 
     public void ClearInventory()
     {
-        for(int i = 0; i < currentItems.Count; i++)
-        {
-            currentItems.RemoveAt(i);
-        }
+        inventorySpaces.Clear();
+        currentItems.Clear();
         UpdateInventory();
     }
 
