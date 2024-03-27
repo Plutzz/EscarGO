@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1354851925
+  GlobalObjectIdHash: 1295093547
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 0
   ActiveSceneSynchronization: 1
@@ -548,6 +548,7 @@ MonoBehaviour:
   customerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  raycastLength: 5.5
   donut: {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
 --- !u!114 &354870785860000598
 MonoBehaviour:

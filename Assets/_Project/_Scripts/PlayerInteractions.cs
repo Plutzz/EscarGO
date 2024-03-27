@@ -14,6 +14,7 @@ public class PlayerInteractions : NetworkBehaviour
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
     [SerializeField] private LayerMask customerLayer;
+    [SerializeField] private float raycastLength;
 
     [SerializeField] private Item donut;
 
@@ -69,7 +70,29 @@ public class PlayerInteractions : NetworkBehaviour
 
     private void CheckForCustomer()
     {
-        Collider[] customerColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, customerLayer);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, orientation.forward, raycastLength, customerLayer);
+
+        if (hits.Length > 0)
+        {
+            foreach (RaycastHit hit in hits)
+            {
+                Customer customer = hit.collider.gameObject.GetComponent<Customer>();
+                if (customer != null)
+                {
+                    if (customer.TryCompleteOrder(playerInventory))
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+        else
+        {
+            TipsManager.Instance.SetTip("No Server here", 2f);
+        }
+
+        /*Collider[] customerColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, customerLayer);
+
 
         if (customerColliders.Length > 0)
         {
@@ -90,12 +113,14 @@ public class PlayerInteractions : NetworkBehaviour
         else
         {
             TipsManager.Instance.SetTip("No Server here", 2f);
-        }
+        }*/
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
+
+        Gizmos.DrawLine(transform.position, transform.position + orientation.forward * raycastLength);
     }
 }
