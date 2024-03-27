@@ -104,9 +104,16 @@ public class PlayerStateMachine : NetworkBehaviour
         crouching = GetComponent<InputManager>().CrouchIsPressed;
         
         if (crouching)
+        {
+            rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
             player.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
+        }
         else
+        {
             player.localScale = new Vector3(player.localScale.x, startYScale, gameObject.transform.localScale.z);
+        }
+
+            
 
         currentState.UpdateState();
     }

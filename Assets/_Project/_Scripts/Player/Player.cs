@@ -28,7 +28,7 @@ public class Player : NetworkBehaviour
     public float currentStamina;
     public float staminaDecreaseRate = 10f;
     public float staminaIncreaseRate = 5f;
-    private float sprintSpeed = 10f;
+    [SerializeField] private float sprintSpeed = 5f;
     private float moveSpeed;
     private bool sprinting = false;
     public bool canSprint = true;
