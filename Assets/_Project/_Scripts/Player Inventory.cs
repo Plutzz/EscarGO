@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using Unity.Networking;
 public class PlayerInventory : NetworkBehaviour
 {
     [SerializeField] private GameObject inventoryParent;
-    private List<InventorySpace> inventorySpaces = new List<InventorySpace>();
+    [SerializeField] private TextMeshProUGUI itemNameText;
+    [SerializeField] private Image inventoryBackdrop;
+    [SerializeField] private Color[] inventoryColors;
+
+    private List<InventorySpaceUI> inventorySpaceUIs = new List<InventorySpaceUI>();
+
     private List<InventoryItem> currentItems = new List<InventoryItem>();
     private int activeItemIndex;
-    private Dictionary<string, int> items = new Dictionary<string, int>();
+    private Dictionary<string, int> itemDictionary = new Dictionary<string, int>();
     public override void OnNetworkSpawn()
     {
-        // If this script is not owned by the client
-        // Delete it so no input is picked up by it
+
         if (!IsOwner)
         {
             inventoryParent.SetActive(false);
@@ -21,23 +28,28 @@ public class PlayerInventory : NetworkBehaviour
         }
 
         foreach (Transform child in inventoryParent.transform) { 
-            InventorySpace space = child.GetComponent<InventorySpace>();
+            InventorySpaceUI space = child.GetComponent<InventorySpaceUI>();
             if (space != null)
             {
-                inventorySpaces.Add(space);
+                inventorySpaceUIs.Add(space);
                 space.AssignIcon(null);
             }
         }
 
         activeItemIndex = 0;
         UpdateInventory();
+
+        Debug.Log("Owner ID: " + OwnerClientId);
+        if ((int)OwnerClientId < inventoryColors.Length) { 
+            inventoryBackdrop.color = inventoryColors[OwnerClientId];
+        }
     }
 
     private void Update()
     {
         //UpdateTimeInInventory();
         if (Input.GetAxis("Mouse ScrollWheel") != 0) { 
-            activeItemIndex = (inventorySpaces.Count + activeItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaces.Count;
+            activeItemIndex = (inventorySpaceUIs.Count + activeItemIndex - (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"))) % inventorySpaceUIs.Count;
             UpdateInventory();
         }
 
@@ -68,7 +80,7 @@ public class PlayerInventory : NetworkBehaviour
                 }
                 
             }
-            inventorySpaces[i].SetTime(currentItems[i].timeInInventory, currentItems[i].item.maxTimeInInventory);
+            inventorySpaceUIs[i].SetTime(currentItems[i].timeInInventory, currentItems[i].item.maxTimeInInventory);
 
         }
     }
@@ -87,35 +99,39 @@ public class PlayerInventory : NetworkBehaviour
         currentItems[itemIndex] = new InventoryItem(failedItem);
 
         UpdateInventory();
-        inventorySpaces[itemIndex].SetTime(0, 1);
+        inventorySpaceUIs[itemIndex].SetTime(0, 1);
     }
 
     private void UpdateInventory() { 
         for (int i = 0; i < currentItems.Count; i++)
         {
-            inventorySpaces[i].AssignIcon(currentItems[i].item.itemSprite);
-            inventorySpaces[i].SetColor(currentItems[i].isSelected, activeItemIndex == i);
+            inventorySpaceUIs[i].AssignIcon(currentItems[i].item.itemSprite);
+            inventorySpaceUIs[i].SetColor(currentItems[i].isSelected, activeItemIndex == i);
         }
 
-        for (int i = currentItems.Count; i < inventorySpaces.Count; i++)
+        for (int i = currentItems.Count; i < inventorySpaceUIs.Count; i++)
         {
-            inventorySpaces[i].AssignIcon(null);
-            inventorySpaces[i].SetTime(0, 1);
-            inventorySpaces[i].SetColor(false, activeItemIndex == i);
+            inventorySpaceUIs[i].AssignIcon(null);
+            inventorySpaceUIs[i].SetTime(0, 1);
+            inventorySpaceUIs[i].SetColor(false, activeItemIndex == i);
         }
-
-        //inventorySpaces[activeItemIndex].SetActive();
+        if (activeItemIndex >= currentItems.Count)
+        {
+            itemNameText.text = "";
+        }
+        else { 
+            itemNameText.text = currentItems[activeItemIndex].item.itemName;
+        }
+        
     }
 
     public bool TryAddItemToInventory(Item item) {
         if (item == null) {
             return false;
         }
-        if (currentItems.Count == inventorySpaces.Count) {
+        if (currentItems.Count == inventorySpaceUIs.Count) {
             return false;
         }
-        /*Item playerCopy = ScriptableObject.CreateInstance<Item>();
-        playerCopy.CopyData(item);*/
         InventoryItem inventoryItem = new InventoryItem(item);
 
         currentItems.Add(inventoryItem);
@@ -127,22 +143,22 @@ public class PlayerInventory : NetworkBehaviour
         return true;
     }
 
-    public bool CanCraft(CraftableItem craftableItem) {
+    /*public bool CanCraft(CraftableItem craftableItem) {
 
         //Check that player has all items in dictionary
         foreach (Ingredient ingredient in craftableItem.requiredIngredients) {
-            if (!items.ContainsKey(ingredient.item.itemName)) { 
+            if (!itemDictionary.ContainsKey(ingredient.item.itemName)) { 
                 return false;
             }
-            if (items[ingredient.item.itemName] < ingredient.requiredAmount) {
+            if (itemDictionary[ingredient.item.itemName] < ingredient.requiredAmount) {
                 return false;
             }
         }
         Debug.Log("Can craft: " + craftableItem.itemName);
         return true;
-    }
+    }*/
 
-    public void Craft(CraftableItem craftableItem)
+    /*public void Craft(CraftableItem craftableItem)
     {
         foreach (Ingredient ingredient in craftableItem.requiredIngredients)
         {
@@ -167,18 +183,18 @@ public class PlayerInventory : NetworkBehaviour
         }
 
         TryAddItemToInventory(craftableItem);
-    }
+    }*/
 
     
 
     private void EditDictionary(string key, int change) {
-        if (items.ContainsKey(key))
+        if (itemDictionary.ContainsKey(key))
         {
-            items[key]+= change;
+            itemDictionary[key]+= change;
         }
         else
         {
-            items.Add(key, change);
+            itemDictionary.Add(key, change);
         }
     }
 
@@ -196,7 +212,7 @@ public class PlayerInventory : NetworkBehaviour
 
     public void ClearInventory()
     {
-        items.Clear();
+        itemDictionary.Clear();
         currentItems.Clear();
         UpdateInventory();
     }

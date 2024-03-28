@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySpace : MonoBehaviour
+public class InventorySpaceUI : MonoBehaviour
 {
     [SerializeField] private Image backdrop;
     [SerializeField] private Color activeAndSelectedColor;
