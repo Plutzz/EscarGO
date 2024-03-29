@@ -72,7 +72,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 87b7df20bfbd9d341b4afd87d30b794d, type: 2}
   - {fileID: 11400000, guid: bf0d44bd03c2130428b784e181bbdae0, type: 2}
   - {fileID: 11400000, guid: bf0d44bd03c2130428b784e181bbdae0, type: 2}
-  spawnTime: 5
+  spawnTimePerPlayer: 30
   customerCount: 8
   numCustomerToSpawn: 4
   playerOneChairs:
