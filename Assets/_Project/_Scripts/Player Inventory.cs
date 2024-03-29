@@ -22,7 +22,6 @@ public class PlayerInventory : NetworkBehaviour
 
         if (!IsOwner)
         {
-            inventoryParent.SetActive(false);
             enabled = false;
             return;
         }

@@ -13,6 +13,11 @@ public class StrikeUI : NetworkBehaviour
 
     public void ResetStars(int starCount)
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < starCount; i++)
         {
             Instantiate(starPrefab, transform);

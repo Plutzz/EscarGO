@@ -6,12 +6,14 @@ using UnityEngine;
 public class SettingsMenu : NetworkBehaviour
 {
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private GameObject Canvas;
     public override void OnNetworkSpawn()
     {
         gameObject.SetActive(false); // Disable gameObject on spawn (because you can't spawn a disabled game object)
 
         if (!IsOwner)
         {
+            Canvas.SetActive(false);
             enabled = false;
             return;
         }
