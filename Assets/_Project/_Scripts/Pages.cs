@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 public class Pages : NetworkBehaviour
 {
-    public Texture[] pages;
+    public GameObject[] pages;
     public Material nextPage;
     public Material previousPage;
 
@@ -18,16 +18,21 @@ public class Pages : NetworkBehaviour
         }
         currentPage = 0;
 
-        nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
-        previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        //nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        //previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
     }
 
     [ClientRpc]
     public void ChangePageClientRpc(int page)
     {
         currentPage = page;
-        nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
-        previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        foreach(GameObject _page in pages)
+        {
+            _page.SetActive(false);
+        }
+        pages[page].SetActive(true);
+        //nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        //previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
     }
 
     void Update()
