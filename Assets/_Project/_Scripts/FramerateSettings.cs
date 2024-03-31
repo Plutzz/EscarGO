@@ -6,24 +6,25 @@ using UnityEngine.UI;
 public class FramerateSettings : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Dropdown framerateDropdown;
+    private Dropdown framerateDropdown;
 
     private void Start()
     {
-        InitializeDropdownOptions();
+        framerateDropdown = GetComponent<Dropdown>();
+
+        if (framerateDropdown != null)
+        {
+            framerateDropdown.onValueChanged.AddListener(OnFramerateChanged);
+        }
+        else
+        {
+            Debug.LogError("Framerate Dropdown not found on GameObject: " + gameObject.name);
+            Debug.Log("GameObject name searched for Dropdown: " + gameObject.name);
+        }
+
         
-        framerateDropdown.onValueChanged.AddListener(OnFramerateChanged);
     }
 
-    private void InitializeDropdownOptions()
-    {
-        framerateDropdown.options.Clear();
-        framerateDropdown.options.Add(new Dropdown.OptionData("60fps"));
-        framerateDropdown.options.Add(new Dropdown.OptionData("120fps"));
-        framerateDropdown.options.Add(new Dropdown.OptionData("144fps"));
-        framerateDropdown.options.Add(new Dropdown.OptionData("240fps"));
-        framerateDropdown.options.Add(new Dropdown.OptionData("Uncapped"));
-    }
 
     private void OnFramerateChanged(int index)
     {
