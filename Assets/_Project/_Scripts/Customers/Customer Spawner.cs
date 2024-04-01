@@ -23,6 +23,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 
     private int playerThatGetsCustomer = 0;
     private List<int> player = new List<int>();
+    private int playersAlive;
 
     public override void OnNetworkSpawn()
     {
@@ -194,11 +195,13 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
             player.Add(i);
             Debug.Log("added players for customers: " + i);
         }
+
+        playersAlive = ScoringSingleton.Instance.alivePlayers.Count;
     }
 
     private int getRandomCustomer()
     {
-        if(player.Count == 0 || player.Count != ScoringSingleton.Instance.alivePlayers.Count)
+        if(player.Count == 0 || playersAlive != ScoringSingleton.Instance.alivePlayers.Count)
         {
             resetRandomCustomers();
             //Debug.Log("reset customers");
