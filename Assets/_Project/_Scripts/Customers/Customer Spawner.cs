@@ -20,6 +20,8 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     [SerializeField] public Chair[] playerFourChairs;
     public Chair[][] chairs { get; private set; } 
 
+    private int playerThatGetsCustomer = 0;
+
     public override void OnNetworkSpawn()
     {
         chairs = new Chair[4][];
@@ -70,10 +72,17 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         if (customerMovement != null)
         {
             // Assigns a random ALIVE player to this customer
-            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[Random.Range(0, ScoringSingleton.Instance.alivePlayers.Count)].playerNumber;
+            if(playerThatGetsCustomer > ScoringSingleton.Instance.alivePlayers.Count - 1)
+            {
+                playerThatGetsCustomer = 0;
+            }
+
+            //int assignedPlayer = ScoringSingleton.Instance.alivePlayers[Random.Range(0, ScoringSingleton.Instance.alivePlayers.Count)].playerNumber; RANDOM CUSTOMER ASSIGN
+            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[playerThatGetsCustomer].playerNumber; //Assign customers in order starting at player 1
             Debug.Log($"assigned player {assignedPlayer} ");
             customerMovement.assignedPlayer = assignedPlayer;
             customerMovement.GetComponent<Customer>().assignedPlayer = assignedPlayer;
+            playerThatGetsCustomer += 1;
         }
         else
         {
