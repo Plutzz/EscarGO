@@ -198,7 +198,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 
     private int getRandomCustomer()
     {
-        if(player.Count == 0)
+        if(player.Count == 0 || player.Count != ScoringSingleton.Instance.alivePlayers.Count)
         {
             resetRandomCustomers();
             //Debug.Log("reset customers");
