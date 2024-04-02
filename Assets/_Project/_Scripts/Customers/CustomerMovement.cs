@@ -137,8 +137,8 @@ public class CustomerMovement : NetworkBehaviour
             transform.forward = -assignedChair.transform.right;
 
             // Select a random index within the bounds of the recipes array
-            int randomIndex = Random.Range(0, CustomerSpawner.Instance.recipes.Length);
-            customer.GetCustomerOrderClientRpc(randomIndex);
+            //int randomIndex = Random.Range(0, CustomerSpawner.Instance.recipes.Length);
+            customer.GetCustomerOrderClientRpc();
 
             // Start Patience Timer
             customer.ActivateTimerClientRpc(true);

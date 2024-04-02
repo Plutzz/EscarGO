@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -6,7 +7,8 @@ using UnityEngine;
 public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 {
     [SerializeField] private GameObject customerPrefab;
-    [SerializeField] public Criteria[] recipes;
+    //[SerializeField] public Criteria[] recipes;
+    [SerializeField] public CriteriaTier[] recipeTiers;
     [SerializeField] private float spawnTimePerPlayer = 5f;
     private float timer = 0;
     [HideInInspector] public int customerCount = 0;
@@ -72,7 +74,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         if (customerMovement != null)
         {
             // Assigns a random ALIVE player to this customer
-            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[Random.Range(0, ScoringSingleton.Instance.alivePlayers.Count)].playerNumber;
+            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[UnityEngine.Random.Range(0, ScoringSingleton.Instance.alivePlayers.Count)].playerNumber;
             Debug.Log($"assigned player {assignedPlayer} ");
             customerMovement.assignedPlayer = assignedPlayer;
             customerMovement.GetComponent<Customer>().assignedPlayer = assignedPlayer;
@@ -86,4 +88,28 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         spawnedCustomer.GetComponent<NetworkObject>().Spawn(true);
     }
 
+    public Criteria GetCriteria() {
+        float sum = 0;
+        foreach (CriteriaTier tier in recipeTiers) {
+            sum += tier.tierWeight;
+        }
+
+        float rand = UnityEngine.Random.Range(0, sum);
+
+        foreach (CriteriaTier tier in recipeTiers)
+        {
+            if (rand > tier.tierWeight)
+            {
+                rand -= tier.tierWeight;
+            }
+            else { 
+                return tier.GetCriteria();
+            }
+        }
+
+        Debug.LogError("Criteria Randomizer failed");
+        return recipeTiers[0].GetCriteria();
+    }
+
 }
+

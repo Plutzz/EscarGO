@@ -80,11 +80,11 @@ public class Customer : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void GetCustomerOrderClientRpc(int _index)
+    public void GetCustomerOrderClientRpc()
     {
         orderObject.SetActive(true);
         // Set the order sprite to the item's sprite
-        criteria = Instantiate(CustomerSpawner.Instance.recipes[_index]);
+        criteria = Instantiate(CustomerSpawner.Instance.GetCriteria());
 
         if (criteria != null && criteria.objectPairs[0].item.itemSprite != null)
         {
