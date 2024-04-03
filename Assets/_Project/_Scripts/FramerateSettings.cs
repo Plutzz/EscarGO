@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FramerateSettings : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Dropdown framerateDropdown;
+    [SerializeField] private TMP_Dropdown framerateDropdown;
 
     private void Start()
     {
-        framerateDropdown = GetComponent<Dropdown>();
 
         if (framerateDropdown != null)
         {
