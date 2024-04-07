@@ -6039,6 +6039,7 @@ MonoBehaviour:
     type: 3}
   hostGameUI: {fileID: 4781799544526532661}
   lobbyGameUI: {fileID: 6394586958630459672}
+  autoRefreshTime: 10
   joinCodeInput: {fileID: 7606285417714329131}
 --- !u!1 &6480692864862827944
 GameObject:
@@ -9435,9 +9436,6 @@ MonoBehaviour:
   mainMenu: {fileID: 9065794824236276796}
   lobbyMenu: {fileID: 6439587261458496561}
   lobbyHud: {fileID: 6394586958630459672}
-  lobbyStartTrigger: {fileID: 0}
-  lobbyCodeText: {fileID: 5212311658090628039}
-  joinCodeTextInput: {fileID: 0}
 --- !u!1 &9209207933686226742
 GameObject:
   m_ObjectHideFlags: 0

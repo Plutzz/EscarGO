@@ -17,11 +17,24 @@ public class VolumeSlider : MonoBehaviour
     public AudioCategory audioCategory;
     private Slider slider;
 
+    private string PlayerPrefsKey
+    {
+        get
+        {
+            return audioCategory.ToString() + "Volume";
+        }
+    }
+
     private void Start()
     {
         slider = GetComponent<Slider>();
         slider.onValueChanged.AddListener(OnSliderValueChanged);
+
         //Load the save value
+        float savedValue = PlayerPrefs.GetFloat(PlayerPrefsKey, 1f);
+        slider.value = savedValue;
+
+        OnSliderValueChanged(savedValue);
         //AudioManager.Instance.SetMasterVolume(savedValue);
     }
 
@@ -41,5 +54,8 @@ public class VolumeSlider : MonoBehaviour
                 AudioManager.Instance.SetSFXVolume(value);
                 break;
         }
+
+        PlayerPrefs.SetFloat(PlayerPrefsKey, value);
+        PlayerPrefs.Save(); 
     }
 }
