@@ -10,6 +10,9 @@ public class Pages : NetworkBehaviour
     public Material previousPage;
 
     public int currentPage = 0;
+
+    private GameObject playerInRange = null;
+
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
@@ -37,13 +40,16 @@ public class Pages : NetworkBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (playerInRange != null && playerInRange.GetComponent<NetworkObject>().IsOwner)
         {
-            ChangeNextPageServerRpc(currentPage);
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ChangePrevPageServerRpc(currentPage);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ChangeNextPageServerRpc(currentPage);
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                ChangePrevPageServerRpc(currentPage);
+            }
         }
     }
 
@@ -63,5 +69,21 @@ public class Pages : NetworkBehaviour
         }
         currentPage = (page - 1 + pages.Length) % pages.Length;
         ChangePageClientRpc(currentPage);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerInRange = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerInRange = null;
+        }
     }
 }
