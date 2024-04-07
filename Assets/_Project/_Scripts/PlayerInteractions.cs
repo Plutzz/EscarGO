@@ -86,10 +86,6 @@ public class PlayerInteractions : NetworkBehaviour
                 }
             }
         }
-        else
-        {
-            TipsManager.Instance.SetTip("No Server here", 2f);
-        }
 
         /*Collider[] customerColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, customerLayer);
 
