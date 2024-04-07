@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8625d6d396aa0444db3ed00f28368e47, type: 3}
   m_Name: Airborne
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 5

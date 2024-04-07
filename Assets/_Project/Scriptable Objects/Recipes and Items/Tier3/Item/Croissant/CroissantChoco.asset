@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3d5585b4328164ebf83b878805bdaa, type: 3}
   m_Name: CroissantChoco
   m_EditorClassIdentifier: 
-  itemName: Croissant with Fruit
+  itemName: Croissant with Chocolate
   itemSprite: {fileID: 21300000, guid: 4dadb0032cc5bcd4e9ac4ac48ea05aff, type: 3}
   itemDescription: Best combination 10/10
   maxTimeInInventory: 60
