@@ -16,10 +16,10 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     [Range(0, 1)]
     public float SFXVolume = 1;
 
-    //private Bus masterBus;
-    //private Bus musicBus;
-    //private Bus ambienceBus;
-    //private Bus sfxBus;
+    private Bus masterBus;
+    private Bus musicBus;
+    private Bus ambienceBus;
+    private Bus sfxBus;
 
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
@@ -42,12 +42,12 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         //sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
 
-    private void Update()
+    private void UpdateVolume()
     {
-        //masterBus.setVolume(masterVolume);
-        //musicBus.setVolume(musicVolume);
-        //ambienceBus.setVolume(ambienceVolume);
-        //sfxBus.setVolume(SFXVolume);
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        ambienceBus.setVolume(ambienceVolume);
+        sfxBus.setVolume(SFXVolume);
     }
 
     //private void InitializeAmbience(EventReference ambienceEventReference)
@@ -116,6 +116,24 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     {
         GRAY_AREA = 0,
         BLUE_AREA = 1
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = Mathf.Clamp01(volume);
+        UpdateVolume();
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        musicVolume = Mathf.Clamp01(volume);
+        UpdateVolume();
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        SFXVolume = Mathf.Clamp01(volume);
+        UpdateVolume();
     }
 }
 

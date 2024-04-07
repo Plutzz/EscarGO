@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FirstPersonCamera : NetworkBehaviour
 {
@@ -23,6 +24,9 @@ public class FirstPersonCamera : NetworkBehaviour
     [SerializeField]
     private Camera cam;
 
+    [SerializeField] private Slider sensitivitySlider;
+    private const string SensitivityPrefsKey = "Sensitivity";
+
     public override void OnNetworkSpawn()
     {
         // If this script is not owned by the client
@@ -31,6 +35,13 @@ public class FirstPersonCamera : NetworkBehaviour
             Destroy(gameObject);
 
         inputManager = transform.parent.GetComponent<InputManager>();
+
+        sensitivity = PlayerPrefs.GetFloat(SensitivityPrefsKey, sensitivity);
+
+        if(sensitivitySlider != null)
+        {
+            sensitivitySlider.value = sensitivity;
+        }
     }
 
     void Update()
@@ -41,6 +52,11 @@ public class FirstPersonCamera : NetworkBehaviour
         var yQuat = Quaternion.AngleAxis(rotation.y, Vector3.left);
 
         transform.localRotation = xQuat * yQuat;
+
+        if (sensitivitySlider != null && sensitivitySlider.value != sensitivity)
+        {
+            UpdateSensitivity(sensitivitySlider.value);
+        }
 
         //if (InputManager.Instance.InteractPressedThisFrame)
         //{
@@ -62,6 +78,15 @@ public class FirstPersonCamera : NetworkBehaviour
         //    }
 
         //}
+
+        void UpdateSensitivity(float value)
+        {
+            sensitivity = value;
+
+            PlayerPrefs.SetFloat(SensitivityPrefsKey, sensitivity);
+            PlayerPrefs.Save();
+        }
+
     }
 
 }
