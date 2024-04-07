@@ -7,7 +7,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 {
     public SpawnMethod spawnMethod;
     [SerializeField] private GameObject customerPrefab;
-    [SerializeField] public Criteria[] recipes;
+    [SerializeField] public CriteriaTier[] recipeTiers;
     [SerializeField] private float spawnTime = 5f;
     private float timer = 0;
     [HideInInspector] public int customerCount = 0;
@@ -214,6 +214,32 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         player.RemoveAt(rand);
 
         return result;
+    }
+
+    public Criteria GetCriteria()
+    {
+        float sum = 0;
+        foreach (CriteriaTier tier in recipeTiers)
+        {
+            sum += tier.tierWeight;
+        }
+
+        float rand = UnityEngine.Random.Range(0, sum);
+
+        foreach (CriteriaTier tier in recipeTiers)
+        {
+            if (rand > tier.tierWeight)
+            {
+                rand -= tier.tierWeight;
+            }
+            else
+            {
+                return tier.GetCriteria();
+            }
+        }
+
+        Debug.LogError("Criteria Randomizer failed");
+        return recipeTiers[0].GetCriteria();
     }
 
 }
