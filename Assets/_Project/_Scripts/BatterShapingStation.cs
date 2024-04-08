@@ -9,8 +9,11 @@ public class BatterShapingStation : SuperStation
     [SerializeField] private float goal = 5f;
     [SerializeField] private float goalRange = 1f;
     [SerializeField] private float goalSizeOfBatter = 0.7f;
+    [SerializeField] private float cookTime = 5.0f;
     [SerializeField] private GameObject batterCircle;
     [SerializeField] private GameObject batterSpawnPoint;
+    [SerializeField] private GameObject timerObject;
+    [SerializeField] private GameObject waffleIronJoint;
 
     [SerializeField] private CraftableItem batter;
     private PlayerInventory inventory;
@@ -21,14 +24,25 @@ public class BatterShapingStation : SuperStation
     private bool isBattering = false;
     private bool squeezing = false;
     private GameObject playerBatter;
-    [SerializeField]private float playerHoldTimer = 0f;
+    private float playerHoldTimer = 0f;
+
+    private Animator waffleIronAnimation;
+    private bool itemReady = false;
+    private float timer = 0f;
+    private Material timerMaterial;
+    private float fillValue;
 
     public override void Activate(Item successfulItem)
     {
-        isBattering = true;
-        playerHoldTimer = 0;
+        timer = 0f;
+        fillValue = 0;
+        timerMaterial.SetFloat("_Fill_Amount", fillValue);
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
+
+        playerHoldTimer = 0;
+        isBattering = true;
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
@@ -37,13 +51,28 @@ public class BatterShapingStation : SuperStation
 
     public override void GetItem()
     {
-        
+        if (itemReady)
+        {
+            inventory.TryAddItemToInventory(resultingItem);
+
+            success = false;
+            itemReady = false;
+            fillValue = 0f;
+            timerObject.SetActive(false);
+            timerMaterial.SetFloat("_Fill_Amount", fillValue);
+            timerMaterial.DisableKeyword("_USE_TEXTURE");
+
+            return;
+        } else if(success && !itemReady)
+        {
+            Debug.Log("item not ready yet");
+            return;
+        }
     }
     
     public override void DeActivate()
     {
         isBattering = false;
-        success = false;
         Destroy(playerBatter);
         playerHoldTimer = 0;
 
@@ -64,8 +93,19 @@ public class BatterShapingStation : SuperStation
         set { virtualCamera = value; }
     }
 
+    private void Start() {
+        waffleIronAnimation = waffleIronJoint.GetComponent<Animator>();
+        waffleIronAnimation.SetTrigger("Open");
+        timerMaterial = timerObject.GetComponent<Renderer>().material;
+
+        // Make copy of timerMaterial
+        timerMaterial = Instantiate(timerMaterial);
+        timerObject.GetComponent<Renderer>().material = timerMaterial;
+        timerObject.SetActive(false);
+    }
+
     private void Update() {
-        if(isBattering)
+        if(isBattering && !success)
         {
             if(Input.GetMouseButtonDown(0))
             {
@@ -85,6 +125,10 @@ public class BatterShapingStation : SuperStation
                 playerBatter.transform.localScale += new Vector3(goalSizeOfBatter, 0, goalSizeOfBatter) * Time.deltaTime/goal;
                 squeezing = true;
             }
+        } else if (success && !isBattering)
+        {
+            fillValue = Mathf.Clamp(fillValue += Time.deltaTime/cookTime, 0f, 1f);
+            timerMaterial.SetFloat("_Fill_Amount", fillValue);
         }
     }
 
@@ -101,11 +145,12 @@ public class BatterShapingStation : SuperStation
     private void Succeed()
     {
         success = true;
-        inventory.TryAddItemToInventory(resultingItem);
         /*if(inventory.CanCraft(batter))
         {
             inventory.Craft(batter);
         }*/
+
+        StartCoroutine(Cook());
 
         DeActivate();
     }
@@ -115,5 +160,21 @@ public class BatterShapingStation : SuperStation
         playerHoldTimer = 0;
         Destroy(playerBatter);
         playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
+    }
+
+    private IEnumerator Cook()
+    {
+        waffleIronAnimation.SetTrigger("Close");
+        Debug.Log("cooking");
+        success = true;
+        timerObject.SetActive(true);
+        timerMaterial.SetFloat("_Border_Thickness", 1);
+        timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
+        timerMaterial.EnableKeyword("_USE_TEXTURE");
+        yield return new WaitForSeconds(cookTime);
+        timerMaterial.SetFloat("_Border_Thickness", 0.3f);
+        waffleIronAnimation.SetTrigger("Open");
+        Debug.Log("cooked");
+        itemReady = true;
     }
 }

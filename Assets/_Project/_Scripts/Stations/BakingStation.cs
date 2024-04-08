@@ -34,7 +34,7 @@ public class BakingStation : SuperStation
     private bool middleSuccess = false;
     private bool rightSuccess = false;
     private bool itemReady = false;
-    public float timer = 0f;
+    private float timer = 0f;
     private Material timerMaterial;
     private float fillValue;
 

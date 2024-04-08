@@ -135,7 +135,6 @@ MonoBehaviour:
   turnTarget: {fileID: 8282584804715741927, guid: 58a1bd1e00998be4a8c1f0773b509549,
     type: 3}
   timerObject: {fileID: 3032806499856503817}
-  timer: 0
 --- !u!114 &1483860591471978292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +164,7 @@ MonoBehaviour:
   defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
   possibleRecipes:
   - {fileID: 11400000, guid: 3d3e8dbde01bf464ab5b3d7553341d53, type: 2}
+  - {fileID: 11400000, guid: 7a8dbfbda3b5efd4e9b6edc4710c0321, type: 2}
   station: {fileID: 4420376670329681521}
 --- !u!1 &515999985402119829
 GameObject:
