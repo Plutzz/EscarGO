@@ -133,9 +133,9 @@ Material:
     - _Metallic: 0
     - _Mountain_Cover_Height: 0.06
     - _NoiseScale: 10
-    - _Noise_Aplitude: 50
+    - _Noise_Aplitude: 120
     - _Noise_Power: 1
-    - _Noise_Scale: 4
+    - _Noise_Scale: 1
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -158,7 +158,7 @@ Material:
     - _Surface: 0
     - _Top_Color_Offset: 1
     - _USENORMALTEXTURE: 0
-    - _ValleyDivide: 57.2
+    - _ValleyDivide: 200
     - _ValleyOffset: 0
     - _ValleyWidth: 1.5
     - _WaterDepth: 10
