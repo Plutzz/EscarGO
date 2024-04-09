@@ -46,9 +46,9 @@ public class PlayerInteractions : NetworkBehaviour
     }
 
     private void CheckForInteractable() {
-        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, minigameLayer);
-        foreach (Collider col in interactableColliders) { 
-            InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, orientation.forward, raycastLength, minigameLayer);
+        foreach (var hit in hits) { 
+            InteractableSpace interactable = hit.collider.gameObject.GetComponent<InteractableSpace>();
             if (interactable != null)
             {
                 interactable.Interact(playerInventory);

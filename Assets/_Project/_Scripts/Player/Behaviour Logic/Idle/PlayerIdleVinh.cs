@@ -6,16 +6,18 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(fileName = "Idle", menuName = "Player Logic/Idle Logic/Default")]
 public class PlayerIdleVinh : PlayerIdleSOBase
 {
-    //[SerializeField] private float groundDrag;
+    [SerializeField] private float groundDrag;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
         rb.velocity = Vector3.zero;
+        rb.drag = groundDrag;
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        rb.drag = 0;
     }
 
     public override void DoFixedUpdateState()

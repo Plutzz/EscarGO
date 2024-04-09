@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
 {
@@ -135,6 +136,19 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             alivePlayers.Add(playerStats[playerNumber]);
             playerNumber++;
         }
+    }
+
+    public int GetPlayerNumber(ulong clientId)
+    {
+        foreach (var player in playerStats)
+        {
+            if(player.Value.clientId == clientId)
+            {
+                return player.Value.playerNumber;
+            }
+        }
+        
+        return 0;
     }
     
 }
