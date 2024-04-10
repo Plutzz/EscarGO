@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Kilt
-  m_Shader: {fileID: -6465566751694194690, guid: 7382b9d9a50b13945990f0c20af4b9eb,
+  m_Shader: {fileID: -6465566751694194690, guid: c07a463058de8e446b551d8fe1e9290e,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
