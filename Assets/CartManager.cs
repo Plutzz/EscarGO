@@ -12,6 +12,10 @@ public class CartManager : MonoBehaviour
     public float cartInterval = 15f;
     public float cartSpeed = 10f;
 
+    void Start()
+    {
+        StartCoroutine(SpawnCarts());
+    }
     void Update()
     {
         cartInterval -= Time.deltaTime;
@@ -28,7 +32,8 @@ public class CartManager : MonoBehaviour
         {
             GameObject cart = Instantiate(cartPrefab, spawnPoint.position, new Quaternion(-0.5f, 0.5f, 0.5f, 0.5f));
             Rigidbody rb = cart.GetComponentInChildren<Rigidbody>();
-            rb.AddForce(Vector3.forward * cartSpeed, ForceMode.Impulse);
+            rb.velocity = new Vector3(-cartSpeed, 0, 0);
+            rb.angularVelocity = new Vector3(0, 1, 0);
             yield return new WaitForSeconds(1);
         }
     }

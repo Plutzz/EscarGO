@@ -49,7 +49,7 @@ public class PlayerInteractions : NetworkBehaviour
 
     private void CheckForInteractable()
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
         RaycastHit[] hits = Physics.RaycastAll(ray, raycastLength, minigameLayer);
         foreach (var hit in hits)
         {
@@ -123,7 +123,7 @@ public class PlayerInteractions : NetworkBehaviour
         Gizmos.color = Color.yellow;
         // Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
 
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
         Gizmos.color = Color.red;
         Gizmos.DrawLine(ray.origin, ray.origin + ray.direction * raycastLength);
     }
