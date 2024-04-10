@@ -8,19 +8,18 @@ using Unity.Netcode;
 public class CuttingStation : SuperStation
 {
     public CutPosition cutPosition;
-    [SerializeField] private CraftableItem chocolate;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     //[SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
     [SerializeField] private GameObject cutIndicatorPrefab;
+    [SerializeField] private Transform cutIndicatorStartPoint;
     [SerializeField] private GameObject knife;
     private LayerMask minigameLayer;
     private bool success = false;
     private bool isCutting = false;
     private Ray ray;
-    private Vector3 cutIndicatorOffset;
     private GameObject cutIndicator;
     private int neededcuts = 0;
     private int cuts = 0;
@@ -32,7 +31,7 @@ public class CuttingStation : SuperStation
     public override void Activate(Item successfulItem)
     {
         Debug.Log("knife " + knife.transform.position);
-
+        GetComponent<BoxCollider>().enabled = false;
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
@@ -58,34 +57,28 @@ public class CuttingStation : SuperStation
             cuts = 1; //unlikely but just in case
         }
         //cutNumber.text = neededcuts.ToString();
-
-        Vector3 offSet = new Vector3(0f, 0f, 0f);
         Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
         
         switch (cutPosition)
         {
             case CutPosition.Up:
-                offSet = new Vector3(0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 90f, 0f);
                 break;
             case CutPosition.Down:
-                offSet = new Vector3(-0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 90f, 0f);
                 break;
             case CutPosition.Left:
-                offSet = new Vector3(0f, 0.53f, 0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 0f, 0f);
                 break;
             case CutPosition.Right:
-                offSet = new Vector3(0f, 0.53f, -0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 0f, 0f);
                 break;
             default:
                 Debug.Log("Invalid cutting direction");
                 break;
         }
 
-        cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
+        cutIndicator = Instantiate(cutIndicatorPrefab, cutIndicatorStartPoint.position, rotation);
         Debug.Log("pos" + cutIndicator.transform.position);
 
         alignKnife();
@@ -103,6 +96,7 @@ public class CuttingStation : SuperStation
 
     public override void DeActivate()
     {
+        GetComponent<BoxCollider>().enabled = true;
         inventory = null;
 
         isCutting = false;
@@ -198,7 +192,6 @@ public class CuttingStation : SuperStation
     {
         //cutNumber.color = Color.green;
         success = true;
-        //inventory.Craft(chocolate);
         inventory.TryAddItemToInventory(resultingItem);
         
         if(cutIndicator != null)

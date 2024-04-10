@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2367968610978787893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 442775542654524642}
+  m_Layer: 6
+  m_Name: BatterSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &442775542654524642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2367968610978787893}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.658, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4215513195174252341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4596321370526023975
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +150,7 @@ GameObject:
   - component: {fileID: 4400987037656876579}
   - component: {fileID: 1047743387112611596}
   - component: {fileID: 1349474228553962947}
+  - component: {fileID: -4612551702778782312}
   - component: {fileID: 8569709070422852909}
   - component: {fileID: 5411653407274854996}
   - component: {fileID: 6061257074215983325}
@@ -144,6 +176,7 @@ Transform:
   m_Children:
   - {fileID: 2681850147755861798}
   - {fileID: 3093507975689586527}
+  - {fileID: 442775542654524642}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4400987037656876579
@@ -161,7 +194,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6057126680882321067}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -217,6 +250,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4612551702778782312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6057126680882321067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1286936622
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &8569709070422852909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,8 +282,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595815043f550544282a830b98a7a847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItem: {fileID: 0}
-  possibleRecipes: []
+  defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
+  possibleRecipes:
+  - {fileID: 11400000, guid: 3b887de049deae14cb77b4c024856f17, type: 2}
   station: {fileID: 5411653407274854996}
 --- !u!114 &5411653407274854996
 MonoBehaviour:
@@ -247,10 +301,12 @@ MonoBehaviour:
   goal: 5
   goalRange: 1
   goalSizeOfBatter: 0.7
-  batterCircle: {fileID: 6877433010303726648, guid: 694e9cc1cde2c474982427e832e7a957,
+  batterCircle: {fileID: 8533855998297095210, guid: 694e9cc1cde2c474982427e832e7a957,
     type: 3}
+  batterSpawnPoint: {fileID: 2367968610978787893}
   batter: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   virtualCamera: {fileID: 3441638109003990563}
+  playerHoldTimer: 0
 --- !u!114 &6061257074215983325
 MonoBehaviour:
   m_ObjectHideFlags: 0

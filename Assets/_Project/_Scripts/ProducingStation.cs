@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class ProducingStation : InteractableSpace
@@ -25,7 +26,7 @@ public class ProducingStation : InteractableSpace
         else if (inventory.TryAddItemToInventory(producedItem) == true)
         {
             TipsManager.Instance.SetTip("Received a " + producedItem.itemName, 2f);
-            RemoveModelFromShelf();
+            RemoveModelFromShelfServerRpc();
         }
         else
         {
@@ -58,14 +59,20 @@ public class ProducingStation : InteractableSpace
             
         
     }
-
-    public void RemoveModelFromShelf()
+    [ServerRpc(RequireOwnership = false)]
+    public void RemoveModelFromShelfServerRpc()
     {
-        if (transform.childCount > 0)
+        RemoveModelClientRpc();
+    }
+
+    [ClientRpc]
+    public void RemoveModelClientRpc()
+    {
+        Debug.Log("item taken");
+        if(transform.childCount > 0)
         {
             Destroy(transform.GetChild(0).gameObject);
-        }
-
+        }   
         amountLeft--;
     }
 }

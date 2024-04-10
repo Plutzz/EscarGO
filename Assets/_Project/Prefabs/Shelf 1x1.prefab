@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 1000631959142315398}
   - component: {fileID: 3295310718169397505}
   - component: {fileID: 7580405334039265439}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shelf 1x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,12 +422,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: 95b11a6da19090e4c999fd1884d12c6b, type: 2}
   - {fileID: 11400000, guid: fe7a4fe328b4cf249bbbf216d0629a53, type: 2}
   - {fileID: 11400000, guid: 7ccc21143493c9d45ac9ca964554d65c, type: 2}
   - {fileID: 11400000, guid: 2a86913b22551004d954b256718cc801, type: 2}
   - {fileID: 11400000, guid: 3e4399b2febb2ce42b10974dabb67f6a, type: 2}
-  - {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   - {fileID: 11400000, guid: 049618af02a5d5243ae363188f3c0441, type: 2}
   shelfSpaces:
   - {fileID: 3141608884912217590}

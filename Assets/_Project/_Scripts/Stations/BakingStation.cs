@@ -40,7 +40,7 @@ public class BakingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-
+        ResetKnobs();
         timer = 0f;
         fillValue = 0; //only need if it does not start at 0 before game starts
         timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts

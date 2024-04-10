@@ -38,6 +38,7 @@ Transform:
   - {fileID: 8011183464547337478}
   - {fileID: 5291710094836178130}
   - {fileID: 268679773531458952}
+  - {fileID: 4787991829345146528}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3810704268817980045
@@ -55,7 +56,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993321695680599760}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -109,7 +110,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1.75, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8837194606072665034
 MonoBehaviour:
@@ -123,14 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977485e4d83ec644eb147c7c98e35119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutPosition: 1
-  chocolate: {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385, type: 2}
+  cutPosition: 2
   inventory: {fileID: 0}
   virtualCamera: {fileID: 4495592281453677286}
   minCuts: 1
   maxCuts: 10
   cutIndicatorPrefab: {fileID: 6583992201796392769, guid: c8c95d642f57c674fa974c948df332fa,
     type: 3}
+  cutIndicatorStartPoint: {fileID: 4787991829345146528}
   knife: {fileID: 8979561989535628883}
 --- !u!114 &2602234188546771843
 MonoBehaviour:
@@ -158,8 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595815043f550544282a830b98a7a847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItem: {fileID: 0}
-  possibleRecipes: []
+  defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
+  possibleRecipes:
+  - {fileID: 11400000, guid: ae9aae1ddcaf3d2438732c2a8979733b, type: 2}
+  - {fileID: 11400000, guid: 1cbeb0fb2176f504f8a1c827c09b1d28, type: 2}
   station: {fileID: 8837194606072665034}
 --- !u!1 &2967215965936196236
 GameObject:
@@ -233,6 +236,37 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4436671858602183458}
+--- !u!1 &6820085503647946910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4787991829345146528}
+  m_Layer: 6
+  m_Name: Starting Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4787991829345146528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820085503647946910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.373, y: 0.532, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8390687683269497378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8873867858190884442
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +546,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knife
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5244305863236223253, guid: 8281e6f433013a24fab0679b0f957d07, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2638672529676964921}
   - component: {fileID: 4842892747378682499}
   m_Layer: 0
-  m_Name: Batter
+  m_Name: BatterCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
