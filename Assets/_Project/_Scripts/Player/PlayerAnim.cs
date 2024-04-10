@@ -50,7 +50,7 @@ public class PlayerAnim : NetworkBehaviour
     public void HandleAnimations(PlayerState _state)
     {
         Debug.Log("Handling Animations: " + _state);
-        anim.ResetTrigger("Dance");
+        anim.ResetTrigger("Run");
         anim.ResetTrigger("Idle");
         anim.ResetTrigger("Jogging");
         anim.ResetTrigger("Cooking");
@@ -58,7 +58,7 @@ public class PlayerAnim : NetworkBehaviour
         {
             case PlayerAirborneState _:
                 if (playerInputActions.MoveInput != Vector2.zero && playerInputActions.SprintIsPressed)
-                    anim.SetTrigger("Dance");
+                    anim.SetTrigger("Run");
                 else if (playerInputActions.MoveInput != Vector2.zero)
                     anim.SetTrigger("Jogging");
                 else
@@ -66,7 +66,7 @@ public class PlayerAnim : NetworkBehaviour
                 break;
             case PlayerMovingState _:
                 if (playerInputActions.SprintIsPressed)
-                    anim.SetTrigger("Dance");
+                    anim.SetTrigger("Run");
                 else
                     anim.SetTrigger("Jogging");
                 break;
