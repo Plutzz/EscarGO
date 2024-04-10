@@ -33,10 +33,10 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     public void Start()
     {
         base.OnNetworkSpawn();
-        masterVolume = PlayerPrefs.GetFloat("MasterVolume");
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        ambienceVolume = PlayerPrefs.GetFloat("AmbienceVolume");
-        SFXVolume = PlayerPrefs.GetFloat("SFXVolume");
+        masterVolume = PlayerPrefs.GetFloat("Master Volume");
+        musicVolume = PlayerPrefs.GetFloat("Music Volume");
+        ambienceVolume = PlayerPrefs.GetFloat("Ambience Volume");
+        SFXVolume = PlayerPrefs.GetFloat("SFX Volume");
 
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
@@ -83,6 +83,13 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     public void PlayOneShot(FMODEvents.NetworkSFXName sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(FMODEvents.Instance.SfxArray[(int)sound], worldPos);
+    }
+
+    public EventInstance PlayLoopingSFX(FMODEvents.NetworkSFXName sound)
+    {
+        EventInstance sfxEventInstance = CreateInstance(FMODEvents.Instance.SfxArray[(int)sound]);
+        sfxEventInstance.start();
+        return sfxEventInstance;
     }
     
     // Asks the server to play a sfx on all clients *CLIENT AUTHORITATIVE
