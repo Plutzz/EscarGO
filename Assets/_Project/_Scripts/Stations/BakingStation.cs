@@ -255,6 +255,7 @@ public class BakingStation : SuperStation
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
         timerMaterial.EnableKeyword("_USE_TEXTURE");
         yield return new WaitForSeconds(bakeTime);
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
         Debug.Log("baked");
         itemReady = true;
