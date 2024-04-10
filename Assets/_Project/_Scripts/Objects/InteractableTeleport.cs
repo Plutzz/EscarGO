@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -31,7 +32,7 @@ public class InteractableTeleport : InteractableSpace
 
         // Teleport the player to the designated position
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Rigidbody>().position = teleportPosition;
-
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.DoorClose, transform.position);
         inventory.GetComponentInChildren<FirstPersonCamera>().rotation.x = teleportRotation.y;
         inventory.transform.Find("Orientation").eulerAngles = teleportRotation;
     }

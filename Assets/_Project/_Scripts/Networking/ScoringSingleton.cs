@@ -105,7 +105,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     [ClientRpc]
     private void UpdatePlayerScoreClientRPC(int score, ClientRpcParams clientRpcParams)
     {
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.JumpSound, transform.position);
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.text = score + " Points";
     }
 
