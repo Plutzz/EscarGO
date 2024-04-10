@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{2b1bb375-ad1e-46ae-8b85-bf9525af511a}">
 		<property name="assetPath">
-			<value>SFX/walk_wood_1.wav</value>
+			<value>SFX/Player/walk_wood_1.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
