@@ -36,19 +36,24 @@ public class PlayerInteractions : NetworkBehaviour
     }
     private void Update()
     {
-        if (inputManager.InteractPressedThisFrame) { 
+        if (inputManager.InteractPressedThisFrame)
+        {
             CheckForInteractable();
         }
-        if (Input.GetMouseButtonDown(1)) { 
+        if (Input.GetMouseButtonDown(1))
+        {
             CheckForTrash();
             CheckForCustomer();
         }
     }
 
-    private void CheckForInteractable() {
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, orientation.forward, raycastLength, minigameLayer);
-        foreach (var hit in hits) { 
-            InteractableSpace interactable = hit.collider.gameObject.GetComponent<InteractableSpace>();
+    private void CheckForInteractable()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
+        RaycastHit[] hits = Physics.RaycastAll(ray, raycastLength, minigameLayer);
+        foreach (var hit in hits)
+        {
+            InteractableSpace interactable = hit.collider.gameObject.GetComponentInChildren<InteractableSpace>();
             if (interactable != null)
             {
                 interactable.Interact(playerInventory);
@@ -63,7 +68,8 @@ public class PlayerInteractions : NetworkBehaviour
         {
             playerInventory.RemoveActiveItem();
         }
-        else {
+        else
+        {
             TipsManager.Instance.SetTip("No Trashcan here", 2f);
         }
     }
@@ -115,8 +121,10 @@ public class PlayerInteractions : NetworkBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
+        // Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
 
-        Gizmos.DrawLine(transform.position, transform.position + orientation.forward * raycastLength);
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(ray.origin, ray.origin + ray.direction * raycastLength);
     }
 }
