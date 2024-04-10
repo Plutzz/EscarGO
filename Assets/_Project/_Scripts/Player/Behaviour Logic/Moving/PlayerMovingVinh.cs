@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -12,6 +13,8 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     [Header("Movement Variables")]
     private Vector3 moveDirection = Vector3.zero;
 
+    private EventInstance currentFootstepSFXInstance;
+
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
@@ -20,11 +23,13 @@ public class PlayerMovingVinh : PlayerMovingSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        currentFootstepSFXInstance = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        currentFootstepSFXInstance.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
     public override void DoFixedUpdateState()
