@@ -2,10 +2,20 @@ using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class AudioManager : NetworkSingletonPersistent<AudioManager>
 {
+    public struct NetworkEventReference : INetworkSerializable
+    {
+        public EventReference sound;
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     [Header("Volume")]
     [Range(0, 1)]
     public float masterVolume = 1;
@@ -36,10 +46,10 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         //InitializeAmbience(FMODEvents.Instance.Ambience);
         InitializeMusic(FMODEvents.Instance.Music);
 
-        //masterBus = RuntimeManager.GetBus("bus:/");
-        //musicBus = RuntimeManager.GetBus("bus:/Music");
-        //ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
-        //sfxBus = RuntimeManager.GetBus("bus:/SFX");
+        masterBus = RuntimeManager.GetBus("bus:/");
+        musicBus = RuntimeManager.GetBus("bus:/Music");
+        ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
+        sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
 
     private void UpdateVolume()
@@ -75,6 +85,18 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
+    }
+
+    [ServerRpc]
+    public void PlayOneShotAllServerRpc(NetworkEventReference sound, Vector3 worldPos)
+    {
+        PlayOneShotAllClientRpc(sound, worldPos);
+    }
+
+    [ClientRpc]
+    private void PlayOneShotAllClientRpc(NetworkEventReference sound, Vector3 worldPos)
+    {
+        PlayOneShot(sound.sound, worldPos);
     }
 
     public EventInstance CreateInstance(EventReference eventReference)
