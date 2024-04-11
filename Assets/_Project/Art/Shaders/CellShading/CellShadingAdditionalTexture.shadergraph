@@ -2673,10 +2673,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -801.5999755859375,
-            "y": 2682.39990234375,
-            "width": 215.20001220703126,
-            "height": 142.400146484375
+            "x": -802.0,
+            "y": 2682.0,
+            "width": 216.0,
+            "height": 143.0
         }
     },
     "m_Slots": [
@@ -4375,17 +4375,17 @@
     "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
     "m_ObjectId": "76daabef2bf843f4959e74339bd334ac",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "b43984d98b6c4c7f8cbc27a6c60c9c17"
     },
     "m_Name": "AdditionalSpecular",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -412.447021484375,
-            "y": 1481.15283203125,
-            "width": 208.0,
-            "height": 278.4000244140625
+            "x": -403.0000305175781,
+            "y": 1385.0,
+            "width": 203.00003051757813,
+            "height": 95.0
         }
     },
     "m_Slots": [
@@ -4398,7 +4398,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
