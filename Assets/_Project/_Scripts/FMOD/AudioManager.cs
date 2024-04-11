@@ -25,7 +25,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
 
-    //private EventInstance ambienceEventInstance;
+    private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
 
 
@@ -41,7 +41,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
 
-        //InitializeAmbience(FMODEvents.Instance.Ambience);
+        InitializeAmbience(FMODEvents.Instance.Ambience);
         InitializeMusic(FMODEvents.Instance.Music);
 
         masterBus = RuntimeManager.GetBus("bus:/");
@@ -58,11 +58,11 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         sfxBus.setVolume(SFXVolume);
     }
 
-    //private void InitializeAmbience(EventReference ambienceEventReference)
-    //{
-    //    ambienceEventInstance = CreateInstance(ambienceEventReference);
-    //    ambienceEventInstance.start();
-    //}
+    private void InitializeAmbience(EventReference ambienceEventReference)
+    {
+        ambienceEventInstance = CreateInstance(ambienceEventReference);
+        ambienceEventInstance.start();
+    }
 
     private void InitializeMusic(EventReference musicEventReference)
     {
@@ -70,10 +70,10 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         musicEventInstance.start();
     }
 
-    //public void SetAmbienceParameter(string parameterName, float parameterValue)
-    //{
-    //    ambienceEventInstance.setParameterByName(parameterName, parameterValue);
-    //}
+    public void SetAmbienceParameter(string parameterName, float parameterValue)
+    {
+        ambienceEventInstance.setParameterByName(parameterName, parameterValue);
+    }
 
     public void SetMusicArea(MusicArea area)
     {
