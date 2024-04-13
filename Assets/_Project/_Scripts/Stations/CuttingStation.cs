@@ -117,11 +117,6 @@ public class CuttingStation : SuperStation
         //ResetKnife();
     }
 
-    public override bool StationInUse
-    {
-        get { return isCutting; }
-    }
-
     public override bool ActivityResult
     {
         get { return success; }

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977485e4d83ec644eb147c7c98e35119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutPosition: 2
+  cutPosition: 1
   chocolate: {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385, type: 2}
   inventory: {fileID: 0}
   virtualCamera: {fileID: 4495592281453677286}
@@ -158,10 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595815043f550544282a830b98a7a847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
-  possibleRecipes:
-  - {fileID: 11400000, guid: 1cbeb0fb2176f504f8a1c827c09b1d28, type: 2}
-  - {fileID: 11400000, guid: ae9aae1ddcaf3d2438732c2a8979733b, type: 2}
+  defaultItem: {fileID: 0}
+  possibleRecipes: []
   station: {fileID: 8837194606072665034}
 --- !u!1 &2967215965936196236
 GameObject:

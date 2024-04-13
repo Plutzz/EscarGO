@@ -11,11 +11,6 @@ public class CraftingSpace : InteractableSpace
     public SuperStation station;
     public override void Interact(PlayerInventory inventory)
     {
-        if(station.StationInUse)
-        {
-            TipsManager.Instance.SetTip("Station in use", 3f);
-            return;
-        }
 
         if (station.ActivityResult)
         {
