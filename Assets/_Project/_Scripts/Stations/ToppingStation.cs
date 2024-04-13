@@ -25,13 +25,15 @@ public class ToppingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
+        if(isTopping) return;
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
         virtualCamera.enabled = true;
         minigameLayer = LayerMask.GetMask("Minigame");
 
-        isTopping = true;
+        UseStation(true);
         success = false;
 
         toppingCircleLeft = toppingCircleAmount;
@@ -55,7 +57,7 @@ public class ToppingStation : SuperStation
     public override void DeActivate()
     {
 
-        isTopping = false;
+        UseStation(false);
         success = false;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -67,6 +69,11 @@ public class ToppingStation : SuperStation
         {
             Destroy(obj);
         }
+    }
+
+    public override bool StationInUse
+    {
+        get { return isTopping; }
     }
 
     public override bool ActivityResult
@@ -88,6 +95,7 @@ public class ToppingStation : SuperStation
     private void Update() {
         if(isTopping)
         {
+            Debug.Log(isTopping);
 
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
@@ -138,5 +146,18 @@ public class ToppingStation : SuperStation
             inventory.Craft(dough);
         }*/
         DeActivate();
+    }
+
+    private void UseStation(bool state)
+    {
+        isTopping = state;
+
+        ChangeStationStateServerRPC(isTopping);
+    }
+
+    [ServerRpc(RequireOwnership=false)]
+    private void ChangeStationStateServerRPC(bool state)
+    {
+        isTopping = state;
     }
 }

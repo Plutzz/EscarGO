@@ -107,6 +107,11 @@ public class BakingStation : SuperStation
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
     }
 
+    public override bool StationInUse
+    {
+        get { return isBaking; }
+    }
+
     public override bool ActivityResult
     {
         get { return success; }

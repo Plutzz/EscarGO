@@ -67,6 +67,11 @@ public class KneadingStation : SuperStation
         virtualCamera.enabled = false;
     }
 
+    public override bool StationInUse
+    {
+        get { return isKneading; }
+    }
+
     public override bool ActivityResult
     {
         get { return success; }

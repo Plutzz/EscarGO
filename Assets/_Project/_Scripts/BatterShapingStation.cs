@@ -81,6 +81,11 @@ public class BatterShapingStation : SuperStation
         virtualCamera.enabled = false;
     }
 
+    public override bool StationInUse
+    {
+        get { return isBattering; }
+    }
+
     public override bool ActivityResult
     {
         get { return success; }
