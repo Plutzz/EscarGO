@@ -215,7 +215,7 @@ MonoBehaviour:
   right: {fileID: 7158366325974263722}
   bottom: {fileID: 2999798184045224743}
   left: {fileID: 4920774646706696269}
-  durationToMove: 0.5
+  durationToMove: 0.25
 --- !u!114 &1989529098447602245
 MonoBehaviour:
   m_ObjectHideFlags: 0
