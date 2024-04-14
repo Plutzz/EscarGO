@@ -40,13 +40,26 @@ public class BakingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-
-        timer = 0f;
-        fillValue = 0; //only need if it does not start at 0 before game starts
-        timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts
+        Debug.Log("activated 1");
+        if(isBaking) return;
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
+
+        if(IsServer)
+        {
+            UseStationClientRPC(true);
+            StationResultClientRPC(false);
+        } else {
+            Debug.Log("activated 2");
+            UseStationServerRPC(true);
+            StationResultServerRPC(false);
+        }
+
+        Debug.Log("activated 3");
+        timer = 0f;
+        fillValue = 0; //only need if it does not start at 0 before game starts
+        timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts
 
         if(leftTarget != null || middleTarget != null || rightTarget != null)
         {
@@ -60,7 +73,7 @@ public class BakingStation : SuperStation
         leftTurns = 0;
         middleTurns = 0;
         righTurns = 0;
-        isBaking = true;
+
         virtualCamera.enabled = true;
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
@@ -75,7 +88,13 @@ public class BakingStation : SuperStation
         {
             inventory.TryAddItemToInventory(resultingItem);
 
-            success = false;
+            if(IsServer)
+            {
+                StationResultClientRPC(false);
+            } else {
+                StationResultServerRPC(false);
+            }
+
             itemReady = false;
             fillValue = 0f;
             timerObject.SetActive(false);
@@ -99,7 +118,13 @@ public class BakingStation : SuperStation
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
-        isBaking = false;
+
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
@@ -138,7 +163,7 @@ public class BakingStation : SuperStation
 
         if(isBaking && !success)
         {
-
+            Debug.Log("true");
             if(Input.GetKeyDown(KeyCode.Q))
             {
                 TurnKnob(leftKnob);
@@ -184,7 +209,12 @@ public class BakingStation : SuperStation
 
     private void Succeed()
     {
-        success = true;
+        if(IsServer)
+        {
+            StationResultClientRPC(true);
+        } else {
+            StationResultServerRPC(true);
+        }
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
@@ -229,7 +259,12 @@ public class BakingStation : SuperStation
         {
             Succeed();
         } else {
-            success = false;
+            if(IsServer)
+            {
+                StationResultClientRPC(false);
+            } else {
+                StationResultServerRPC(false);
+            }
         }
     }
 
@@ -253,8 +288,12 @@ public class BakingStation : SuperStation
 
     private IEnumerator Bake()
     {
-        Debug.Log("baking");
-        success = true;
+        if(IsServer)
+            {
+                StationResultClientRPC(true);
+            } else {
+                StationResultServerRPC(true);
+            }
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
@@ -263,5 +302,35 @@ public class BakingStation : SuperStation
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
         Debug.Log("baked");
         itemReady = true;
+    }
+
+    //change isBaking
+    [ServerRpc(RequireOwnership=false)]
+    private void UseStationServerRPC(bool state)
+    {
+        isBaking = state;
+        
+        UseStationClientRPC(isBaking);
+    }
+
+    [ClientRpc]
+    private void UseStationClientRPC(bool state)
+    {
+        isBaking = state;
+    }
+
+    //Change station result
+    [ServerRpc(RequireOwnership=false)]
+    private void StationResultServerRPC(bool state)
+    {
+        success = state;
+
+        StationResultClientRPC(success);
+    }
+
+    [ClientRpc]
+    private void StationResultClientRPC(bool state)
+    {
+        success = state;
     }
 }
