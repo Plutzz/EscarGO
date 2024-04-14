@@ -264,43 +264,4 @@ public class BakingStation : SuperStation
         Debug.Log("baked");
         itemReady = true;
     }
-
-    if(IsServer)
-        {
-            UseStationClientRPC(true);
-            StationResultClientRPC(false);
-        } else {
-            UseStationServerRPC(true);
-            StationResultServerRPC(false);
-        }
-
-    //change isBaking
-    [ServerRpc(RequireOwnership=false)]
-    private void UseStationServerRPC(bool state)
-    {
-        isTopping = state;
-        
-        UseStationClientRPC(isTopping);
-    }
-
-    [ClientRpc]
-    private void UseStationClientRPC(bool state)
-    {
-        isTopping = state;
-    }
-
-    //Change station result
-    [ServerRpc(RequireOwnership=false)]
-    private void StationResultServerRPC(bool state)
-    {
-        success = state;
-
-        StationResultClientRPC(success);
-    }
-
-    [ClientRpc]
-    private void StationResultClientRPC(bool state)
-    {
-        success = state;
-    }
 }

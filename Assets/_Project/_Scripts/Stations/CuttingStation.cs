@@ -11,7 +11,6 @@ public class CuttingStation : SuperStation
     [SerializeField] private CraftableItem chocolate;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    //[SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
     [SerializeField] private GameObject cutIndicatorPrefab;
@@ -31,7 +30,6 @@ public class CuttingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        Debug.Log("knife " + knife.transform.position);
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
