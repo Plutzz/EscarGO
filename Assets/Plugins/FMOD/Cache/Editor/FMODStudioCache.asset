@@ -26,7 +26,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 494629
+  Length: 71988
 --- !u!114 &-6682902046844257210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638483697290419375
+  lastModified: 638487033357681402
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -206,7 +206,7 @@ MonoBehaviour:
   - {fileID: -3497435936415390202}
   StringsBanks:
   - {fileID: 536762619943829140}
-  cacheTime: 638483697290529475
+  cacheTime: 638487033357711399
   cacheVersion: 131616
 --- !u!114 &75080121239340754
 MonoBehaviour:
@@ -250,7 +250,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638483697290489444
+  lastModified: 638487033357701404
   FileSizes:
   - Name: Desktop
     Value: 655840
@@ -270,7 +270,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638483697290459413
+  lastModified: 638487033357681402
   FileSizes:
   - Name: Desktop
     Value: 1340
@@ -364,7 +364,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638483697290529475
+  lastModified: 638487033357711399
   FileSizes:
   - Name: Desktop
     Value: 51168
@@ -409,7 +409,7 @@ MonoBehaviour:
     Data4: 18254330
   Banks:
   - {fileID: 314137346945307415}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters: []
@@ -451,8 +451,8 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638483697290379341
+  lastModified: 638487033357671411
   FileSizes:
   - Name: Desktop
-    Value: 5996704
+    Value: 874752
   Exists: 1
