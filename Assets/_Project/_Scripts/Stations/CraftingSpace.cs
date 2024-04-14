@@ -11,19 +11,22 @@ public class CraftingSpace : InteractableSpace
     public SuperStation station;
     public override void Interact(PlayerInventory inventory)
     {
+        if(station.StationInUse)
+        {
+            TipsManager.Instance.SetTip("Station in use", 3f);
+            return;
+        }
 
         if (station.ActivityResult)
         {
             station.GetItem();
         }
         else if (inventory.GetNumSelectedItems() <= 0) {
-
             TipsManager.Instance.SetTip("Please select items with F", 3f);
             return;
         }
         else
         {
-            Debug.Log(inventory.gameObject.name);
             Dictionary<string, int> availableItems = inventory.UseAllSelectedItems();
             station.Activate(GetChosenRecipe(availableItems));
         }
@@ -44,7 +47,7 @@ public class CraftingSpace : InteractableSpace
                 return recipe.result;
             }
         }
-
+        Debug.Log("failed item got");
         return defaultItem;
     
     }
