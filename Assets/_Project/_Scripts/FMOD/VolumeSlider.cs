@@ -25,7 +25,7 @@ public class VolumeSlider : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
         slider.onValueChanged.AddListener(OnSliderValueChanged);
