@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -18,9 +19,14 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         {
             return; 
         }
-        SendToSpectateClientRpc(false);
-        ResetStrikesClientRpc();
+        //SendToSpectateClientRpc(false);
     }
+
+    private void StartTimer()
+    {
+
+    }
+
 
     [ServerRpc(RequireOwnership = false)]
     public void AddScoreServerRpc(int playerNumber, int scoreChange)
@@ -33,58 +39,6 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         }
         UpdatePlayerScoreClientRPC(playerStats[playerNumber].score, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
         FindWinningPlayer();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void RecieveStrikeServerRpc(int playerNumber)
-    {
-        if (!IsServer) return;
-
-        if (playerStats.ContainsKey(playerNumber))
-        {
-            playerStats[playerNumber].strikes--;
-            Debug.Log($"PLAYER: {playerNumber} has {playerStats[playerNumber].strikes} strikes remaining");
-            // Client rpc to PLAYER SPECIFIC CLIENT and give a strike on UI
-            RecieveStrikeClientRpc(new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
-
-        }
-
-        if (playerStats[playerNumber].strikes == 0) {
-            Debug.Log("FIRED");
-
-            // Set Player to Spectate mode
-            SendToSpectateClientRpc(true, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
-            // Despawn all of this player's customers
-
-            alivePlayers.Remove(playerStats[playerNumber]);
-
-            // If there is 1 player remaining, end the game
-            if (alivePlayers.Count <= 1)
-            {
-                GameManager.Instance.EndGameServerRpc();
-            }
-
-        }
-    }
-
-    [ClientRpc]
-    private void RecieveStrikeClientRpc(ClientRpcParams sendParams = default)
-    {
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().RemoveStar();
-    }
-
-    [ClientRpc]
-    private void ResetStrikesClientRpc()
-    {
-        // Hard coded to reset stars to three, might have to change if you want to have a different number of stars
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Canvas>().GetComponentInChildren<StrikeUI>().ResetStars(3);
-    }
-
-    // If true, sends player to spectate, if false takes player out of spectate
-    [ClientRpc]
-    private void SendToSpectateClientRpc(bool isSpectating, ClientRpcParams sendParams = default)
-    {
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<Player>().Spectate(isSpectating);
     }
 
     private void FindWinningPlayer() {

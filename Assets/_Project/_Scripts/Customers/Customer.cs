@@ -111,7 +111,8 @@ public class Customer : NetworkBehaviour
         else
         {
             CustomerSpawner.Instance.customerCount--;
-            ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
+            // Substract points instead
+            //ScoringSingleton.Instance.RecieveStrikeServerRpc(assignedPlayer);
             Exit();
         }
     }
