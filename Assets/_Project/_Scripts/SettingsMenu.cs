@@ -21,14 +21,14 @@ public class SettingsMenu : NetworkBehaviour
 
     public void OpenMenu()
     {
-        inputManager.SwitchActionMap("UI");
+        inputManager?.SwitchActionMap("UI");
         Cursor.lockState = CursorLockMode.Confined;
         gameObject.SetActive(true);
     }
 
     public void CloseMenu()
     {
-        inputManager.SwitchActionMap("Player");
+        inputManager?.SwitchActionMap("Player");
         Cursor.lockState = CursorLockMode.Locked;
         gameObject.SetActive(false);
     }

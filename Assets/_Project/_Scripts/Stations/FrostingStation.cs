@@ -5,8 +5,9 @@ using TMPro;
 using Cinemachine;
 using Unity.Netcode;
 
-public class FrostingStation : SuperStation
+public class FrostingStation : MonoBehaviour // not using station so keep as mono
 {
+    /*
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timeLimit = 5.0f;
@@ -176,4 +177,5 @@ public class FrostingStation : SuperStation
         yield return new WaitForSeconds(1.0f);
         Activate(resultingItem);
     }
+    */
 }

@@ -10,7 +10,6 @@ public class CuttingStation : SuperStation
     public CutPosition cutPosition;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    //[SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
     [SerializeField] private GameObject cutIndicatorPrefab;
@@ -30,22 +29,23 @@ public class CuttingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        Debug.Log("knife " + knife.transform.position);
-        GetComponent<BoxCollider>().enabled = false;
+        if(isCutting) return;
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
-
-        if(isCutting == true)
-        {
-            return;
-        }
 
         knifePosition = knife.transform.position;
         knifeRotation = knife.transform.rotation;
 
-        success = false;
-        
-        isCutting = true;
+        if(IsServer)
+        {
+            UseStationClientRPC(true);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(true);
+            StationResultServerRPC(false);
+        }
+
         //cutNumber.color = Color.black;
         neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
@@ -99,8 +99,14 @@ public class CuttingStation : SuperStation
         GetComponent<BoxCollider>().enabled = true;
         inventory = null;
 
-        isCutting = false;
-        success = false;
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+            StationResultServerRPC(false);
+        }
         //cutNumber.text = "0";
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -109,6 +115,11 @@ public class CuttingStation : SuperStation
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
 
         //ResetKnife();
+    }
+
+    public override bool StationInUse
+    {
+        get { return isCutting; }
     }
 
     public override bool ActivityResult
@@ -191,7 +202,13 @@ public class CuttingStation : SuperStation
     private void Succeed()
     {
         //cutNumber.color = Color.green;
-        success = true;
+        if(IsServer)
+        {
+            StationResultClientRPC(true);
+        } else {
+            StationResultServerRPC(true);
+        }
+        //inventory.Craft(chocolate);
         inventory.TryAddItemToInventory(resultingItem);
         
         if(cutIndicator != null)
@@ -205,7 +222,12 @@ public class CuttingStation : SuperStation
     private void Fail()
     {
         //cutNumber.color = Color.red;
-        success = false;
+        if(IsServer)
+        {
+            StationResultClientRPC(false);
+        } else {
+            StationResultServerRPC(false);
+        }
 
         if(cutIndicator != null)
         {
@@ -255,6 +277,36 @@ public class CuttingStation : SuperStation
         knife.transform.position = knifePosition;
         knife.transform.rotation = knifeRotation;
         Debug.Log("knife " + knife.transform.position);
+    }
+
+    //change isRolling
+    [ServerRpc(RequireOwnership=false)]
+    private void UseStationServerRPC(bool state)
+    {
+        isCutting = state;
+        
+        UseStationClientRPC(isCutting);
+    }
+
+    [ClientRpc]
+    private void UseStationClientRPC(bool state)
+    {
+        isCutting = state;
+    }
+
+    //Change station result
+    [ServerRpc(RequireOwnership=false)]
+    private void StationResultServerRPC(bool state)
+    {
+        success = state;
+
+        StationResultClientRPC(success);
+    }
+
+    [ClientRpc]
+    private void StationResultClientRPC(bool state)
+    {
+        success = state;
     }
 }
 

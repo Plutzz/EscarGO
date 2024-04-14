@@ -25,14 +25,22 @@ public class ToppingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
+        if(isTopping) return;
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
         virtualCamera.enabled = true;
         minigameLayer = LayerMask.GetMask("Minigame");
 
-        isTopping = true;
-        success = false;
+        if(IsServer)
+        {
+            UseStationClientRPC(true);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(true);
+            StationResultServerRPC(false);
+        }
 
         toppingCircleLeft = toppingCircleAmount;
 
@@ -49,14 +57,22 @@ public class ToppingStation : SuperStation
 
     public override void GetItem()
     {
-        
+        if(success)
+        {
+            Debug.Log("got item");
+        }
     }
 
     public override void DeActivate()
     {
-
-        isTopping = false;
-        success = false;
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+            StationResultServerRPC(false);
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
@@ -67,6 +83,11 @@ public class ToppingStation : SuperStation
         {
             Destroy(obj);
         }
+    }
+
+    public override bool StationInUse
+    {
+        get { return isTopping; }
     }
 
     public override bool ActivityResult
@@ -88,6 +109,7 @@ public class ToppingStation : SuperStation
     private void Update() {
         if(isTopping)
         {
+            Debug.Log(isTopping);
 
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
@@ -99,18 +121,18 @@ public class ToppingStation : SuperStation
                     screenPosition.z = Camera.main.nearClipPlane + 0.1f;
                     Instantiate(sprinkleParticles, Camera.main.ScreenToWorldPoint(screenPosition) , transform.rotation);
                     toppingCircleLeft -= 1;
+                    
+                    if(toppingCircleLeft == 0)
+                    {
+                        Succeed();
+                    }
                 }
             }
 
-            if(toppingCircleLeft == 0)
-            {
-                Succeed();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                DeActivate();
-            }
+            // if (Input.GetKeyDown(KeyCode.Escape))
+            // {
+            //     DeActivate();
+            // }
         }
     }
 
@@ -130,7 +152,12 @@ public class ToppingStation : SuperStation
 
     private void Succeed()
     {
-        success = true;
+        if(IsServer)
+        {
+            StationResultClientRPC(true);
+        } else {
+            StationResultServerRPC(true);
+        }
 
         inventory.TryAddItemToInventory(resultingItem);
         /*if(inventory.CanCraft(dough))
@@ -138,5 +165,35 @@ public class ToppingStation : SuperStation
             inventory.Craft(dough);
         }*/
         DeActivate();
+    }
+
+    //change isTopping
+    [ServerRpc(RequireOwnership=false)]
+    private void UseStationServerRPC(bool state)
+    {
+        isTopping = state;
+        
+        UseStationClientRPC(isTopping);
+    }
+
+    [ClientRpc]
+    private void UseStationClientRPC(bool state)
+    {
+        isTopping = state;
+    }
+
+    //Change station result
+    [ServerRpc(RequireOwnership=false)]
+    private void StationResultServerRPC(bool state)
+    {
+        success = state;
+
+        StationResultClientRPC(success);
+    }
+
+    [ClientRpc]
+    private void StationResultClientRPC(bool state)
+    {
+        success = state;
     }
 }
