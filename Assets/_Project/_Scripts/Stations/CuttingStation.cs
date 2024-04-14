@@ -8,38 +8,44 @@ using Unity.Netcode;
 public class CuttingStation : SuperStation
 {
     public CutPosition cutPosition;
-    [SerializeField] private CraftableItem chocolate;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    //[SerializeField] private TextMeshProUGUI cutNumber;
     [SerializeField] private int minCuts = 5;
     [SerializeField] private int maxCuts = 10;
     [SerializeField] private GameObject cutIndicatorPrefab;
+    [SerializeField] private Transform cutIndicatorStartPoint;
     [SerializeField] private GameObject knife;
     private LayerMask minigameLayer;
     private bool success = false;
     private bool isCutting = false;
     private Ray ray;
-    private Vector3 cutIndicatorOffset;
     private GameObject cutIndicator;
     private int neededcuts = 0;
     private int cuts = 0;
     private Vector3 knifeOffset = new Vector3(0f, 0.2f, 0f);
+    private Vector3 knifePosition;
+    private Quaternion knifeRotation;
 
 
     public override void Activate(Item successfulItem)
     {
+        if(isCutting) return;
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
-        if(isCutting == true)
+        knifePosition = knife.transform.position;
+        knifeRotation = knife.transform.rotation;
+
+        if(IsServer)
         {
-            return;
+            UseStationClientRPC(true);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(true);
+            StationResultServerRPC(false);
         }
 
-        success = false;
-        
-        isCutting = true;
         //cutNumber.color = Color.black;
         neededcuts = Random.Range(minCuts, maxCuts + 1);
         cuts = neededcuts - 1;
@@ -51,34 +57,28 @@ public class CuttingStation : SuperStation
             cuts = 1; //unlikely but just in case
         }
         //cutNumber.text = neededcuts.ToString();
-
-        Vector3 offSet = new Vector3(0f, 0f, 0f);
         Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
         
         switch (cutPosition)
         {
             case CutPosition.Up:
-                offSet = new Vector3(0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 90f, 0f);
                 break;
             case CutPosition.Down:
-                offSet = new Vector3(-0.4f, 0.53f, 0f);
-                rotation = Quaternion.Euler(90f, 0f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 90f, 0f);
                 break;
             case CutPosition.Left:
-                offSet = new Vector3(0f, 0.53f, 0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 0f, 0f);
                 break;
             case CutPosition.Right:
-                offSet = new Vector3(0f, 0.53f, -0.4f);
-                rotation = Quaternion.Euler(90f, 90f, 0f);
+                rotation = Quaternion.Euler(90f, transform.rotation.y + 0f, 0f);
                 break;
             default:
                 Debug.Log("Invalid cutting direction");
                 break;
         }
 
-        cutIndicator = Instantiate(cutIndicatorPrefab, transform.position + offSet, rotation);
+        cutIndicator = Instantiate(cutIndicatorPrefab, cutIndicatorStartPoint.position, rotation);
         Debug.Log("pos" + cutIndicator.transform.position);
 
         alignKnife();
@@ -96,17 +96,30 @@ public class CuttingStation : SuperStation
 
     public override void DeActivate()
     {
+        GetComponent<BoxCollider>().enabled = true;
         inventory = null;
 
-        Debug.Log("Deactivate");
-        isCutting = false;
-        success = false;
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+            StationResultServerRPC(false);
+        }
         //cutNumber.text = "0";
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
+
+        //ResetKnife();
+    }
+
+    public override bool StationInUse
+    {
+        get { return isCutting; }
     }
 
     public override bool ActivityResult
@@ -189,7 +202,12 @@ public class CuttingStation : SuperStation
     private void Succeed()
     {
         //cutNumber.color = Color.green;
-        success = true;
+        if(IsServer)
+        {
+            StationResultClientRPC(true);
+        } else {
+            StationResultServerRPC(true);
+        }
         //inventory.Craft(chocolate);
         inventory.TryAddItemToInventory(resultingItem);
         
@@ -204,7 +222,12 @@ public class CuttingStation : SuperStation
     private void Fail()
     {
         //cutNumber.color = Color.red;
-        success = false;
+        if(IsServer)
+        {
+            StationResultClientRPC(false);
+        } else {
+            StationResultServerRPC(false);
+        }
 
         if(cutIndicator != null)
         {
@@ -235,13 +258,55 @@ public class CuttingStation : SuperStation
             yield return null;
         }
 
-        alignKnife();
+        if(cutIndicator != null)
+        {
+            alignKnife();
+        } else {
+            ResetKnife();
+        }
     }
 
     private void alignKnife()
     {
         knife.transform.position = cutIndicator.transform.position + knifeOffset;
         knife.transform.rotation = Quaternion.Euler(0, cutIndicator.transform.rotation.eulerAngles.y, 0);
+    }
+
+    private void ResetKnife()
+    {
+        knife.transform.position = knifePosition;
+        knife.transform.rotation = knifeRotation;
+        Debug.Log("knife " + knife.transform.position);
+    }
+
+    //change isRolling
+    [ServerRpc(RequireOwnership=false)]
+    private void UseStationServerRPC(bool state)
+    {
+        isCutting = state;
+        
+        UseStationClientRPC(isCutting);
+    }
+
+    [ClientRpc]
+    private void UseStationClientRPC(bool state)
+    {
+        isCutting = state;
+    }
+
+    //Change station result
+    [ServerRpc(RequireOwnership=false)]
+    private void StationResultServerRPC(bool state)
+    {
+        success = state;
+
+        StationResultClientRPC(success);
+    }
+
+    [ClientRpc]
+    private void StationResultClientRPC(bool state)
+    {
+        success = state;
     }
 }
 

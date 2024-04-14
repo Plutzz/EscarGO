@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8837194606072665034}
   - component: {fileID: 2602234188546771843}
   - component: {fileID: 7375462720320345558}
+  - component: {fileID: 5117750191130154769}
   m_Layer: 6
   m_Name: CuttingStation
   m_TagString: Untagged
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977485e4d83ec644eb147c7c98e35119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutPosition: 1
+  cutPosition: 2
   chocolate: {fileID: 11400000, guid: c3c2c7bdf4a90c440a58b1e8ccc78385, type: 2}
   inventory: {fileID: 0}
   virtualCamera: {fileID: 4495592281453677286}
@@ -158,9 +159,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595815043f550544282a830b98a7a847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultItem: {fileID: 0}
-  possibleRecipes: []
+  defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
+  possibleRecipes:
+  - {fileID: 11400000, guid: 1cbeb0fb2176f504f8a1c827c09b1d28, type: 2}
+  - {fileID: 11400000, guid: ae9aae1ddcaf3d2438732c2a8979733b, type: 2}
   station: {fileID: 8837194606072665034}
+--- !u!114 &5117750191130154769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993321695680599760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1108377914
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &2967215965936196236
 GameObject:
   m_ObjectHideFlags: 0

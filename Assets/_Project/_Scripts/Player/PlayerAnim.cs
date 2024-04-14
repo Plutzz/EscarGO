@@ -19,17 +19,27 @@ public class PlayerAnim : NetworkBehaviour
         // Delete it so no input is picked up by it
         if (!IsOwner)
         {
+            SetVisibleLayer(graphics.transform);
             // Render the player model if it is not the local client's player
-            graphics.layer = LayerMask.NameToLayer("Player");
-            foreach(Transform child in graphics.transform)
-            {
-                child.gameObject.layer = LayerMask.NameToLayer("Player");
-            }
+            graphics.layer = LayerMask.NameToLayer("Default");
             return;
         }
         anim = GetComponentInChildren<ClientNetworkAnimator>();
         playerStateMachine = GetComponent<PlayerStateMachine>();
         playerInputActions = playerStateMachine.inputManager;
+    }
+
+    private void SetVisibleLayer(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer("Default");
+            if (child.childCount > 0)
+            {
+                SetVisibleLayer(child);
+            }
+        }
+
     }
 
     void Update()
@@ -40,7 +50,7 @@ public class PlayerAnim : NetworkBehaviour
     public void HandleAnimations(PlayerState _state)
     {
         Debug.Log("Handling Animations: " + _state);
-        anim.ResetTrigger("Dance");
+        anim.ResetTrigger("Run");
         anim.ResetTrigger("Idle");
         anim.ResetTrigger("Jogging");
         anim.ResetTrigger("Cooking");
@@ -48,7 +58,7 @@ public class PlayerAnim : NetworkBehaviour
         {
             case PlayerAirborneState _:
                 if (playerInputActions.MoveInput != Vector2.zero && playerInputActions.SprintIsPressed)
-                    anim.SetTrigger("Dance");
+                    anim.SetTrigger("Run");
                 else if (playerInputActions.MoveInput != Vector2.zero)
                     anim.SetTrigger("Jogging");
                 else
@@ -56,7 +66,7 @@ public class PlayerAnim : NetworkBehaviour
                 break;
             case PlayerMovingState _:
                 if (playerInputActions.SprintIsPressed)
-                    anim.SetTrigger("Dance");
+                    anim.SetTrigger("Run");
                 else
                     anim.SetTrigger("Jogging");
                 break;

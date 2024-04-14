@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6439135202977332663}
   - component: {fileID: 5934877578995926342}
   - component: {fileID: 227251044804726473}
+  - component: {fileID: -8222259909501916955}
   - component: {fileID: 4420376670329681521}
   - component: {fileID: 1483860591471978292}
   - component: {fileID: 5794820753110969320}
@@ -113,6 +114,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-8222259909501916955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238151154529500110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 587620311
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &4420376670329681521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +156,6 @@ MonoBehaviour:
   turnTarget: {fileID: 8282584804715741927, guid: 58a1bd1e00998be4a8c1f0773b509549,
     type: 3}
   timerObject: {fileID: 3032806499856503817}
-  timer: 0
 --- !u!114 &1483860591471978292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +185,7 @@ MonoBehaviour:
   defaultItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
   possibleRecipes:
   - {fileID: 11400000, guid: 3d3e8dbde01bf464ab5b3d7553341d53, type: 2}
+  - {fileID: 11400000, guid: 7a8dbfbda3b5efd4e9b6edc4710c0321, type: 2}
   station: {fileID: 4420376670329681521}
 --- !u!1 &515999985402119829
 GameObject:
@@ -220,7 +241,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 58.715508
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000

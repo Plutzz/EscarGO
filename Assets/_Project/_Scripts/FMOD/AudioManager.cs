@@ -2,19 +2,20 @@ using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class AudioManager : NetworkSingletonPersistent<AudioManager>
 {
     [Header("Volume")]
     [Range(0, 1)]
-    public float masterVolume = 1;
+    public float masterVolume;
     [Range(0, 1)]
-    public float musicVolume = 1;
+    public float musicVolume;
     [Range(0, 1)]
-    public float ambienceVolume = 1;
+    public float ambienceVolume;
     [Range(0, 1)]
-    public float SFXVolume = 1;
+    public float SFXVolume;
 
     private Bus masterBus;
     private Bus musicBus;
@@ -24,22 +25,29 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
 
-    //private EventInstance ambienceEventInstance;
+    private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
+
+
 
     public void Start()
     {
         base.OnNetworkSpawn();
+        masterVolume = PlayerPrefs.GetFloat("Master Volume");
+        musicVolume = PlayerPrefs.GetFloat("Music Volume");
+        ambienceVolume = PlayerPrefs.GetFloat("Ambience Volume");
+        SFXVolume = PlayerPrefs.GetFloat("SFX Volume");
+
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
 
-        //InitializeAmbience(FMODEvents.Instance.Ambience);
+        InitializeAmbience(FMODEvents.Instance.Ambience);
         InitializeMusic(FMODEvents.Instance.Music);
 
-        //masterBus = RuntimeManager.GetBus("bus:/");
-        //musicBus = RuntimeManager.GetBus("bus:/Music");
-        //ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
-        //sfxBus = RuntimeManager.GetBus("bus:/SFX");
+        masterBus = RuntimeManager.GetBus("bus:/");
+        musicBus = RuntimeManager.GetBus("bus:/Music");
+        ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
+        sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
 
     private void UpdateVolume()
@@ -50,11 +58,11 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         sfxBus.setVolume(SFXVolume);
     }
 
-    //private void InitializeAmbience(EventReference ambienceEventReference)
-    //{
-    //    ambienceEventInstance = CreateInstance(ambienceEventReference);
-    //    ambienceEventInstance.start();
-    //}
+    private void InitializeAmbience(EventReference ambienceEventReference)
+    {
+        ambienceEventInstance = CreateInstance(ambienceEventReference);
+        ambienceEventInstance.start();
+    }
 
     private void InitializeMusic(EventReference musicEventReference)
     {
@@ -62,19 +70,40 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         musicEventInstance.start();
     }
 
-    //public void SetAmbienceParameter(string parameterName, float parameterValue)
-    //{
-    //    ambienceEventInstance.setParameterByName(parameterName, parameterValue);
-    //}
+    public void SetAmbienceParameter(string parameterName, float parameterValue)
+    {
+        ambienceEventInstance.setParameterByName(parameterName, parameterValue);
+    }
 
     public void SetMusicArea(MusicArea area)
     {
         musicEventInstance.setParameterByName("area", (float)area);
     }
 
-    public void PlayOneShot(EventReference sound, Vector3 worldPos)
+    public void PlayOneShot(FMODEvents.NetworkSFXName sound, Vector3 worldPos)
     {
-        RuntimeManager.PlayOneShot(sound, worldPos);
+        RuntimeManager.PlayOneShot(FMODEvents.Instance.SfxArray[(int)sound], worldPos);
+    }
+
+    public EventInstance PlayLoopingSFX(FMODEvents.NetworkSFXName sound)
+    {
+        EventInstance sfxEventInstance = CreateInstance(FMODEvents.Instance.SfxArray[(int)sound]);
+        sfxEventInstance.start();
+        return sfxEventInstance;
+    }
+    
+    // Asks the server to play a sfx on all clients *CLIENT AUTHORITATIVE
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName sound, Vector3 worldPos)
+    {
+        PlayOneShotAllClientRpc(sound, worldPos);
+    }
+
+    // Plays a sfx on all clients
+    [ClientRpc]
+    private void PlayOneShotAllClientRpc(FMODEvents.NetworkSFXName sound, Vector3 worldPos)
+    {
+        PlayOneShot(sound, worldPos);
     }
 
     public EventInstance CreateInstance(EventReference eventReference)

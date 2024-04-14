@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{70baea32-c85a-4eaf-907b-63ad0984406d}">
+		<property name="assetPath">
+			<value>SFX/Player/walk_tile_3.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.32260416666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2a48399c-b2e3-4dae-be76-62112029a967}</destination>
+		</relationship>
+	</object>
+</objects>

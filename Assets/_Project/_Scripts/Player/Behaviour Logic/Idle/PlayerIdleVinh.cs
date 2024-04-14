@@ -10,12 +10,14 @@ public class PlayerIdleVinh : PlayerIdleSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        rb.velocity = Vector3.zero;
         rb.drag = groundDrag;
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        rb.drag = 0;
     }
 
     public override void DoFixedUpdateState()

@@ -6,22 +6,42 @@ using TMPro;
 
 public class BPDetailsUI : MonoBehaviour
 {
-    [SerializeField] private Image promptImage;
+    [SerializeField] private Image controllerButton;
+    [SerializeField] private TMP_Text keyboardButton;
     [SerializeField] private TMP_Text promptText;
 
     public ButtonPromptDetails bpDetails;
+    private InputManager inputManager;
 
     void Start()
     {
-        promptImage.color = new Color(1, 1, 1, 0);
+        inputManager = transform.parent.parent.parent.GetComponent<InputManager>();
+
+        controllerButton.gameObject.SetActive(false);
+        keyboardButton.gameObject.SetActive(false);
     }
 
     void Update()
     {
         // Have this swap between keyboard and console
-        promptImage.sprite = bpDetails.keyboardImgPrompt;
-        promptImage.color = new Color(1, 1, 1, 1);
-        promptText.text = bpDetails.buttonPrompts;
+        if (inputManager.playerInput != null)
+        {
+            if (inputManager.playerInput.currentControlScheme == "Keyboard")
+            {
+                keyboardButton.text = bpDetails.keyboardPrompt;
+
+                controllerButton.gameObject.SetActive(false);
+                keyboardButton.gameObject.SetActive(true);
+            }
+            else if (inputManager.playerInput.currentControlScheme == "Gamepad")
+            {
+                controllerButton.sprite = bpDetails.buttonImgPrompt;
+
+                keyboardButton.gameObject.SetActive(false);
+                controllerButton.gameObject.SetActive(true);
+            }
+        }
+        promptText.text = bpDetails.prompt;
     }
 
 }

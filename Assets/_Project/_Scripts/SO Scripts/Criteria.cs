@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,5 +38,16 @@ public class Criteria : ScriptableObject {
         {
             have = 0;
         }
+    }
+}
+
+[Serializable]
+public class CriteriaTier
+{
+    public Criteria[] criterias;
+    public float tierWeight;
+
+    public Criteria GetCriteria() { 
+        return criterias[UnityEngine.Random.Range(0, criterias.Length)];
     }
 }

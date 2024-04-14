@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
 {
@@ -29,7 +31,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         {
             playerStats[playerNumber].score += scoreChange;
         }
-
+        UpdatePlayerScoreClientRPC(playerStats[playerNumber].score, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
         FindWinningPlayer();
     }
 
@@ -100,6 +102,13 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
        //UpdatePlayersClientRpc(winningPlayerNumber);
     }
 
+    [ClientRpc]
+    private void UpdatePlayerScoreClientRPC(int score, ClientRpcParams clientRpcParams)
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.text = score + " Points";
+    }
+
     //[ClientRpc]
     //public void UpdatePlayersClientRpc(int firstPlacePlayer)
     //{
@@ -127,6 +136,19 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             alivePlayers.Add(playerStats[playerNumber]);
             playerNumber++;
         }
+    }
+
+    public int GetPlayerNumber(ulong clientId)
+    {
+        foreach (var player in playerStats)
+        {
+            if(player.Value.clientId == clientId)
+            {
+                return player.Value.playerNumber;
+            }
+        }
+        
+        return 0;
     }
     
 }

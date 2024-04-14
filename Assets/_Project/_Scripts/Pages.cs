@@ -5,11 +5,14 @@ using Unity.Netcode;
 
 public class Pages : NetworkBehaviour
 {
-    public Texture[] pages;
+    public GameObject[] pages;
     public Material nextPage;
     public Material previousPage;
 
     public int currentPage = 0;
+
+    private GameObject playerInRange = null;
+
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
@@ -18,27 +21,35 @@ public class Pages : NetworkBehaviour
         }
         currentPage = 0;
 
-        nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
-        previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        //nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        //previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
     }
 
     [ClientRpc]
     public void ChangePageClientRpc(int page)
     {
         currentPage = page;
-        nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
-        previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        foreach(GameObject _page in pages)
+        {
+            _page.SetActive(false);
+        }
+        pages[page].SetActive(true);
+        //nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
+        //previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (playerInRange != null && playerInRange.GetComponent<NetworkObject>().IsOwner)
         {
-            ChangeNextPageServerRpc(currentPage);
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ChangePrevPageServerRpc(currentPage);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ChangeNextPageServerRpc(currentPage);
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                ChangePrevPageServerRpc(currentPage);
+            }
         }
     }
 
@@ -58,5 +69,21 @@ public class Pages : NetworkBehaviour
         }
         currentPage = (page - 1 + pages.Length) % pages.Length;
         ChangePageClientRpc(currentPage);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerInRange = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerInRange = null;
+        }
     }
 }

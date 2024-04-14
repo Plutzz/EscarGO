@@ -86,10 +86,11 @@ public class LobbyUI : MonoBehaviour
 
         lobbyAPI.JoinLobbyByCode(joinCode);
 
+
         if (lobbyAPI.GetJoinedLobby() != null)
         {
             joinCodeInput.text = "";
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
             lobbyGameUI.SetActive(true);
         }
         else

@@ -7,7 +7,7 @@ using Unity.Netcode;
 
 public class KneadingStation : SuperStation
 {
-    [SerializeField] private float goalSizeOfDough = 1f;
+    [SerializeField] private float goalSizeOfDough = 0.65f;
     [SerializeField] private GameObject squareOfDough;
     [SerializeField] private GameObject rollingPin;
     private Vector3 doughOffset = new Vector3(0, 0.52f, 0.018f);
@@ -36,13 +36,21 @@ public class KneadingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
+        if(isKneading) return;
+
         resultingItem = successfulItem;
         playerDough = Instantiate(squareOfDough, transform.position + doughOffset, transform.rotation);
-        isKneading = true;
 
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
         virtualCamera.enabled = true;
-        isKneading = true;
+
+        if(IsServer)
+        {
+            UseStationClientRPC(true);
+        } else {
+            UseStationServerRPC(true);
+        }
+
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
     }
@@ -54,8 +62,22 @@ public class KneadingStation : SuperStation
 
     public override void DeActivate()
     {
-        isKneading = false;
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+        }
+
         noFirstKey = true;
+
+        if(IsServer)
+        {
+            StationResultClientRPC(false);
+        } else {
+            StationResultServerRPC(false);
+        }
+
         wantedKey = 0;
         Destroy(playerDough);
 
@@ -64,6 +86,11 @@ public class KneadingStation : SuperStation
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         virtualCamera.enabled = false;
+    }
+
+    public override bool StationInUse
+    {
+        get { return isKneading; }
     }
 
     public override bool ActivityResult
@@ -99,7 +126,7 @@ public class KneadingStation : SuperStation
 
                 if(PressedSequence(2))
                 {
-                    playerDough.transform.localScale += new Vector3(0, 0, 0.05f);
+                    playerDough.transform.localScale += new Vector3(0, 0, 0.07f);
                     rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 90f, 0f));
                     isRolling = true;
                 }
@@ -114,7 +141,7 @@ public class KneadingStation : SuperStation
 
                 if(PressedSequence(1))
                 {
-                    playerDough.transform.localScale += new Vector3(0.05f, 0, 0);
+                    playerDough.transform.localScale += new Vector3(0.07f, 0, 0);
                     rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
                     isRolling = true;
                 }
@@ -129,7 +156,7 @@ public class KneadingStation : SuperStation
 
                 if(PressedSequence(4))
                 {
-                    playerDough.transform.localScale += new Vector3(0, 0, 0.05f);
+                    playerDough.transform.localScale += new Vector3(0, 0, 0.07f);
                     rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 90f, 0f));
                     isRolling = true;
                 }
@@ -144,7 +171,7 @@ public class KneadingStation : SuperStation
 
                 if(PressedSequence(3))
                 {
-                    playerDough.transform.localScale += new Vector3(0.05f, 0, 0);
+                    playerDough.transform.localScale += new Vector3(0.07f, 0, 0);
                     rollingPin.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
                     isRolling = true;
                 }
@@ -195,7 +222,12 @@ public class KneadingStation : SuperStation
 
     private void Succeed()
     {
-        success = true;
+        if(IsServer)
+        {
+            StationResultClientRPC(true);
+        } else {
+            StationResultServerRPC(true);
+        }
 
         inventory.TryAddItemToInventory(resultingItem);
         /*if(inventory.CanCraft(kneadedDough))
@@ -218,5 +250,35 @@ public class KneadingStation : SuperStation
 
         // Set our position as a fraction of the distance between the markers.
         rollingPin.transform.position = Vector3.Lerp(start.position, end.position, t);
+    }
+
+    //change isRolling
+    [ServerRpc(RequireOwnership=false)]
+    private void UseStationServerRPC(bool state)
+    {
+        isKneading = state;
+        
+        UseStationClientRPC(isKneading);
+    }
+
+    [ClientRpc]
+    private void UseStationClientRPC(bool state)
+    {
+        isKneading = state;
+    }
+
+    //Change station result
+    [ServerRpc(RequireOwnership=false)]
+    private void StationResultServerRPC(bool state)
+    {
+        success = state;
+
+        StationResultClientRPC(success);
+    }
+
+    [ClientRpc]
+    private void StationResultClientRPC(bool state)
+    {
+        success = state;
     }
 }

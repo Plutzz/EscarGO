@@ -12,13 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8625d6d396aa0444db3ed00f28368e47, type: 3}
   m_Name: Airborne
   m_EditorClassIdentifier: 
-  acceleration: 40
-  drag: 0
-  upwardGravityAcceleration: 0
-  downwardGravityAcceleration: 0
-  sprintMovementMultiplier: 0
-  apexMovementMultiplier: 0
-  apexYVelocityThreshold: 0
-  collisionAcceleration: 0
-  collisionSpeed: 0
-  collisionTimer: 0.5
+  speed: 5

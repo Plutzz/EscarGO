@@ -14,6 +14,7 @@ public class PlayerInteractions : NetworkBehaviour
     [SerializeField] private LayerMask trashLayer;
     [SerializeField] private LayerMask minigameLayer;
     [SerializeField] private LayerMask customerLayer;
+    [SerializeField] private float raycastLength;
 
     [SerializeField] private Item donut;
 
@@ -35,19 +36,24 @@ public class PlayerInteractions : NetworkBehaviour
     }
     private void Update()
     {
-        if (inputManager.InteractPressedThisFrame) { 
+        if (inputManager.InteractPressedThisFrame)
+        {
             CheckForInteractable();
         }
-        if (Input.GetMouseButtonDown(1)) { 
+        if (Input.GetMouseButtonDown(1))
+        {
             CheckForTrash();
             CheckForCustomer();
         }
     }
 
-    private void CheckForInteractable() {
-        Collider[] interactableColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, minigameLayer);
-        foreach (Collider col in interactableColliders) { 
-            InteractableSpace interactable = col.gameObject.GetComponent<InteractableSpace>();
+    private void CheckForInteractable()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
+        RaycastHit[] hits = Physics.RaycastAll(ray, raycastLength, minigameLayer);
+        foreach (var hit in hits)
+        {
+            InteractableSpace interactable = hit.collider.gameObject.GetComponentInChildren<InteractableSpace>();
             if (interactable != null)
             {
                 interactable.Interact(playerInventory);
@@ -62,14 +68,33 @@ public class PlayerInteractions : NetworkBehaviour
         {
             playerInventory.RemoveActiveItem();
         }
-        else {
+        else
+        {
             TipsManager.Instance.SetTip("No Trashcan here", 2f);
         }
     }
 
     private void CheckForCustomer()
     {
-        Collider[] customerColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, customerLayer);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, orientation.forward, raycastLength, customerLayer);
+
+        if (hits.Length > 0)
+        {
+            foreach (RaycastHit hit in hits)
+            {
+                Customer customer = hit.collider.gameObject.GetComponent<Customer>();
+                if (customer != null)
+                {
+                    if (customer.TryCompleteOrder(playerInventory))
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        /*Collider[] customerColliders = Physics.OverlapSphere(transform.position + orientation.forward * offset, radius, customerLayer);
+
 
         if (customerColliders.Length > 0)
         {
@@ -90,12 +115,16 @@ public class PlayerInteractions : NetworkBehaviour
         else
         {
             TipsManager.Instance.SetTip("No Server here", 2f);
-        }
+        }*/
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
+        // Gizmos.DrawWireSphere(transform.position + orientation.forward * offset, radius);
+
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(ray.origin, ray.origin + ray.direction * raycastLength);
     }
 }

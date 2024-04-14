@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{4739f302-84dd-48f0-a820-1776fa8a2559}">
 		<property name="name">
-			<value>CoinCollected</value>
+			<value>Bake Complete</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -56,7 +56,7 @@
 			<destination>{2df340ad-9fab-4c57-a023-40db5f477691}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{9b7f0531-a13c-4a7a-ac86-5e8491937229}</destination>
+			<destination>{f9c4a1bd-208c-460e-bd31-c6e967c2b368}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{09dbbffc-32de-44e9-a8a3-4ede60a94ac0}" />
