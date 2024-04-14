@@ -40,7 +40,6 @@ public class BakingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        Debug.Log("activated 1");
         if(isBaking) return;
 
         resultingItem = successfulItem;
@@ -51,12 +50,10 @@ public class BakingStation : SuperStation
             UseStationClientRPC(true);
             StationResultClientRPC(false);
         } else {
-            Debug.Log("activated 2");
             UseStationServerRPC(true);
             StationResultServerRPC(false);
         }
 
-        Debug.Log("activated 3");
         timer = 0f;
         fillValue = 0; //only need if it does not start at 0 before game starts
         timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts

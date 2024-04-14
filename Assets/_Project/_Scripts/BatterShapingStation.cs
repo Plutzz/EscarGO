@@ -34,6 +34,8 @@ public class BatterShapingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
+        if(isBattering) return;
+
         timer = 0f;
         fillValue = 0;
         timerMaterial.SetFloat("_Fill_Amount", fillValue);
@@ -42,7 +44,15 @@ public class BatterShapingStation : SuperStation
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
         playerHoldTimer = 0;
-        isBattering = true;
+
+        if(IsServer)
+        {
+            UseStationClientRPC(true);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(true);
+            StationResultServerRPC(false);
+        }
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
         Cursor.lockState = CursorLockMode.None;
@@ -55,7 +65,12 @@ public class BatterShapingStation : SuperStation
         {
             inventory.TryAddItemToInventory(resultingItem);
 
-            success = false;
+            if(IsServer)
+            {
+                StationResultClientRPC(false);
+            } else {
+                StationResultServerRPC(false);
+            }
             itemReady = false;
             fillValue = 0f;
             timerObject.SetActive(false);
@@ -72,7 +87,12 @@ public class BatterShapingStation : SuperStation
     
     public override void DeActivate()
     {
-        isBattering = false;
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+        }
         Destroy(playerBatter);
         playerHoldTimer = 0;
 
@@ -100,7 +120,6 @@ public class BatterShapingStation : SuperStation
 
     private void Start() {
         waffleIronAnimation = waffleIronJoint.GetComponent<Animator>();
-        waffleIronAnimation.SetTrigger("Open");
         timerMaterial = timerObject.GetComponent<Renderer>().material;
 
         // Make copy of timerMaterial
@@ -149,7 +168,12 @@ public class BatterShapingStation : SuperStation
 
     private void Succeed()
     {
-        success = true;
+        if(IsServer)
+        {
+            StationResultClientRPC(true);
+        } else {
+            StationResultServerRPC(true);
+        }
         /*if(inventory.CanCraft(batter))
         {
             inventory.Craft(batter);
@@ -169,17 +193,71 @@ public class BatterShapingStation : SuperStation
 
     private IEnumerator Cook()
     {
-        waffleIronAnimation.SetTrigger("Close");
+        if(IsServer)
+            {
+                WaffleIronAnimationClientRPC("Close");
+            } else {
+                WaffleIronAnimationServerRPC("Close");
+            }
         Debug.Log("cooking");
-        success = true;
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
         timerMaterial.EnableKeyword("_USE_TEXTURE");
         yield return new WaitForSeconds(cookTime);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
-        waffleIronAnimation.SetTrigger("Open");
+        if(IsServer)
+            {
+                WaffleIronAnimationClientRPC("Open");
+            } else {
+                WaffleIronAnimationServerRPC("Open");
+            }
         Debug.Log("cooked");
         itemReady = true;
+    }
+
+    //change isBattering
+    [ServerRpc(RequireOwnership=false)]
+    private void UseStationServerRPC(bool state)
+    {
+        isBattering = state;
+        
+        UseStationClientRPC(isBattering);
+    }
+
+    [ClientRpc]
+    private void UseStationClientRPC(bool state)
+    {
+        isBattering = state;
+    }
+
+    //Change station result
+    [ServerRpc(RequireOwnership=false)]
+    private void StationResultServerRPC(bool state)
+    {
+        success = state;
+
+        StationResultClientRPC(success);
+    }
+
+    [ClientRpc]
+    private void StationResultClientRPC(bool state)
+    {
+        success = state;
+    }
+
+    //waffle iron joint animation
+    [ServerRpc(RequireOwnership=false)]
+    private void WaffleIronAnimationServerRPC(string trigger)
+    {
+        waffleIronAnimation.SetTrigger(trigger);
+
+        WaffleIronAnimationClientRPC(trigger);
+    }
+
+    [ClientRpc]
+    private void WaffleIronAnimationClientRPC(string trigger)
+    {
+        waffleIronAnimation.SetTrigger(trigger);
     }
 }
