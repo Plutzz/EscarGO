@@ -36,13 +36,7 @@ public class KneadingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        if(isKneading) return;
-
-        resultingItem = successfulItem;
-        playerDough = Instantiate(squareOfDough, transform.position + doughOffset, transform.rotation);
-
-        inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
-        virtualCamera.enabled = true;
+        if(inUse) return;
 
         if(IsServer)
         {
@@ -50,6 +44,14 @@ public class KneadingStation : SuperStation
         } else {
             UseStationServerRPC(true);
         }
+        
+        isKneading = true;
+
+        resultingItem = successfulItem;
+        playerDough = Instantiate(squareOfDough, transform.position + doughOffset, transform.rotation);
+
+        inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
+        virtualCamera.enabled = true;
 
 
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
@@ -68,6 +70,8 @@ public class KneadingStation : SuperStation
         } else {
             UseStationServerRPC(false);
         }
+
+        isKneading = false;
 
         noFirstKey = true;
 
@@ -90,7 +94,7 @@ public class KneadingStation : SuperStation
 
     public override bool StationInUse
     {
-        get { return isKneading; }
+        get { return inUse; }
     }
 
     public override bool ActivityResult
@@ -115,6 +119,12 @@ public class KneadingStation : SuperStation
     {
         if(isKneading)
         {
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    DeActivate();
+                    resultingItem = null;
+                }
 
             if(Input.GetKeyDown(KeyCode.W))
             {
@@ -256,15 +266,15 @@ public class KneadingStation : SuperStation
     [ServerRpc(RequireOwnership=false)]
     private void UseStationServerRPC(bool state)
     {
-        isKneading = state;
+        inUse = state;
         
-        UseStationClientRPC(isKneading);
+        UseStationClientRPC(inUse);
     }
 
     [ClientRpc]
     private void UseStationClientRPC(bool state)
     {
-        isKneading = state;
+        inUse = state;
     }
 
     //Change station result
