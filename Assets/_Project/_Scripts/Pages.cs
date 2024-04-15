@@ -40,8 +40,8 @@ public class Pages : NetworkBehaviour
 
     void Update()
     {
-        if (playerInRange != null && playerInRange.GetComponent<NetworkObject>().IsOwner)
-        {
+        //if (playerInRange != null && playerInRange.GetComponent<NetworkObject>().IsOwner)
+        //{
             if (Input.GetKeyDown(KeyCode.E))
             {
                 ChangeNextPageServerRpc(currentPage);
@@ -50,7 +50,7 @@ public class Pages : NetworkBehaviour
             {
                 ChangePrevPageServerRpc(currentPage);
             }
-        }
+        //}
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -82,6 +82,21 @@ public class Pages : NetworkBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
+        {
+            playerInRange = null;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerInRange = collision.gameObject;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
         {
             playerInRange = null;
         }
