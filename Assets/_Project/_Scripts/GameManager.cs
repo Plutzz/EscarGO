@@ -8,6 +8,8 @@ using UnityEngine;
 public class GameManager : NetworkSingleton<GameManager>
 {
     [SerializeField] private Vector3 spawnPos;
+    [SerializeField] private float roundTime = 180f;
+    private float timeLeft;
     public override void OnNetworkSpawn()
     {
         // If this is not called on the server, return
@@ -18,11 +20,32 @@ public class GameManager : NetworkSingleton<GameManager>
         StartGameClientRpc();
     }
 
+    private void Update()
+    {
+        timeLeft -= Time.deltaTime;
+
+        if (!IsServer) return;
+
+        if(timeLeft <= 0)
+        {
+            EndGameServerRpc();
+        }
+    }
+    public string GetTime()
+    {
+        int secondsLeft = Mathf.RoundToInt(timeLeft);
+        int minutesLeft = secondsLeft / 60;
+        secondsLeft = secondsLeft % 60;
+        return minutesLeft.ToString() + ":" + secondsLeft.ToString("00");
+    }
+
     [ClientRpc]
     private void StartGameClientRpc()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().timerText.gameObject.SetActive(true);
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.gameObject.SetActive(true);
+        timeLeft = roundTime;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -30,10 +53,10 @@ public class GameManager : NetworkSingleton<GameManager>
     {
         EndGameClientRpc();
         // Disable all player objects
-        foreach (var _player in NetworkManager.Singleton.ConnectedClientsList)
-        {
-            _player.PlayerObject.gameObject.SetActive(false);
-        }
+        //foreach (var _player in NetworkManager.Singleton.ConnectedClientsList)
+        //{
+        //    _player.PlayerObject.gameObject.SetActive(false);
+        //}
         gameObject.GetComponent<ResultsUI>().GameComplete();
     }
 

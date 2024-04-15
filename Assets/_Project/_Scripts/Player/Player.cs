@@ -11,11 +11,13 @@ public class Player : NetworkBehaviour
     # region Object References
     [Header("Object References")]
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timerText;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerHeight;
     [SerializeField] private Transform orientation;
     [SerializeField] private TextMeshPro nameTag;
     [SerializeField] private GameObject graphics;
+
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;
     private Rigidbody rb;

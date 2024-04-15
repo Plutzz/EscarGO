@@ -12,21 +12,14 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     private Dictionary<int, PlayerAttributes> playerStats = new Dictionary<int, PlayerAttributes>();
     public List<PlayerAttributes> alivePlayers = new List<PlayerAttributes>();
 
-
     public override void OnNetworkSpawn()
     {
-        if(!IsServer) 
+        
+        if (!IsServer) 
         {
             return; 
         }
-        //SendToSpectateClientRpc(false);
     }
-
-    private void StartTimer()
-    {
-
-    }
-
 
     [ServerRpc(RequireOwnership = false)]
     public void AddScoreServerRpc(int playerNumber, int scoreChange)
