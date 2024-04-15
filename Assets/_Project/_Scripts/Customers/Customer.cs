@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+//using UnityEngine.UI;
+using TMPro;
 
 public class Customer : NetworkBehaviour
 {
+
     [Header("Orders")]
     private Criteria criteria;
     [SerializeField] private GameObject orderPrefab;
@@ -22,6 +25,10 @@ public class Customer : NetworkBehaviour
     public int assignedPlayer;
     public bool orderReceived;
     private Chair currentChair;
+
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI scoreTextPrefab; 
+    private TextMeshProUGUI scoreTextInstance; 
 
     private Animator animator;
 
@@ -107,6 +114,8 @@ public class Customer : NetworkBehaviour
             ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
             ActivateTimerClientRpc(false);
             StartCoroutine(FufillOrderWait(10));
+
+            DisplayPointsEarned(criteria.score);
         }
         else
         {
@@ -194,6 +203,14 @@ public class Customer : NetworkBehaviour
         animator.SetBool("Seated", true);
 
         currentChair = chair;
+    }
+
+    private void DisplayPointsEarned(int pointsEarned)
+    {
+        TextMeshProUGUI scoreTextInstance = Instantiate(scoreTextPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
+        scoreTextInstance.transform.SetParent(transform);
+        scoreTextInstance.transform.localPosition = Vector3.up * 2;
+        scoreTextInstance.text = "+" + pointsEarned.ToString();
     }
 }
 
