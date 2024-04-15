@@ -10,15 +10,44 @@ public class ResultsManager : NetworkSingleton<ResultsManager>
     [SerializeField] private TextMeshProUGUI playersReadyText;
     private int numPlayersReady = 0;
     private List<ulong> playerReadyIds = new List<ulong>();
+    private Dictionary<int, PlayerAttributes> playerStats;
+    [SerializeField] private GameObject playerResultsUIPrefab;
+    [SerializeField] private Transform leaderboard;
 
     [SerializeField] private string playScene = "NetworkGameScene";
 
     public override void OnNetworkSpawn()
     {
-        if(!IsServer) return;
-
+        if(!IsServer)
+        {
+            Destroy(ScoringSingleton.Instance.gameObject);
+            return;
+        }
+        HandleStats();
+        Debug.Log(playerStats[0]);
         DisplayPlayersReadyClientRpc(numPlayersReady, NetworkManager.Singleton.ConnectedClients.Count);
     }
+
+    private void HandleStats()
+    {
+        playerStats = ScoringSingleton.Instance.playerStats;
+        Debug.Log("Destroy Scoring Singleton");
+        Destroy(ScoringSingleton.Instance.gameObject);
+        foreach(var player in playerStats)
+        {
+            DisplayPlayerStatsClientRpc(player.Value.username, player.Value.score);
+        }
+    }
+
+    [ClientRpc]
+    private void DisplayPlayerStatsClientRpc(string name, int score)
+    {
+        GameObject playerResults = Instantiate(playerResultsUIPrefab, leaderboard);
+        playerResults.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
+        playerResults.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = score + "";
+    }
+
+
 
     [ServerRpc(RequireOwnership = false)]
     public void PlayerReadyServerRpc(ulong _playerId)

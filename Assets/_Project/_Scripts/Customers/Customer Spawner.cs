@@ -23,7 +23,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 
     private int playerThatGetsCustomer = 0;
     private List<int> player = new List<int>();
-    private int playersAlive;
+    private int playersAlive = -1;
 
     public override void OnNetworkSpawn()
     {
@@ -197,10 +197,12 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         }
 
         playersAlive = ScoringSingleton.Instance.alivePlayers.Count;
+        Debug.Log(playersAlive);
     }
 
     private int getRandomCustomer()
     {
+        
         if(player.Count == 0 || playersAlive != ScoringSingleton.Instance.alivePlayers.Count)
         {
             resetRandomCustomers();
@@ -209,7 +211,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
 
         int rand = Random.Range(0, player.Count);
         //Debug.Log("rand: " + rand);
-
+        Debug.Log(player.Count + "Player Count" + rand + "rand");
         int result = player[rand];
         player.RemoveAt(rand);
 

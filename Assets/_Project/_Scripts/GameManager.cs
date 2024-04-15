@@ -57,7 +57,7 @@ public class GameManager : NetworkSingleton<GameManager>
         //{
         //    _player.PlayerObject.gameObject.SetActive(false);
         //}
-        gameObject.GetComponent<ResultsUI>().GameComplete();
+        NetworkManager.Singleton.SceneManager.LoadScene("NetworkResults", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
     [ClientRpc]

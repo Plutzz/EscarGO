@@ -9,12 +9,18 @@ using UnityEngine.ProBuilder.MeshOperations;
 
 public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
 {
-    private Dictionary<int, PlayerAttributes> playerStats = new Dictionary<int, PlayerAttributes>();
+    public Dictionary<int, PlayerAttributes> playerStats { get; private set; }
     public List<PlayerAttributes> alivePlayers = new List<PlayerAttributes>();
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        playerStats = new Dictionary<int, PlayerAttributes>();
+    }
     public override void OnNetworkSpawn()
     {
-        
+        DontDestroyOnLoad(gameObject);
         if (!IsServer) 
         {
             return; 
@@ -72,7 +78,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     public void AssignPlayerNumbers()
     {
         if (!IsServer) return;
-
+        Debug.Log("AssignPlayerNumbers");
         int playerNumber = 0;
         // Assigns players a number 0 - 3
         foreach (var player in NetworkManager.Singleton.ConnectedClientsList)
@@ -80,6 +86,8 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             playerStats.Add(playerNumber, new PlayerAttributes());
             playerStats[playerNumber].clientId = player.ClientId;
             playerStats[playerNumber].playerNumber = playerNumber;
+            playerStats[playerNumber].username = player.PlayerObject.gameObject.name;
+            // Initialize nametags
             alivePlayers.Add(playerStats[playerNumber]);
             playerNumber++;
         }
@@ -107,8 +115,8 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
 
 [Serializable]
 public class PlayerAttributes {
+    public string username;
     public ulong clientId;
     public int playerNumber;
     public int score = 0;
-    public int strikes = 3;
 }

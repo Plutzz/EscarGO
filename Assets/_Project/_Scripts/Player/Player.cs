@@ -70,7 +70,6 @@ public class Player : NetworkBehaviour
         string _playerName = AuthenticationService.Instance.PlayerName;
 
         gameObject.name = _playerName;
-        nameTag.text = _playerName;
     }
 
     void Update()
