@@ -136,6 +136,12 @@ public class BatterShapingStation : SuperStation
     private void Update() {
         if(isBattering && !success)
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    DeActivate();
+                    resultingItem = null;
+                }
+
             if(Input.GetMouseButtonDown(0))
             {
                 playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);

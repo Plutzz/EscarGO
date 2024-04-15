@@ -143,6 +143,12 @@ public class CuttingStation : SuperStation
 
         if(isCutting)
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    DeActivate();
+                    resultingItem = null;
+                }
+
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
             if (Input.GetMouseButtonDown(0))

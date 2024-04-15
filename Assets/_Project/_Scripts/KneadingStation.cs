@@ -120,6 +120,12 @@ public class KneadingStation : SuperStation
         if(isKneading)
         {
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    DeActivate();
+                    resultingItem = null;
+                }
+
             if(Input.GetKeyDown(KeyCode.W))
             {
                 if(noFirstKey)

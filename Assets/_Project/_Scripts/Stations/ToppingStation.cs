@@ -113,7 +113,11 @@ public class ToppingStation : SuperStation
     private void Update() {
         if(isTopping)
         {
-            Debug.Log(isTopping);
+            if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    DeActivate();
+                    resultingItem = null;
+                }
 
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             

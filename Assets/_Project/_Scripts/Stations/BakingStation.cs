@@ -126,6 +126,8 @@ public class BakingStation : SuperStation
             UseStationServerRPC(false);
         }
 
+        isBaking = false;
+
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
@@ -163,7 +165,12 @@ public class BakingStation : SuperStation
 
         if(isBaking && !success)
         {
-            Debug.Log("true");
+            if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    DeActivate();
+                    resultingItem = null;
+                }
+                
             if(Input.GetKeyDown(KeyCode.Q))
             {
                 TurnKnob(leftKnob);
