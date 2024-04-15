@@ -80,7 +80,7 @@ public class Customer : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void GetCustomerOrderClientRpc()
+    public void GetCustomerOrderClientRpc(ClientRpcParams sendParams)
     {
         orderObject.SetActive(true);
         // Set the order sprite to the item's sprite

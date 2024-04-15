@@ -97,7 +97,12 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         
         return 0;
     }
-    
+
+    public Dictionary<int, PlayerAttributes> GetPlayerStats()
+    {
+        return playerStats;
+    }
+
 }
 
 [Serializable]
