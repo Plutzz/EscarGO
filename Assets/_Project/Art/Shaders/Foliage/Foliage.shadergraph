@@ -2842,10 +2842,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -147.0,
-            "y": 484.0,
-            "width": 147.0,
-            "height": 34.00006103515625
+            "x": -154.00001525878907,
+            "y": 396.0000305175781,
+            "width": 146.99998474121095,
+            "height": 33.999969482421878
         }
     },
     "m_Slots": [
@@ -6626,7 +6626,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Occlusion",
     "m_StageCapability": 2,
-    "m_Value": 1.0,
+    "m_Value": 0.5,
     "m_DefaultValue": 1.0,
     "m_Labels": []
 }
