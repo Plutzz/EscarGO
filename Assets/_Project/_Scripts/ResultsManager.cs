@@ -20,7 +20,7 @@ public class ResultsManager : NetworkSingleton<ResultsManager>
     {
         if(!IsServer)
         {
-            Destroy(ScoringSingleton.Instance.gameObject);
+            Destroy(ScoringSingleton.Instance?.gameObject);
             return;
         }
         HandleStats();

@@ -28,7 +28,6 @@ public class BatterShapingStation : SuperStation
 
     private Animator waffleIronAnimation;
     private bool itemReady = false;
-    private float timer = 0f;
     private Material timerMaterial;
     private float fillValue;
 
@@ -38,7 +37,6 @@ public class BatterShapingStation : SuperStation
 
         isBattering = true;
 
-        timer = 0f;
         fillValue = 0;
         timerMaterial.SetFloat("_Fill_Amount", fillValue);
 

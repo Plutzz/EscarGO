@@ -34,7 +34,7 @@ public class BakingStation : SuperStation
     private bool middleSuccess = false;
     private bool rightSuccess = false;
     private bool itemReady = false;
-    private float timer = 0f;
+
     private Material timerMaterial;
     private float fillValue;
 
@@ -57,7 +57,6 @@ public class BakingStation : SuperStation
 
         isBaking = true;
         
-        timer = 0f;
         fillValue = 0; //only need if it does not start at 0 before game starts
         timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts
 

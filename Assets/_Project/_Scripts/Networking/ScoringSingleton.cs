@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Text;
 using System.Xml.Serialization;
 using TMPro;
 using Unity.Netcode;
+using Unity.Services.Authentication;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
@@ -21,9 +25,9 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     public override void OnNetworkSpawn()
     {
         DontDestroyOnLoad(gameObject);
-        if (!IsServer) 
+        if (!IsServer)
         {
-            return; 
+            return;
         }
     }
 
@@ -46,13 +50,13 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
         int winningScore = -1;
 
         foreach (var player in playerStats) {
-            if (player.Value.score > winningScore) { 
+            if (player.Value.score > winningScore) {
                 winningScore = player.Value.score;
                 winningPlayerNumber = player.Key;
             }
         }
 
-       //UpdatePlayersClientRpc(winningPlayerNumber);
+        //UpdatePlayersClientRpc(winningPlayerNumber);
     }
 
     [ClientRpc]
@@ -86,11 +90,33 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
             playerStats.Add(playerNumber, new PlayerAttributes());
             playerStats[playerNumber].clientId = player.ClientId;
             playerStats[playerNumber].playerNumber = playerNumber;
-            playerStats[playerNumber].username = player.PlayerObject.gameObject.name;
-            // Initialize nametags
+
+            if (playerStats[playerNumber].username == null && AuthenticationService.Instance.IsSignedIn)
+            {
+                SetupPlayerNameClientRpc(playerNumber, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { playerStats[playerNumber].clientId } } });
+            }
             alivePlayers.Add(playerStats[playerNumber]);
             playerNumber++;
         }
+    }
+    [ClientRpc]
+    private void SetupPlayerNameClientRpc(int playerNumber, ClientRpcParams rpcParams)
+    {
+        GetPlayerNameAsync(playerNumber);
+    }
+
+    private async void GetPlayerNameAsync(int playerNumber)
+    {
+        string playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
+        SetPlayerNameServerRpc(playerName, playerNumber);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetPlayerNameServerRpc(string playerName, int playerNumber)
+    {
+        playerStats[playerNumber].username = playerName;
+        NetworkManager.Singleton.ConnectedClients[playerStats[playerNumber].clientId].PlayerObject
+            .GetComponent<Player>().SetupNametagClientRpc(playerStats[playerNumber].username);
     }
 
     public int GetPlayerNumber(ulong clientId)

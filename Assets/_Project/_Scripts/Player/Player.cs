@@ -46,30 +46,23 @@ public class Player : NetworkBehaviour
             enabled = false;
             return;
         }
-
-        if (AuthenticationService.Instance.IsSignedIn)
-        {
-            SetupPlayerName();
-        }
-
+        nameTag.enabled = false;
         stateMachine = GetComponent<PlayerStateMachine>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         inputManager = GetComponent<InputManager>();
     }
 
+    [ClientRpc]
+    public void SetupNametagClientRpc(string username)
+    {
+        nameTag.text = username;
+        gameObject.name = username;
+    }
     private void Start()
     {
         rb.velocity = Vector3.zero;
         rb.position = spawnPos;
-    }
-    private async void SetupPlayerName()
-    {
-        await AuthenticationService.Instance.GetPlayerNameAsync();
-
-        string _playerName = AuthenticationService.Instance.PlayerName;
-
-        gameObject.name = _playerName;
     }
 
     void Update()
