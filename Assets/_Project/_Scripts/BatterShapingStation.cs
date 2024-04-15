@@ -34,7 +34,9 @@ public class BatterShapingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        if(isBattering) return;
+        if(inUse) return;
+
+        isBattering = true;
 
         timer = 0f;
         fillValue = 0;
@@ -93,6 +95,9 @@ public class BatterShapingStation : SuperStation
         } else {
             UseStationServerRPC(false);
         }
+
+        isBattering = false;
+
         Destroy(playerBatter);
         playerHoldTimer = 0;
 
@@ -103,7 +108,7 @@ public class BatterShapingStation : SuperStation
 
     public override bool StationInUse
     {
-        get { return isBattering; }
+        get { return inUse; }
     }
 
     public override bool ActivityResult
@@ -220,15 +225,15 @@ public class BatterShapingStation : SuperStation
     [ServerRpc(RequireOwnership=false)]
     private void UseStationServerRPC(bool state)
     {
-        isBattering = state;
+        inUse = state;
         
-        UseStationClientRPC(isBattering);
+        UseStationClientRPC(inUse);
     }
 
     [ClientRpc]
     private void UseStationClientRPC(bool state)
     {
-        isBattering = state;
+        inUse = state;
     }
 
     //Change station result

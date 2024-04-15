@@ -40,7 +40,7 @@ public class BakingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        if(isBaking) return;
+        if(inUse) return;
 
         ResetKnobs();
         resultingItem = successfulItem;
@@ -55,6 +55,8 @@ public class BakingStation : SuperStation
             StationResultServerRPC(false);
         }
 
+        isBaking = true;
+        
         timer = 0f;
         fillValue = 0; //only need if it does not start at 0 before game starts
         timerMaterial.SetFloat("_Fill_Amount", fillValue); //only need if it does not start at 0 before game starts
@@ -132,7 +134,7 @@ public class BakingStation : SuperStation
 
     public override bool StationInUse
     {
-        get { return isBaking; }
+        get { return inUse; }
     }
 
     public override bool ActivityResult
@@ -307,15 +309,15 @@ public class BakingStation : SuperStation
     [ServerRpc(RequireOwnership=false)]
     private void UseStationServerRPC(bool state)
     {
-        isBaking = state;
+        inUse = state;
         
-        UseStationClientRPC(isBaking);
+        UseStationClientRPC(inUse);
     }
 
     [ClientRpc]
     private void UseStationClientRPC(bool state)
     {
-        isBaking = state;
+        inUse = state;
     }
 
     //Change station result

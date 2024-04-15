@@ -25,7 +25,9 @@ public class ToppingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        if(isTopping) return;
+        if(inUse) return;
+
+        isTopping = true;
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
@@ -74,6 +76,8 @@ public class ToppingStation : SuperStation
             StationResultServerRPC(false);
         }
 
+        isTopping = false;
+
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
@@ -87,7 +91,7 @@ public class ToppingStation : SuperStation
 
     public override bool StationInUse
     {
-        get { return isTopping; }
+        get { return inUse; }
     }
 
     public override bool ActivityResult
@@ -171,7 +175,7 @@ public class ToppingStation : SuperStation
     [ServerRpc(RequireOwnership=false)]
     private void UseStationServerRPC(bool state)
     {
-        isTopping = state;
+        inUse = state;
         
         UseStationClientRPC(isTopping);
     }
@@ -179,7 +183,7 @@ public class ToppingStation : SuperStation
     [ClientRpc]
     private void UseStationClientRPC(bool state)
     {
-        isTopping = state;
+        inUse = state;
     }
 
     //Change station result

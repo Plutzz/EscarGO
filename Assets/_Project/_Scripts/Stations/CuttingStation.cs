@@ -29,7 +29,8 @@ public class CuttingStation : SuperStation
 
     public override void Activate(Item successfulItem)
     {
-        if(isCutting) return;
+        if(inUse) return;
+        isCutting = true;
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
@@ -107,7 +108,7 @@ public class CuttingStation : SuperStation
             UseStationServerRPC(false);
             StationResultServerRPC(false);
         }
-        //cutNumber.text = "0";
+        isCutting = false;
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
@@ -119,7 +120,7 @@ public class CuttingStation : SuperStation
 
     public override bool StationInUse
     {
-        get { return isCutting; }
+        get { return inUse; }
     }
 
     public override bool ActivityResult
@@ -148,7 +149,6 @@ public class CuttingStation : SuperStation
             {
                 if(CheckHit())
                 {
-                    //cutNumber.color = Color.blue;
                     StartCoroutine(knifeCut());
                     MoveNext();
                     Mathf.Clamp(neededcuts -= 1, 0, maxCuts);
@@ -159,7 +159,6 @@ public class CuttingStation : SuperStation
                 }
             }
 
-            //cutNumber.text = neededcuts.ToString();
         }
     }
 
@@ -201,7 +200,6 @@ public class CuttingStation : SuperStation
 
     private void Succeed()
     {
-        //cutNumber.color = Color.green;
         if(IsServer)
         {
             StationResultClientRPC(true);
@@ -221,7 +219,6 @@ public class CuttingStation : SuperStation
 
     private void Fail()
     {
-        //cutNumber.color = Color.red;
         if(IsServer)
         {
             StationResultClientRPC(false);
@@ -283,15 +280,15 @@ public class CuttingStation : SuperStation
     [ServerRpc(RequireOwnership=false)]
     private void UseStationServerRPC(bool state)
     {
-        isCutting = state;
+        inUse = state;
         
-        UseStationClientRPC(isCutting);
+        UseStationClientRPC(inUse);
     }
 
     [ClientRpc]
     private void UseStationClientRPC(bool state)
     {
-        isCutting = state;
+        inUse = state;
     }
 
     //Change station result

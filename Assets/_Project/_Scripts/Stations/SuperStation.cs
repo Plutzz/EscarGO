@@ -7,6 +7,7 @@ using Cinemachine;
 public abstract class SuperStation : NetworkBehaviour
 {
     protected Item resultingItem;
+    protected bool inUse = false;
     public abstract bool StationInUse { get; }
     public abstract bool ActivityResult { get; set; }
 
