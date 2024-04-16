@@ -46,12 +46,7 @@ public class Player : NetworkBehaviour
             enabled = false;
             return;
         }
-
-        foreach(var player in NetworkManager.Singleton.ConnectedClients)
-        {
-            player.Value.PlayerObject.GetComponent<Player>().SetupName(null);
-        }
-
+        ClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
         nameTag.enabled = false;
         stateMachine = GetComponent<PlayerStateMachine>();
         moveSpeed = stateMachine.moveSpeed;
@@ -59,8 +54,17 @@ public class Player : NetworkBehaviour
         inputManager = GetComponent<InputManager>();
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void ClientConnectedServerRpc(ulong clientId)
+    {
+        foreach (var player in NetworkManager.Singleton.ConnectedClients)
+        {
+            player.Value.PlayerObject.GetComponent<Player>().SetupNametagClientRpc(null, new ClientRpcParams {  Send = new ClientRpcSendParams {  TargetClientIds = new List<ulong> { clientId } } });
+        }
+    }
+
     [ClientRpc]
-    public void SetupNametagClientRpc(string username)
+    public void SetupNametagClientRpc(string username, ClientRpcParams rpcParams = default)
     {
         SetupName(username);
     }

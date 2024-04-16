@@ -11,7 +11,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
-public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
+public class ScoringSingleton : NetworkSingletonPersistent<ScoringSingleton>
 {
     public Dictionary<int, PlayerAttributes> playerStats { get; private set; }
     public List<PlayerAttributes> alivePlayers = new List<PlayerAttributes>();
@@ -20,15 +20,13 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     protected override void Awake()
     {
         base.Awake();
-        playerStats = new Dictionary<int, PlayerAttributes>();
+        ResetPlayerStats();
     }
-    public override void OnNetworkSpawn()
+
+    public void ResetPlayerStats()
     {
-        DontDestroyOnLoad(gameObject);
-        if (!IsServer)
-        {
-            return;
-        }
+        playerStats = new Dictionary<int, PlayerAttributes>();
+        alivePlayers.Clear();
     }
 
     [ServerRpc(RequireOwnership = false)]

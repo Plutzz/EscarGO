@@ -20,7 +20,7 @@ public class ResultsManager : NetworkSingleton<ResultsManager>
     {
         if(!IsServer)
         {
-            Destroy(ScoringSingleton.Instance?.gameObject);
+            ScoringSingleton.Instance.ResetPlayerStats();
             return;
         }
         HandleStats();
@@ -31,12 +31,11 @@ public class ResultsManager : NetworkSingleton<ResultsManager>
     private void HandleStats()
     {
         playerStats = ScoringSingleton.Instance.playerStats;
-        Debug.Log("Destroy Scoring Singleton");
-        Destroy(ScoringSingleton.Instance.gameObject);
         foreach(var player in playerStats)
         {
             DisplayPlayerStatsClientRpc(player.Value.username, player.Value.score);
         }
+        ScoringSingleton.Instance.ResetPlayerStats();
     }
 
     [ClientRpc]
