@@ -35,14 +35,13 @@ public class LobbyAPI : MonoBehaviour
         await UnityServices.InitializeAsync();
 
         AuthenticationService.Instance.SignedIn += () => {
-            usernameText.text = AuthenticationService.Instance.PlayerName;
+            usernameText.text = AuthenticationService.Instance.PlayerName.Substring(0, AuthenticationService.Instance.PlayerName.Length - 5);
         };
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
         playerName = "Emery" + UnityEngine.Random.Range(10,99);
         Debug.Log(playerName);
-
     }
 
     private void Update()

@@ -109,7 +109,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     [ServerRpc(RequireOwnership = false)]
     private void SetPlayerNameServerRpc(string playerName, int playerNumber)
     {
-        playerStats[playerNumber].username = playerName;
+        playerStats[playerNumber].username = playerName.Substring(0, playerName.Length - 5);
         NetworkManager.Singleton.ConnectedClients[playerStats[playerNumber].clientId].PlayerObject
             .GetComponent<Player>().SetupNametagClientRpc(playerStats[playerNumber].username);
     }

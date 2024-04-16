@@ -19,6 +19,6 @@ public class PlayerNameChanger : MonoBehaviour
     private async void ChangePlayerNameAsync(string playerName)
     {
         string newUsername = await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
-        usernameText.text = newUsername;
+        usernameText.text = newUsername.Substring(0, newUsername.Length - 5);
     }
 }

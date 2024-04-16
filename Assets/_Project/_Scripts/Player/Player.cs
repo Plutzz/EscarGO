@@ -46,6 +46,12 @@ public class Player : NetworkBehaviour
             enabled = false;
             return;
         }
+
+        foreach(var player in NetworkManager.Singleton.ConnectedClients)
+        {
+            player.Value.PlayerObject.GetComponent<Player>().SetupName(null);
+        }
+
         nameTag.enabled = false;
         stateMachine = GetComponent<PlayerStateMachine>();
         moveSpeed = stateMachine.moveSpeed;
@@ -56,6 +62,15 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void SetupNametagClientRpc(string username)
     {
+        SetupName(username);
+    }
+
+    public void SetupName(string username)
+    {
+        if (username == null)
+        {
+            username = AuthenticationService.Instance.PlayerName.Substring(0, AuthenticationService.Instance.PlayerName.Length - 5);
+        }
         nameTag.text = username;
         gameObject.name = username;
     }

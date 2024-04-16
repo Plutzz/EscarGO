@@ -11,6 +11,17 @@ public class LobbyTrigger : NetworkBehaviour
     [SerializeField] private TextMeshPro LobbyText;
     private int numPlayersReady = 0;
 
+    public override void OnNetworkSpawn()
+    {
+        if(!IsServer) return;
+
+        NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
+        {
+            UpdateLobbyTextClientRpc(numPlayersReady, NetworkManager.Singleton.ConnectedClientsList.Count);
+            NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.GetComponent<Player>().SetupNametagClientRpc(null);
+        };
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
