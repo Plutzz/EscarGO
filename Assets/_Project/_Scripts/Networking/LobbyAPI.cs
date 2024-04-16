@@ -11,6 +11,7 @@ using Unity.Netcode;
 using Unity.Networking.Transport.Relay;
 using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
+using TMPro;
 
 public class LobbyAPI : MonoBehaviour
 {
@@ -28,13 +29,13 @@ public class LobbyAPI : MonoBehaviour
     private float lobbyUpdateTimer;
 
     private string playerName;
-
+    [SerializeField] private TextMeshProUGUI usernameText;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
 
         AuthenticationService.Instance.SignedIn += () => {
-            Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
+            usernameText.text = AuthenticationService.Instance.PlayerName;
         };
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -403,4 +404,5 @@ public class LobbyAPI : MonoBehaviour
     {
         return joinedLobby;
     }
+
 }
