@@ -38,7 +38,10 @@ public class LobbyAPI : MonoBehaviour
             usernameText.text = AuthenticationService.Instance.PlayerName.Substring(0, AuthenticationService.Instance.PlayerName.Length - 5);
         };
 
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
 
         playerName = "Emery" + UnityEngine.Random.Range(10,99);
         Debug.Log(playerName);

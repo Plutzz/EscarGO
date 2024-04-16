@@ -12,11 +12,18 @@ public class ShelfManager : NetworkBehaviour
     public List<ProducingStation> shelfSpaces = new List<ProducingStation>();
     public int maxAmountOfItems = 5;
     public float lifeTime = 30f;
+    public float timeForShelfToDissolve = 1f;
     int currentNumOfItems;
+    private Material material;
+    private float fillValue = 1f;
 
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
+
+        GameObject childObject = transform.GetChild(0).gameObject;
+
+        material = childObject.GetComponent<Renderer>().material;
 
         for (int i = 0; i < shelfSpaces.Count; i++)
         {
@@ -38,9 +45,9 @@ public class ShelfManager : NetworkBehaviour
         if(!IsServer) return;
         // Cart life time
         lifeTime -= Time.deltaTime;
-        if (lifeTime <= 0)
+        if (lifeTime <= timeForShelfToDissolve)
         {
-            GetComponent<NetworkObject>().Despawn(true);
+            DeSpawnShelf();
         }
 
         // Check if all items are gone
@@ -51,9 +58,20 @@ public class ShelfManager : NetworkBehaviour
 
         if (currentNumOfItems <= 0)
         {
-            GetComponent<NetworkObject>().Despawn(true);
+            DeSpawnShelf();
         }
 
         currentNumOfItems = 0;
+    }
+
+    private void DeSpawnShelf()
+    {
+        fillValue = Mathf.Clamp(fillValue -= Time.deltaTime/timeForShelfToDissolve, 0f, 1f);
+        material.SetFloat("_Cutoff_Amount", fillValue);
+
+        if(fillValue <= 0)
+        {
+            GetComponent<NetworkObject>().Despawn(true);
+        }
     }
 }

@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 825916672
+  GlobalObjectIdHash: 607041542
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -382,7 +382,8 @@ MonoBehaviour:
   - {fileID: 7195110148642198511}
   - {fileID: 8334737824303400458}
   maxAmountOfItems: 5
-  lifeTime: 30
+  lifeTime: 2
+  timeForShelfToDissolve: 1
 --- !u!114 &7580405334039265439
 MonoBehaviour:
   m_ObjectHideFlags: 0
