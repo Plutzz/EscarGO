@@ -10,6 +10,7 @@ public class BatterShapingStation : SuperStation
     [SerializeField] private float goalRange = 1f;
     [SerializeField] private float goalSizeOfBatter = 0.7f;
     [SerializeField] private float cookTime = 5.0f;
+    [SerializeField] private float timeBeforeExpire = 5.0f;
     [SerializeField] private GameObject batterCircle;
     [SerializeField] private GameObject batterSpawnPoint;
     [SerializeField] private GameObject timerObject;
@@ -71,6 +72,7 @@ public class BatterShapingStation : SuperStation
             } else {
                 StationResultServerRPC(false);
             }
+
             itemReady = false;
             fillValue = 0f;
             timerObject.SetActive(false);
@@ -213,7 +215,9 @@ public class BatterShapingStation : SuperStation
         timerMaterial.SetFloat("_Border_Thickness", 1);
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
         timerMaterial.EnableKeyword("_USE_TEXTURE");
+
         yield return new WaitForSeconds(cookTime);
+
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
         if(IsServer)
             {
@@ -223,6 +227,26 @@ public class BatterShapingStation : SuperStation
             }
         Debug.Log("cooked");
         itemReady = true;
+
+        yield return new WaitForSeconds(timeBeforeExpire);
+
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+            StationResultServerRPC(false);
+        }
+
+        resultingItem = null;
+
+        itemReady = false;
+        fillValue = 0f;
+        timerObject.SetActive(false);
+        timerMaterial.SetFloat("_Fill_Amount", fillValue);
+        timerMaterial.DisableKeyword("_USE_TEXTURE");
+
     }
 
     //change isBattering

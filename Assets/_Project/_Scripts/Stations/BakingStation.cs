@@ -12,6 +12,7 @@ public class BakingStation : SuperStation
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private int maxTurns = 11;
     [SerializeField] private float bakeTime = 5.0f;
+    [SerializeField] private float timeBeforeExpire = 5.0f;
     [SerializeField] private GameObject leftKnob;
     [SerializeField] private GameObject middleKnob;
     [SerializeField] private GameObject rightKnob;
@@ -304,11 +305,32 @@ public class BakingStation : SuperStation
         timerMaterial.SetFloat("_Border_Thickness", 1);
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
         timerMaterial.EnableKeyword("_USE_TEXTURE");
+
         yield return new WaitForSeconds(bakeTime);
+        
         AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
         Debug.Log("baked");
         itemReady = true;
+
+        yield return new WaitForSeconds(timeBeforeExpire);
+
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+            StationResultClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+            StationResultServerRPC(false);
+        }
+
+        resultingItem = null;
+
+        itemReady = false;
+        fillValue = 0f;
+        timerObject.SetActive(false);
+        timerMaterial.SetFloat("_Fill_Amount", fillValue);
+        timerMaterial.DisableKeyword("_USE_TEXTURE");
     }
 
     //change isBaking
