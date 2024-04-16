@@ -136,8 +136,13 @@ public class CustomerMovement : NetworkBehaviour
         {
             SetAgentActive(false);
             transform.position = (assignedChair.transform.position) + transform.up * sittingOffsetY;
-            transform.position += transform.right * sittingOffsetX;
-            transform.position += transform.forward * sittingOffsetY;
+
+            Vector3 localRight = transform.rotation * Vector3.forward;
+            transform.position += localRight * sittingOffsetX;
+
+            Vector3 localForward = transform.rotation * Vector3.forward;
+            transform.position += localForward * sittingOffsetZ;
+
             transform.forward = -assignedChair.transform.right;
 
             // Select a random index within the bounds of the recipes array
