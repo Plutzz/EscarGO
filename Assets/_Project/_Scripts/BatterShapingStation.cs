@@ -64,8 +64,8 @@ public class BatterShapingStation : SuperStation
     {
         if (itemReady)
         {
-            StopCoroutine(Cook());
-            
+            StopAllCoroutines();
+
             inventory.TryAddItemToInventory(resultingItem);
 
             if(IsServer)
@@ -215,6 +215,7 @@ public class BatterShapingStation : SuperStation
             } else {
                 WaffleIronAnimationServerRPC("Close");
             }
+
         Debug.Log("cooking");
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
@@ -233,6 +234,12 @@ public class BatterShapingStation : SuperStation
         Debug.Log("cooked");
         itemReady = true;
 
+        StartCoroutine(Spoil());
+
+    }
+
+    private IEnumerator Spoil()
+    {
         yield return new WaitForSeconds(timeBeforeExpire);
 
         itemReady = false;
@@ -251,7 +258,6 @@ public class BatterShapingStation : SuperStation
         }
 
         resultingItem = null;
-
     }
 
     //change isBattering

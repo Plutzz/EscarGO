@@ -86,7 +86,7 @@ public class BakingStation : SuperStation
     {
         if (itemReady)
         {
-            StopCoroutine(Bake());
+            StopAllCoroutines();
 
             inventory.TryAddItemToInventory(resultingItem);
 
@@ -317,6 +317,12 @@ public class BakingStation : SuperStation
         Debug.Log("baked");
         itemReady = true;
 
+        StartCoroutine(Spoil());
+
+    }
+
+    private IEnumerator Spoil()
+    {
         yield return new WaitForSeconds(timeBeforeExpire);
 
         itemReady = false;
@@ -324,7 +330,7 @@ public class BakingStation : SuperStation
         timerObject.SetActive(false);
         timerMaterial.SetFloat("_Fill_Amount", fillValue);
         timerMaterial.DisableKeyword("_USE_TEXTURE");
-
+        
         if(IsServer)
         {
             UseStationClientRPC(false);
