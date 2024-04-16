@@ -2617,7 +2617,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  sittingDisplacement: -0.5
+  sittingOffsetX: 0.1973
+  sittingOffsetY: -0.57139
+  sittingOffsetZ: 0.2068
   assignedPlayer: 0
 --- !u!114 &5883625052867858416
 MonoBehaviour:

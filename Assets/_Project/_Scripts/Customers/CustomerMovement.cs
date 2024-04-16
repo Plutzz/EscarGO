@@ -7,7 +7,9 @@ using UnityEngine.AI;
 public class CustomerMovement : NetworkBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float sittingDisplacement;
+    [SerializeField] private float sittingOffsetX;
+    [SerializeField] private float sittingOffsetY;
+    [SerializeField] private float sittingOffsetZ = 0.1706f;
     public int assignedPlayer;
     private Chair assignedChair;
     private NavMeshAgent agent;
@@ -133,7 +135,14 @@ public class CustomerMovement : NetworkBehaviour
         if (other.gameObject == assignedChair.gameObject && !isLeaving)
         {
             SetAgentActive(false);
-            transform.position = assignedChair.transform.position + Vector3.up * sittingDisplacement;
+            transform.position = (assignedChair.transform.position) + transform.up * sittingOffsetY;
+
+            Vector3 localRight = transform.rotation * Vector3.forward;
+            transform.position += localRight * sittingOffsetX;
+
+            Vector3 localForward = transform.rotation * Vector3.forward;
+            transform.position += localForward * sittingOffsetZ;
+
             transform.forward = -assignedChair.transform.right;
 
             // Select a random index within the bounds of the recipes array
