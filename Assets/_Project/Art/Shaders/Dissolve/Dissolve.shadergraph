@@ -388,10 +388,10 @@
                 "m_Id": "145a29caa42046ac97573b2a52b75643"
             },
             {
-                "m_Id": "928295f3757b47a6916291683e14a4ee"
+                "m_Id": "d3764e67dc094212bb8387afce8604df"
             },
             {
-                "m_Id": "d3764e67dc094212bb8387afce8604df"
+                "m_Id": "928295f3757b47a6916291683e14a4ee"
             },
             {
                 "m_Id": "f75c70d7cc024eed8fd596b2402ae4b0"
@@ -1306,7 +1306,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Occlusion",
     "m_StageCapability": 2,
-    "m_Value": 1.0,
+    "m_Value": 0.0,
     "m_DefaultValue": 1.0,
     "m_Labels": []
 }
