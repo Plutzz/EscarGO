@@ -68,9 +68,11 @@ public class BatterShapingStation : SuperStation
 
             if(IsServer)
             {
+                UseStationClientRPC(false);
                 StationResultClientRPC(false);
             } else {
                 StationResultServerRPC(false);
+                UseStationServerRPC(false);
             }
 
             itemReady = false;
@@ -89,12 +91,6 @@ public class BatterShapingStation : SuperStation
     
     public override void DeActivate()
     {
-        if(IsServer)
-        {
-            UseStationClientRPC(false);
-        } else {
-            UseStationServerRPC(false);
-        }
 
         isBattering = false;
 

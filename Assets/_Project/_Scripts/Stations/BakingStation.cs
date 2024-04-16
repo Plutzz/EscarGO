@@ -90,9 +90,11 @@ public class BakingStation : SuperStation
 
             if(IsServer)
             {
+                UseStationClientRPC(false);
                 StationResultClientRPC(false);
             } else {
                 StationResultServerRPC(false);
+                UseStationServerRPC(false);
             }
 
             itemReady = false;
@@ -118,13 +120,6 @@ public class BakingStation : SuperStation
         leftSuccess = false;
         middleSuccess = false;
         rightSuccess = false;
-
-        if(IsServer)
-        {
-            UseStationClientRPC(false);
-        } else {
-            UseStationServerRPC(false);
-        }
 
         isBaking = false;
 
