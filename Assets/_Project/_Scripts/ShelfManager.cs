@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -15,15 +16,16 @@ public class ShelfManager : NetworkBehaviour
     public float timeForShelfToDissolve = 1f;
     int currentNumOfItems;
     private Material material;
+    private bool dissolving;
     private float fillValue = 1f;
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return;
-
         GameObject childObject = transform.GetChild(0).gameObject;
 
         material = childObject.GetComponent<Renderer>().material;
+
+        if (!IsServer) return;
 
         for (int i = 0; i < shelfSpaces.Count; i++)
         {
@@ -45,9 +47,10 @@ public class ShelfManager : NetworkBehaviour
         if(!IsServer) return;
         // Cart life time
         lifeTime -= Time.deltaTime;
-        if (lifeTime <= timeForShelfToDissolve)
+        if (lifeTime <= timeForShelfToDissolve && !dissolving)
         {
-            DeSpawnShelf();
+            dissolving = true;
+            DespawnShelfClientRpc();
         }
 
         // Check if all items are gone
@@ -56,22 +59,29 @@ public class ShelfManager : NetworkBehaviour
             currentNumOfItems += shelfSpaces[i].amountLeft;
         }
 
-        if (currentNumOfItems <= 0)
+        if (currentNumOfItems <= 0 && !dissolving)
         {
-            DeSpawnShelf();
+            dissolving = true;
+            DespawnShelfClientRpc();
         }
 
         currentNumOfItems = 0;
     }
 
-    private void DeSpawnShelf()
+    [ClientRpc]
+    private void DespawnShelfClientRpc()
     {
-        fillValue = Mathf.Clamp(fillValue -= Time.deltaTime/timeForShelfToDissolve, 0f, 1f);
-        material.SetFloat("_Cutoff_Amount", fillValue);
-
-        if(fillValue <= 0)
+        if(IsServer)
         {
-            GetComponent<NetworkObject>().Despawn(true);
+            DOTween.To(() => material.GetFloat("_Cutoff_Amount"), x => material.SetFloat("_Cutoff_Amount", x), 0f, 1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                GetComponent<NetworkObject>().Despawn(true);
+            });
         }
+        else
+        {
+            DOTween.To(() => material.GetFloat("_Cutoff_Amount"), x => material.SetFloat("_Cutoff_Amount", x), 0f, 1f).SetEase(Ease.Linear);
+        }
+        
     }
 }

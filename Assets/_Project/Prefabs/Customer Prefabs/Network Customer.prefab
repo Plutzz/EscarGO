@@ -2574,7 +2574,7 @@ MonoBehaviour:
     type: 3}
   orderObject: {fileID: 0}
   orderOffset: {x: 0, y: 2.5, z: 0}
-  patienceTime: 300
+  patienceTime: 10
   assignedPlayer: 0
   orderReceived: 0
 --- !u!54 &1962732025010211279
