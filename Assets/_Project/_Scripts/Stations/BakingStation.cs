@@ -86,8 +86,8 @@ public class BakingStation : SuperStation
     {
         if (itemReady)
         {
-            StopCoroutine(Cook());
-            
+            StopCoroutine(Bake());
+
             inventory.TryAddItemToInventory(resultingItem);
 
             if(IsServer)
