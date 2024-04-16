@@ -102,12 +102,7 @@ public class ScoringSingleton : NetworkSingleton<ScoringSingleton>
     [ClientRpc]
     private void SetupPlayerNameClientRpc(int playerNumber, ClientRpcParams rpcParams)
     {
-        GetPlayerNameAsync(playerNumber);
-    }
-
-    private async void GetPlayerNameAsync(int playerNumber)
-    {
-        string playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
+        string playerName = AuthenticationService.Instance.PlayerName;
         SetPlayerNameServerRpc(playerName, playerNumber);
     }
 
