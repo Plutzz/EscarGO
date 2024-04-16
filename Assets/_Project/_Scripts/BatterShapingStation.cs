@@ -64,6 +64,8 @@ public class BatterShapingStation : SuperStation
     {
         if (itemReady)
         {
+            StopCoroutine(Cook());
+            
             inventory.TryAddItemToInventory(resultingItem);
 
             if(IsServer)
@@ -93,6 +95,13 @@ public class BatterShapingStation : SuperStation
     {
 
         isBattering = false;
+
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+        }
 
         Destroy(playerBatter);
         playerHoldTimer = 0;
@@ -226,6 +235,12 @@ public class BatterShapingStation : SuperStation
 
         yield return new WaitForSeconds(timeBeforeExpire);
 
+        itemReady = false;
+        fillValue = 0f;
+        timerObject.SetActive(false);
+        timerMaterial.SetFloat("_Fill_Amount", fillValue);
+        timerMaterial.DisableKeyword("_USE_TEXTURE");
+        
         if(IsServer)
         {
             UseStationClientRPC(false);
@@ -236,12 +251,6 @@ public class BatterShapingStation : SuperStation
         }
 
         resultingItem = null;
-
-        itemReady = false;
-        fillValue = 0f;
-        timerObject.SetActive(false);
-        timerMaterial.SetFloat("_Fill_Amount", fillValue);
-        timerMaterial.DisableKeyword("_USE_TEXTURE");
 
     }
 

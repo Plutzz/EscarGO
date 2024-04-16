@@ -15,9 +15,7 @@ public class CraftingSpace : InteractableSpace
         {
             TipsManager.Instance.SetTip("Station in use", 3f);
             return;
-        }
-
-        if (station.ActivityResult)
+        } else if (station.ActivityResult)
         {
             station.GetItem();
         }

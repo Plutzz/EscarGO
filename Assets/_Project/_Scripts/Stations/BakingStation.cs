@@ -86,6 +86,8 @@ public class BakingStation : SuperStation
     {
         if (itemReady)
         {
+            StopCoroutine(Cook());
+            
             inventory.TryAddItemToInventory(resultingItem);
 
             if(IsServer)
@@ -122,6 +124,13 @@ public class BakingStation : SuperStation
         rightSuccess = false;
 
         isBaking = false;
+
+        if(IsServer)
+        {
+            UseStationClientRPC(false);
+        } else {
+            UseStationServerRPC(false);
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
@@ -310,6 +319,12 @@ public class BakingStation : SuperStation
 
         yield return new WaitForSeconds(timeBeforeExpire);
 
+        itemReady = false;
+        fillValue = 0f;
+        timerObject.SetActive(false);
+        timerMaterial.SetFloat("_Fill_Amount", fillValue);
+        timerMaterial.DisableKeyword("_USE_TEXTURE");
+
         if(IsServer)
         {
             UseStationClientRPC(false);
@@ -320,12 +335,6 @@ public class BakingStation : SuperStation
         }
 
         resultingItem = null;
-
-        itemReady = false;
-        fillValue = 0f;
-        timerObject.SetActive(false);
-        timerMaterial.SetFloat("_Fill_Amount", fillValue);
-        timerMaterial.DisableKeyword("_USE_TEXTURE");
     }
 
     //change isBaking
