@@ -111,7 +111,7 @@ MonoBehaviour:
   patienceTime: 300
   assignedPlayer: 0
   orderReceived: 0
-  scoreTextPrefab: {fileID: 1957897826193110936, guid: 5957ede1afe365a40b3e29ca90b031c8,
+  scoreText3DPrefab: {fileID: 1935195491132630097, guid: 8d230a1648b93a54db39a8b03367fed6,
     type: 3}
 --- !u!54 &1962732025010211279
 Rigidbody:

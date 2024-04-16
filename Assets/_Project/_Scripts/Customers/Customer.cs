@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-//using UnityEngine.UI;
 using TMPro;
 
 public class Customer : NetworkBehaviour
@@ -26,9 +25,12 @@ public class Customer : NetworkBehaviour
     public bool orderReceived;
     private Chair currentChair;
 
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI scoreTextPrefab; 
-    private TextMeshProUGUI scoreTextInstance; 
+    //[Header("UI")]
+    //[SerializeField] private TextMeshProUGUI scoreTextPrefab; 
+    //private TextMeshProUGUI scoreTextInstance; 
+
+    [SerializeField] private GameObject scoreText3DPrefab; 
+    private GameObject scoreText3DInstance;
 
     private Animator animator;
 
@@ -207,10 +209,10 @@ public class Customer : NetworkBehaviour
 
     private void DisplayPointsEarned(int pointsEarned)
     {
-        TextMeshProUGUI scoreTextInstance = Instantiate(scoreTextPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
-        scoreTextInstance.transform.SetParent(transform);
-        scoreTextInstance.transform.localPosition = Vector3.up * 2;
-        scoreTextInstance.text = "+" + pointsEarned.ToString();
+        scoreText3DInstance = Instantiate(scoreText3DPrefab, orderObject.transform.position, Quaternion.identity);
+        scoreText3DInstance.transform.SetParent(orderObject.transform);
+        scoreText3DInstance.transform.localPosition = Vector3.up;
+        scoreText3DInstance.GetComponent<TextMeshPro>().text = "+" + pointsEarned.ToString();
     }
 }
 
