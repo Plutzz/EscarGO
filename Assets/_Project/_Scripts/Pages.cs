@@ -25,6 +25,16 @@ public class Pages : NetworkBehaviour
         //previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
     }
 
+    public void ChangeNextPage()
+    {
+        ChangeNextPageServerRpc(currentPage);
+    }
+
+    public void ChangePrevPage()
+    {
+        ChangePrevPageServerRpc(currentPage);   
+    }
+
     [ClientRpc]
     public void ChangePageClientRpc(int page)
     {
@@ -36,21 +46,6 @@ public class Pages : NetworkBehaviour
         pages[page].SetActive(true);
         //nextPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
         //previousPage.SetTexture("_Texture", pages[currentPage % pages.Length]);
-    }
-
-    void Update()
-    {
-        //if (playerInRange != null && playerInRange.GetComponent<NetworkObject>().IsOwner)
-        //{
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ChangeNextPageServerRpc(currentPage);
-            }
-            else if (Input.GetKeyDown(KeyCode.Q))
-            {
-                ChangePrevPageServerRpc(currentPage);
-            }
-        //}
     }
 
     [ServerRpc(RequireOwnership = false)]

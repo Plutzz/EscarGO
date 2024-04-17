@@ -45,6 +45,35 @@ public class PlayerInteractions : NetworkBehaviour
             CheckForTrash();
             CheckForCustomer();
         }
+
+        //Change book pages
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
+        
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                if (hit.collider.CompareTag("Book"))
+                {
+                    hit.collider.gameObject.GetComponent<Pages>().ChangePrevPage();
+                }
+            }
+        } else if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
+        
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                if (hit.collider.CompareTag("Book"))
+                {
+                    hit.collider.gameObject.GetComponent<Pages>().ChangeNextPage();
+                }
+            }
+        }
     }
 
     private void CheckForInteractable()
