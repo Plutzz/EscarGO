@@ -73,6 +73,8 @@ public class PlayerAnim : NetworkBehaviour
             case PlayerInteractState _:
                 anim.SetTrigger("Cooking");
                 break;
+            case PlayerEventState _:
+                break;
             case PlayerIdleState _:
                 anim.SetTrigger("Idle");
                 break;
