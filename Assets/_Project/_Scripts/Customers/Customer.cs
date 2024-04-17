@@ -82,7 +82,12 @@ public class Customer : NetworkBehaviour
     [ClientRpc]
     public void GetCustomerOrderClientRpc(ClientRpcParams sendParams)
     {
-        orderObject.SetActive(true);
+        GetCustomerOrder(true);
+    }
+
+    public void GetCustomerOrder(bool showItem)
+    {
+        orderObject.SetActive(showItem);
         // Set the order sprite to the item's sprite
         criteria = Instantiate(CustomerSpawner.Instance.GetCriteria());
 
@@ -104,8 +109,14 @@ public class Customer : NetworkBehaviour
         
         if (gotOrder)
         {
+            Debug.Log("Singleton Instance " + ScoringSingleton.Instance);
+            Debug.Log("assignedPlayer " + assignedPlayer);
+            Debug.Log("critera " + criteria);
+            Debug.Log("score " + criteria.score);
             ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
             ActivateTimerClientRpc(false);
+
+            // Timer for customer eating
             StartCoroutine(FufillOrderWait(10));
         }
         else

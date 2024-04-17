@@ -146,8 +146,11 @@ public class CustomerMovement : NetworkBehaviour
             transform.forward = -assignedChair.transform.right;
 
             // Select a random index within the bounds of the recipes array
+            // Gets the customer's order on the server for scoring
+            customer.GetCustomerOrder(false);
             //int randomIndex = Random.Range(0, CustomerSpawner.Instance.recipes.Length);
-            customer.GetCustomerOrderClientRpc(new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { ScoringSingleton.Instance.GetPlayerStats()[assignedPlayer].clientId } } }); ;
+            customer.GetCustomerOrderClientRpc(new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { ScoringSingleton.Instance.GetPlayerStats()[assignedPlayer].clientId} } }); ;
+
 
             // Start Patience Timer
             customer.ActivateTimerClientRpc(true);
