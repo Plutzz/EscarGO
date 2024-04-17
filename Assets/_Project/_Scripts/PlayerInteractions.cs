@@ -51,8 +51,7 @@ public class PlayerInteractions : NetworkBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
         
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, raycastLength))
             {
 
                 if (hit.collider.CompareTag("Book"))
@@ -64,8 +63,7 @@ public class PlayerInteractions : NetworkBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
         
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, raycastLength))
             {
 
                 if (hit.collider.CompareTag("Book"))
