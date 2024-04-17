@@ -22,6 +22,7 @@ public class LobbyUIItem : MonoBehaviour
     [SerializeField] private TMP_Text mapNameUI;
     [SerializeField] private TMP_Text gamemodeUI;
     [SerializeField] private TMP_Text playerCountUI;
+    [SerializeField] private GameObject joinButton;
 
     // Update is called once per frame
     void Update()
@@ -30,6 +31,8 @@ public class LobbyUIItem : MonoBehaviour
         mapNameUI.text = mapName;
         gamemodeUI.text = gamemode;
         playerCountUI.text = currentPlayers + "/" + maxPlayers;
+
+        joinButton.SetActive(currentPlayers < maxPlayers);
     }
 
     public void JoinGame()

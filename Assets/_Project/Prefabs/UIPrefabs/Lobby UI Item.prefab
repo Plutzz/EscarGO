@@ -803,7 +803,7 @@ MonoBehaviour:
   gamemode: 
   currentPlayers: 1
   maxPlayers: 4
-  lobbyCode: 
+  lobbyID: 
   lobbyAPI: {fileID: 0}
   lobbyUI: {fileID: 0}
   lobbyGameUI: {fileID: 0}
@@ -811,6 +811,7 @@ MonoBehaviour:
   mapNameUI: {fileID: 5339750572471552307}
   gamemodeUI: {fileID: 6972395652444424800}
   playerCountUI: {fileID: 8725799113959200233}
+  joinButton: {fileID: 5206616301566551621}
 --- !u!1 &8513171284345573187
 GameObject:
   m_ObjectHideFlags: 0
