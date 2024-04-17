@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1354851925
+  GlobalObjectIdHash: 1295093547
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 0
   ActiveSceneSynchronization: 1
@@ -889,7 +889,7 @@ MonoBehaviour:
   buttonPromptObj: {fileID: 7913257529876190508}
   buttonPromptDetailsObj: {fileID: 8967317743496367340, guid: e54316cb2345eec439d7fd3d66f5e4c8,
     type: 3}
-  rayLength: 5
+  rayLength: 1
 --- !u!114 &8093212699818107897
 MonoBehaviour:
   m_ObjectHideFlags: 0
