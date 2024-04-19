@@ -47,5 +47,10 @@ public class PlayerIdleVinh : PlayerIdleSOBase
         {
             stateMachine.ChangeState(stateMachine.MovingState);
         }
+        else if (stateMachine.TryingThrow())
+        {
+            Debug.Log("Moving to throw state");
+            stateMachine.ChangeState(stateMachine.ThrowingState);
+        }
     }
 }
