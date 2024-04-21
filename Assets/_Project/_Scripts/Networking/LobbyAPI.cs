@@ -17,6 +17,48 @@ public class LobbyAPI : MonoBehaviour
 {
     public event Action<List<Lobby>> LobbiesUpdated;
 
+    // Singleton pattern
+    private static LobbyAPI instance;
+    public static LobbyAPI Instance
+    {
+        get
+        {
+            // Check if the instance is null (first time access or after scene change)
+            if (instance == null)
+            {
+                // Attempt to find an existing instance in the scene
+                instance = FindObjectOfType<LobbyAPI>();
+
+                // If no instance was found, create a new GameObject to host the script
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject("LobbyAPI");
+                    instance = singletonObject.AddComponent<LobbyAPI>();
+                }
+            }
+
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        // Ensure there's only one instance of the singleton
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Persist across scene changes
+        }
+        else
+        {
+            // If an instance already exists and it's not this one, destroy this duplicate
+            if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     // private string lobbyName = "Lobby name";
     // private int maxPlayers = 4;
     private float heartbeatTimeMax = 15f;
@@ -324,15 +366,33 @@ public class LobbyAPI : MonoBehaviour
         }
     }
 
-    private async void LeaveLobby()
+    public async void LeaveLobby()
     {
         try
         {
-            await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+            if (joinedLobby != null)
+            {
+                // Remove the current player from the joined lobby
+                await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+
+                // Clean up lobby references
+                hostLobby = null;
+                joinedLobby = null;
+
+                NetworkManager.Singleton.Shutdown();
+
+                Debug.Log("Left the lobby successfully.");
+                Destroy(GameObject.FindGameObjectWithTag("NetworkManager"));
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                Debug.LogWarning("No lobby to leave.");
+            }
         }
-        catch(LobbyServiceException e)
+        catch (LobbyServiceException e)
         {
-            Debug.Log(e);
+            Debug.Log("Error leaving lobby: " + e.Message);
         }
     }
 
