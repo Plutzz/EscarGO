@@ -85,19 +85,20 @@ public class LobbyUI : MonoBehaviour
         string joinCode = joinCodeInput.text;
 
         lobbyAPI.JoinLobbyByCode(joinCode);
+        joinCodeInput.text = "";
+        gameObject.SetActive(false);
+        lobbyGameUI.SetActive(true);
 
 
-        if (lobbyAPI.GetJoinedLobby() != null)
-        {
-            joinCodeInput.text = "";
-            gameObject.SetActive(false);
-            lobbyGameUI.SetActive(true);
-        }
-        else
-        {
-            // Any other logic here, perhaps error message
-            Debug.Log("Lobby NOT FOUND");
-        }
+        // if (lobbyAPI.GetJoinedLobby() != null)
+        // {
+            
+        // }
+        // else
+        // {
+        //     // Any other logic here, perhaps error message
+        //     Debug.Log("Lobby NOT FOUND");
+        // }
     }
 
     private void BuildLobbyItem(string lobbyName, string mapName, string gamemode, int currPlayers, int maxPlayers, string lobbyID)
