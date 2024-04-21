@@ -8,7 +8,7 @@ using Unity.Services.Lobbies.Models;
 
 public class LobbyUI : MonoBehaviour
 {
-    [SerializeField] private LobbyAPI lobbyAPI;
+    private LobbyAPI lobbyAPI;
 
     [SerializeField] private GameObject lobbyHolder;
     [SerializeField] private GameObject lobbyItemUI;
@@ -22,6 +22,7 @@ public class LobbyUI : MonoBehaviour
 
     public void Start()
     {
+        lobbyAPI = LobbyAPI.Instance;
         lobbyAPI.LobbiesUpdated += UpdateLobbyListClient;
         refreshTimeCD = autoRefreshTime;
     }

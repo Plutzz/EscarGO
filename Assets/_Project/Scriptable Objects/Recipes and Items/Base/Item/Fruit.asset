@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Fruit
   itemSprite: {fileID: 21300000, guid: fa01e92821e31b244a72e8304a6876f5, type: 3}
+  itemMesh: {fileID: 4300000, guid: ec48e62f65afd154aa52cb3be139e40b, type: 2}
   itemDescription: its healthly
   maxTimeInInventory: 40
   currentTimeInInventory: 0

@@ -14,7 +14,7 @@ public class SettingsMenu : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         gameObject.SetActive(false); // Disable gameObject on spawn (because you can't spawn a disabled game object)
-        lobbyAPI = GameObject.FindGameObjectWithTag("LobbyAPI").GetComponent<LobbyAPI>();
+        lobbyAPI = LobbyAPI.Instance;
 
         if (!IsOwner)
         {

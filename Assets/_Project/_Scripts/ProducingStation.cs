@@ -8,6 +8,7 @@ public class ProducingStation : InteractableSpace
     public Item producedItem;
     public int amountLeft;
     public string stationName;
+    [SerializeField] private Material[] foodMaterials;
 
     public void AssignItem(Item item)
     {
@@ -37,8 +38,8 @@ public class ProducingStation : InteractableSpace
 
     public void AddModelToShelf(Item item, int count)
     {
-        float spacingFactorX = 0.008f;
-        float spacingFactorY = 0.005f;
+        float spacingFactorX = 0.040f;
+        float spacingFactorY = 0.025f;
 
         // Create a new gameobject to hold the model and set it as a child of the shelf space
         // Change to 3D model later
@@ -51,13 +52,13 @@ public class ProducingStation : InteractableSpace
             item_model.transform.SetParent(this.transform);
 
             item_model.AddComponent<MeshFilter>().mesh = item.itemMesh;
-            item_model.AddComponent<MeshRenderer>();
+            item_model.AddComponent<MeshRenderer>().materials = foodMaterials;
 
             //item_model.AddComponent<SpriteRenderer>();
             //item_model.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
 
-            item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, randomY, 0), Quaternion.Euler(90, 0, 0));
-            item_model.transform.localScale = new Vector3(0.0004f, 0.0004f, 0.0004f);
+            item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, randomY, 0), Quaternion.Euler(0, 0, 0));
+            item_model.transform.localScale = new Vector3(10f, 10f, 10f);
         }
             
         

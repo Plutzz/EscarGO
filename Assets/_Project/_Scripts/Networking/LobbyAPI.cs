@@ -13,50 +13,37 @@ using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using TMPro;
 
-public class LobbyAPI : MonoBehaviour
+public class LobbyAPI : SingletonPersistent<LobbyAPI>
 {
     public event Action<List<Lobby>> LobbiesUpdated;
 
-    // Singleton pattern
-    private static LobbyAPI instance;
-    public static LobbyAPI Instance
+    //// Singleton pattern
+    //private static LobbyAPI instance;
+    //public static LobbyAPI Instance
+    //{
+    //    get
+    //    {
+    //        // Check if the instance is null (first time access or after scene change)
+    //        if (instance == null)
+    //        {
+    //            // Attempt to find an existing instance in the scene
+    //            instance = FindObjectOfType<LobbyAPI>();
+
+    //            // If no instance was found, create a new GameObject to host the script
+    //            if (instance == null)
+    //            {
+    //                GameObject singletonObject = new GameObject("LobbyAPI");
+    //                instance = singletonObject.AddComponent<LobbyAPI>();
+    //            }
+    //        }
+
+    //        return instance;
+    //    }
+    //}
+
+    protected override void Awake()
     {
-        get
-        {
-            // Check if the instance is null (first time access or after scene change)
-            if (instance == null)
-            {
-                // Attempt to find an existing instance in the scene
-                instance = FindObjectOfType<LobbyAPI>();
-
-                // If no instance was found, create a new GameObject to host the script
-                if (instance == null)
-                {
-                    GameObject singletonObject = new GameObject("LobbyAPI");
-                    instance = singletonObject.AddComponent<LobbyAPI>();
-                }
-            }
-
-            return instance;
-        }
-    }
-
-    private void Awake()
-    {
-        // Ensure there's only one instance of the singleton
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scene changes
-        }
-        else
-        {
-            // If an instance already exists and it's not this one, destroy this duplicate
-            if (instance != this)
-            {
-                Destroy(gameObject);
-            }
-        }
+        base.Awake();
     }
 
     // private string lobbyName = "Lobby name";

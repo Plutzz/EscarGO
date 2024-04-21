@@ -33,7 +33,7 @@ public class CartManager : NetworkBehaviour
     {
         for (int i = 0; i < amountOfCarts; i++)
         {
-            GameObject cart = Instantiate(cartPrefab, spawnPoint.position, new Quaternion(-0.5f, 0.5f, 0.5f, 0.5f));
+            GameObject cart = Instantiate(cartPrefab, spawnPoint.position, Quaternion.identity);
             Rigidbody rb = cart.GetComponentInChildren<Rigidbody>();
             rb.velocity = new Vector3(-cartSpeed, 0, 0);
             rb.angularVelocity = new Vector3(0, 1, 0);

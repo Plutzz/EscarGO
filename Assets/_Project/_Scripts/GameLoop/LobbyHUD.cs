@@ -6,11 +6,14 @@ using TMPro;
 
 public class LobbyHUD : MonoBehaviour
 {
-    [SerializeField] private LobbyAPI lobbyAPI;
+    private LobbyAPI lobbyAPI;
 
     [SerializeField] private TMP_Text lobbyCodeText;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        lobbyAPI = LobbyAPI.Instance;
+    }
     void Update()
     {
         lobbyCodeText.text = lobbyAPI.GetLobbyCode();

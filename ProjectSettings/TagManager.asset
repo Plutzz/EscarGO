@@ -9,6 +9,8 @@ TagManager:
   - Chair
   - LobbyItem
   - Book
+  - NetworkManager
+  - LobbyAPI
   layers:
   - Default
   - TransparentFX

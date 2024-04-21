@@ -6,7 +6,7 @@ using TMPro;
 
 public class HostGameUI : MonoBehaviour
 {
-    [SerializeField] private LobbyAPI lobbyAPI;
+    private LobbyAPI lobbyAPI;
 
     [SerializeField] private TMP_InputField lobbyName;
     [SerializeField] private TMP_Dropdown maxPlayers;
@@ -19,6 +19,10 @@ public class HostGameUI : MonoBehaviour
     // This exists for testing
     [SerializeField] private GameObject lobbyUI;
 
+    private void Start()
+    {
+        lobbyAPI = LobbyAPI.Instance;
+    }
     public void HostLobby()
     {
         lobbyAPI.CreateLobby(lobbyName.text, 
