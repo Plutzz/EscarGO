@@ -158,6 +158,11 @@ public class PlayerStateMachine : NetworkBehaviour
         return inputManager.JumpIsPressed;
     }
 
+    public void Stunned()
+    {
+        ChangeState(EventState);
+    }
+
     #endregion
 
 }
