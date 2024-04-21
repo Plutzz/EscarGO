@@ -8,6 +8,8 @@ TagManager:
   - Knob
   - Chair
   - LobbyItem
+  - LobbyAPI
+  - NetworkManager
   layers:
   - Default
   - TransparentFX
