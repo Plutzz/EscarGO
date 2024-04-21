@@ -18,9 +18,9 @@ public class FoodProjectile : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerStateMachine>().Stunned();
+            other.gameObject.GetComponent<PlayerStateMachine>().Stunned();
         }
     }
 
