@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "Moving", menuName = "Player Logic/Moving Logic/Default")]
-public class PlayerMovingVinh : PlayerMovingSOBase
+public class PlayerMovingVinh : PlayerThrowingSOBase
 {
     [Header("Movement Variables")]
     private Vector3 moveDirection = Vector3.zero;
@@ -55,6 +55,11 @@ public class PlayerMovingVinh : PlayerMovingSOBase
         if (!stateMachine.GroundedCheck())
         {
             stateMachine.ChangeState(stateMachine.AirborneState);
+        } 
+        else if (stateMachine.TryingThrow()) 
+        {
+            //Debug.Log("Moving to throw state");
+            stateMachine.ChangeState(stateMachine.ThrowingState);
         }
         // Moving => Idle
         else if (stateMachine.inputManager.MoveInput == Vector2.zero && rb.velocity.magnitude < 3f)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MovingTD", menuName = "Player Logic/Moving Logic/Top Down")]
-public class PlayerMoveTD : PlayerMovingSOBase
+public class PlayerMoveTD : PlayerThrowingSOBase
 {
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {

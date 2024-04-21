@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1354851925
+  GlobalObjectIdHash: 1295093547
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 0
   ActiveSceneSynchronization: 1
@@ -651,6 +651,7 @@ MonoBehaviour:
   playerMovingBase: {fileID: 11400000, guid: b4b583be0f7a9674bae4d2cbd2df79e7, type: 2}
   playerAirborneBase: {fileID: 11400000, guid: 632e1f98e53bf454ebf8f4cd688aa167, type: 2}
   playerInteractBase: {fileID: 11400000, guid: da41ef0fbe17e2340af23aa64c52febf, type: 2}
+  playerThrowingBase: {fileID: 11400000, guid: 76638929c9d5e1d449b6d11a33d76c1b, type: 2}
   groundLayer:
     serializedVersion: 2
     m_Bits: 18433
