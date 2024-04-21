@@ -382,8 +382,9 @@ public class LobbyAPI : MonoBehaviour
                 NetworkManager.Singleton.Shutdown();
 
                 Debug.Log("Left the lobby successfully.");
-                Destroy(GameObject.FindGameObjectWithTag("NetworkManager"));
-                Destroy(this.gameObject);
+                Destroy(NetworkManager.Singleton?.gameObject);
+                Destroy(AudioManager.Instance?.gameObject);
+                Destroy(gameObject);
             }
             else
             {

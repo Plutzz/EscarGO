@@ -7,6 +7,7 @@ public class Item : ScriptableObject
 {
     public string itemName;
     public Sprite itemSprite;
+    public Mesh itemMesh;
     public string itemDescription;
 
     public float maxTimeInInventory;
@@ -17,7 +18,7 @@ public class Item : ScriptableObject
         this.itemName = item.itemName;
         this.itemSprite = item.itemSprite;
         this.itemDescription = item.itemDescription;
-
+        this.itemMesh = item.itemMesh;
         this.maxTimeInInventory = item.maxTimeInInventory;
         this.failedItem = item.failedItem;
         /*if (item.failedItem != null) { 

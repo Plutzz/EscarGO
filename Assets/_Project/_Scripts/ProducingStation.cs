@@ -50,8 +50,11 @@ public class ProducingStation : InteractableSpace
             GameObject item_model = new GameObject(item.itemName + " Model");
             item_model.transform.SetParent(this.transform);
 
-            item_model.AddComponent<SpriteRenderer>();
-            item_model.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
+            item_model.AddComponent<MeshFilter>().mesh = item.itemMesh;
+            item_model.AddComponent<MeshRenderer>();
+
+            //item_model.AddComponent<SpriteRenderer>();
+            //item_model.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
 
             item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, randomY, 0), Quaternion.Euler(90, 0, 0));
             item_model.transform.localScale = new Vector3(0.0004f, 0.0004f, 0.0004f);
