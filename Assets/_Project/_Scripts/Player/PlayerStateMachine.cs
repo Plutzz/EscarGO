@@ -18,6 +18,7 @@ public class PlayerStateMachine : NetworkBehaviour
     public PlayerAirborneState AirborneState;
     public PlayerInteractState InteractState;
     public PlayerThrowingState ThrowingState;
+    public PlayerEventState EventState;
 
 
     #region ScriptableObject Variables
@@ -27,12 +28,14 @@ public class PlayerStateMachine : NetworkBehaviour
     [SerializeField] private PlayerAirborneSOBase playerAirborneBase;
     [SerializeField] private PlayerInteractSOBase playerInteractBase;
     [SerializeField] private PlayerThrowingSOBase playerThrowingBase;
+    [SerializeField] private PlayerEventSOBase playerEventBase;
 
     public PlayerIdleSOBase PlayerIdleBaseInstance { get; private set; }
     public PlayerThrowingSOBase PlayerMovingBaseInstance { get; private set; }
     public PlayerAirborneSOBase PlayerAirborneBaseInstance { get; private set; }
     public PlayerInteractSOBase PlayerInteractBaseInstance { get; private set; }
     public PlayerThrowingSOBase PlayerThrowingBaseInstance { get; private set; }
+    public PlayerEventSOBase PlayerEventBaseInstance { get; private set; }
 
     #endregion
 
@@ -76,6 +79,7 @@ public class PlayerStateMachine : NetworkBehaviour
         PlayerAirborneBaseInstance = Instantiate(playerAirborneBase);
         PlayerInteractBaseInstance = Instantiate(playerInteractBase);
         PlayerThrowingBaseInstance = Instantiate(playerThrowingBase);
+        PlayerEventBaseInstance = Instantiate(playerEventBase);
 
 
         IdleState = new PlayerIdleState(this);
@@ -83,13 +87,14 @@ public class PlayerStateMachine : NetworkBehaviour
         AirborneState = new PlayerAirborneState(this);
         InteractState = new PlayerInteractState(this);
         ThrowingState = new PlayerThrowingState(this);
-
+        EventState = new PlayerEventState(this);
 
         PlayerIdleBaseInstance.Initialize(gameObject, this);
         PlayerMovingBaseInstance.Initialize(gameObject, this);
         PlayerAirborneBaseInstance.Initialize(gameObject, this);
         PlayerInteractBaseInstance.Initialize(gameObject, this);
         PlayerThrowingBaseInstance.Initialize(gameObject, this);
+        PlayerEventBaseInstance.Initialize(gameObject, this);
 
         initialState = IdleState;
         startYScale = gameObject.transform.localScale.y;

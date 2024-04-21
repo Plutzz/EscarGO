@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a953be4e45963b94e8912c6e377805af, type: 3}
-  m_Name: Moving
+  m_Script: {fileID: 11500000, guid: ab15e9d76c87fbd4cba40952d9cc4265, type: 3}
+  m_Name: Event
   m_EditorClassIdentifier: 
+  groundDrag: 0
+  isStunned: 1
+  stunTime: 3
