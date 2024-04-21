@@ -8,7 +8,9 @@ public class Item : ScriptableObject
     public string itemName;
     public Sprite itemSprite;
     public Mesh itemMesh;
+    public GameObject itemPrefab;
     public string itemDescription;
+    
 
     public float maxTimeInInventory;
     [HideInInspector] public float currentTimeInInventory;
@@ -21,6 +23,7 @@ public class Item : ScriptableObject
         this.itemMesh = item.itemMesh;
         this.maxTimeInInventory = item.maxTimeInInventory;
         this.failedItem = item.failedItem;
+        this.itemPrefab = item.itemPrefab;
         /*if (item.failedItem != null) { 
             this.failedItem.CopyData(item.failedItem);
         }*/

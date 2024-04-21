@@ -15,6 +15,8 @@ MonoBehaviour:
   itemName: Dough
   itemSprite: {fileID: 21300000, guid: f4e87d411e8e14041ac7d71c58cda9f7, type: 3}
   itemMesh: {fileID: 4300000, guid: 9e17c6cb852680a4c93a04fa65f0d905, type: 2}
+  itemPrefab: {fileID: 533302523159849614, guid: 3dcf623895deb15498b2f3a13e9f025a,
+    type: 3}
   itemDescription: Pretty versatile
   maxTimeInInventory: 40
   currentTimeInInventory: 0

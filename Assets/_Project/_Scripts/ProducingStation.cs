@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ProducingStation : InteractableSpace
 {
+    [SerializeField] float spacingFactorX;
+    [SerializeField] float spacingFactorZ;
+    [SerializeField] float shelfY;
     public Item producedItem;
     public int amountLeft;
     public string stationName;
@@ -38,27 +41,29 @@ public class ProducingStation : InteractableSpace
 
     public void AddModelToShelf(Item item, int count)
     {
-        float spacingFactorX = 0.040f;
-        float spacingFactorY = 0.025f;
-
         // Create a new gameobject to hold the model and set it as a child of the shelf space
         // Change to 3D model later
         for (int j = 0; j < count; j++)
         {
             float randomX = Random.Range(-spacingFactorX, spacingFactorX);
-            float randomY = Random.Range(-spacingFactorY, spacingFactorY);
+            float randomZ = Random.Range(-spacingFactorZ, spacingFactorZ);
 
-            GameObject item_model = new GameObject(item.itemName + " Model");
-            item_model.transform.SetParent(this.transform);
+            // NO PREFAB METHOD
 
-            item_model.AddComponent<MeshFilter>().mesh = item.itemMesh;
-            item_model.AddComponent<MeshRenderer>().materials = foodMaterials;
+            //GameObject item_model = new GameObject(item.itemName + " Model");
+            //item_model.transform.SetParent(this.transform);
 
-            //item_model.AddComponent<SpriteRenderer>();
-            //item_model.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
+            //item_model.AddComponent<MeshFilter>().mesh = item.itemMesh;
+            //item_model.AddComponent<MeshRenderer>().materials = foodMaterials;
 
-            item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, randomY, 0), Quaternion.Euler(0, 0, 0));
-            item_model.transform.localScale = new Vector3(10f, 10f, 10f);
+            //item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, shelfY, randomZ), Quaternion.Euler(-90, 0, 0));
+            //item_model.transform.localScale = new Vector3(15f, 15f, 15f);
+
+            // PREFAB METHOD
+
+            GameObject item_model = Instantiate(item.itemPrefab, transform);
+            item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, shelfY, randomZ), item_model.transform.localRotation);
+
         }
             
         
