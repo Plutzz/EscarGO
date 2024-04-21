@@ -65,7 +65,9 @@ public class PlayerAnim : NetworkBehaviour
                     anim.SetTrigger("Idle");
                 break;
             case PlayerMovingState _:
-                if (playerInputActions.SprintIsPressed)
+                if (playerInputActions.CrouchIsPressed)
+                    anim.SetTrigger("Crouching");
+                else if (playerInputActions.SprintIsPressed)
                     anim.SetTrigger("Run");
                 else
                     anim.SetTrigger("Jogging");
@@ -76,7 +78,10 @@ public class PlayerAnim : NetworkBehaviour
             case PlayerEventState _:
                 break;
             case PlayerIdleState _:
-                anim.SetTrigger("Idle");
+                if (playerInputActions.CrouchIsPressed)
+                    anim.SetTrigger("Crouching");
+                else
+                    anim.SetTrigger("Idle");
                 break;
         }
     }
