@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab15e9d76c87fbd4cba40952d9cc4265, type: 3}
   m_Name: Event
   m_EditorClassIdentifier: 
-  groundDrag: 0
+  groundDrag: 2
   isStunned: 1
   stunTime: 3

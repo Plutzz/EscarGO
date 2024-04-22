@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -69,6 +70,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         {
             if (chargeTimer > timeToChargeThrow) {
                 Throw();
+                chargeTimer = float.MinValue;
             }
             stateMachine.ChangeState(stateMachine.MovingState);
         }
@@ -91,8 +93,10 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     #endregion
     private void Throw() {
+
         FoodProjectile NewProjectile = Instantiate(projectile, gameObject.transform.position + stateMachine.orientation.forward, stateMachine.orientation.rotation);
         NewProjectile.Launch();
+        NewProjectile.ThrowServerRpc();
 
         return;
 

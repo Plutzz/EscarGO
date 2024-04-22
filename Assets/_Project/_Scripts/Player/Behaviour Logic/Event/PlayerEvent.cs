@@ -11,7 +11,6 @@ public class PlayerEvent : PlayerEventSOBase
     [SerializeField] private bool isStunned;
     [SerializeField] private float stunTime = 5.0f;
     private float stunDuration = 0.0f;
-
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
@@ -62,9 +61,11 @@ public class PlayerEvent : PlayerEventSOBase
     {
         if (isStunned)
         {
+            gameObject.GetComponentInChildren<FirstPersonCamera>().enabled = false;
             rb.velocity = Vector3.zero;
             rb.drag = groundDrag;
-            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.AddTorque(Vector3.right * 8f, ForceMode.Impulse);
         }
     }
 
@@ -72,8 +73,9 @@ public class PlayerEvent : PlayerEventSOBase
     {
         if (!isStunned)
         {
-            rb.constraints = RigidbodyConstraints.None;
-            rb.freezeRotation = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.rotation = Quaternion.identity;
+            gameObject.GetComponentInChildren<FirstPersonCamera>().enabled = true;
         }
     }
 }
