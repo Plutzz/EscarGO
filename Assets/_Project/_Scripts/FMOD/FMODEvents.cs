@@ -24,6 +24,7 @@ public class FMODEvents : Singleton<FMODEvents>
         ItemPickup,
         DoorClose,
         PlayerWalkTile,
-        PlayerWalkWood
+        PlayerWalkWood,
+        PlayerThrow
     }
 }

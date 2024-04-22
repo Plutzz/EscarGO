@@ -31,8 +31,6 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     {
         Debug.Log("Entered throwing state");
         base.DoEnterLogic();
-        currentFootstepSFXInstance = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
-
         chargeTimer = 0;
     }
 
@@ -93,10 +91,10 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     #endregion
     private void Throw() {
-
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
         FoodProjectile NewProjectile = Instantiate(projectile, gameObject.transform.position + stateMachine.orientation.forward, stateMachine.orientation.rotation);
         NewProjectile.Launch();
-        NewProjectile.ThrowServerRpc();
+        //NewProjectile.ThrowServerRpc();
 
         return;
 
