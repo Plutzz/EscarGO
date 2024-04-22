@@ -3,7 +3,147 @@ guid: e14856c8699121e44ae18f708c10939d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Back Wall
+    second: {fileID: 2100000, guid: 80f7fe8283540154b9920499d51b7501, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blackboards
+    second: {fileID: 2100000, guid: 15b3e8972e11699498f8901847011307, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cabinets
+    second: {fileID: 2100000, guid: 8f0ac60a63daa0a45a53c0fd3ebdbc86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chair
+    second: {fileID: 2100000, guid: 916371a36593e2f4ba409527bbdf1d54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color
+    second: {fileID: 2100000, guid: 637c921bd9a1b9d4480757c7b8f889d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Divider
+    second: {fileID: 2100000, guid: 4403b07f3aed40b4f8d5896961b4847d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor Center
+    second: {fileID: 2100000, guid: 86a730e16593cdd4cbf3ed9a9ef03c8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor Outer
+    second: {fileID: 2100000, guid: 8a8feca799443134c832fa7aab15deb8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor Tile
+    second: {fileID: 2100000, guid: 4958149a7cbc4504dbe705d6d57135bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Front Counter
+    second: {fileID: 2100000, guid: 9e015af19b41d2d45b89d8319caf2939, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass.001
+    second: {fileID: 2100000, guid: cdf5f793adbdf334e98b84a78ca011dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light
+    second: {fileID: 2100000, guid: 8c152c90bc06cf8429268a0da5d6ba19, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lights and Wires
+    second: {fileID: 2100000, guid: 688df2446ecddc547a1f65db5115f5e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lower Wall
+    second: {fileID: 2100000, guid: 14a61292447cb9a47b723a75ffbf28fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: d81c05f1739d2fd44aa06f7a0f5e7c75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal Poles
+    second: {fileID: 2100000, guid: 52dfc581133896a4988a3dce6393f660, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Outline
+    second: {fileID: 2100000, guid: 641bd288f21c3474c850d7b7f65faf0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Planter
+    second: {fileID: 2100000, guid: 4c12667fed89e0e4eb5049b250fed9d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plate SmallPot SmallDisplayCase
+    second: {fileID: 2100000, guid: 9ff666a60274d8c409eace138124b264, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rack
+    second: {fileID: 2100000, guid: 6eed6fd928e662940b985c28563b56bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof Beams
+    second: {fileID: 2100000, guid: 2267664f5c80ff0469bb4ba5a10d56ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Side Bar
+    second: {fileID: 2100000, guid: 4ecc1d7457086de47af971c154231ce9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Side Door
+    second: {fileID: 2100000, guid: febc39e7852861640a1789c52884ea5b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stool
+    second: {fileID: 2100000, guid: 7de0cdc281cb9564dbf9436b3c49dec5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tables
+    second: {fileID: 2100000, guid: 699047aac55e4c943aa9bd5f735e27c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vertical Beams
+    second: {fileID: 2100000, guid: ba0416b188bfa78429c28982d6ff6b53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window Borders
+    second: {fileID: 2100000, guid: 55dc8fc402fb8c64093d78505b1095c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Windows
+    second: {fileID: 2100000, guid: b9c76244fe212cb4098a621887cb7432, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

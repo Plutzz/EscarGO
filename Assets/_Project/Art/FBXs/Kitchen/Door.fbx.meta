@@ -3,7 +3,17 @@ guid: 4a300e095ed93414a87e11bcf368f591
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Outline
+    second: {fileID: 2100000, guid: a3046743ed4990a4ca144332eff0fc42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Side Door
+    second: {fileID: 2100000, guid: 496dabd530cc4fd41bffdd98b115ca33, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
