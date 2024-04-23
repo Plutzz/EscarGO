@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CraftingSpace : InteractableSpace
 {
-    public Item defaultItem;
+    public CraftableItem defaultItem;
 
     [Tooltip ("Place most expensive recipes at top of list")][SerializeField] private List<Recipe> possibleRecipes;
 
@@ -39,7 +39,7 @@ public class CraftingSpace : InteractableSpace
         }*/
     }
 
-    private Item GetChosenRecipe(Dictionary<string, int> availableItems) {
+    private CraftableItem GetChosenRecipe(Dictionary<string, int> availableItems) {
         foreach (Recipe recipe in possibleRecipes) {
             if (recipe.CanCook(availableItems)) {
                 return recipe.result;
