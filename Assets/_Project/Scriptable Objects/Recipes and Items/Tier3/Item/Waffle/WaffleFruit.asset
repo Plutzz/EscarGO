@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Waffle with Fruits
   itemSprite: {fileID: 21300000, guid: a74546eadb971a3478c2ed01f5e795c2, type: 3}
-  itemMesh: {fileID: 0}
-  itemPrefab: {fileID: 0}
+  itemMesh: {fileID: 4300000, guid: 238c9471a0468b64a90c4401c76c9dc3, type: 2}
+  itemPrefab: {fileID: 2361739378186132499, guid: 0dac8343de375bc49b52401fb6c9c380,
+    type: 3}
   itemDescription: Waffle with Fruits
   maxTimeInInventory: 60
   currentTimeInInventory: 0

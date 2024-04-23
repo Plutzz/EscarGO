@@ -7,7 +7,6 @@ public class ProducingStation : InteractableSpace
 {
     [SerializeField] float spacingFactorX;
     [SerializeField] float spacingFactorZ;
-    [SerializeField] float shelfY;
     public Item producedItem;
     public int amountLeft;
     public string stationName;
@@ -63,8 +62,7 @@ public class ProducingStation : InteractableSpace
             // PREFAB METHOD
 
             GameObject item_model = Instantiate(item.itemPrefab, transform);
-            item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, shelfY, randomZ), item_model.transform.localRotation);
-
+            item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, item_model.GetComponentInChildren<MeshFilter>().mesh.bounds.size.y / 2), item_model.transform.localRotation);
         }
             
         

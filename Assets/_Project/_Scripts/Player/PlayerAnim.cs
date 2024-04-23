@@ -21,6 +21,7 @@ public class PlayerAnim : NetworkBehaviour
         {
             SetVisibleLayer(graphics.transform);
             // Render the player model if it is not the local client's player
+            Debug.Log("CHANGE VISIBLE LAYER");
             graphics.layer = LayerMask.NameToLayer("Default");
             return;
         }

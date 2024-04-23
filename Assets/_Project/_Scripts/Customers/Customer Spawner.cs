@@ -8,6 +8,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     public SpawnMethod spawnMethod;
     [SerializeField] private GameObject customerPrefab;
     [SerializeField] public CriteriaTier[] recipeTiers;
+    [Tooltip("Spawn Time per player")]
     [SerializeField] private float spawnTime = 5f;
     private float timer = 0;
     [HideInInspector] public int customerCount = 0;
@@ -32,8 +33,8 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         chairs[1] = playerTwoChairs;
         chairs[2] = playerThreeChairs;
         chairs[3] = playerFourChairs;
-
-        timer = spawnTime;
+        if(!IsServer) { return; }
+        timer = spawnTime / NetworkManager.Singleton.ConnectedClientsList.Count;
     }
 
     private void Update()
@@ -51,7 +52,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         {
             Debug.Log("Respawn Customer");
             SpawnCustomer();
-            timer = spawnTime; // Reset the timer
+            timer = spawnTime / NetworkManager.Singleton.ConnectedClientsList.Count; // Reset the timer
         }
     }
 

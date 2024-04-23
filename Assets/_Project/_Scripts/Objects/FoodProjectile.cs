@@ -6,6 +6,7 @@ using UnityEngine;
 public class FoodProjectile : NetworkBehaviour
 {
     public Rigidbody rb;
+    public Player ownerOfProjectile;
     public float launchSpeed;
     public Vector3 launchDirection;
     public float remainingLifetime;
@@ -18,7 +19,7 @@ public class FoodProjectile : NetworkBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<NetworkObject>() != NetworkManager.Singleton.LocalClient.PlayerObject)
+        if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<Player>() != ownerOfProjectile)
         {
             other.gameObject.GetComponent<PlayerStateMachine>().Stunned();
             Destroy(gameObject);
