@@ -26,11 +26,17 @@ public class CuttingStation : SuperStation
     private Vector3 knifePosition;
     private Quaternion knifeRotation;
 
+    [SerializeField] private List<Item> baseItems;
+    [SerializeField] private float itemOffsetY = 0.544f;
+    private GameObject baseItem;
 
-    public override void Activate(Item successfulItem)
+
+    public override void Activate(CraftableItem successfulItem)
     {
         if(inUse) return;
         isCutting = true;
+
+        GetComponent<BoxCollider>().enabled = false;
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
@@ -45,6 +51,17 @@ public class CuttingStation : SuperStation
         } else {
             UseStationServerRPC(true);
             StationResultServerRPC(false);
+        }
+
+        if(successfulItem.itemName != "FailedFood")
+        {
+            foreach(Item x in baseItems)
+            {
+                if(x.itemName == successfulItem.requiredIngredients[0].item.itemName)
+                {
+                    baseItem = Instantiate(x.itemPrefab, transform.position + new Vector3(0f, itemOffsetY, 0f), x.itemPrefab.transform.rotation);
+                }
+            }
         }
 
         //cutNumber.color = Color.black;
@@ -108,6 +125,14 @@ public class CuttingStation : SuperStation
             UseStationServerRPC(false);
             StationResultServerRPC(false);
         }
+
+        if(cutIndicator != null)
+        {
+            Destroy(cutIndicator);
+        }
+
+        Destroy(baseItem);
+
         isCutting = false;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -115,7 +140,7 @@ public class CuttingStation : SuperStation
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
 
-        //ResetKnife();
+        ResetKnife();
     }
 
     public override bool StationInUse
@@ -174,10 +199,10 @@ public class CuttingStation : SuperStation
         {
             if(hit.collider.gameObject == cutIndicator)
             {
+                Debug.Log("hit");
                 return true;
             }
         }
-
         return false;
     }
 
@@ -214,11 +239,6 @@ public class CuttingStation : SuperStation
         }
         //inventory.Craft(chocolate);
         inventory.TryAddItemToInventory(resultingItem);
-        
-        if(cutIndicator != null)
-        {
-            Destroy(cutIndicator);
-        }
 
         DeActivate();
     }
@@ -230,11 +250,6 @@ public class CuttingStation : SuperStation
             StationResultClientRPC(false);
         } else {
             StationResultServerRPC(false);
-        }
-
-        if(cutIndicator != null)
-        {
-            Destroy(cutIndicator);
         }
 
         DeActivate();

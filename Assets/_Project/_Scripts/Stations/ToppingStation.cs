@@ -23,11 +23,18 @@ public class ToppingStation : SuperStation
     private int toppingCircleLeft;
     private List<GameObject> toppingCircleObjects;
 
-    public override void Activate(Item successfulItem)
+    [SerializeField] private List<Item> baseItems;
+    [SerializeField] private float itemOffsetY = 0.544f;
+    private GameObject baseItem;
+
+
+    public override void Activate(CraftableItem successfulItem)
     {
         if(inUse) return;
 
         isTopping = true;
+
+        GetComponent<BoxCollider>().enabled = false;
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
@@ -45,6 +52,17 @@ public class ToppingStation : SuperStation
         }
 
         toppingCircleLeft = toppingCircleAmount;
+
+        if(successfulItem.itemName != "FailedFood")
+        {
+            foreach(Item x in baseItems)
+            {
+                if(x.itemName == successfulItem.requiredIngredients[0].item.itemName)
+                {
+                    baseItem = Instantiate(x.itemPrefab, transform.position + new Vector3(0f, itemOffsetY, 0f), x.itemPrefab.transform.rotation);
+                }
+            }
+        }
 
         for(int i = 1; i <= toppingCircleAmount; i++)
         {
@@ -75,6 +93,10 @@ public class ToppingStation : SuperStation
             UseStationServerRPC(false);
             StationResultServerRPC(false);
         }
+
+        GetComponent<BoxCollider>().enabled = true;
+
+        Destroy(baseItem);
 
         isTopping = false;
 

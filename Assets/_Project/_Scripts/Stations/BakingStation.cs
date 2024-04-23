@@ -39,7 +39,7 @@ public class BakingStation : SuperStation
     private Material timerMaterial;
     private float fillValue;
 
-    public override void Activate(Item successfulItem)
+    public override void Activate(CraftableItem successfulItem)
     {
         if(inUse) return;
 

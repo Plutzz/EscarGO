@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Recipe", menuName = "Items/Recipe")]
 public class Recipe : ScriptableObject
 {
-    public Item result;
+    public CraftableItem result;
 
     public List<Ingredient> requiredIngredients = new List<Ingredient>();
 

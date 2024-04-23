@@ -34,7 +34,7 @@ public class KneadingStation : SuperStation
     private int wantedKey = 0;
     private bool noFirstKey = true;
 
-    public override void Activate(Item successfulItem)
+    public override void Activate(CraftableItem successfulItem)
     {
         if(inUse) return;
 
