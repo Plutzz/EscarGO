@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DonutSugar
   m_EditorClassIdentifier: 
   itemName: Donut with Sugar
-  itemSprite: {fileID: 21300000, guid: da11f7035368f754881472ef3e64a5ae, type: 3}
+  itemSprite: {fileID: 21300000, guid: 75eb4975e93a98a4f8dff9377965cfe0, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: you are going to die
   maxTimeInInventory: 60
   currentTimeInInventory: 0

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: CroissantChoco
   m_EditorClassIdentifier: 
   itemName: Croissant with Chocolate
-  itemSprite: {fileID: 21300000, guid: 4dadb0032cc5bcd4e9ac4ac48ea05aff, type: 3}
+  itemSprite: {fileID: 21300000, guid: 80305f2dba7961144841a44dbf8786e6, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: Best combination 10/10
   maxTimeInInventory: 60
   currentTimeInInventory: 0
