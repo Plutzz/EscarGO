@@ -46,6 +46,26 @@ public class PlayerAnim : NetworkBehaviour
     {
     }
 
+    public void StartCrouch()
+    {
+        if (playerStateMachine.currentState == playerStateMachine.IdleState)
+        {
+            anim.SetTrigger("Crouch Idle");
+        }
+    }
+
+    public void StopCrouch()
+    {
+        if (playerStateMachine.currentState == playerStateMachine.MovingState)
+        {
+            anim.SetTrigger("Jogging");
+        }
+        else if (currentState == playerStateMachine.IdleState)
+        {
+            anim.SetTrigger("Idle");
+        }
+    }
+
 
     public void HandleAnimations(PlayerState _state)
     {
@@ -54,6 +74,9 @@ public class PlayerAnim : NetworkBehaviour
         anim.ResetTrigger("Idle");
         anim.ResetTrigger("Jogging");
         anim.ResetTrigger("Cooking");
+        anim.ResetTrigger("Crouching");
+
+
         switch (_state)
         {
             case PlayerAirborneState _:
