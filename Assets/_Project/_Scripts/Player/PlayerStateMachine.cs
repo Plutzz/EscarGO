@@ -136,6 +136,9 @@ public class PlayerStateMachine : NetworkBehaviour
 
     public void ChangeState(PlayerState newState)
     {
+        if (!IsOwner)
+            return;
+
         Debug.Log("Changing to: " + newState);
         currentState.ExitLogic();
         previousState = currentState;

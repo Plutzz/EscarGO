@@ -69,77 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList:
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 1727557212
-    DestinationState: -1983455242
-    TransitionDuration: 0.056081295
-    TriggerNameHash: -1983455242
-    TransitionIndex: 0
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 1727557212
-    DestinationState: 2081823275
-    TransitionDuration: 0.042793036
-    TriggerNameHash: 2081823275
-    TransitionIndex: 1
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 1727557212
-    DestinationState: -526601997
-    TransitionDuration: 0.039789915
-    TriggerNameHash: 1748754976
-    TransitionIndex: 2
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: -1983455242
-    DestinationState: 2081823275
-    TransitionDuration: 0.033145785
-    TriggerNameHash: 2081823275
-    TransitionIndex: 0
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: -1983455242
-    DestinationState: 1727557212
-    TransitionDuration: 0.037162304
-    TriggerNameHash: 1727557212
-    TransitionIndex: 1
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 2081823275
-    DestinationState: -1983455242
-    TransitionDuration: 0.049512148
-    TriggerNameHash: -1983455242
-    TransitionIndex: 0
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 2081823275
-    DestinationState: 1727557212
-    TransitionDuration: 0.0393641
-    TriggerNameHash: 1727557212
-    TransitionIndex: 1
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 2081823275
-    DestinationState: -526601997
-    TransitionDuration: 0.030555606
-    TriggerNameHash: 1748754976
-    TransitionIndex: 2
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: -526601997
-    DestinationState: 2081823275
-    TransitionDuration: 0.054279804
-    TriggerNameHash: 2081823275
-    TransitionIndex: 0
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: -526601997
-    DestinationState: 1727557212
-    TransitionDuration: 0.066066265
-    TriggerNameHash: 1727557212
-    TransitionIndex: 1
+  TransitionStateInfoList: []
   m_Animator: {fileID: 6675767477715904790}
 --- !u!1 &110218980705563152
 GameObject:
@@ -1678,6 +1608,7 @@ GameObject:
   - component: {fileID: 7308860182133355881}
   - component: {fileID: 8265052532220281180}
   - component: {fileID: 1208349345431071962}
+  - component: {fileID: 2381533968702581711}
   - component: {fileID: 8093212699818107897}
   m_Layer: 0
   m_Name: Player
@@ -1981,6 +1912,20 @@ MonoBehaviour:
   buttonPromptDetailsObj: {fileID: 8967317743496367340, guid: e54316cb2345eec439d7fd3d66f5e4c8,
     type: 3}
   rayLength: 1
+--- !u!114 &2381533968702581711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141356370038839228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155ed518a76ae2246b8421089161a534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 7238422934952187408, guid: 06f57473d338a224d873b72b470e4b08,
+    type: 3}
 --- !u!114 &8093212699818107897
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,16 +9,9 @@ public class FoodProjectile : NetworkBehaviour
     public float launchSpeed;
     public Vector3 launchDirection;
     public float remainingLifetime;
-    private void Awake()
-    {
-        //ThrowServerRpc();
-    }
-    [ServerRpc(RequireOwnership = false)]
-    public void ThrowServerRpc()
-    {
-        GetComponent<NetworkObject>().Spawn(true);
-    }
     public void Launch() {
+
+        rb.isKinematic = false;
         rb.velocity = Quaternion.Euler(0, transform.rotation.eulerAngles.y , 0) * launchDirection.normalized * launchSpeed;
 
         Destroy(this, remainingLifetime);
