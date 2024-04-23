@@ -49,7 +49,7 @@ MonoBehaviour:
   - {fileID: 5744926915153293797}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
@@ -282,7 +282,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 713
+  Length: 345
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
   - {fileID: -3497435936415390202}
   StringsBanks:
   - {fileID: 536762619943829140}
-  cacheTime: 638493203189094588
+  cacheTime: 638494093109006084
   cacheVersion: 131616
 --- !u!114 &75080121239340754
 MonoBehaviour:
@@ -594,10 +594,10 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638493203189094588
+  lastModified: 638494093109006084
   FileSizes:
   - Name: Desktop
-    Value: 284896
+    Value: 285024
   Exists: 1
 --- !u!114 &5837111453899824949
 MonoBehaviour:
