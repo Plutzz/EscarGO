@@ -33,6 +33,7 @@ public class BatterShapingStation : SuperStation
     private Material timerMaterial;
     private float fillValue;
     private EventInstance waffleSFX;
+    private EventInstance tickingSFX;
     private bool isWaffleSFXPlaying;
 
     public override void Activate(CraftableItem successfulItem)
@@ -225,7 +226,7 @@ public class BatterShapingStation : SuperStation
             } else {
                 WaffleIronAnimationServerRPC("Close");
             }
-
+        tickingSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.StationTicking);
         Debug.Log("cooking");
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
@@ -233,7 +234,9 @@ public class BatterShapingStation : SuperStation
         timerMaterial.EnableKeyword("_USE_TEXTURE");
 
         yield return new WaitForSeconds(cookTime);
+        tickingSFX.stop(STOP_MODE.ALLOWFADEOUT);
 
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
         if(IsServer)
             {
