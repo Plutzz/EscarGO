@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Chocolate Strawberry
   m_EditorClassIdentifier: 
   itemName: Fruit and Chocolate
-  itemSprite: {fileID: 21300000, guid: 5b978d6f95204a6438ed627b18e30d6f, type: 3}
+  itemSprite: {fileID: 21300000, guid: e4d5da220ddd80c46b7d0159a52ad657, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: The slippery slope between healthy and unhealthy
   maxTimeInInventory: 60
   currentTimeInInventory: 0

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Croissant
   m_EditorClassIdentifier: 
   itemName: Croissant
-  itemSprite: {fileID: 21300000, guid: b26796745869b694b974fc6b15a295bb, type: 3}
+  itemSprite: {fileID: 21300000, guid: 70d4a1dfec03f7c4ca20453cbda8b2ab, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: best damn pastry
   maxTimeInInventory: 40
   currentTimeInInventory: 0

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: WaffleSugar
   m_EditorClassIdentifier: 
   itemName: Waffle with Sugar
-  itemSprite: {fileID: 21300000, guid: a037e65b340934d47a707bacbf6ab64e, type: 3}
+  itemSprite: {fileID: 21300000, guid: 6cad0e481c4b53d4a823cf4b53e92118, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: Waffle with Sugar
   maxTimeInInventory: 60
   currentTimeInInventory: 0

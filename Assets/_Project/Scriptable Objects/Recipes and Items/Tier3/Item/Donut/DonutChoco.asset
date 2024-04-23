@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DonutChoco
   m_EditorClassIdentifier: 
   itemName: Donut with Chocolate
-  itemSprite: {fileID: 21300000, guid: 2be57ead908218d4284647d8ee2488be, type: 3}
+  itemSprite: {fileID: 21300000, guid: 1cde4b3651dbd554a8578c778b726cfa, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: ITS TOO SUGARY
   maxTimeInInventory: 60
   currentTimeInInventory: 0

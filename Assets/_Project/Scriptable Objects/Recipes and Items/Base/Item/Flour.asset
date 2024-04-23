@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flour
   m_EditorClassIdentifier: 
   itemName: Flour
-  itemSprite: {fileID: 21300000, guid: a807b9cb910215d48bd5b73905cabb66, type: 3}
+  itemSprite: {fileID: 21300000, guid: 337a1cdea17ae6d48b45be2a23eace04, type: 3}
   itemMesh: {fileID: 4300000, guid: 1a37a2049a8b9644ab8f35fc0f58e397, type: 2}
   itemPrefab: {fileID: 8796679836724303659, guid: 7f7dbb383b57fc046916a9c534844eba,
     type: 3}

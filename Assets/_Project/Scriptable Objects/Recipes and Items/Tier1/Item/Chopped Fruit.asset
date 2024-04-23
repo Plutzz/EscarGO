@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Chopped Fruit
   m_EditorClassIdentifier: 
   itemName: Chopped Fruit
-  itemSprite: {fileID: 21300000, guid: 6217600288804e741a15992db29135fa, type: 3}
+  itemSprite: {fileID: 21300000, guid: eb1d2e6c4ec161c4d939046543ab853f, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: its still healthy
   maxTimeInInventory: 40
   currentTimeInInventory: 0
