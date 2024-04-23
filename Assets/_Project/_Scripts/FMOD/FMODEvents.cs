@@ -25,6 +25,17 @@ public class FMODEvents : Singleton<FMODEvents>
         DoorClose,
         PlayerWalkTile,
         PlayerWalkWood,
-        PlayerThrow
+        PlayerThrow,
+        PlayerHit,
+        CustomerLeave,
+        CustomerEat,
+        CartMove,
+        DishClatter,
+        TurnKnob,
+        StationTicking,
+        ToppingShake,
+        KnifeCut,
+        WafflePour,
+        RollingPin,
     }
 }

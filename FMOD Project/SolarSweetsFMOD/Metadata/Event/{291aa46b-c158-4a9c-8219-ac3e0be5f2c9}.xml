@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{291aa46b-c158-4a9c-8219-ac3e0be5f2c9}">
+		<property name="color">
+			<value>Blue</value>
+		</property>
 		<property name="name">
 			<value>PlayerWalk - Tile</value>
 		</property>

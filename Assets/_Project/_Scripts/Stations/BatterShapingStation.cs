@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Unity.Netcode;
+using FMOD.Studio;
 
 public class BatterShapingStation : SuperStation
 {
@@ -31,6 +32,8 @@ public class BatterShapingStation : SuperStation
     private bool itemReady = false;
     private Material timerMaterial;
     private float fillValue;
+    private EventInstance waffleSFX;
+    private bool isWaffleSFXPlaying;
 
     public override void Activate(Item successfulItem)
     {
@@ -93,6 +96,8 @@ public class BatterShapingStation : SuperStation
     
     public override void DeActivate()
     {
+        waffleSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        isWaffleSFXPlaying = false;
 
         isBattering = false;
 
@@ -149,6 +154,11 @@ public class BatterShapingStation : SuperStation
 
             if(Input.GetMouseButtonDown(0))
             {
+                if(!isWaffleSFXPlaying)
+                {
+                    waffleSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.WafflePour);
+                    isWaffleSFXPlaying = true;
+                }
                 playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
                 squeezing = true;
             }
