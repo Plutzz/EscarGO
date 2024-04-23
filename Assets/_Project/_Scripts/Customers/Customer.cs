@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -24,6 +25,8 @@ public class Customer : NetworkBehaviour
     private Chair currentChair;
 
     private Animator animator;
+
+    private EventInstance eatSFX;
 
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
@@ -109,7 +112,7 @@ public class Customer : NetworkBehaviour
         
         if (gotOrder)
         {
-            AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.CustomerEat, transform.position);
+            eatSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.CustomerEat);
             Debug.Log("Singleton Instance " + ScoringSingleton.Instance);
             Debug.Log("assignedPlayer " + assignedPlayer);
             Debug.Log("critera " + criteria);
@@ -131,6 +134,7 @@ public class Customer : NetworkBehaviour
     private IEnumerator FufillOrderWait(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        eatSFX.stop(STOP_MODE.ALLOWFADEOUT);
         CustomerSpawner.Instance.customerCount--;
         Exit();
     }
