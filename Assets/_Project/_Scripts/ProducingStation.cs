@@ -29,6 +29,7 @@ public class ProducingStation : InteractableSpace
         }
         else if (inventory.TryAddItemToInventory(producedItem) == true)
         {
+            AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.ItemPickup, transform.position);
             TipsManager.Instance.SetTip("Received a " + producedItem.itemName, 2f);
             RemoveModelFromShelfServerRpc();
         }

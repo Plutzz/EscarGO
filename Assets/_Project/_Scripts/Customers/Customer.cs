@@ -109,6 +109,7 @@ public class Customer : NetworkBehaviour
         
         if (gotOrder)
         {
+            AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.CustomerEat, transform.position);
             Debug.Log("Singleton Instance " + ScoringSingleton.Instance);
             Debug.Log("assignedPlayer " + assignedPlayer);
             Debug.Log("critera " + criteria);
@@ -150,6 +151,7 @@ public class Customer : NetworkBehaviour
 
     public void Exit()
     {
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.CustomerLeave, transform.position);
         animator.SetBool("Seated", false);
 
         Debug.Log("Thank you!");

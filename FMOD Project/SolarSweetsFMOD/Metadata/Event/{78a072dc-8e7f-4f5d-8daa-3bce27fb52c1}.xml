@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{78a072dc-8e7f-4f5d-8daa-3bce27fb52c1}">
+		<property name="color">
+			<value>Purple</value>
+		</property>
 		<property name="name">
 			<value>CartMove</value>
 		</property>

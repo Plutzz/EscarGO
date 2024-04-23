@@ -224,6 +224,8 @@ public class KneadingStation : SuperStation
                 wantedKey = 1;
             }
 
+            AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.RollingPin, transform.position);
+
             return true;
         }
 

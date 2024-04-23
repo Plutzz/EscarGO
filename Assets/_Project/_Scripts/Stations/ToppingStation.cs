@@ -125,6 +125,7 @@ public class ToppingStation : SuperStation
             {
                 if(HitToppingCircle())
                 {
+                    AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ToppingShake, transform.position);
                     Vector3 screenPosition = Input.mousePosition;
                     screenPosition.z = Camera.main.nearClipPlane + 0.1f;
                     Instantiate(sprinkleParticles, Camera.main.ScreenToWorldPoint(screenPosition) , transform.rotation);

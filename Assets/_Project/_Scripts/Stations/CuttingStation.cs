@@ -155,6 +155,7 @@ public class CuttingStation : SuperStation
             {
                 if(CheckHit())
                 {
+                    AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.KnifeCut, transform.position);
                     StartCoroutine(knifeCut());
                     MoveNext();
                     Mathf.Clamp(neededcuts -= 1, 0, maxCuts);

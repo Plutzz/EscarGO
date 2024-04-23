@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using Unity.Netcode;
 using UnityEngine.Rendering;
+using FMOD.Studio;
 
 public class BakingStation : SuperStation
 {
@@ -38,6 +39,7 @@ public class BakingStation : SuperStation
 
     private Material timerMaterial;
     private float fillValue;
+    private EventInstance ovenSFX;
 
     public override void Activate(Item successfulItem)
     {
@@ -215,6 +217,7 @@ public class BakingStation : SuperStation
 
     private void TurnKnob(GameObject knob)
     {
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.TurnKnob, transform.position);
         knob.transform.Rotate(Vector3.up * -30);
     }
 
@@ -305,13 +308,16 @@ public class BakingStation : SuperStation
             } else {
                 StationResultServerRPC(true);
             }
+
+        ovenSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.StationTicking);
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
         timerMaterial.EnableKeyword("_USE_TEXTURE");
 
         yield return new WaitForSeconds(bakeTime);
-        
+        ovenSFX.stop(STOP_MODE.ALLOWFADEOUT);
+    
         AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
         Debug.Log("baked");
@@ -372,4 +378,5 @@ public class BakingStation : SuperStation
     {
         success = state;
     }
+
 }

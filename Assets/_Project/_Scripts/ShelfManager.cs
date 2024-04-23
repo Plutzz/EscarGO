@@ -27,6 +27,8 @@ public class ShelfManager : NetworkBehaviour
 
         if (!IsServer) return;
 
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.CartMove, transform.position);
+
         for (int i = 0; i < shelfSpaces.Count; i++)
         {
             SetupItemClientRpc(Random.Range(0, items.Count), Random.Range(1, maxAmountOfItems), i);
@@ -83,5 +85,16 @@ public class ShelfManager : NetworkBehaviour
             DOTween.To(() => material.GetFloat("_Cutoff_Amount"), x => material.SetFloat("_Cutoff_Amount", x), 0f, 1f).SetEase(Ease.Linear);
         }
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!IsServer)
+        {
+            if(collision.gameObject.CompareTag("Player"))
+                AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.CartMove, transform.position);
+            //doesnt work as of now :(
+        }
+
     }
 }

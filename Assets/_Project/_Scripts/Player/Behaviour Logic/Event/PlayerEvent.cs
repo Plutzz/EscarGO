@@ -61,6 +61,7 @@ public class PlayerEvent : PlayerEventSOBase
     {
         if (isStunned)
         {
+            AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerHit, rb.transform.position);
             gameObject.GetComponentInChildren<FirstPersonCamera>().enabled = false;
             rb.velocity = Vector3.zero;
             rb.drag = groundDrag;
