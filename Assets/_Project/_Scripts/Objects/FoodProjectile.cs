@@ -14,13 +14,14 @@ public class FoodProjectile : NetworkBehaviour
         rb.isKinematic = false;
         rb.velocity = Quaternion.Euler(0, transform.rotation.eulerAngles.y , 0) * launchDirection.normalized * launchSpeed;
 
-        Destroy(this, remainingLifetime);
+        Destroy(gameObject, remainingLifetime);
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<NetworkObject>() != NetworkManager.Singleton.LocalClient.PlayerObject)
         {
             other.gameObject.GetComponent<PlayerStateMachine>().Stunned();
+            Destroy(gameObject);
         }
     }
 
