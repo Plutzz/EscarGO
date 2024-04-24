@@ -123,7 +123,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b512bf51e4a23f243b9743d9683aaffc, type: 2}
+  - {fileID: 2100000, guid: 3c795e668db28494597b34d7e517dc0a, type: 2}
   - {fileID: 2100000, guid: c2c12975a9619704188c08876a94ae9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2d9249fa8cfa9479349b1deae8dd60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalSizeOfDough: 0.8
+  goalSizeOfDough: 0.7
   squareOfDough: {fileID: 1853185546336417978, guid: c35bce333f4aae4499ca97290e2eb59e,
     type: 3}
   rollingPin: {fileID: 7361654189245218065}

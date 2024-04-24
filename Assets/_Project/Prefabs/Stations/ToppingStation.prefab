@@ -109,8 +109,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.405107, z: 0.8035107}
+  m_Center: {x: 0, y: 0.49611354, z: 0.09824464}
 --- !u!114 &95330485538911380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2339046979
+  GlobalObjectIdHash: 942856873
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -154,6 +154,11 @@ MonoBehaviour:
   heightOfCircles: 0.68
   maxX: 0.37
   maxZ: 0.37
+  baseItems:
+  - {fileID: 11400000, guid: 1d5da0cf9e624fe438ca449fa2c78943, type: 2}
+  - {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
+  - {fileID: 11400000, guid: 00a9ee1fd9c0e244bb09d7577394866c, type: 2}
+  itemOffsetY: 0.544
 --- !u!114 &3015414812899942628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,13 +458,13 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: e43ed5868b9abaa41b0fab76908d110b,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: e43ed5868b9abaa41b0fab76908d110b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a926e472c9aef0f44b3fb13f2c316ad7, type: 2}
+      objectReference: {fileID: 2100000, guid: ce762b4d6ca929f44b3911d738fb44ef, type: 2}
     - target: {fileID: -7511558181221131132, guid: e43ed5868b9abaa41b0fab76908d110b,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
