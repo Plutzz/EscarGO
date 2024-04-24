@@ -114,7 +114,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1.3395233, z: 0.8288536}
-  m_Center: {x: 0, y: 0.47085667, z: 0.0855732}
+  m_Center: {x: 0, y: 0.47085667, z: -0.09}
 --- !u!114 &-8222259909501916955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4150439081
+  GlobalObjectIdHash: 2118422099
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 5999347487435486178}
   - component: {fileID: 5614270861254137232}
   - component: {fileID: 383285519198050234}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knob.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1951823913492831766}
   - component: {fileID: 7274766972616377474}
   - component: {fileID: 8402157337185701691}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knob.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 6659665742888708661}
   - component: {fileID: 1040306989631226653}
   - component: {fileID: 7020247470783377085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knob.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 3932806195314317139}
   - component: {fileID: 1997724019142606641}
   - component: {fileID: 1072015098976515782}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Oven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,6 +912,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7279716336858993388, guid: 69910dd0d1bfb714f919c2f20191c4f4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9bccc17787d530545a2e2701b1f475e7, type: 2}
     - target: {fileID: 7736625779902999133, guid: 69910dd0d1bfb714f919c2f20191c4f4,
         type: 3}
       propertyPath: m_Name
@@ -1077,6 +1082,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7279716336858993388, guid: 69910dd0d1bfb714f919c2f20191c4f4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9bccc17787d530545a2e2701b1f475e7, type: 2}
     - target: {fileID: 7736625779902999133, guid: 69910dd0d1bfb714f919c2f20191c4f4,
         type: 3}
       propertyPath: m_Name
@@ -1242,6 +1252,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7279716336858993388, guid: 69910dd0d1bfb714f919c2f20191c4f4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9bccc17787d530545a2e2701b1f475e7, type: 2}
     - target: {fileID: 7736625779902999133, guid: 69910dd0d1bfb714f919c2f20191c4f4,
         type: 3}
       propertyPath: m_Name
