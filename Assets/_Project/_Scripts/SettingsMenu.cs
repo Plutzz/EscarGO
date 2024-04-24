@@ -41,6 +41,12 @@ public class SettingsMenu : NetworkBehaviour
     public void LeaveLobby()
     {
         lobbyAPI.LeaveLobby();
+
+        Debug.Log("Left the lobby successfully.");
+        NetworkManager.Singleton.Shutdown();
+        Destroy(NetworkManager.Singleton?.gameObject);
+        Destroy(AudioManager.Instance?.gameObject);
+        Destroy(gameObject);
         SceneManager.LoadSceneAsync("BenLobby");
     }
 }

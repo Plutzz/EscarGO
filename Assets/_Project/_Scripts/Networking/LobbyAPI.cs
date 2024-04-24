@@ -366,12 +366,7 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
                 hostLobby = null;
                 joinedLobby = null;
 
-                NetworkManager.Singleton.Shutdown();
-
-                Debug.Log("Left the lobby successfully.");
-                Destroy(NetworkManager.Singleton?.gameObject);
-                Destroy(AudioManager.Instance?.gameObject);
-                Destroy(gameObject);
+                
             }
             else
             {
