@@ -92,10 +92,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     #endregion
     private void Throw() {
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
-        FoodProjectile NewProjectile = Instantiate(projectile, gameObject.transform.position + stateMachine.orientation.forward, stateMachine.orientation.rotation);
-        NewProjectile.ownerOfProjectile = stateMachine.GetComponent<Player>();
-        NewProjectile.Launch();
-        //stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(gameObject.transform.position, stateMachine.orientation.forward, stateMachine.orientation.rotation);
+        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(gameObject.transform.position, stateMachine.orientation.forward, stateMachine.orientation.rotation);
         return;
 
         if (playerInventory == null)
