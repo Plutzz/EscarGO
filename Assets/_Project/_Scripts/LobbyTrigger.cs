@@ -37,7 +37,10 @@ public class LobbyTrigger : NetworkBehaviour
 
         yield return new WaitForSeconds(1);
 
-        NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        if(IsServer)
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
