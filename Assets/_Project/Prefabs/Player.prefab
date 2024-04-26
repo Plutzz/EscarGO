@@ -1661,6 +1661,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 3622850964377700486}
   orientation: {fileID: 5350075544441386201}
   player: {fileID: 5226382219086163930}
+  projectilePosition: {fileID: 6184045762993881864}
   crouchYScale: 0.5
 --- !u!114 &-3950531570982242769
 MonoBehaviour:
@@ -4006,6 +4007,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2633016109960305466}
+  - {fileID: 6184045762993881864}
   m_Father: {fileID: 5226382219086163930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4587299177109654923
@@ -4594,6 +4596,37 @@ Transform:
   - {fileID: 1729403869176809126}
   - {fileID: 396859152000369731}
   m_Father: {fileID: 8486552423826698092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9135222421666519895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6184045762993881864}
+  m_Layer: 0
+  m_Name: ProjectileLaunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6184045762993881864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9135222421666519895}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3622850964377700486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &141945191339861484
 PrefabInstance:

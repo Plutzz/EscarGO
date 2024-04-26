@@ -13,7 +13,17 @@ public class FoodProjectile : NetworkBehaviour
     public void Launch() {
 
         rb.isKinematic = false;
-        rb.velocity = Quaternion.Euler(0, transform.rotation.eulerAngles.y , 0) * launchDirection.normalized * launchSpeed;
+        //Debug.Log("Projectile initial rotation: " + transform.rotation.eulerAngles);
+
+        Vector3 rotationAngle = transform.rotation.eulerAngles;     
+        if (rotationAngle.x > 180) {                    //Aiming up
+            float upwardAngle =  (rotationAngle.x - 360f);
+            launchSpeed *= 1.1f;
+            upwardAngle *= 0.1f;
+            rotationAngle.x += upwardAngle;
+        }
+
+        rb.velocity = Quaternion.Euler(rotationAngle.x - 30, rotationAngle.y , rotationAngle.z) * launchDirection.normalized * launchSpeed;
 
         Destroy(gameObject, remainingLifetime);
     }

@@ -18,15 +18,15 @@ public class PlayerProjectileManager : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void ThrowProjectileServerRpc(Vector3 position, Vector3 forward, Quaternion rotation)
+    public void ThrowProjectileServerRpc(Vector3 position, Quaternion rotation)
     {
-        ThrowProjectileClientRpc(position, forward, rotation);
+        ThrowProjectileClientRpc(position, rotation);
     }
 
     [ClientRpc]
-    private void ThrowProjectileClientRpc(Vector3 position, Vector3 forward, Quaternion rotation)
+    private void ThrowProjectileClientRpc(Vector3 position, Quaternion rotation)
     {
-        FoodProjectile NewProjectile = Instantiate(projectile, position + forward, rotation);
+        FoodProjectile NewProjectile = Instantiate(projectile, position, rotation);
         NewProjectile.Launch();
     }
 }

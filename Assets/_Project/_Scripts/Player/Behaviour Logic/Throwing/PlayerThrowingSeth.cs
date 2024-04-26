@@ -21,7 +21,6 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     private float chargeTimer = 0;
 
     [SerializeField] private FoodProjectile projectile;
-    [SerializeField] private Vector3 projectileStartOffset;
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
@@ -92,7 +91,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     #endregion
     private void Throw() {
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
-        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(gameObject.transform.position, stateMachine.orientation.forward, stateMachine.orientation.rotation);
+        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation);
         return;
 
         if (playerInventory == null)
