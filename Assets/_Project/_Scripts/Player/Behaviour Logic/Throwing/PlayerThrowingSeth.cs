@@ -107,7 +107,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
             playerInventory.RemoveActiveItem();
         }
         FoodProjectile newProjectile = Instantiate(projectile, gameObject.transform.position + stateMachine.orientation.forward, gameObject.transform.rotation);
-        newProjectile.Launch();
+        //newProjectile.Launch();
 
     }
 }
