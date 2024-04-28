@@ -10,6 +10,7 @@ public class PlayerInteractVinh : PlayerInteractSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+
     }
 
     public override void DoExitLogic()

@@ -138,6 +138,7 @@ public class CuttingStation : SuperStation
         isCutting = false;
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         virtualCamera.enabled = false;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();

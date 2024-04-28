@@ -16,20 +16,4 @@ public class PlayerInteractSOBase : PlayerStateSOBase
         rb = stateMachine.rb;
 
     }
-
-    public override void CheckTransitions()
-    {
-
-        // Interact => Airborne
-        if (!stateMachine.GroundedCheck())
-        {
-            stateMachine.ChangeState(stateMachine.AirborneState);
-        }
-        // Interact => Moving
-        else if (stateMachine.inputManager.MoveInput != Vector2.zero)
-        {
-            stateMachine.ChangeState(stateMachine.MovingState);
-        }
-        
-    }
 }
