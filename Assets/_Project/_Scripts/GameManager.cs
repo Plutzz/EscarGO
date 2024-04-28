@@ -67,6 +67,7 @@ public class GameManager : NetworkSingleton<GameManager>
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.text = "0 Points";
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>().ClearInventory();
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().SwitchActionMap("Player");
+        AudioManager.Instance.SetMusicArea(AudioManager.MusicArea.Menu);
     }
 
     [ClientRpc]

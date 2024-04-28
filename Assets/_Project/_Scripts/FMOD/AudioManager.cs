@@ -79,7 +79,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
 
     public void SetMusicArea(MusicArea area)
     {
-        musicEventInstance.setParameterByName("area", (float)area);
+        musicEventInstance.setParameterByName("Aera", (float)area);
     }
 
     public void PlayOneShot(FMODEvents.NetworkSFXName sound, Vector3 worldPos)
@@ -107,11 +107,15 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     {
         PlayOneShot(sound, worldPos);
     }
-    [ClientRpc]
-    private void TestClientRpc(NetworkObjectReference networkObject)
-    {
-
-    }
+    //[ClientRpc]
+    //public void InitializeEventEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference networkObject)
+    //{
+    //    if(networkObject.TryGet(out NetworkObject netObj))
+    //    {
+    //        StudioEventEmitter emitter = InitializeEventEmitter(sound, netObj.gameObject);
+    //    }
+        
+    //}
 
     public EventInstance CreateInstance(EventReference eventReference)
     {
@@ -124,7 +128,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     {
         if (emitterGameObject.TryGetComponent(out StudioEventEmitter emitter))
         {
-
+            emitter.Stop();
         }
         else
         {
@@ -157,8 +161,9 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
 
     public enum MusicArea
     {
-        GRAY_AREA = 0,
-        BLUE_AREA = 1
+        Menu,
+        Lobby,
+        Level
     }
 
     public void SetMasterVolume(float volume)
