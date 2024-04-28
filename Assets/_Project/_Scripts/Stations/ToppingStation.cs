@@ -66,11 +66,11 @@ public class ToppingStation : SuperStation
                 }
                 else if (x.itemName == "Chopped Chocolate")
                 {
-                    toppingParticles = chocolateParticles;
+                    //toppingParticles = chocolateParticles;
                 }
                 else if (x.itemName == "Chopped Fruit")
                 {
-                    toppingParticles = strawberryParticles;
+                    //toppingParticles = strawberryParticles;
                 }
             }
         }
