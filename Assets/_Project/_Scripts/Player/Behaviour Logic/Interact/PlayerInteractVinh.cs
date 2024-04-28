@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.InputSystem;
 
 
@@ -11,12 +12,17 @@ public class PlayerInteractVinh : PlayerInteractSOBase
     {
         base.DoEnterLogic();
         stateMachine.inputManager.SwitchActionMap("MiniGames");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().crosshair.SetActive(false);
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
         stateMachine.inputManager.SwitchActionMap("Player");
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().crosshair.SetActive(true);
     }
 
     public override void DoFixedUpdateState()

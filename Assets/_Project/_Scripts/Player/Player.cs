@@ -17,6 +17,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private Transform orientation;
     [SerializeField] private TextMeshPro nameTag;
     [SerializeField] private GameObject graphics;
+    [SerializeField] public GameObject crosshair;
 
     private PlayerStateMachine stateMachine;
     private PlayerState currentState;

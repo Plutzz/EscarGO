@@ -1733,6 +1733,7 @@ MonoBehaviour:
   orientation: {fileID: 5350075544441386201}
   nameTag: {fileID: 2509209161154666850}
   graphics: {fileID: 2897538961485828115}
+  crosshair: {fileID: 2259393754865142074}
   sprintSpeed: 10
   canSprint: 1
   pauseMenu: {fileID: 4394117078202533137}
