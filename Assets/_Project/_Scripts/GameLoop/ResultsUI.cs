@@ -20,7 +20,14 @@ public class ResultsUI : MonoBehaviour
     public void ClockOut()
     {
         // If any player presses this, bring them back to the lobby
-        NetworkManager.Singleton.SceneManager.LoadScene("BenLobby", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        // NetworkManager.Singleton.SceneManager.LoadScene("BenLobby", UnityEngine.SceneManagement.LoadSceneMode.Single);
+    
+        LobbyAPI.Instance.LeaveLobby();
+        NetworkManager.Singleton.Shutdown();
+        Destroy(NetworkManager.Singleton?.gameObject);
+        Destroy(AudioManager.Instance?.gameObject);
+        Destroy(gameObject);
+        SceneManager.LoadSceneAsync("BenLobby");
     }
 
 
