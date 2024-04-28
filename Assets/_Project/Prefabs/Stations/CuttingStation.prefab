@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1448326709
+  GlobalObjectIdHash: 3337270205
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -240,6 +240,7 @@ MonoBehaviour:
     type: 3}
   cutIndicatorStartPoint: {fileID: 4077202190415166744}
   knife: {fileID: 8979561989535628883}
+  cursorTexture: {fileID: 2800000, guid: b05b8c3d1325bee4f9c7ce02d7c97ef4, type: 3}
   baseItems:
   - {fileID: 11400000, guid: 7ccc21143493c9d45ac9ca964554d65c, type: 2}
   - {fileID: 11400000, guid: 049618af02a5d5243ae363188f3c0441, type: 2}

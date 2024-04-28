@@ -18,6 +18,7 @@ public class ToppingStation : SuperStation
     private bool success = false;
     private LayerMask minigameLayer;
     private Ray ray;
+    [SerializeField] private Texture2D cursorTexture;
 
     private bool isTopping = false;
     private int toppingCircleLeft;
@@ -73,6 +74,7 @@ public class ToppingStation : SuperStation
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
         Cursor.lockState = CursorLockMode.None;
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     public override void GetItem()

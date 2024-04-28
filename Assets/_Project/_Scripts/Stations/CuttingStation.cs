@@ -25,6 +25,7 @@ public class CuttingStation : SuperStation
     private Vector3 knifeOffset = new Vector3(0f, 0.2f, 0f);
     private Vector3 knifePosition;
     private Quaternion knifeRotation;
+    [SerializeField] private Texture2D cursorTexture;
 
     [SerializeField] private List<Item> baseItems;
     [SerializeField] private float itemOffsetY = 0.544f;
@@ -105,8 +106,9 @@ public class CuttingStation : SuperStation
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
         Cursor.lockState = CursorLockMode.None;
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
-
+    
     public override void GetItem()
     {
         
