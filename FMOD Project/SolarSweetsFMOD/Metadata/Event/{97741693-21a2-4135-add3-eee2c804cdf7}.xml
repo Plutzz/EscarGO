@@ -8,7 +8,7 @@
 			<value>StationTicking</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{cdcd7abf-0a1d-4858-b1ad-55da3eaf8dd1}</destination>
@@ -114,9 +114,11 @@
 	<object class="MixerBusEffectChain" id="{448422f0-87ef-4e37-ba90-9edd95d64b46}">
 		<relationship name="effects">
 			<destination>{3cd0a8bd-10c4-4b66-a364-d0f4d70e6c00}</destination>
+			<destination>{b6ea700a-3b18-4fcd-9037-0d00637f6e2d}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{c32716a9-71a3-4de1-8bd6-e9f5c79d5a0e}" />
 	<object class="MixerBusFader" id="{f5693a17-aa23-4ab8-aba0-e5fe2885b0f7}" />
 	<object class="MixerBusFader" id="{3cd0a8bd-10c4-4b66-a364-d0f4d70e6c00}" />
+	<object class="SpatialiserEffect" id="{b6ea700a-3b18-4fcd-9037-0d00637f6e2d}" />
 </objects>
