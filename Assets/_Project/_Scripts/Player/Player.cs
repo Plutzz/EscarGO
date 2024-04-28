@@ -1,3 +1,5 @@
+using FMODUnity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +7,7 @@ using Unity.Netcode;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : NetworkBehaviour
 {
@@ -41,17 +44,25 @@ public class Player : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+
         if(!IsOwner)
         {
             enabled = false;
             return;
         }
+        Camera.main.GetComponent<StudioListener>().attenuationObject = gameObject;
         ClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
         nameTag.enabled = false;
         stateMachine = GetComponent<PlayerStateMachine>();
         moveSpeed = stateMachine.moveSpeed;
         rb = stateMachine.rb;
         inputManager = GetComponent<InputManager>();
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene prevScene, Scene nextScene)
+    {
+        Camera.main.GetComponent<StudioListener>().attenuationObject = gameObject;
     }
 
     [ServerRpc(RequireOwnership = false)]
