@@ -10,7 +10,9 @@ public class ToppingStation : SuperStation
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private GameObject toppingCircle;
-    [SerializeField] private GameObject sprinkleParticles;
+    [SerializeField] private GameObject toppingParticles;
+    [SerializeField] private GameObject strawberryParticles;
+    [SerializeField] private GameObject chocolateParticles;
     [SerializeField] private int toppingCircleAmount = 5;
     [SerializeField] private float heightOfCircles = 0.74f;
     [SerializeField] private float maxX = 0.37f;
@@ -61,6 +63,14 @@ public class ToppingStation : SuperStation
                 if(x.itemName == successfulItem.requiredIngredients[0].item.itemName)
                 {
                     baseItem = Instantiate(x.itemPrefab, transform.position + new Vector3(0f, itemOffsetY, 0f), x.itemPrefab.transform.rotation);
+                }
+                else if (x.itemName == "Chopped Chocolate")
+                {
+                    toppingParticles = chocolateParticles;
+                }
+                else if (x.itemName == "Chopped Fruit")
+                {
+                    toppingParticles = strawberryParticles;
                 }
             }
         }
@@ -153,7 +163,7 @@ public class ToppingStation : SuperStation
                     AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ToppingShake, transform.position);
                     Vector3 screenPosition = Input.mousePosition;
                     screenPosition.z = Camera.main.nearClipPlane + 0.1f;
-                    Instantiate(sprinkleParticles, Camera.main.ScreenToWorldPoint(screenPosition) , transform.rotation);
+                    Instantiate(toppingParticles, Camera.main.ScreenToWorldPoint(screenPosition) , transform.rotation);
                     toppingCircleLeft -= 1;
                     
                     if(toppingCircleLeft == 0)
