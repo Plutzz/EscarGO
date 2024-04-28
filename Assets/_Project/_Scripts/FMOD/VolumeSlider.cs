@@ -42,7 +42,6 @@ public class VolumeSlider : MonoBehaviour
     {
         switch (audioCategory)
         {
-            
             case AudioCategory.Master:
                 AudioManager.Instance.SetMasterVolume(value);
                 // Save the value using PlayerPrefs

@@ -33,10 +33,10 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     public void Start()
     {
         base.OnNetworkSpawn();
-        masterVolume = PlayerPrefs.GetFloat("Master Volume");
-        musicVolume = PlayerPrefs.GetFloat("Music Volume");
-        ambienceVolume = PlayerPrefs.GetFloat("Ambience Volume");
-        SFXVolume = PlayerPrefs.GetFloat("SFX Volume");
+        masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        ambienceVolume = PlayerPrefs.GetFloat("AmbienceVolume", 1f);
+        SFXVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
@@ -48,6 +48,8 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         musicBus = RuntimeManager.GetBus("bus:/Music");
         ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
+
+        UpdateVolume();
     }
 
     private void UpdateVolume()
