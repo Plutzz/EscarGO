@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -15,6 +16,8 @@ public class CustomerMovement : NetworkBehaviour
     private NavMeshAgent agent;
     private Customer customer;
     private bool isLeaving;
+
+    private EventInstance walkSFX;
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
@@ -22,6 +25,8 @@ public class CustomerMovement : NetworkBehaviour
             return;
         }
 
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CustomerEnter, transform.position);
+        walkSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
         customer = GetComponent<Customer>();
         agent = gameObject.AddComponent<NavMeshAgent>();
         SetNavMeshValues();
@@ -122,6 +127,7 @@ public class CustomerMovement : NetworkBehaviour
 
     public void MoveToExit()
     {
+        walkSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
         isLeaving = true;
         transform.position = assignedChair.exitPoint;
         SetAgentActive(true);
@@ -134,6 +140,8 @@ public class CustomerMovement : NetworkBehaviour
 
         if (other.gameObject == assignedChair.gameObject && !isLeaving)
         {
+            walkSFX.stop(STOP_MODE.ALLOWFADEOUT);
+
             SetAgentActive(false);
             transform.position = (assignedChair.transform.position) + transform.up * sittingOffsetY;
 
@@ -161,6 +169,7 @@ public class CustomerMovement : NetworkBehaviour
 
         if (other.gameObject.name == "CustomerSpawnPoint" && isLeaving)
         {
+            walkSFX.stop(STOP_MODE.ALLOWFADEOUT);
             Destroy(gameObject);
         }
     }

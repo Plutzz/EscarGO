@@ -37,5 +37,7 @@ public class FMODEvents : Singleton<FMODEvents>
         KnifeCut,
         WafflePour,
         RollingPin,
+        CustomerEnter,
+        ItemTrash,
     }
 }
