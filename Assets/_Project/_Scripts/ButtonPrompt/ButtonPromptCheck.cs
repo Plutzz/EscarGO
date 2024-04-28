@@ -8,7 +8,11 @@ public class ButtonPromptCheck : MonoBehaviour
     [SerializeField] private GameObject buttonPromptDetailsObj;
     [SerializeField] private float rayLength = 5f;
 
+    [SerializeField] private Material defaultOutline;
+    [SerializeField] private Material highlightOutline;
+
     private bool searchPrompts = true;
+    private ButtonPromptSet currentBPSet;
 
 
     // Start is called before the first frame update
@@ -28,6 +32,11 @@ public class ButtonPromptCheck : MonoBehaviour
 
     public void ClearUIItem()
     {
+        if (currentBPSet != null)
+        {
+            currentBPSet.ChangeOutline(defaultOutline);
+        }
+
         foreach (Transform child in buttonPromptObj.transform)
         {
             Destroy(child.gameObject);
@@ -49,6 +58,10 @@ public class ButtonPromptCheck : MonoBehaviour
 
             if (col.GetComponent<ButtonPromptSet>() != null)
             {
+                currentBPSet = col.GetComponent<ButtonPromptSet>();
+                currentBPSet.ChangeOutline(highlightOutline);
+
+                // Add button prompts
                 List<ButtonPromptDetails> bpDetails = col.GetComponent<ButtonPromptSet>().buttonPromptSet;
 
                 if (buttonPromptObj.transform.childCount > 0)
