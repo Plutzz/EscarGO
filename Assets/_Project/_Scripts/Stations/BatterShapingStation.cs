@@ -17,6 +17,7 @@ public class BatterShapingStation : SuperStation
     [SerializeField] private GameObject batterSpawnPoint;
     [SerializeField] private GameObject timerObject;
     [SerializeField] private GameObject waffleIronJoint;
+    public GameObject batterIndicator;
 
     [SerializeField] private CraftableItem batter;
     private PlayerInventory inventory;
@@ -27,6 +28,7 @@ public class BatterShapingStation : SuperStation
     private bool isBattering = false;
     private bool squeezing = false;
     private GameObject playerBatter;
+    private GameObject playerIndicator;
     private float playerHoldTimer = 0f;
 
     private Animator waffleIronAnimation;
@@ -114,6 +116,8 @@ public class BatterShapingStation : SuperStation
         }
 
         Destroy(playerBatter);
+        Destroy(playerIndicator);
+        Debug.Log("Destroyed batter");
         playerHoldTimer = 0;
         
         PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
@@ -167,6 +171,7 @@ public class BatterShapingStation : SuperStation
                     isWaffleSFXPlaying = true;
                 }
                 playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
+                playerIndicator = Instantiate(batterIndicator, batterSpawnPoint.transform.position, transform.rotation);
                 squeezing = true;
             }
             

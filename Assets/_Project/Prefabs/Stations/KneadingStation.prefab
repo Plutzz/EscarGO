@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2415864724
+  GlobalObjectIdHash: 3823086566
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -315,8 +315,12 @@ MonoBehaviour:
     type: 3}
   rollingPin: {fileID: 7361654189245218065}
   doughOffset: {x: 0, y: 0.6, z: 0.018}
+  indicatorOffset: {x: 0, y: 0.8, z: 0.018}
   kneadedDough: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   virtualCamera: {fileID: 1534201414557340858}
+  kneadingIndicator: {fileID: 4565667019822252328, guid: b043e854ffa929648b27daaa6d9db923,
+    type: 3}
+  kneadingIndicatorScript: {fileID: 0}
   top: {fileID: 311247374511564911}
   right: {fileID: 7158366325974263722}
   bottom: {fileID: 2999798184045224743}
