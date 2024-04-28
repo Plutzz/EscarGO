@@ -81,6 +81,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2827
+--- !u!114 &-7470296065304436633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Music
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Music
+  Guid:
+    Data1: -639309932
+    Data2: 1225031794
+    Data3: 1769842572
+    Data4: -2146389739
+  Banks:
+  - {fileID: 314137346945307415}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -189081738312659849}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-6472999469559678728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +157,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -237,7 +265,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
@@ -258,7 +286,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638488840268692908
+  lastModified: 638499180255156043
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -358,12 +386,39 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 2827
+--- !u!114 &-189081738312659849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/Aera
+  m_EditorClassIdentifier: 
+  Name: Aera
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 480532391
+    data2: 1241700181
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Menu
+  - Lobby
+  - Level
+  Exists: 1
 --- !u!114 &-66252135913453778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +465,6 @@ MonoBehaviour:
   - {fileID: 5744926915153293797}
   - {fileID: 8808130014617812936}
   EditorEvents:
-  - {fileID: 6524123024019003094}
   - {fileID: -9142820308562873146}
   - {fileID: -4323551038145448870}
   - {fileID: 75080121239340754}
@@ -435,12 +489,13 @@ MonoBehaviour:
   - {fileID: 8006928319859998837}
   - {fileID: -5701597140686071454}
   - {fileID: 1251396679750261640}
+  - {fileID: -7470296065304436633}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3497435936415390202}
   StringsBanks:
   - {fileID: 536762619943829140}
-  cacheTime: 638499120863211309
+  cacheTime: 638499180255371685
   cacheVersion: 131616
 --- !u!114 &75080121239340754
 MonoBehaviour:
@@ -463,7 +518,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
@@ -484,10 +539,10 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638488840268752744
+  lastModified: 638499180255346627
   FileSizes:
   - Name: Desktop
-    Value: 655840
+    Value: 2574016
   Exists: 1
 --- !u!114 &536762619943829140
 MonoBehaviour:
@@ -504,10 +559,10 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638499120863191343
+  lastModified: 638499180255156043
   FileSizes:
   - Name: Desktop
-    Value: 2148
+    Value: 2188
   Exists: 1
 --- !u!114 &994465204644960855
 MonoBehaviour:
@@ -550,12 +605,12 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 320
+  Length: 710
 --- !u!114 &1251396679750261640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,7 +659,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -847,7 +902,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -1030,10 +1085,10 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638499120863211309
+  lastModified: 638499180255371685
   FileSizes:
   - Name: Desktop
-    Value: 323968
+    Value: 330752
   Exists: 1
 --- !u!114 &5837111453899824949
 MonoBehaviour:
@@ -1109,33 +1164,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1114
---- !u!114 &6524123024019003094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/Lobby Music
-  m_EditorClassIdentifier: 
-  Path: event:/Music/Lobby Music
-  Guid:
-    Data1: -345211721
-    Data2: 1203381258
-    Data3: 929197966
-    Data4: 18254330
-  Banks:
-  - {fileID: 314137346945307415}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 54857
 --- !u!114 &6666668979939616829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,7 +1266,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -1333,7 +1361,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638497293729043680
+  lastModified: 638499107843788079
   FileSizes:
   - Name: Desktop
     Value: 874752
