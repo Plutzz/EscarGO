@@ -59,6 +59,10 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
 
     private string playerName;
     [SerializeField] private TextMeshProUGUI usernameText;
+
+    public delegate void LobbyJoinedHandler(Lobby lobby);
+    public event LobbyJoinedHandler OnLobbyJoined;
+
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -218,6 +222,7 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
 
             Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, joinLobbyByCodeOptions);
             joinedLobby = lobby;
+            OnLobbyJoined?.Invoke(lobby);
 
             Debug.Log("Joined Lobby with code " + lobbyCode);
 
