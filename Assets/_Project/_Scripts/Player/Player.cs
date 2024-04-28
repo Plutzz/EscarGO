@@ -51,6 +51,7 @@ public class Player : NetworkBehaviour
             enabled = false;
             return;
         }
+        AudioManager.Instance.SetMusicArea(AudioManager.MusicArea.Lobby);
         Camera.main.GetComponent<StudioListener>().attenuationObject = gameObject;
         ClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
         nameTag.enabled = false;

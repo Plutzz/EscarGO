@@ -37,7 +37,8 @@ public class LobbyTrigger : NetworkBehaviour
 
         yield return new WaitForSeconds(1);
 
-        if(IsServer)
+        AudioManager.Instance.SetMusicArea(AudioManager.MusicArea.Level);
+        if (IsServer)
         {
             NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
