@@ -8,7 +8,7 @@
 			<value>CustomerEat</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{569fae2b-abe5-4888-b007-da66b449db32}</destination>
@@ -114,9 +114,11 @@
 	<object class="MixerBusEffectChain" id="{cd4840e2-ffd5-4459-8c10-7c0f0d4f20f8}">
 		<relationship name="effects">
 			<destination>{bd9e1728-e541-418a-ae73-ae336888ef24}</destination>
+			<destination>{b857c4e0-745f-4a85-8035-c6e082b483b7}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{c961e88c-60e9-47de-9936-f1d766a8124f}" />
 	<object class="MixerBusFader" id="{d15cc625-d7dd-4cc0-87ed-df1989730710}" />
 	<object class="MixerBusFader" id="{bd9e1728-e541-418a-ae73-ae336888ef24}" />
+	<object class="SpatialiserEffect" id="{b857c4e0-745f-4a85-8035-c6e082b483b7}" />
 </objects>

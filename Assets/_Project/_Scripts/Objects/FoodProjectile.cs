@@ -6,6 +6,10 @@ using UnityEngine;
 public class FoodProjectile : NetworkBehaviour
 {
     public Rigidbody rb;
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private ParticleSystem particles;
+
+
     public float launchSpeed;
     public Vector3 launchDirection;
     public float remainingLifetime;
@@ -25,16 +29,26 @@ public class FoodProjectile : NetworkBehaviour
 
         rb.velocity = Quaternion.Euler(rotationAngle.x, rotationAngle.y , rotationAngle.z) * launchDirection.normalized * launchSpeed;
 
-        Destroy(gameObject, remainingLifetime);
+        Invoke("RemoveProjectile", remainingLifetime);
     }
 
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<Player>().OwnerClientId != thrower)
         {
             other.gameObject.GetComponent<PlayerStateMachine>().Stunned();
-            Destroy(gameObject);
+            RemoveProjectile();
         }
     }
 
+
+    private void RemoveProjectile() {
+
+        meshRenderer.enabled = false;
+
+        float particleLifeTime = particles.main.startLifetime.curveMultiplier;
+        Debug.Log("Particle Lifetime: " + particleLifeTime);
+        particles.Stop();
+        Destroy(gameObject, particleLifeTime);
+    }
     
 }

@@ -8,7 +8,7 @@
 			<value>CustomerLeave</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{569fae2b-abe5-4888-b007-da66b449db32}</destination>
@@ -97,9 +97,11 @@
 	<object class="MixerBusEffectChain" id="{83490f5d-ec4b-400d-9ee0-8744debf657e}">
 		<relationship name="effects">
 			<destination>{971b6943-b126-4f16-9255-b2235d3b78b1}</destination>
+			<destination>{9ef84462-dc44-48f5-a0d9-cdf4203cdaee}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e63c6fd2-ca37-4479-92de-f73562e4432c}" />
 	<object class="MixerBusFader" id="{2635aa0c-6059-40ab-b5a3-c5abc2635fe4}" />
 	<object class="MixerBusFader" id="{971b6943-b126-4f16-9255-b2235d3b78b1}" />
+	<object class="SpatialiserEffect" id="{9ef84462-dc44-48f5-a0d9-cdf4203cdaee}" />
 </objects>
