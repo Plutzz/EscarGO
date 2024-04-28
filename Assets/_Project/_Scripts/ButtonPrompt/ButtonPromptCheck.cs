@@ -55,7 +55,7 @@ public class ButtonPromptCheck : MonoBehaviour
                 {
                     if (bpDetails[0] != buttonPromptObj.transform.GetChild(0).GetComponent<BPDetailsUI>().bpDetails)
                     {
-                        ClearUIItem();
+                        ClearUIItem();  
                     }
                 }
 
@@ -72,6 +72,7 @@ public class ButtonPromptCheck : MonoBehaviour
             else
             {
                 ClearUIItem();
+                // I DONT KNOW WHERE THIS GOES // AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ItemTrash, transform.position);
             }
         }
 

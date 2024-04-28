@@ -25,6 +25,7 @@ public class CustomerMovement : NetworkBehaviour
             return;
         }
 
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CustomerEnter, transform.position);
         walkSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
         customer = GetComponent<Customer>();
         agent = gameObject.AddComponent<NavMeshAgent>();
