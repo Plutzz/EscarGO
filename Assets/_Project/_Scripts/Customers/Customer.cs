@@ -126,13 +126,13 @@ public class Customer : NetworkBehaviour
             Debug.Log("assignedPlayer " + assignedPlayer);
             Debug.Log("critera " + criteria);
             Debug.Log("score " + criteria.score);
-            ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, criteria.score);
+            ScoringSingleton.Instance.AddScoreServerRpc(assignedPlayer, (int)(criteria.score*(timer/patienceTime)));
             ActivateTimerClientRpc(false);
 
             // Timer for customer eating
             StartCoroutine(FufillOrderWait(10));
 
-            DisplayPointsEarned(criteria.score);
+            DisplayPointsEarned((int)(criteria.score*(timer/patienceTime)));
         }
         else
         {
