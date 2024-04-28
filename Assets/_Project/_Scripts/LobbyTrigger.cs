@@ -9,6 +9,7 @@ public class LobbyTrigger : NetworkBehaviour
 {
     [SerializeField] private string SceneName;
     [SerializeField] private TextMeshPro LobbyText;
+    [SerializeField] private LevelLoader levelLoader;
     private int numPlayersReady = 0;
 
     public override void OnNetworkSpawn()
@@ -29,6 +30,19 @@ public class LobbyTrigger : NetworkBehaviour
             PlayerReadyServerRpc();
         }
     }
+
+    private IEnumerator FadeTransition()
+    {
+        levelLoader.fadeTransition();
+
+        yield return new WaitForSeconds(1);
+
+        if(IsServer)
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        }
+    }
+
     [ServerRpc(RequireOwnership = false)]
     private void PlayerReadyServerRpc()
     {
@@ -38,8 +52,16 @@ public class LobbyTrigger : NetworkBehaviour
         if (numPlayersReady == NetworkManager.Singleton.ConnectedClientsList.Count)
         {
             Debug.Log("Loading Next Scene");
-            NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+            FadeTransitionClientRPC();
+            // levelLoader.fadeTransition();
+            // NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
+    }
+
+    [ClientRpc]
+    private void FadeTransitionClientRPC()
+    {
+        StartCoroutine(FadeTransition());
     }
 
     private void OnCollisionExit(Collision collision)

@@ -160,6 +160,7 @@ public class BatterShapingStation : SuperStation
 
             if(Input.GetMouseButtonDown(0))
             {
+                
                 if(!isWaffleSFXPlaying)
                 {
                     waffleSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.WafflePour);
@@ -179,6 +180,13 @@ public class BatterShapingStation : SuperStation
             {
                 playerHoldTimer += Time.deltaTime;
                 playerBatter.transform.localScale += new Vector3(goalSizeOfBatter, 0, goalSizeOfBatter) * Time.deltaTime/goal;
+
+                if(playerHoldTimer >= (goal + goalRange))
+                {
+                    DeActivate();
+                    resultingItem = null;
+                }
+
                 squeezing = true;
             }
         } else if (timerActive)
