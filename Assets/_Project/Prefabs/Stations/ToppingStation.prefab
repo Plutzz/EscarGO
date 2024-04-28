@@ -521,7 +521,10 @@ MonoBehaviour:
   virtualCamera: {fileID: 3336348555597700333}
   toppingCircle: {fileID: 1376731491552901378, guid: a041584e6708f78459c0481fee857ed7,
     type: 3}
-  sprinkleParticles: {fileID: 663101027279445004, guid: 3631a1b0a2cd9ee46b4cbd23ff94d3fe,
+  toppingParticles: {fileID: 0}
+  strawberryParticles: {fileID: 3062853108842203539, guid: 94aad7db5c7d70440b246ac409a33bef,
+    type: 3}
+  chocolateParticles: {fileID: 3062853108842203539, guid: 6b51a52771022f74f8665c9506ac9e95,
     type: 3}
   toppingCircleAmount: 5
   heightOfCircles: 0.68
