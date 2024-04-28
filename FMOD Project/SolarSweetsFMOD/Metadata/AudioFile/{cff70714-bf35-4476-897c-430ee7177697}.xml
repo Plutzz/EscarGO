@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{f69e6c02-2a41-4cd8-80c8-586af6c3588e}">
+	<object class="AudioFile" id="{cff70714-bf35-4476-897c-430ee7177697}">
 		<property name="assetPath">
-			<value>SFX/Player/player_hit.wav</value>
+			<value>SFX/Player/playerhitNEW.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.31310657596371883</value>
+			<value>0.71068027210884355</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{2a48399c-b2e3-4dae-be76-62112029a967}</destination>
