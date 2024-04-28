@@ -37,6 +37,7 @@ public class BakingStation : SuperStation
     private bool rightSuccess = false;
     private bool itemReady = false;
 
+    private bool timerActive;
     private Material timerMaterial;
     private float fillValue;
     private EventInstance ovenSFX;
@@ -78,10 +79,8 @@ public class BakingStation : SuperStation
 
         virtualCamera.enabled = true;
 
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
-        Cursor.lockState = CursorLockMode.None;
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.InteractState);
     }
 
     public override void GetItem()
@@ -101,6 +100,7 @@ public class BakingStation : SuperStation
                 UseStationServerRPC(false);
             }
 
+            timerActive = false;
             itemReady = false;
             fillValue = 0f;
             timerObject.SetActive(false);
@@ -136,8 +136,8 @@ public class BakingStation : SuperStation
 
         Cursor.lockState = CursorLockMode.Locked;
         virtualCamera.enabled = false;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
     }
 
     public override bool StationInUse
@@ -208,9 +208,17 @@ public class BakingStation : SuperStation
             }
 
             CheckKnobs();
-        } else if (success && !isBaking)
+        } else if (timerActive)
         {
-            fillValue = Mathf.Clamp(fillValue += Time.deltaTime/bakeTime, 0f, 1f);
+            if(!itemReady)
+            {
+                fillValue = Mathf.Clamp(fillValue += Time.deltaTime / bakeTime, 0f, 1f);
+            }
+            else
+            {
+                fillValue = Mathf.Clamp(fillValue -= Time.deltaTime / timeBeforeExpire, 0f, 1f);
+            }
+           
             timerMaterial.SetFloat("_Fill_Amount", fillValue);
         }
     }
@@ -308,7 +316,7 @@ public class BakingStation : SuperStation
             } else {
                 StationResultServerRPC(true);
             }
-
+        timerActive = true;
         ovenSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.StationTicking);
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
@@ -346,6 +354,7 @@ public class BakingStation : SuperStation
             StationResultServerRPC(false);
         }
 
+        timerActive = false;
         resultingItem = null;
     }
 

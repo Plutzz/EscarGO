@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using Unity.Netcode;
 using FMOD.Studio;
+using System;
 
 public class BatterShapingStation : SuperStation
 {
@@ -32,6 +33,7 @@ public class BatterShapingStation : SuperStation
     private bool itemReady = false;
     private Material timerMaterial;
     private float fillValue;
+    private bool timerActive;
     private EventInstance waffleSFX;
     private EventInstance tickingSFX;
     private bool isWaffleSFXPlaying;
@@ -59,8 +61,9 @@ public class BatterShapingStation : SuperStation
             StationResultServerRPC(false);
         }
 
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
-        Cursor.lockState = CursorLockMode.None;
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.InteractState);
+
         virtualCamera.enabled = true;
     }
 
@@ -81,6 +84,7 @@ public class BatterShapingStation : SuperStation
                 UseStationServerRPC(false);
             }
 
+            timerActive = false;
             itemReady = false;
             fillValue = 0f;
             timerObject.SetActive(false);
@@ -111,9 +115,10 @@ public class BatterShapingStation : SuperStation
 
         Destroy(playerBatter);
         playerHoldTimer = 0;
+        
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
 
-        Cursor.lockState = CursorLockMode.Locked;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
         virtualCamera.enabled = false;
     }
 
@@ -176,9 +181,17 @@ public class BatterShapingStation : SuperStation
                 playerBatter.transform.localScale += new Vector3(goalSizeOfBatter, 0, goalSizeOfBatter) * Time.deltaTime/goal;
                 squeezing = true;
             }
-        } else if (success && !isBattering)
+        } else if (timerActive)
         {
-            fillValue = Mathf.Clamp(fillValue += Time.deltaTime/cookTime, 0f, 1f);
+            if (!itemReady)
+            {
+                fillValue = Mathf.Clamp(fillValue += Time.deltaTime / cookTime, 0f, 1f);
+            }
+            else
+            {
+                fillValue = Mathf.Clamp(fillValue -= Time.deltaTime / timeBeforeExpire, 0f, 1f);
+            }
+
             timerMaterial.SetFloat("_Fill_Amount", fillValue);
         }
     }
@@ -226,6 +239,7 @@ public class BatterShapingStation : SuperStation
             } else {
                 WaffleIronAnimationServerRPC("Close");
             }
+        timerActive = true;
         tickingSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.StationTicking);
         Debug.Log("cooking");
         timerObject.SetActive(true);
@@ -255,6 +269,7 @@ public class BatterShapingStation : SuperStation
     {
         yield return new WaitForSeconds(timeBeforeExpire);
 
+        timerActive = false;
         itemReady = false;
         fillValue = 0f;
         timerObject.SetActive(false);
