@@ -61,7 +61,9 @@ public class BatterShapingStation : SuperStation
             StationResultServerRPC(false);
         }
 
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.InteractState);
+
         virtualCamera.enabled = true;
     }
 
@@ -113,7 +115,10 @@ public class BatterShapingStation : SuperStation
 
         Destroy(playerBatter);
         playerHoldTimer = 0;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
+        
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
+
         virtualCamera.enabled = false;
     }
 

@@ -55,7 +55,8 @@ public class KneadingStation : SuperStation
         virtualCamera.enabled = true;
 
 
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.InteractState);
     }
 
     public override void GetItem()
@@ -89,7 +90,9 @@ public class KneadingStation : SuperStation
         rollingPin.transform.position = rollingPinDefaultPosition;
         rollingPin.transform.rotation = rollingPinDefaultRotation;
 
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
+
         virtualCamera.enabled = false;
     }
 

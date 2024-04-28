@@ -69,10 +69,9 @@ public class ToppingStation : SuperStation
         {
             toppingCircleObjects.Add(Instantiate(toppingCircle, transform.position + new Vector3(Random.Range(-maxX, maxX), heightOfCircles, Random.Range(-maxZ, maxZ)), transform.rotation));
         }
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.InteractState);
 
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
         Cursor.lockState = CursorLockMode.None;
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
@@ -105,8 +104,9 @@ public class ToppingStation : SuperStation
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         virtualCamera.enabled = false;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
+
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
 
         foreach (GameObject obj in toppingCircleObjects)
         {

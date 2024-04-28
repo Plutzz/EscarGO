@@ -10,12 +10,13 @@ public class PlayerInteractVinh : PlayerInteractSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-
+        stateMachine.inputManager.SwitchActionMap("MiniGames");
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        stateMachine.inputManager.SwitchActionMap("Player");
     }
 
     public override void DoFixedUpdateState()

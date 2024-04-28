@@ -102,9 +102,9 @@ public class CuttingStation : SuperStation
 
         alignKnife();
 
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("MiniGames");
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.InteractState);
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
@@ -140,8 +140,9 @@ public class CuttingStation : SuperStation
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         virtualCamera.enabled = false;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("Player");
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().EnablePrompts();
+
+        PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
 
         ResetKnife();
     }
