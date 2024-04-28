@@ -54,6 +54,8 @@ public class BatterShapingStation : SuperStation
 
         playerHoldTimer = 0;
 
+        playerIndicator = Instantiate(batterIndicator, batterSpawnPoint.transform.position, transform.rotation);
+
         if(IsServer)
         {
             UseStationClientRPC(true);
@@ -116,7 +118,10 @@ public class BatterShapingStation : SuperStation
         }
 
         Destroy(playerBatter);
-        Destroy(playerIndicator);
+        if(playerIndicator != null)
+        {
+            Destroy(playerIndicator);
+        }
         Debug.Log("Destroyed batter");
         playerHoldTimer = 0;
         
@@ -171,7 +176,7 @@ public class BatterShapingStation : SuperStation
                     isWaffleSFXPlaying = true;
                 }
                 playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
-                playerIndicator = Instantiate(batterIndicator, batterSpawnPoint.transform.position, transform.rotation);
+                
                 squeezing = true;
             }
             
@@ -192,7 +197,6 @@ public class BatterShapingStation : SuperStation
                     resultingItem = null;
                 }
 
-                squeezing = true;
             }
         } else if (timerActive)
         {
@@ -232,6 +236,8 @@ public class BatterShapingStation : SuperStation
             inventory.Craft(batter);
         }*/
 
+        Destroy(playerIndicator);
+
         StartCoroutine(Cook());
 
         DeActivate();
@@ -241,7 +247,7 @@ public class BatterShapingStation : SuperStation
     {
         playerHoldTimer = 0;
         Destroy(playerBatter);
-        playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
+        //playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
     }
 
     private IEnumerator Cook()
