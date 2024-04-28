@@ -6,4 +6,15 @@ using UnityEngine;
 public class ButtonPromptSet : MonoBehaviour
 {
     public List<ButtonPromptDetails> buttonPromptSet;
+    public MeshRenderer meshRenderer;
+
+    public void ChangeOutline(Material outline)
+    {
+        if (meshRenderer != null)
+        {
+            Material[] materials = meshRenderer.materials;
+            materials[1] = outline;
+            meshRenderer.materials = materials;
+        }
+    }
 }

@@ -1893,6 +1893,8 @@ MonoBehaviour:
   buttonPromptDetailsObj: {fileID: 8967317743496367340, guid: e54316cb2345eec439d7fd3d66f5e4c8,
     type: 3}
   rayLength: 1
+  defaultOutline: {fileID: 2100000, guid: c2c12975a9619704188c08876a94ae9a, type: 2}
+  highlightOutline: {fileID: 2100000, guid: d5a6a15d819d6604a86b9c9f23704533, type: 2}
 --- !u!114 &2381533968702581711
 MonoBehaviour:
   m_ObjectHideFlags: 0

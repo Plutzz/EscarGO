@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 942856873
+  GlobalObjectIdHash: 3631278629
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -527,7 +527,6 @@ MonoBehaviour:
   heightOfCircles: 0.68
   maxX: 0.37
   maxZ: 0.37
-  cursorTexture: {fileID: 2800000, guid: 6cf961203bfde3d43954cedce83ccfac, type: 3}
   baseItems:
   - {fileID: 11400000, guid: 1d5da0cf9e624fe438ca449fa2c78943, type: 2}
   - {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
@@ -572,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 36db5ad310ddd014d917a48c3ce3ea4b, type: 2}
+  meshRenderer: {fileID: 7581391829668132627}
 --- !u!1 &1721284868415973809
 GameObject:
   m_ObjectHideFlags: 0
