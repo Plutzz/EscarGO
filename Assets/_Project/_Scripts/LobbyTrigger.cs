@@ -37,8 +37,14 @@ public class LobbyTrigger : NetworkBehaviour
     {
         float currentCountdown = countdown;
 
-        while (currentCountdown > 0)
+        while (currentCountdown >= 0)
         {
+            if (numPlayersReady != NetworkManager.Singleton.ConnectedClientsList.Count)
+            {
+                LobbyCountdown.text = "";
+                yield break;
+            }
+
             LobbyCountdown.text = currentCountdown.ToString();
             yield return new WaitForSeconds(1);
             currentCountdown--;
