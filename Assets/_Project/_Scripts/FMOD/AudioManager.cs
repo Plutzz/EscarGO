@@ -105,6 +105,11 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     {
         PlayOneShot(sound, worldPos);
     }
+    [ClientRpc]
+    private void TestClientRpc(NetworkObjectReference networkObject)
+    {
+
+    }
 
     public EventInstance CreateInstance(EventReference eventReference)
     {
@@ -113,10 +118,17 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         return eventInstance;
     }
 
-    public StudioEventEmitter InitializeEventEmitter(EventReference eventReference, GameObject emitterGameObject)
+    public StudioEventEmitter InitializeEventEmitter(FMODEvents.NetworkSFXName sound, GameObject emitterGameObject)
     {
-        StudioEventEmitter emitter = emitterGameObject.GetComponent<StudioEventEmitter>();
-        emitter.EventReference = eventReference;
+        if (emitterGameObject.TryGetComponent(out StudioEventEmitter emitter))
+        {
+
+        }
+        else
+        {
+            emitter = emitterGameObject.AddComponent<StudioEventEmitter>();
+        }
+        emitter.EventReference = FMODEvents.Instance.SfxArray[(int)sound];
         eventEmitters.Add(emitter);
         return emitter;
     }

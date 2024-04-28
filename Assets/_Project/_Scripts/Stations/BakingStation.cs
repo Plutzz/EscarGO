@@ -5,6 +5,8 @@ using Cinemachine;
 using Unity.Netcode;
 using UnityEngine.Rendering;
 using FMOD.Studio;
+using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class BakingStation : SuperStation
 {
@@ -40,7 +42,7 @@ public class BakingStation : SuperStation
     private bool timerActive;
     private Material timerMaterial;
     private float fillValue;
-    private EventInstance ovenSFX;
+    private StudioEventEmitter ovenSFX;
 
     public override void Activate(CraftableItem successfulItem)
     {
@@ -317,14 +319,15 @@ public class BakingStation : SuperStation
                 StationResultServerRPC(true);
             }
         timerActive = true;
-        ovenSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.StationTicking);
+        ovenSFX = AudioManager.Instance.InitializeEventEmitter(FMODEvents.NetworkSFXName.StationTicking, gameObject);
+        ovenSFX.Play();
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
         timerMaterial.SetTexture("_Texture", resultingItem.itemSprite.texture);
         timerMaterial.EnableKeyword("_USE_TEXTURE");
 
         yield return new WaitForSeconds(bakeTime);
-        ovenSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        ovenSFX.EventInstance.stop(STOP_MODE.ALLOWFADEOUT);
     
         AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);

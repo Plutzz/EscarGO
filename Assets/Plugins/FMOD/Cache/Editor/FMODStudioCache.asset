@@ -48,7 +48,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
@@ -81,33 +81,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2827
---- !u!114 &-6682902046844257210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Environment/DoorClose
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Environment/DoorClose
-  Guid:
-    Data1: -153528827
-    Data2: 1216063991
-    Data3: -2127439958
-    Data4: 1376906742
-  Banks:
-  - {fileID: 5744926915153293797}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 456
 --- !u!114 &-6472999469559678728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +108,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4676
---- !u!114 &-6435245343047798397
+--- !u!114 &-5701597140686071454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,23 +118,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Environment/CustomerEat
+  m_Name: event:/SFX/Customer/CustomerLeave
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Environment/CustomerEat
+  Path: event:/SFX/Customer/CustomerLeave
   Guid:
-    Data1: 767769358
-    Data2: 1254398612
-    Data3: -421392252
-    Data4: -458324105
+    Data1: -1229873846
+    Data2: 1164496520
+    Data3: 1148126894
+    Data4: 560682935
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2827
+  Length: 1114
 --- !u!114 &-5532289101175193697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +258,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638488957207061758
+  lastModified: 638487083301074146
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -311,7 +284,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 5744926915153293797}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -364,6 +337,33 @@ MonoBehaviour:
   - Name: Desktop
     Value: 1036
   Exists: 1
+--- !u!114 &-1074365400632326717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Customer/CustomerEat
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Customer/CustomerEat
+  Guid:
+    Data1: 767769358
+    Data2: 1254398612
+    Data3: -421392252
+    Data4: -458324105
+  Banks:
+  - {fileID: 5744926915153293797}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2827
 --- !u!114 &-66252135913453778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,31 +412,35 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 6524123024019003094}
   - {fileID: -9142820308562873146}
-  - {fileID: -6682902046844257210}
   - {fileID: -4323551038145448870}
   - {fileID: 75080121239340754}
   - {fileID: -2675591304525911666}
-  - {fileID: -6435245343047798397}
   - {fileID: 2252884188812810018}
   - {fileID: 2826026473372318204}
-  - {fileID: 4811070975576268648}
   - {fileID: 8865756877598954760}
   - {fileID: 4724138375000984414}
   - {fileID: 2026777332181871900}
   - {fileID: 1335914036800481598}
-  - {fileID: 6092879428390454781}
   - {fileID: -1261949945283987275}
   - {fileID: -8605041578193002218}
   - {fileID: -6472999469559678728}
   - {fileID: 1171983438661319397}
   - {fileID: 3192979719840461408}
   - {fileID: 5678781886654297556}
+  - {fileID: 2409645918179833506}
+  - {fileID: 3404797281058998986}
+  - {fileID: -1074365400632326717}
+  - {fileID: 7836098053614740926}
+  - {fileID: 1405532460193380034}
+  - {fileID: 8006928319859998837}
+  - {fileID: -5701597140686071454}
+  - {fileID: 1251396679750261640}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3497435936415390202}
   StringsBanks:
   - {fileID: 536762619943829140}
-  cacheTime: 638494882321259766
+  cacheTime: 638499055438726187
   cacheVersion: 131616
 --- !u!114 &75080121239340754
 MonoBehaviour:
@@ -480,7 +484,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638488957207121742
+  lastModified: 638487083301133990
   FileSizes:
   - Name: Desktop
     Value: 655840
@@ -500,10 +504,10 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638494882321249767
+  lastModified: 638499055438706241
   FileSizes:
   - Name: Desktop
-    Value: 1960
+    Value: 2148
   Exists: 1
 --- !u!114 &994465204644960855
 MonoBehaviour:
@@ -552,6 +556,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 320
+--- !u!114 &1251396679750261640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/UI/ButtonHover
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/UI/ButtonHover
+  Guid:
+    Data1: 1713664608
+    Data2: 1105574532
+    Data3: 429490623
+    Data4: 927759098
+  Banks:
+  - {fileID: 5744926915153293797}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 56
 --- !u!114 &1335914036800481598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +610,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 224
+--- !u!114 &1405532460193380034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/UI/PageTurn
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/UI/PageTurn
+  Guid:
+    Data1: -513133785
+    Data2: 1323833851
+    Data3: 529167284
+    Data4: -628805469
+  Banks:
+  - {fileID: 5744926915153293797}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 330
 --- !u!114 &1763403332169679409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,6 +718,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 240
+--- !u!114 &2409645918179833506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/UI/ButtonClick
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/UI/ButtonClick
+  Guid:
+    Data1: 1751002115
+    Data2: 1164026535
+    Data3: -1339887195
+    Data4: 1596646072
+  Banks:
+  - {fileID: 5744926915153293797}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 336
 --- !u!114 &2826026473372318204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,6 +826,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 583
+--- !u!114 &3404797281058998986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Kitchen/DoorClose
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Kitchen/DoorClose
+  Guid:
+    Data1: -153528827
+    Data2: 1216063991
+    Data3: -2127439958
+    Data4: 1376906742
+  Banks:
+  - {fileID: 5744926915153293797}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 456
 --- !u!114 &3663096958781983965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,33 +961,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4676
---- !u!114 &4811070975576268648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Environment/PageTurn
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Environment/PageTurn
-  Guid:
-    Data1: -513133785
-    Data2: 1323833851
-    Data3: 529167284
-    Data4: -628805469
-  Banks:
-  - {fileID: 5744926915153293797}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 330
 --- !u!114 &4908326474148681532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,10 +1030,10 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638494882321259766
+  lastModified: 638499055438726187
   FileSizes:
   - Name: Desktop
-    Value: 285024
+    Value: 323968
   Exists: 1
 --- !u!114 &5837111453899824949
 MonoBehaviour:
@@ -997,33 +1082,6 @@ MonoBehaviour:
   - Name: Desktop
     Value: 920
   Exists: 1
---- !u!114 &6092879428390454781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Environment/CustomerLeave
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Environment/CustomerLeave
-  Guid:
-    Data1: -1229873846
-    Data2: 1164496520
-    Data3: 1148126894
-    Data4: 560682935
-  Banks:
-  - {fileID: 5744926915153293797}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1114
 --- !u!114 &6349414392516313387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,6 +1217,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 240
+--- !u!114 &7836098053614740926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Customer/CustomerEnter
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Customer/CustomerEnter
+  Guid:
+    Data1: 1030956320
+    Data2: 1219454173
+    Data3: 377080456
+    Data4: -1003973841
+  Banks:
+  - {fileID: 5744926915153293797}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2409
 --- !u!114 &7974632374703855151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,6 +1264,33 @@ MonoBehaviour:
   - Name: Desktop
     Value: 40768
   Exists: 1
+--- !u!114 &8006928319859998837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Kitchen/ItemTrash
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Kitchen/ItemTrash
+  Guid:
+    Data1: 1054868265
+    Data2: 1116660467
+    Data3: 1649038503
+    Data4: -1320064122
+  Banks:
+  - {fileID: 5744926915153293797}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1498
 --- !u!114 &8221143959388532164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,7 +1333,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638494882321239759
+  lastModified: 638494173607634348
   FileSizes:
   - Name: Desktop
     Value: 874752
