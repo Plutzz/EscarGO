@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
+using FMODUnity;
 
 public class Customer : NetworkBehaviour
 {
@@ -35,7 +36,7 @@ public class Customer : NetworkBehaviour
 
     private Animator animator;
 
-    private EventInstance eatSFX;
+    private StudioEventEmitter eatSFX;
 
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
@@ -121,7 +122,8 @@ public class Customer : NetworkBehaviour
         
         if (gotOrder)
         {
-            eatSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.CustomerEat);
+            AudioManager.Instance.InitializeEventEmitterServerRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject);
+            eatSFX.Play();
             Debug.Log("Singleton Instance " + ScoringSingleton.Instance);
             Debug.Log("assignedPlayer " + assignedPlayer);
             Debug.Log("critera " + criteria);
@@ -145,7 +147,7 @@ public class Customer : NetworkBehaviour
     private IEnumerator FufillOrderWait(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        eatSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        eatSFX.Stop();
         CustomerSpawner.Instance.customerCount--;
         Exit();
     }

@@ -90,10 +90,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     #endregion
     private void Throw() {
-        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
-        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation);
-        return;
-
+        
         if (playerInventory == null)
         {
             
@@ -101,13 +98,15 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         }
         else if (playerInventory.CurrentlyHasItem() == false)
         {
-            //return;
+            return;
         }
-        else { 
+        else 
+        { 
             playerInventory.RemoveActiveItem();
         }
-        FoodProjectile newProjectile = Instantiate(projectile, gameObject.transform.position + stateMachine.orientation.forward, gameObject.transform.rotation);
-        //newProjectile.Launch();
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
+        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation);
+
 
     }
 }

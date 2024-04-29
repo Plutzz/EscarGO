@@ -22,8 +22,8 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     private Bus ambienceBus;
     private Bus sfxBus;
 
-    private List<EventInstance> eventInstances;
-    private List<StudioEventEmitter> eventEmitters;
+    public List<EventInstance> eventInstances {  get; private set; }
+    public List<StudioEventEmitter> eventEmitters { get; private set; }
 
     private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
@@ -107,15 +107,22 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     {
         PlayOneShot(sound, worldPos);
     }
-    //[ClientRpc]
-    //public void InitializeEventEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference networkObject)
-    //{
-    //    if(networkObject.TryGet(out NetworkObject netObj))
-    //    {
-    //        StudioEventEmitter emitter = InitializeEventEmitter(sound, netObj.gameObject);
-    //    }
-        
-    //}
+
+    // In order to get the reference to the emitter use eventEmitters list 
+    [ClientRpc]
+    public void InitializeEventEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference networkObject)
+    {
+        if (networkObject.TryGet(out NetworkObject netObj))
+        {
+            InitializeEventEmitter(sound, netObj.gameObject);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void InitializeEventEmitterServerRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference networkObject)
+    {
+        InitializeEventEmitterClientRpc(sound, networkObject);
+    }
 
     public EventInstance CreateInstance(EventReference eventReference)
     {
