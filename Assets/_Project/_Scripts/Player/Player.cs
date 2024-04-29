@@ -35,6 +35,7 @@ public class Player : NetworkBehaviour
     #endregion
 
     [SerializeField] private SettingsMenu pauseMenu;
+    [SerializeField] private GameObject recipeBook;
     [SerializeField] private FirstPersonCamera cameraScript;
     [SerializeField] private Vector3 spawnPos;
 
@@ -117,6 +118,12 @@ public class Player : NetworkBehaviour
         if(inputManager.PausePressedThisFrame && pauseMenu != null)
         {
             pauseMenu.OpenMenu();
+            recipeBook.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && recipeBook != null)
+        {
+            recipeBook.SetActive(!recipeBook.activeSelf);
         }
 
         if(orientation != null && cameraScript != null)
