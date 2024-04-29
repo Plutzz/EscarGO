@@ -21,6 +21,7 @@ public class BakingStation : SuperStation
     [SerializeField] private GameObject rightKnob;
     [SerializeField] private GameObject turnTarget;
     [SerializeField] private GameObject timerObject;
+    [SerializeField] private GameObject bakingIndicator;
 
     private bool isBaking = false;
     private bool success = false;
@@ -28,6 +29,7 @@ public class BakingStation : SuperStation
     private GameObject leftTarget;
     private GameObject middleTarget;
     private GameObject rightTarget;
+    private GameObject playerIndicator;
     private int turnTargetLeft;
     private int turnTargetmiddle;
     private int turnTargetright;
@@ -72,6 +74,8 @@ public class BakingStation : SuperStation
             Destroy(middleTarget);
             Destroy(rightTarget);
         }
+
+        playerIndicator = Instantiate(bakingIndicator, transform.position + new Vector3(0, 0.5f, 0f), Quaternion.Euler(90f, 0f, 0f));
 
         SetTargets();
 
@@ -120,6 +124,7 @@ public class BakingStation : SuperStation
     public override void DeActivate()
     {
         ResetKnobs();
+        Destroy(playerIndicator);
         Destroy(leftTarget);
         Destroy(middleTarget);
         Destroy(rightTarget);

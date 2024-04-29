@@ -17,6 +17,7 @@ public class BatterShapingStation : SuperStation
     [SerializeField] private GameObject batterSpawnPoint;
     [SerializeField] private GameObject timerObject;
     [SerializeField] private GameObject waffleIronJoint;
+    public GameObject batterIndicator;
 
     [SerializeField] private CraftableItem batter;
     private PlayerInventory inventory;
@@ -27,6 +28,7 @@ public class BatterShapingStation : SuperStation
     private bool isBattering = false;
     private bool squeezing = false;
     private GameObject playerBatter;
+    private GameObject playerIndicator;
     private float playerHoldTimer = 0f;
 
     private Animator waffleIronAnimation;
@@ -51,6 +53,8 @@ public class BatterShapingStation : SuperStation
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
         playerHoldTimer = 0;
+
+        playerIndicator = Instantiate(batterIndicator, batterSpawnPoint.transform.position, transform.rotation);
 
         if(IsServer)
         {
@@ -114,6 +118,11 @@ public class BatterShapingStation : SuperStation
         }
 
         Destroy(playerBatter);
+        if(playerIndicator != null)
+        {
+            Destroy(playerIndicator);
+        }
+        Debug.Log("Destroyed batter");
         playerHoldTimer = 0;
         
         PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
@@ -167,6 +176,7 @@ public class BatterShapingStation : SuperStation
                     isWaffleSFXPlaying = true;
                 }
                 playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
+                
                 squeezing = true;
             }
             
@@ -187,7 +197,6 @@ public class BatterShapingStation : SuperStation
                     resultingItem = null;
                 }
 
-                squeezing = true;
             }
         } else if (timerActive)
         {
@@ -227,6 +236,8 @@ public class BatterShapingStation : SuperStation
             inventory.Craft(batter);
         }*/
 
+        Destroy(playerIndicator);
+
         StartCoroutine(Cook());
 
         DeActivate();
@@ -236,7 +247,7 @@ public class BatterShapingStation : SuperStation
     {
         playerHoldTimer = 0;
         Destroy(playerBatter);
-        playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
+        //playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
     }
 
     private IEnumerator Cook()

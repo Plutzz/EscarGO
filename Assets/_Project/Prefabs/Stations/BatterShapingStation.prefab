@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goal: 2.5
-  goalRange: 0.45
+  goalRange: 0.1
   goalSizeOfBatter: 0.45
   cookTime: 5
   timeBeforeExpire: 5
@@ -599,6 +599,8 @@ MonoBehaviour:
   batterSpawnPoint: {fileID: 5202544883056238143}
   timerObject: {fileID: 124665445482800153}
   waffleIronJoint: {fileID: 5007327137821785674}
+  batterIndicator: {fileID: 5633515669756659429, guid: 4a91564d09ed40043a3ea64758689541,
+    type: 3}
   batter: {fileID: 11400000, guid: 1e865a0e9752d4248bd746580fac9882, type: 2}
   virtualCamera: {fileID: 3441638109003990563}
 --- !u!114 &6061257074215983325
@@ -615,6 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 1b37c5de611fb244c9b5382331e9a294, type: 2}
+  meshRenderer: {fileID: 2334671616864621300}
 --- !u!1 &6520115595269549542
 GameObject:
   m_ObjectHideFlags: 0
