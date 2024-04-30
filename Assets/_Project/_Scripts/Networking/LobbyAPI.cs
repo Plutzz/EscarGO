@@ -364,14 +364,26 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
         {
             if (joinedLobby != null)
             {
+                bool isHost = AuthenticationService.Instance.PlayerId == joinedLobby.HostId;
+
+                if (isHost)
+                {
+                    if (joinedLobby.Players.Count > 1)
+                    {
+                        MigrateLobbyHost();
+                    }
+                    else 
+                    {
+                        await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
+                    }
+                }
+
                 // Remove the current player from the joined lobby
                 await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
 
                 // Clean up lobby references
                 hostLobby = null;
                 joinedLobby = null;
-
-                
             }
             else
             {
