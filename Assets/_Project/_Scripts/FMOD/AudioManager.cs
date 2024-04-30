@@ -87,12 +87,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         RuntimeManager.PlayOneShot(FMODEvents.Instance.SfxArray[(int)sound], worldPos);
     }
 
-    public EventInstance PlayLoopingSFX(FMODEvents.NetworkSFXName sound)
-    {
-        EventInstance sfxEventInstance = CreateInstance(FMODEvents.Instance.SfxArray[(int)sound]);
-        sfxEventInstance.start();
-        return sfxEventInstance;
-    }
+
     
     // Asks the server to play a sfx on all clients *CLIENT AUTHORITATIVE
     [ServerRpc(RequireOwnership = false)]
@@ -120,13 +115,14 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         if (emitterGameObject.TryGetComponent(out StudioEventEmitter emitter))
         {
             emitter.Stop();
+            eventEmitters.Add(emitter);
         }
         else
         {
             emitter = emitterGameObject.AddComponent<StudioEventEmitter>();
         }
         emitter.EventReference = FMODEvents.Instance.SfxArray[(int)sound];
-        eventEmitters.Add(emitter);
+        
         return emitter;
     }
 

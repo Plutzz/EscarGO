@@ -1,4 +1,5 @@
 using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -17,7 +18,7 @@ public class CustomerMovement : NetworkBehaviour
     private Customer customer;
     private bool isLeaving;
 
-    private EventInstance walkSFX;
+    private StudioEventEmitter walkSFX;
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
@@ -26,7 +27,7 @@ public class CustomerMovement : NetworkBehaviour
         }
 
         AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CustomerEnter, transform.position);
-        walkSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
+        //PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, true);
         customer = GetComponent<Customer>();
         agent = gameObject.AddComponent<NavMeshAgent>();
         SetNavMeshValues();
@@ -127,7 +128,7 @@ public class CustomerMovement : NetworkBehaviour
 
     public void MoveToExit()
     {
-        walkSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
+        //PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, true);
         isLeaving = true;
         transform.position = assignedChair.exitPoint;
         SetAgentActive(true);
@@ -140,7 +141,7 @@ public class CustomerMovement : NetworkBehaviour
 
         if (other.gameObject == assignedChair.gameObject && !isLeaving)
         {
-            walkSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, false);
 
             SetAgentActive(false);
             transform.position = (assignedChair.transform.position) + transform.up * sittingOffsetY;
@@ -169,8 +170,23 @@ public class CustomerMovement : NetworkBehaviour
 
         if (other.gameObject.name == "CustomerSpawnPoint" && isLeaving)
         {
-            walkSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, false);
+
             Destroy(gameObject);
+        }
+    }
+
+    [ClientRpc]
+    private void PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if (play)
+        {
+            walkSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            walkSFX.Play();
+        }
+        else
+        {
+            walkSFX?.Stop();
         }
     }
 }

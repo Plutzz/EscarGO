@@ -5,6 +5,7 @@ using Cinemachine;
 using Unity.Netcode;
 using FMOD.Studio;
 using System;
+using FMODUnity;
 
 public class BatterShapingStation : SuperStation
 {
@@ -36,8 +37,8 @@ public class BatterShapingStation : SuperStation
     private Material timerMaterial;
     private float fillValue;
     private bool timerActive;
-    private EventInstance waffleSFX;
-    private EventInstance tickingSFX;
+    private StudioEventEmitter waffleSFX;
+    private StudioEventEmitter tickingSFX;
     private bool isWaffleSFXPlaying;
 
     public override void Activate(CraftableItem successfulItem)
@@ -105,7 +106,7 @@ public class BatterShapingStation : SuperStation
     
     public override void DeActivate()
     {
-        waffleSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        PlayWaffleSfxEmitterServerRpc(0, gameObject, false);
         isWaffleSFXPlaying = false;
 
         isBattering = false;
@@ -172,7 +173,7 @@ public class BatterShapingStation : SuperStation
                 
                 if(!isWaffleSFXPlaying)
                 {
-                    waffleSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.WafflePour);
+                    PlayWaffleSfxEmitterServerRpc(FMODEvents.NetworkSFXName.WafflePour, gameObject, true);
                     isWaffleSFXPlaying = true;
                 }
                 playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
@@ -259,7 +260,8 @@ public class BatterShapingStation : SuperStation
                 WaffleIronAnimationServerRPC("Close");
             }
         timerActive = true;
-        tickingSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.StationTicking);
+        tickingSFX = AudioManager.Instance.InitializeEventEmitter(FMODEvents.NetworkSFXName.StationTicking, timerObject);
+        tickingSFX.Play();
         Debug.Log("cooking");
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
@@ -267,7 +269,8 @@ public class BatterShapingStation : SuperStation
         timerMaterial.EnableKeyword("_USE_TEXTURE");
 
         yield return new WaitForSeconds(cookTime);
-        tickingSFX.stop(STOP_MODE.ALLOWFADEOUT);
+
+        tickingSFX.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
@@ -350,5 +353,25 @@ public class BatterShapingStation : SuperStation
     private void WaffleIronAnimationClientRPC(string trigger)
     {
         waffleIronAnimation.SetTrigger(trigger);
+    }
+
+    [ClientRpc]
+    private void PlayWaffleSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if (play)
+        {
+            waffleSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            waffleSFX.Play();
+        }
+        else
+        {
+            waffleSFX?.Stop();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayWaffleSfxEmitterServerRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        PlayWaffleSfxEmitterClientRpc(sound, gameObj, play);
     }
 }

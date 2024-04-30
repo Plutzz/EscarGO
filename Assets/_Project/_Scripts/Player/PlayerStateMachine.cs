@@ -149,6 +149,7 @@ public class PlayerStateMachine : NetworkBehaviour
         currentState.EnterLogic();
     }
 
+
     #region Logic Checks
 
     //Consider adding core functionalities here

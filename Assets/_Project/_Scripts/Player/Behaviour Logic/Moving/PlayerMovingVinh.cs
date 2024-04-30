@@ -13,7 +13,6 @@ public class PlayerMovingVinh : PlayerThrowingSOBase
     [Header("Movement Variables")]
     private Vector3 moveDirection = Vector3.zero;
 
-    private EventInstance currentFootstepSFXInstance;
 
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
@@ -23,13 +22,13 @@ public class PlayerMovingVinh : PlayerThrowingSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        currentFootstepSFXInstance = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
+        stateMachine.GetComponent<Player>().PlayWalkSfxEmitterServerRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, true);
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        currentFootstepSFXInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        stateMachine.GetComponent<Player>().PlayWalkSfxEmitterServerRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, false);
     }
 
     public override void DoFixedUpdateState()
