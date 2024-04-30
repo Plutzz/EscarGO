@@ -227,7 +227,7 @@ public class PlayerInventory : NetworkBehaviour
     public bool CurrentlyHasItem()
     {
         if (currentItems.Count <= activeItemIndex) {
-            TipsManager.Instance.SetTip("No item selected", 2f);
+            //TipsManager.Instance.SetTip("No item selected", 2f);
             return false;
         }
 

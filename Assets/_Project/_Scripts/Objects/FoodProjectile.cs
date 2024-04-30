@@ -14,11 +14,10 @@ public class FoodProjectile : NetworkBehaviour
     public Vector3 launchDirection;
     public float remainingLifetime;
     private ulong thrower = 9999;
-    public void Launch(ulong thrower) {
+    public void Launch(ulong thrower, float force) {
         this.thrower = thrower;
         rb.isKinematic = false;
-        //Debug.Log("Projectile initial rotation: " + transform.rotation.eulerAngles);
-
+        
         Vector3 rotationAngle = transform.rotation.eulerAngles;     
         if (rotationAngle.x > 180) {                    //Aiming up
             float upwardAngle =  (rotationAngle.x - 360f);
@@ -26,6 +25,7 @@ public class FoodProjectile : NetworkBehaviour
             upwardAngle *= 0.1f;
             rotationAngle.x += upwardAngle;
         }
+        launchSpeed *= Mathf.Clamp(force, 0, 1);
 
         rb.velocity = Quaternion.Euler(rotationAngle.x, rotationAngle.y , rotationAngle.z) * launchDirection.normalized * launchSpeed;
 
@@ -46,7 +46,7 @@ public class FoodProjectile : NetworkBehaviour
         meshRenderer.enabled = false;
 
         float particleLifeTime = particles.main.startLifetime.curveMultiplier;
-        Debug.Log("Particle Lifetime: " + particleLifeTime);
+        
         particles.Stop();
         Destroy(gameObject, particleLifeTime);
     }

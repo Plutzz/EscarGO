@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Unity.Netcode;
 using JetBrains.Annotations;
+using Cinemachine;
 
 
 public class PlayerStateMachine : NetworkBehaviour
@@ -56,7 +57,8 @@ public class PlayerStateMachine : NetworkBehaviour
     [SerializeField] private float crouchYScale = 0.5f;
     private float startYScale;
     public bool crouching { get; private set; }
-
+    public CinemachineVirtualCamera cam;
+    public float initialFOV { get; private set; }
 
     #endregion
 
@@ -100,6 +102,9 @@ public class PlayerStateMachine : NetworkBehaviour
 
         initialState = IdleState;
         startYScale = gameObject.transform.localScale.y;
+
+        cam = GetComponentInChildren<CinemachineVirtualCamera>();
+        initialFOV = cam.m_Lens.FieldOfView;
     }
 
 
@@ -171,4 +176,26 @@ public class PlayerStateMachine : NetworkBehaviour
 
     #endregion
 
+    #region Utility
+
+    public void LerpFOV(float finalFOV, float time) { 
+        StartCoroutine(ChangeFOV(finalFOV, time));
+    }
+
+    IEnumerator ChangeFOV(float finalFOV, float totalTime) {
+        float timer = 0;
+        float currentFOV = cam.m_Lens.FieldOfView;
+
+        while (timer < totalTime) { 
+            cam.m_Lens.FieldOfView = Mathf.Lerp(currentFOV, finalFOV, timer/ totalTime);
+            
+            timer += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        cam.m_Lens.FieldOfView = finalFOV;
+    }
+
+    #endregion
 }

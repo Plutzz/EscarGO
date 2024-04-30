@@ -22,13 +22,16 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     [SerializeField] private FoodProjectile projectile;
 
+    [SerializeField] private float maxFOVIncrease;
+    [SerializeField] private float fOVRevertTime;
+
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
         base.Initialize(gameObject, stateMachine);
     }
     public override void DoEnterLogic()
     {
-        Debug.Log("Entered throwing state");
+        
         base.DoEnterLogic();
         chargeTimer = 0;
     }
@@ -36,6 +39,8 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        
+        stateMachine.LerpFOV(stateMachine.initialFOV, fOVRevertTime);
         currentFootstepSFXInstance.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
@@ -51,6 +56,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         
         chargeTimer += Time.deltaTime;
        
+        UpdateFOV();
         GetInput();
         base.DoUpdateState();
     }
@@ -65,10 +71,9 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         
         if (!stateMachine.TryingThrow())
         {
-            if (chargeTimer > timeToChargeThrow) {
-                Throw();
-                chargeTimer = float.MinValue;
-            }
+            Throw();
+            chargeTimer = float.MinValue;
+            
             stateMachine.ChangeState(stateMachine.MovingState);
         }
         
@@ -91,6 +96,8 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     #endregion
     private void Throw() {
         
+        
+        
         if (playerInventory == null)
         {
             
@@ -105,8 +112,15 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
             playerInventory.RemoveActiveItem();
         }
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
-        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation);
+        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation, chargeTimer/timeToChargeThrow);
 
 
     }
+
+    private void UpdateFOV() {
+        float newFOV = stateMachine.initialFOV - Mathf.Lerp(0, maxFOVIncrease, Mathf.Clamp((chargeTimer/timeToChargeThrow), 0, 1));
+        stateMachine.cam.m_Lens.FieldOfView = newFOV;
+    }
+
+
 }
