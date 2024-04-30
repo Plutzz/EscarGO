@@ -43,6 +43,9 @@ public class Player : NetworkBehaviour
     [SerializeField] private List<GameObject> toggledGameObjects;
     [SerializeField] private List<MonoBehaviour> toggledMonoBehaviours;
 
+    [Header("SFX")]
+    private StudioEventEmitter walkSFX;
+
     public override void OnNetworkSpawn()
     {
 
@@ -123,5 +126,36 @@ public class Player : NetworkBehaviour
         if(orientation != null && cameraScript != null)
             orientation.eulerAngles = new Vector3 (0f, cameraScript.transform.eulerAngles.y, 0f);
 
+    }
+
+    /// <summary>
+    /// Play an emitter on all clients from this script
+    /// EMITTERS MUST BE INITIALIZED AND PLAYED BEFORE TRYING TO STOP THEM
+    /// MUST BE CALLED FROM THE SERVER
+    /// To play sound: play = true
+    /// To stop sound: play = false
+    /// <param name="sound"></param>
+    /// <param name="gameObj"></param>
+    /// <param name="play">/param>
+    /// </summary>
+
+    [ClientRpc]
+    private void PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if (play)
+        {
+            walkSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            walkSFX.Play();
+        }
+        else
+        {
+            walkSFX?.Stop();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayWalkSfxEmitterServerRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        PlayWalkSfxEmitterClientRpc(sound, gameObj, play);
     }
 }

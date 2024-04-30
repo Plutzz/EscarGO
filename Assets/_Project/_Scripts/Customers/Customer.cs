@@ -25,6 +25,7 @@ public class Customer : NetworkBehaviour
     [Header("Seating Variables")]
     public int assignedPlayer;
     public bool orderReceived;
+    public bool eating;
     private Chair currentChair;
 
     //[Header("UI")]
@@ -119,10 +120,11 @@ public class Customer : NetworkBehaviour
     {
         LeaveClientRpc();
 
+        if (eating) return;
         
         if (gotOrder)
         {
-            PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject, true);
+            eating = true;
             Debug.Log("Singleton Instance " + ScoringSingleton.Instance);
             Debug.Log("assignedPlayer " + assignedPlayer);
             Debug.Log("critera " + criteria);
@@ -145,8 +147,10 @@ public class Customer : NetworkBehaviour
     }
     private IEnumerator FufillOrderWait(float seconds)
     {
+        PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject, true);
         yield return new WaitForSeconds(seconds);
         PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject, false);
+        Destroy(GetComponent<StudioEventEmitter>());
         CustomerSpawner.Instance.customerCount--;
         Exit();
     }
