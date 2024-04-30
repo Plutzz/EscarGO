@@ -73,7 +73,7 @@ public class ToppingStation : SuperStation
             {
                 toppingParticles = chocolateParticles;
             }
-            else if (successfulItem.requiredIngredients[0].item.itemName == "Chopped Fruit")
+            else if (successfulItem.requiredIngredients[1].item.itemName == "Chopped Fruit")
             {
                 toppingParticles = strawberryParticles;
             }

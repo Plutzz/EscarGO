@@ -285,7 +285,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638499998705262260
+  lastModified: 638499150351512136
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -467,7 +467,7 @@ MonoBehaviour:
   - {fileID: -3497435936415390202}
   StringsBanks:
   - {fileID: 536762619943829140}
-  cacheTime: 638500094939855788
+  cacheTime: 638499186219325774
   cacheVersion: 131616
 --- !u!114 &75080121239340754
 MonoBehaviour:
@@ -511,7 +511,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638500094939845779
+  lastModified: 638499186219285889
   FileSizes:
   - Name: Desktop
     Value: 2574016
@@ -531,7 +531,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638499998705272278
+  lastModified: 638499150351512136
   FileSizes:
   - Name: Desktop
     Value: 2188
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638500094939855788
+  lastModified: 638499186219325774
   FileSizes:
   - Name: Desktop
     Value: 330752
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   Path: FMOD Project/SolarSweetsFMOD/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638493701557419796
+  lastModified: 638499121506713774
   FileSizes:
   - Name: Desktop
     Value: 874752
