@@ -55,7 +55,7 @@ public class PlayerMovingVinh : PlayerThrowingSOBase
         {
             stateMachine.ChangeState(stateMachine.AirborneState);
         } 
-        else if (stateMachine.TryingThrow()) 
+        else if (stateMachine.TryingThrow() && !stateMachine.inputManager.SprintIsPressed) 
         {
             //Debug.Log("Moving to throw state");
             stateMachine.ChangeState(stateMachine.ThrowingState);

@@ -18,6 +18,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     [SerializeField] private float moveSpeedMultiplier = .5f;
     [SerializeField] private float timeToChargeThrow = .75f;
+    [SerializeField] private float minThrowTime = .25f;
     private float chargeTimer = 0;
 
     [SerializeField] private FoodProjectile projectile;
@@ -39,7 +40,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        
+        chargeTimer = float.MinValue;
         stateMachine.LerpFOV(stateMachine.initialFOV, fOVRevertTime);
         currentFootstepSFXInstance.stop(STOP_MODE.ALLOWFADEOUT);
     }
@@ -68,15 +69,22 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     public override void CheckTransitions()
     {
         // Throwing => Airborne
+        if (stateMachine.inputManager.SprintIsPressed || (chargeTimer < minThrowTime && !stateMachine.TryingThrow())) {
+            
+
+            stateMachine.ChangeState(stateMachine.MovingState);
+            return;
+        }
         
         if (!stateMachine.TryingThrow())
         {
             Throw();
-            chargeTimer = float.MinValue;
+            
             
             stateMachine.ChangeState(stateMachine.MovingState);
+            return;
         }
-        
+
 
     }
 
