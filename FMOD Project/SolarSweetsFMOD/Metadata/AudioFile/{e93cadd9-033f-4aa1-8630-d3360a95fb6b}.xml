@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{a5505437-0beb-438d-aabc-74764cdce258}">
+	<object class="AudioFile" id="{e93cadd9-033f-4aa1-8630-d3360a95fb6b}">
 		<property name="assetPath">
-			<value>orderup2.wav</value>
+			<value>SFX/Customer/customer_leave_new.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<property name="length">
-			<value>61.276598639455784</value>
+			<value>0.73408163265306126</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{2a48399c-b2e3-4dae-be76-62112029a967}</destination>
