@@ -64,14 +64,18 @@ public class ToppingStation : SuperStation
                 {
                     baseItem = Instantiate(x.itemPrefab, transform.position + new Vector3(0f, itemOffsetY, 0f), x.itemPrefab.transform.rotation);
                 }
-                else if (x.itemName == "Chopped Chocolate")
-                {
-                    toppingParticles = chocolateParticles;
-                }
-                else if (x.itemName == "Chopped Fruit")
-                {
-                    toppingParticles = strawberryParticles;
-                }
+            }
+
+            Debug.Log("Ingredient 1: " + successfulItem.requiredIngredients[0].item.itemName);
+            Debug.Log("Ingredient 2: " + successfulItem.requiredIngredients[1].item.itemName);
+
+            if (successfulItem.requiredIngredients[1].item.itemName == "Chopped Chocolate")
+            {
+                toppingParticles = chocolateParticles;
+            }
+            else if (successfulItem.requiredIngredients[0].item.itemName == "Chopped Fruit")
+            {
+                toppingParticles = strawberryParticles;
             }
         }
 

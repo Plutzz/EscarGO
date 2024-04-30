@@ -122,8 +122,7 @@ public class Customer : NetworkBehaviour
         
         if (gotOrder)
         {
-            AudioManager.Instance.InitializeEventEmitterServerRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject);
-            eatSFX.Play();
+            PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject, true);
             Debug.Log("Singleton Instance " + ScoringSingleton.Instance);
             Debug.Log("assignedPlayer " + assignedPlayer);
             Debug.Log("critera " + criteria);
@@ -147,7 +146,7 @@ public class Customer : NetworkBehaviour
     private IEnumerator FufillOrderWait(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        eatSFX.Stop();
+        PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject, false);
         CustomerSpawner.Instance.customerCount--;
         Exit();
     }
@@ -233,6 +232,31 @@ public class Customer : NetworkBehaviour
         scoreText3DInstance.transform.SetParent(orderObject.transform);
         scoreText3DInstance.transform.localPosition = Vector3.up;
         scoreText3DInstance.GetComponent<TextMeshPro>().text = "+" + pointsEarned.ToString();
+    }
+
+    /// <summary>
+    /// Play an emitter on all clients from this script
+    /// EMITTERS MUST BE INITIALIZED AND PLAYED BEFORE TRYING TO STOP THEM
+    /// MUST BE CALLED FROM THE SERVER
+    /// To play sound: play = true
+    /// To stop sound: play = false
+    /// <param name="sound"></param>
+    /// <param name="gameObj"></param>
+    /// <param name="play">/param>
+    /// </summary>
+
+    [ClientRpc]
+    private void PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if(play)
+        {
+            eatSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            eatSFX.Play();
+        }
+        else
+        {
+            eatSFX?.Stop();
+        }
     }
 }
 

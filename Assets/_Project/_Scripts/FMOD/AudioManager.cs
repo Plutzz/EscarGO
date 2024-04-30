@@ -108,22 +108,6 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         PlayOneShot(sound, worldPos);
     }
 
-    // In order to get the reference to the emitter use eventEmitters list 
-    [ClientRpc]
-    public void InitializeEventEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference networkObject)
-    {
-        if (networkObject.TryGet(out NetworkObject netObj))
-        {
-            InitializeEventEmitter(sound, netObj.gameObject);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void InitializeEventEmitterServerRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference networkObject)
-    {
-        InitializeEventEmitterClientRpc(sound, networkObject);
-    }
-
     public EventInstance CreateInstance(EventReference eventReference)
     {
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
