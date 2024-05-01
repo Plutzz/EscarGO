@@ -6,6 +6,7 @@ using UnityEngine;
 public class FoodProjectile : NetworkBehaviour
 {
     public Rigidbody rb;
+    [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private ParticleSystem particles;
 
@@ -14,7 +15,14 @@ public class FoodProjectile : NetworkBehaviour
     public Vector3 launchDirection;
     public float remainingLifetime;
     private ulong thrower = 9999;
-    public void Launch(ulong thrower, float force) {
+
+    [SerializeField] private Color[] particleColors;
+    [SerializeField] private Item[] possibleItems;
+    public void Launch(string itemName, ulong thrower, float force) {
+
+        SetMeshType(itemName);
+        SetParticleColor((int)thrower);
+
         this.thrower = thrower;
         rb.isKinematic = false;
         
@@ -50,5 +58,31 @@ public class FoodProjectile : NetworkBehaviour
         particles.Stop();
         Destroy(gameObject, particleLifeTime);
     }
-    
+
+    private void SetMeshType(string itemName) {
+        foreach (Item item in possibleItems) {
+            if (item.itemName == itemName) {
+                if (item.itemMesh != null) {
+                    meshFilter.mesh = item.itemMesh;
+                    return;
+                }
+                break;
+            }
+        }
+
+        //Set default mesh
+
+    }
+
+    private void SetParticleColor(int throwerID)
+    {
+        if (throwerID < particleColors.Length)
+        {
+            ParticleSystem.MainModule main = particles.main;
+            main.startColor = particleColors[throwerID];
+
+            //particles.main = main;
+            //particles.main.startColor = particleColors[throwerID];
+        }
+    }
 }
