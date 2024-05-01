@@ -17,30 +17,6 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
 {
     public event Action<List<Lobby>> LobbiesUpdated;
 
-    //// Singleton pattern
-    //private static LobbyAPI instance;
-    //public static LobbyAPI Instance
-    //{
-    //    get
-    //    {
-    //        // Check if the instance is null (first time access or after scene change)
-    //        if (instance == null)
-    //        {
-    //            // Attempt to find an existing instance in the scene
-    //            instance = FindObjectOfType<LobbyAPI>();
-
-    //            // If no instance was found, create a new GameObject to host the script
-    //            if (instance == null)
-    //            {
-    //                GameObject singletonObject = new GameObject("LobbyAPI");
-    //                instance = singletonObject.AddComponent<LobbyAPI>();
-    //            }
-    //        }
-
-    //        return instance;
-    //    }
-    //}
-
     protected override void Awake()
     {
         base.Awake();
