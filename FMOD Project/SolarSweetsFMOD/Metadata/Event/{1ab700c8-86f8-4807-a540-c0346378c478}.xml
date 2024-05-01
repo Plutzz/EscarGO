@@ -42,7 +42,7 @@
 	</object>
 	<object class="MasterTrack" id="{a04779f5-259f-4c61-9ddc-bb88c18cfb3f}">
 		<relationship name="modules">
-			<destination>{742f34e0-9c54-4acc-988d-fc6f4f18d22d}</destination>
+			<destination>{4425bb16-5f2c-48ec-be9c-5ed96b6c1e9d}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{71173f96-972d-4c16-9539-72e90eb70d5a}</destination>
@@ -56,19 +56,19 @@
 			<destination>{891b5f95-8ac0-4cc6-acc9-d285bac77d45}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{9b7f0531-a13c-4a7a-ac86-5e8491937229}</destination>
+			<destination>{f9c4a1bd-208c-460e-bd31-c6e967c2b368}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{4832740c-7225-4b55-b65d-b613d43bad4e}" />
 	<object class="MarkerTrack" id="{49468dee-dbe0-4054-87d7-c080fad81d0f}" />
 	<object class="Timeline" id="{c5ab5f02-1545-4d64-868c-f123ed4f5dfc}">
 		<relationship name="modules">
-			<destination>{742f34e0-9c54-4acc-988d-fc6f4f18d22d}</destination>
+			<destination>{4425bb16-5f2c-48ec-be9c-5ed96b6c1e9d}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{71173f96-972d-4c16-9539-72e90eb70d5a}">
 		<property name="volume">
-			<value>-13.5</value>
+			<value>0.5</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{b057b1d5-bde8-43f0-a45f-539dd71aa8b8}</destination>
@@ -80,12 +80,12 @@
 			<destination>{d4bd2bf2-7db1-4c1b-9b93-6c9892e27938}</destination>
 		</relationship>
 	</object>
-	<object class="SingleSound" id="{742f34e0-9c54-4acc-988d-fc6f4f18d22d}">
+	<object class="SingleSound" id="{4425bb16-5f2c-48ec-be9c-5ed96b6c1e9d}">
 		<property name="length">
-			<value>24347.887142857144</value>
+			<value>0.71068027210884355</value>
 		</property>
 		<relationship name="audioFile">
-			<destination>{6ac1a5fb-ceb1-4b77-a541-980bb4bec05e}</destination>
+			<destination>{cff70714-bf35-4476-897c-430ee7177697}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{87d38180-5d89-4902-b9cf-0aed7948cb71}">
