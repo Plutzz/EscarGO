@@ -88,6 +88,7 @@ public class LobbyTrigger : NetworkBehaviour
     [ClientRpc]
     private void CountdownClientRPC()
     {
+        StopAllCoroutines();
         StartCoroutine(Countdown());
     }
 
