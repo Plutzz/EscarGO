@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 399531620880130730}
   - component: {fileID: 3463423869702054039}
   - component: {fileID: 736802252676815777}
+  - component: {fileID: -7588952839431954341}
   m_Layer: 0
   m_Name: CustomerScorePopUp
   m_TagString: Untagged
@@ -171,3 +172,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3463423869702054039}
   m_maskType: 0
+--- !u!114 &-7588952839431954341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935195491132630097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c242b1aeb50be354b8ca285e3e9ee638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  billboardType: 1
+  lockX: 0
+  lockY: 0
+  lockZ: 0
