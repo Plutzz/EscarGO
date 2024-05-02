@@ -45,6 +45,16 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
     }
 
+    public void PlayButtonClick()
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ButtonClick, Vector3.zero);
+    }
+
+    public void PlayButtonHover()
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ButtonHover, Vector3.zero);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

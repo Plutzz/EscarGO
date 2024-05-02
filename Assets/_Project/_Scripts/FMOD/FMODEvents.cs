@@ -39,5 +39,7 @@ public class FMODEvents : Singleton<FMODEvents>
         RollingPin,
         CustomerEnter,
         ItemTrash,
+        ButtonClick,
+        ButtonHover
     }
 }
