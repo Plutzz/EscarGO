@@ -37,7 +37,6 @@ public class TurnIn : InteractableSpace
         }
         else
         {
-            TipsManager.Instance.SetTip("You have nothing", 2f);
         }
     }
 

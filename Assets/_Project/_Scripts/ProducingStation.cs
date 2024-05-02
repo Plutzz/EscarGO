@@ -24,17 +24,14 @@ public class ProducingStation : InteractableSpace
     {
         if (amountLeft <= 0)
         {
-            TipsManager.Instance.SetTip("No more " + producedItem.itemName + " left", 2f);
         }
         else if (inventory.TryAddItemToInventory(producedItem) == true)
         {
             AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.ItemPickup, transform.position);
-            TipsManager.Instance.SetTip("Received a " + producedItem.itemName, 2f);
             RemoveModelFromShelfServerRpc();
         }
         else
         {
-            TipsManager.Instance.SetTip("Inventory full", 2f);
         }
     }
 

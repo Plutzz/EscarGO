@@ -97,7 +97,6 @@ public class PlayerInteractions : NetworkBehaviour
         }
         else
         {
-            TipsManager.Instance.SetTip("No Trashcan here", 2f);
         }
     }
 
