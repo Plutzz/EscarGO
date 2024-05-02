@@ -57,6 +57,7 @@ public class PlayerStateMachine : NetworkBehaviour
     [SerializeField] private float crouchYScale = 0.5f;
     private float startYScale;
     public bool crouching { get; private set; }
+    [SerializeField] protected Transform hitboxPivot;
     public CinemachineVirtualCamera cam;
     public float initialFOV { get; private set; }
 
@@ -72,7 +73,6 @@ public class PlayerStateMachine : NetworkBehaviour
             enabled = false;
             return;
         }
-            
 
         rb = GetComponentInChildren<Rigidbody>();
         inputManager = GetComponent<InputManager>();
@@ -120,16 +120,16 @@ public class PlayerStateMachine : NetworkBehaviour
 
     private void Update()
     {
-        crouching = GetComponent<InputManager>().CrouchIsPressed;
+        crouching = inputManager.CrouchIsPressed;
         
         if (crouching)
         {
             rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
-            player.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
+            hitboxPivot.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
         }
         else
         {
-            player.localScale = new Vector3(player.localScale.x, startYScale, gameObject.transform.localScale.z);
+            hitboxPivot.localScale = new Vector3(player.localScale.x, startYScale, gameObject.transform.localScale.z);
         }
 
             
