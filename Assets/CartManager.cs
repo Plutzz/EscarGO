@@ -12,23 +12,29 @@ public class CartManager : NetworkSingleton<CartManager>
     public Transform spawnPoint;
     public float cartSpeed = 10f;
     public float cartsAlive = 0;
+    [SerializeField] private Animator anim;
+    private bool spawning;
 
     public override void OnNetworkSpawn()
     {
         if(!IsServer) return;
+        DoorAnimationClientRpc("Close");
     }
     void Update()
     {
         if (!IsServer) return;
-        if (cartsAlive <= 0)
+        if (cartsAlive <= 0 && !spawning)
         {
             cartsAlive = 0;
+            spawning = true;
             StartCoroutine(SpawnCarts());
         }
     }
 
     IEnumerator SpawnCarts()
     {
+        DoorAnimationClientRpc("Open");
+        yield return new WaitForSeconds(1f);
         for (int i = 0; i < amountOfCarts; i++)
         {
             cartsAlive++;
@@ -40,5 +46,13 @@ public class CartManager : NetworkSingleton<CartManager>
 
             yield return new WaitForSeconds(1);
         }
+        DoorAnimationClientRpc("Close");
+        spawning = false;
+    }
+
+    [ClientRpc]
+    private void DoorAnimationClientRpc(string trigger)
+    {
+        anim.SetTrigger(trigger);
     }
 }
