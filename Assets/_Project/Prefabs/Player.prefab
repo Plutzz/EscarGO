@@ -1208,12 +1208,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3516739346241044167}
+  - {fileID: 1514605466774442693}
   - {fileID: 5373715789979858408}
   - {fileID: 4438057750678966736}
   - {fileID: 439305606600123906}
-  - {fileID: 3516739346241044167}
   - {fileID: 614091728795410397}
-  - {fileID: 1514605466774442693}
   - {fileID: 6576648693947480581}
   m_Father: {fileID: 5226382219086163930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1341,7 +1341,7 @@ Transform:
   m_GameObject: {fileID: 2897538961485828115}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.167, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1664,7 +1664,7 @@ MonoBehaviour:
   orientation: {fileID: 5350075544441386201}
   player: {fileID: 5226382219086163930}
   projectilePosition: {fileID: 6184045762993881864}
-  crouchYScale: 0.5
+  crouchYScale: 1
   cam: {fileID: 0}
 --- !u!114 &-3950531570982242769
 MonoBehaviour:
@@ -4903,6 +4903,41 @@ PrefabInstance:
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 3298088267010530841}
+    - target: {fileID: 2444269856977258155, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: disableWithSettings.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2444269856977258155, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: disableWithSettings.Array.data[0]
+      value: 
+      objectReference: {fileID: 7926561385825900139}
+    - target: {fileID: 2444269856977258155, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: disableWithSettings.Array.data[1]
+      value: 
+      objectReference: {fileID: 375485429700064908}
+    - target: {fileID: 2444269856977258155, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: disableWithSettings.Array.data[2]
+      value: 
+      objectReference: {fileID: 8019634568333622143}
+    - target: {fileID: 2444269856977258155, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: disableWithSettings.Array.data[3]
+      value: 
+      objectReference: {fileID: 4026120961479562973}
+    - target: {fileID: 2444269856977258155, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: disableWithSettings.Array.data[4]
+      value: 
+      objectReference: {fileID: 7913257529876190508}
+    - target: {fileID: 2444269856977258155, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: disableWithSettings.Array.data[5]
+      value: 
+      objectReference: {fileID: 2259393754865142074}
     - target: {fileID: 2507855171426853840, guid: fb2d78b3f083ac143b7e84f61223cbde,
         type: 3}
       propertyPath: m_fontSize
@@ -6607,7 +6642,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1662392452501811501, guid: fb2d78b3f083ac143b7e84f61223cbde, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1010647596031597135, guid: fb2d78b3f083ac143b7e84f61223cbde, type: 3}
+    - {fileID: 4097362874191023960, guid: fb2d78b3f083ac143b7e84f61223cbde, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb2d78b3f083ac143b7e84f61223cbde, type: 3}

@@ -40,8 +40,9 @@ public class CartManager : NetworkSingleton<CartManager>
             cartsAlive++;
             GameObject cart = Instantiate(cartPrefab, spawnPoint.position, Quaternion.identity);
             Rigidbody rb = cart.GetComponentInChildren<Rigidbody>();
-            rb.velocity = new Vector3(-cartSpeed, 0, 0);
+            rb.velocity = new Vector3(0, 0, -cartSpeed);
             rb.angularVelocity = new Vector3(0, 1, 0);
+            rb.transform.eulerAngles = new Vector3(0, 90, 0);
             cart.GetComponent<NetworkObject>().Spawn(true);
 
             yield return new WaitForSeconds(1);
