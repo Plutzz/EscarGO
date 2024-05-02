@@ -973,7 +973,7 @@ RectTransform:
   m_GameObject: {fileID: 2259393754865142074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4302763119392756476}
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c040531c78c1b2241a57934bc507b34b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7e1b11781a2bf548bb33df843121609, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1295093547
+  GlobalObjectIdHash: 1354851925
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 0
   ActiveSceneSynchronization: 1
@@ -1909,6 +1909,9 @@ MonoBehaviour:
   rayLength: 1
   defaultOutline: {fileID: 2100000, guid: c2c12975a9619704188c08876a94ae9a, type: 2}
   highlightOutline: {fileID: 2100000, guid: d5a6a15d819d6604a86b9c9f23704533, type: 2}
+  defaultCrosshair: {fileID: 21300000, guid: f7e1b11781a2bf548bb33df843121609, type: 3}
+  highlightCrosshair: {fileID: 21300000, guid: 5afc073e2ba6ec64787ba448ed3125b3, type: 3}
+  crosshair: {fileID: 7310310080479418918}
 --- !u!114 &2381533968702581711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6288,6 +6291,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894412563388423202, guid: fb2d78b3f083ac143b7e84f61223cbde,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7924276317483392962, guid: fb2d78b3f083ac143b7e84f61223cbde,
         type: 3}
