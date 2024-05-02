@@ -1208,13 +1208,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5373715789979858408}
   - {fileID: 4438057750678966736}
   - {fileID: 439305606600123906}
   - {fileID: 3516739346241044167}
   - {fileID: 614091728795410397}
   - {fileID: 1514605466774442693}
   - {fileID: 6576648693947480581}
-  - {fileID: 5373715789979858408}
   m_Father: {fileID: 5226382219086163930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1665,6 +1665,7 @@ MonoBehaviour:
   player: {fileID: 5226382219086163930}
   projectilePosition: {fileID: 6184045762993881864}
   crouchYScale: 0.5
+  cam: {fileID: 0}
 --- !u!114 &-3950531570982242769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4578,6 +4579,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068348210971161479, guid: f6b10050f347a1b47bd473a7db65c37d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

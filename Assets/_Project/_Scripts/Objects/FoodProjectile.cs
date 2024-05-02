@@ -78,11 +78,10 @@ public class FoodProjectile : NetworkBehaviour
     {
         if (throwerID < particleColors.Length)
         {
-            ParticleSystem.MainModule main = particles.main;
-            main.startColor = particleColors[throwerID];
-
-            //particles.main = main;
-            //particles.main.startColor = particleColors[throwerID];
+            var main = particles.main;
+            Material mat = Instantiate(particles.GetComponent<Renderer>().material);
+            mat.color = particleColors[throwerID];
+            particles.GetComponent<Renderer>().material = mat;
         }
     }
 }
