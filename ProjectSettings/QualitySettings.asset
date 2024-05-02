@@ -157,7 +157,4 @@ QualitySettings:
     terrainMaxTrees: 50
     excludedTargetPlatforms: []
   m_TextureMipmapLimitGroupNames: []
-  m_PerPlatformDefaultQuality:
-    Server: 2
-    Standalone: 2
-    WebGL: 2
+  m_PerPlatformDefaultQuality: {}
