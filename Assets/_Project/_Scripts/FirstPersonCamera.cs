@@ -34,7 +34,7 @@ public class FirstPersonCamera : NetworkBehaviour
         if (!IsOwner)
             Destroy(gameObject);
 
-        inputManager = transform.parent.GetComponent<InputManager>();
+        inputManager = transform.parent.parent.GetComponent<InputManager>();
 
         sensitivity = PlayerPrefs.GetFloat(SensitivityPrefsKey, sensitivity);
 
