@@ -60,6 +60,13 @@ public class ProducingStation : InteractableSpace
 
             GameObject item_model = Instantiate(item.itemPrefab, transform);
             item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, item_model.GetComponentInChildren<MeshFilter>().mesh.bounds.size.y / 2), item_model.transform.localRotation);
+
+            foreach(var rend in item_model.GetComponentsInChildren<MeshRenderer>())
+            {
+                GetComponent<ButtonPromptSet>().meshRenderers.Add(rend);
+            }
+            
+            
         }
             
         

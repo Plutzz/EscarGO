@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 1000631959142315398}
   - component: {fileID: 3295310718169397505}
   - component: {fileID: 7580405334039265439}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shelf 1x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

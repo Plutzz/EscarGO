@@ -20,6 +20,7 @@ public class ButtonPromptCheck : MonoBehaviour
     private ButtonPromptSet currentBPSet;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +58,8 @@ public class ButtonPromptCheck : MonoBehaviour
 
         bool foundButtonPrompt = false;
 
+
+
         if (Physics.Raycast(ray, out hit, rayLength))
         {
             foundButtonPrompt = true;
@@ -65,9 +68,15 @@ public class ButtonPromptCheck : MonoBehaviour
 
             if (col.GetComponent<ButtonPromptSet>() != null)
             {
+                
+                if (currentBPSet != null && currentBPSet.GetComponent<Collider>() != col)
+                {
+                    ClearUIItem();
+                }
+
+
                 currentBPSet = col.GetComponent<ButtonPromptSet>();
-                currentBPSet.ChangeOutline(highlightOutline);
-                crosshair.sprite = highlightCrosshair;
+
 
                 // Add button prompts
                 List<ButtonPromptDetails> bpDetails = col.GetComponent<ButtonPromptSet>().buttonPromptSet;
@@ -76,7 +85,7 @@ public class ButtonPromptCheck : MonoBehaviour
                 {
                     if (bpDetails[0] != buttonPromptObj.transform.GetChild(0).GetComponent<BPDetailsUI>().bpDetails)
                     {
-                        ClearUIItem();  
+                        ClearUIItem();
                     }
                 }
 
@@ -88,7 +97,11 @@ public class ButtonPromptCheck : MonoBehaviour
                         details.GetComponent<BPDetailsUI>().bpDetails = bpDetail;
                     }
                 }
-                
+
+                currentBPSet.ChangeOutline(highlightOutline);
+                crosshair.sprite = highlightCrosshair;
+
+
             }
             else
             {

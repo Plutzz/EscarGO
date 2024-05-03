@@ -2550,7 +2550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1098101701
+  GlobalObjectIdHash: 1051760579
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -2577,6 +2577,7 @@ MonoBehaviour:
   patienceTime: 60
   assignedPlayer: 0
   orderReceived: 0
+  eating: 0
   scoreText3DPrefab: {fileID: 1935195491132630097, guid: 8d230a1648b93a54db39a8b03367fed6,
     type: 3}
 --- !u!54 &1962732025010211279
@@ -2621,7 +2622,7 @@ MonoBehaviour:
   speed: 5
   sittingOffsetX: 0.1973
   sittingOffsetY: -0.57139
-  sittingOffsetZ: 0.2068
+  sittingOffsetZ: 0.35
   assignedPlayer: 0
 --- !u!114 &5883625052867858416
 MonoBehaviour:
@@ -2690,6 +2691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: e0f888605b6868b498dd12be62f0fa6b, type: 2}
+  meshRenderers: []
 --- !u!1 &8707348786933671190
 GameObject:
   m_ObjectHideFlags: 0

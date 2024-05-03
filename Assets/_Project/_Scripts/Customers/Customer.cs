@@ -185,7 +185,7 @@ public class Customer : NetworkBehaviour
 
     public bool TryCompleteOrder(PlayerInventory inventory)
     {
-        if (inventory.CurrentlyHasItem())
+        if (inventory.CurrentlyHasItem() || !GetComponent<CustomerMovement>().isLeaving)
         {
 
             foreach (Criteria.Required criteriaItem in criteria.objectPairs)
