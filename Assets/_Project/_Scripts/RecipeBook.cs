@@ -3,25 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
+using System.Linq.Expressions;
 
-public class RecipeBook : NetworkBehaviour
+public class RecipeBook : MonoBehaviour
 {
-    [SerializeField] private Transform pagesLeft;
-    [SerializeField] private Transform pagesRight;
     [SerializeField] private List<Sprite> pageImages;
-    private Image imageLeft;
-    private Image imageRight;
+    [SerializeField] private Sprite blankPage;
+    [SerializeField] private Image imageLeft;
+    [SerializeField] private Image imageRight;
     [SerializeField] int index = -1;
 
     void Start()
     {
-        pagesLeft.gameObject.SetActive(false);
-        imageLeft = pagesLeft.GetComponentInChildren<Image>();
-        imageRight = pagesRight.GetComponentInChildren<Image>();
-
+        // Display Cover
         if (pageImages.Count > 0)
         {
             imageRight.sprite = pageImages[0];
+        }
+    }
+    private void OnEnable()
+    {
+        if (pageImages.Count > 0)
+        {
+            imageRight.enabled = true;
+            imageRight.sprite = pageImages[0];
+
+            if (index == 0)
+            {
+                imageLeft.enabled = false;
+            }
+            else
+            {
+                imageLeft.enabled = true;
+                imageLeft.sprite = blankPage;
+            }
         }
     }
     public void ChangeNextPage()
@@ -32,31 +47,42 @@ public class RecipeBook : NetworkBehaviour
             index++;
             if (index < pageImages.Count - 1)
             {
-                imageRight.sprite = pageImages[index + 1];
-                imageLeft.sprite = pageImages[index];
+                imageRight.sprite = pageImages[index];
+                if (index == 0)
+                {
+                    imageLeft.enabled = false;
+                }
+                else
+                {
+                    imageLeft.enabled = true;
+                    imageLeft.sprite = blankPage;
+                }
+                
             }
+
+
         }
 
-        pagesLeft.gameObject.SetActive(index >= 0);
     }
 
     public void ChangePrevPage()
     {
 
-        if (index > -1)
+        if (index > 0)
         {
             index--;
-            if (index < pageImages.Count - 1)
+            if (index == 0)
             {
-                imageRight.sprite = pageImages[index + 1];
-                if (index >= 0)
-                    imageLeft.sprite = pageImages[index];
-                else
-                    pagesLeft.gameObject.SetActive(false);
+                imageLeft.enabled = false;
             }
+            else
+            {
+                imageLeft.enabled = true;
+                imageLeft.sprite = blankPage;
+            }
+            imageRight.sprite = pageImages[index];
+   
         }
-
-        pagesLeft.gameObject.SetActive(index > 0);
     }
 
 

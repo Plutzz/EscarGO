@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteractions : NetworkBehaviour
 {
@@ -42,6 +43,11 @@ public class PlayerInteractions : NetworkBehaviour
             CheckForInteractable();
             CheckForTrash();
             CheckForCustomer();
+        }
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            recipeBook.gameObject.SetActive(!recipeBook.isActiveAndEnabled);
         }
 
         //Change book pages
