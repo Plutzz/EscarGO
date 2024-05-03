@@ -75,9 +75,6 @@ public class LobbyUI : MonoBehaviour
         foreach (Lobby lobby in lobbies)
         {
             BuildLobbyItem(lobby.Name, lobby.Data["Map"].Value, lobby.Data["Gamemode"].Value, lobby.Players.Count, lobby.MaxPlayers, lobby.Id);
-            Debug.Log(lobby.Name);
-            Debug.Log(lobby.Id);
-            Debug.Log(lobby.LobbyCode);
         }
     }
 

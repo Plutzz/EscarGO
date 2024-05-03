@@ -87,7 +87,7 @@ public class Player : NetworkBehaviour
 
     public void SetupName(string username)
     {
-        if (username == null)
+        if (username == null && AuthenticationService.Instance.PlayerName != null)
         {
             username = AuthenticationService.Instance.PlayerName.Substring(0, AuthenticationService.Instance.PlayerName.Length - 5);
         }

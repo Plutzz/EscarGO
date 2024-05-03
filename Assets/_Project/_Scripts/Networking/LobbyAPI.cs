@@ -70,7 +70,8 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
         await UnityServices.InitializeAsync();
 
         AuthenticationService.Instance.SignedIn += () => {
-            usernameText.text = AuthenticationService.Instance.PlayerName.Substring(0, AuthenticationService.Instance.PlayerName.Length - 5);
+            if(AuthenticationService.Instance.PlayerName != null)
+                usernameText.text = AuthenticationService.Instance.PlayerName.Substring(0, AuthenticationService.Instance.PlayerName.Length - 5);
         };
 
         if (!AuthenticationService.Instance.IsSignedIn)
