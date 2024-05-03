@@ -122,14 +122,16 @@ public class PlayerStateMachine : NetworkBehaviour
     {
         crouching = inputManager.CrouchIsPressed;
         
-        if (crouching)
+        if (inputManager.CrouchPressedThisFrame)
         {
             rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
             hitboxPivot.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
+            playerAnim.StartCrouch();
         }
-        else
+        else if(inputManager.CrouchReleasedThisFrame)
         {
             hitboxPivot.localScale = new Vector3(player.localScale.x, startYScale, gameObject.transform.localScale.z);
+            playerAnim.StopCrouch();
         }
 
             

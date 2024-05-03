@@ -27,7 +27,7 @@ public class LobbyTrigger : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (IsServer && collision.gameObject.CompareTag("Player"))
         {
             PlayerReadyServerRpc();
         }
@@ -39,9 +39,10 @@ public class LobbyTrigger : NetworkBehaviour
 
         while (currentCountdown >= 0)
         {
-            if (numPlayersReady != NetworkManager.Singleton.ConnectedClientsList.Count)
+            if (IsServer && numPlayersReady != NetworkManager.Singleton.ConnectedClientsList.Count)
             {
                 LobbyCountdown.text = "";
+                StopCountdownClientRpc();
                 yield break;
             }
 
@@ -53,6 +54,13 @@ public class LobbyTrigger : NetworkBehaviour
         LobbyCountdown.text = "";
 
         StartCoroutine(FadeTransition());
+    }
+
+    [ClientRpc]
+    private void StopCountdownClientRpc()
+    {
+        StopAllCoroutines();
+        LobbyCountdown.text = "";
     }
 
     private IEnumerator FadeTransition()
