@@ -109,7 +109,7 @@ public class Player : NetworkBehaviour
         if (currentState == stateMachine.AirborneState) return;
         
 
-        if (sprinting && canSprint)
+        if (sprinting && canSprint && !inputManager.CrouchIsPressed)
         {
             stateMachine.moveSpeed = sprintSpeed;
         }
