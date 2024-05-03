@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonPromptCheck : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class ButtonPromptCheck : MonoBehaviour
 
     [SerializeField] private Material defaultOutline;
     [SerializeField] private Material highlightOutline;
+
+    [SerializeField] private Sprite defaultCrosshair;
+    [SerializeField] private Sprite highlightCrosshair;
+    [SerializeField] private Image crosshair;
 
     private bool searchPrompts = true;
     private ButtonPromptSet currentBPSet;
@@ -37,6 +42,8 @@ public class ButtonPromptCheck : MonoBehaviour
             currentBPSet.ChangeOutline(defaultOutline);
         }
 
+        crosshair.sprite = defaultCrosshair;
+
         foreach (Transform child in buttonPromptObj.transform)
         {
             Destroy(child.gameObject);
@@ -60,6 +67,7 @@ public class ButtonPromptCheck : MonoBehaviour
             {
                 currentBPSet = col.GetComponent<ButtonPromptSet>();
                 currentBPSet.ChangeOutline(highlightOutline);
+                crosshair.sprite = highlightCrosshair;
 
                 // Add button prompts
                 List<ButtonPromptDetails> bpDetails = col.GetComponent<ButtonPromptSet>().buttonPromptSet;

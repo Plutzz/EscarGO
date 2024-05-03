@@ -207,7 +207,6 @@ public class Customer : NetworkBehaviour
         }
         else
         {
-            TipsManager.Instance.SetTip("Incorrect Order", 2f);
             return false;
         }
     }
