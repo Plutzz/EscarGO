@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7491950562214922411}
   - component: {fileID: 5625663990894382017}
   - component: {fileID: 1868939176019272240}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ChocolateParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

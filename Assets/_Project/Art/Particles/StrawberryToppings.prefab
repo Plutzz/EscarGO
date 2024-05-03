@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7491950562214922411}
   - component: {fileID: 5653851604332849416}
   - component: {fileID: 9212725128585154306}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StrawberryToppings
   m_TagString: Untagged
   m_Icon: {fileID: 0}

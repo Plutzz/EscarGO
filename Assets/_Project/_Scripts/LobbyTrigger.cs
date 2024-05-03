@@ -25,9 +25,17 @@ public class LobbyTrigger : NetworkBehaviour
         };
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (IsServer && collision.gameObject.CompareTag("Player"))
+    //    {
+    //        PlayerReadyServerRpc();
+    //    }
+    //}
+    private void OnTriggerEnter(Collider other)
     {
-        if (IsServer && collision.gameObject.CompareTag("Player"))
+        Debug.Log("TRIGGER" + other);
+        if (IsServer && other.gameObject.CompareTag("Player"))
         {
             PlayerReadyServerRpc();
         }
@@ -107,9 +115,17 @@ public class LobbyTrigger : NetworkBehaviour
     //     StartCoroutine(FadeTransition());
     // }
 
-    private void OnCollisionExit(Collision collision)
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        PlayerUnreadyServerRpc();
+    //    }
+    //}
+
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             PlayerUnreadyServerRpc();
         }

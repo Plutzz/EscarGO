@@ -259,6 +259,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 3f1930bd82c7f1e43bbba09e0c628d4b, type: 2}
+  meshRenderers:
+  - {fileID: 1073897389145490103}
+  - {fileID: 3822269764397832702}
 --- !u!114 &7375462720320345558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,6 +1267,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8281e6f433013a24fab0679b0f957d07, type: 3}
+--- !u!23 &3822269764397832702 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7449912993678515345, guid: 8281e6f433013a24fab0679b0f957d07,
+    type: 3}
+  m_PrefabInstance: {fileID: 5938003238558123375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5291710094836178130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1947780688466893245, guid: 8281e6f433013a24fab0679b0f957d07,
