@@ -40,6 +40,7 @@ public class FMODEvents : Singleton<FMODEvents>
         CustomerEnter,
         ItemTrash,
         ButtonClick,
-        ButtonHover
+        ButtonHover,
+        Countdown
     }
 }

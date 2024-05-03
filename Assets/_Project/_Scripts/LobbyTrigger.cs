@@ -47,6 +47,7 @@ public class LobbyTrigger : NetworkBehaviour
             }
 
             LobbyCountdown.text = currentCountdown.ToString();
+            AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ItemTrash, transform.position);
             yield return new WaitForSeconds(1);
             currentCountdown--;
         }

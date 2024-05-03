@@ -39,9 +39,6 @@ public class PlayerInteractions : NetworkBehaviour
         if (inputManager.InteractPressedThisFrame)
         {
             CheckForInteractable();
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
             CheckForTrash();
             CheckForCustomer();
         }
@@ -94,6 +91,7 @@ public class PlayerInteractions : NetworkBehaviour
         if (trashColliders.Length > 0)
         {
             playerInventory.RemoveActiveItem();
+            AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ItemTrash, transform.position);
         }
         else
         {
