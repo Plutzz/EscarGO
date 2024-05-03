@@ -135,6 +135,10 @@ public class LobbyTrigger : NetworkBehaviour
     private void PlayerUnreadyServerRpc()
     {
         numPlayersReady--;
+
+        if(numPlayersReady < 0)
+            numPlayersReady = 0;
+
         UpdateLobbyTextClientRpc(numPlayersReady ,NetworkManager.Singleton.ConnectedClientsList.Count);
     }
     [ClientRpc]

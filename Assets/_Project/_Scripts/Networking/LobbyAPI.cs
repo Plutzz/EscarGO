@@ -12,6 +12,8 @@ using Unity.Networking.Transport.Relay;
 using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using TMPro;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LobbyAPI : SingletonPersistent<LobbyAPI>
 {
