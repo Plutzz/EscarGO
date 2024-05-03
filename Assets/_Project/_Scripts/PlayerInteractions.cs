@@ -20,7 +20,7 @@ public class PlayerInteractions : NetworkBehaviour
 
     private PlayerInventory playerInventory;
     private InputManager inputManager;
-
+    [SerializeField] private RecipeBook recipeBook;
 
 
     public override void OnNetworkSpawn()
@@ -33,6 +33,7 @@ public class PlayerInteractions : NetworkBehaviour
 
         playerInventory = GetComponent<PlayerInventory>();
         inputManager = GetComponent<InputManager>();
+        recipeBook = GetComponentInChildren<RecipeBook>(true);
     }
     private void Update()
     {
@@ -46,28 +47,10 @@ public class PlayerInteractions : NetworkBehaviour
         //Change book pages
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
-        
-            if (Physics.Raycast(ray, out RaycastHit hit, raycastLength))
-            {
-
-                if (hit.collider.CompareTag("Book"))
-                {
-                    hit.collider.gameObject.GetComponent<Pages>().ChangePrevPage();
-                }
-            }
+            recipeBook.ChangePrevPage();
         } else if (Input.GetKeyDown(KeyCode.E))
         {
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
-        
-            if (Physics.Raycast(ray, out RaycastHit hit, raycastLength))
-            {
-
-                if (hit.collider.CompareTag("Book"))
-                {
-                    hit.collider.gameObject.GetComponent<Pages>().ChangeNextPage();
-                }
-            }
+            recipeBook.ChangeNextPage();
         }
     }
 
