@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: FailedFood
   m_EditorClassIdentifier: 
   itemName: FailedFood
-  itemSprite: {fileID: 21300000, guid: b324c605b25d6ee41ae787730a390789, type: 3}
+  itemSprite: {fileID: 21300000, guid: 1ab1422ded277b04cbd3901711acc7c3, type: 3}
+  itemMesh: {fileID: 0}
+  itemPrefab: {fileID: 0}
   itemDescription: Its Fucking Raw
   maxTimeInInventory: 0
   currentTimeInInventory: 67.91757

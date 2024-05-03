@@ -173,7 +173,8 @@ public class PlayerStateMachine : NetworkBehaviour
 
     public void Stunned()
     {
-        ChangeState(EventState);
+        if(currentState != InteractState)
+            ChangeState(EventState);
     }
 
     #endregion
