@@ -38,26 +38,32 @@ public class PlayerInteractions : NetworkBehaviour
     }
     private void Update()
     {
-        if (inputManager.InteractPressedThisFrame)
+        PlayerStateMachine stateMachine = GetComponent<PlayerStateMachine>();
+        if (inputManager.InteractPressedThisFrame && !recipeBook.isActiveAndEnabled)
         {
             CheckForInteractable();
             CheckForTrash();
             CheckForCustomer();
         }
 
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1) && stateMachine.currentState != stateMachine.InteractState && stateMachine.currentState != stateMachine.EventState)
         {
             recipeBook.gameObject.SetActive(!recipeBook.isActiveAndEnabled);
         }
 
         //Change book pages
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q) && recipeBook.isActiveAndEnabled)
         {
             recipeBook.ChangePrevPage();
-        } else if (Input.GetKeyDown(KeyCode.E))
+        } else if (Input.GetKeyDown(KeyCode.E) && recipeBook.isActiveAndEnabled)
         {
             recipeBook.ChangeNextPage();
         }
+    }
+
+    public void CloseRecipeBook()
+    {
+        recipeBook.gameObject.SetActive(false);
     }
 
     private void CheckForInteractable()

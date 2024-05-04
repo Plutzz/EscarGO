@@ -41,6 +41,6 @@ public class FMODEvents : Singleton<FMODEvents>
         ItemTrash,
         ButtonClick,
         ButtonHover,
-        Countdown
+        PageTurn
     }
 }
