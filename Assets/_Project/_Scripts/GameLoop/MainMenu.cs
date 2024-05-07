@@ -9,6 +9,7 @@ using UnityEngine;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {

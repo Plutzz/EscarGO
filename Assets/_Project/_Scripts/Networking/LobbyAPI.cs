@@ -65,6 +65,8 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
     public delegate void LobbyJoinedHandler(Lobby lobby);
     public event LobbyJoinedHandler OnLobbyJoined;
 
+    [SerializeField] private TutorialController tutorialController;
+
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -77,6 +79,10 @@ public class LobbyAPI : SingletonPersistent<LobbyAPI>
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            if (tutorialController != null)
+            {
+                tutorialController.CheckTutorial();
+            }
         }
 
         playerName = "Emery" + UnityEngine.Random.Range(10,99);
