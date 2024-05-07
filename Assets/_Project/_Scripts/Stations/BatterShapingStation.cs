@@ -69,6 +69,9 @@ public class BatterShapingStation : SuperStation
         PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
         stateMachine.ChangeState(stateMachine.InteractState);
 
+        Cursor.lockState = CursorLockMode.None;
+        //Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+
         virtualCamera.enabled = true;
     }
 
@@ -129,6 +132,8 @@ public class BatterShapingStation : SuperStation
         PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
         stateMachine.ChangeState(stateMachine.IdleState);
 
+        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         virtualCamera.enabled = false;
     }
 
