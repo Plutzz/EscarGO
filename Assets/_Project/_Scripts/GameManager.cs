@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : NetworkSingleton<GameManager>
@@ -43,8 +44,15 @@ public class GameManager : NetworkSingleton<GameManager>
     private void StartGameClientRpc()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().timerText.gameObject.SetActive(true);
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.gameObject.SetActive(true);
+        Player player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>();
+
+        // Reset player at start of game
+        player.timerText.gameObject.SetActive(true);
+        player.scoreText.gameObject.SetActive(true);
+        player.GetComponent<InputManager>().SwitchActionMap("Player");
+        PlayerStateMachine stateMachine = player.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
+
         timeLeft = roundTime;
     }
 
