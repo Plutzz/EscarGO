@@ -198,6 +198,7 @@ public class ToppingStation : SuperStation
         return false;
     }
 
+    [ContextMenu ("Succeed")]
     private void Succeed()
     {
         if(IsServer)
@@ -207,6 +208,7 @@ public class ToppingStation : SuperStation
             StationResultServerRPC(true);
         }
 
+        finishEvents?.Invoke();
         inventory.TryAddItemToInventory(resultingItem);
         /*if(inventory.CanCraft(dough))
         {

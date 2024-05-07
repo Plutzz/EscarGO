@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using Cinemachine;
+using UnityEngine.Events;
 
 public abstract class SuperStation : NetworkBehaviour
 {
     protected Item resultingItem;
     protected bool inUse = false;
+    [SerializeField] protected UnityEvent finishEvents;
     public abstract bool StationInUse { get; }
     public abstract bool ActivityResult { get; set; }
 
