@@ -9,7 +9,9 @@ public class LobbyTrigger : NetworkBehaviour
 {
     [SerializeField] private string SceneName;
     [SerializeField] private TextMeshPro LobbyText;
+    [SerializeField] private TMP_Text LobbyCountdown;
     [SerializeField] private LevelLoader levelLoader;
+    [SerializeField] private float countdown = 3f;
     private int numPlayersReady = 0;
 
     public override void OnNetworkSpawn()
@@ -23,12 +25,51 @@ public class LobbyTrigger : NetworkBehaviour
         };
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (IsServer && collision.gameObject.CompareTag("Player"))
+    //    {
+    //        PlayerReadyServerRpc();
+    //    }
+    //}
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        Debug.Log("TRIGGER" + other);
+        if (IsServer && other.gameObject.CompareTag("Player"))
         {
             PlayerReadyServerRpc();
         }
+    }
+
+    private IEnumerator Countdown()
+    {
+        float currentCountdown = countdown;
+
+        while (currentCountdown >= 0)
+        {
+            if (IsServer && numPlayersReady != NetworkManager.Singleton.ConnectedClientsList.Count)
+            {
+                LobbyCountdown.text = "";
+                StopCountdownClientRpc();
+                yield break;
+            }
+
+            LobbyCountdown.text = currentCountdown.ToString();
+            AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ItemTrash, transform.position);
+            yield return new WaitForSeconds(1);
+            currentCountdown--;
+        }
+
+        LobbyCountdown.text = "";
+
+        StartCoroutine(FadeTransition());
+    }
+
+    [ClientRpc]
+    private void StopCountdownClientRpc()
+    {
+        StopAllCoroutines();
+        LobbyCountdown.text = "";
     }
 
     private IEnumerator FadeTransition()
@@ -37,7 +78,8 @@ public class LobbyTrigger : NetworkBehaviour
 
         yield return new WaitForSeconds(1);
 
-        if(IsServer)
+        AudioManager.Instance.SetMusicArea(AudioManager.MusicArea.Level);
+        if (IsServer)
         {
             NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
@@ -52,21 +94,38 @@ public class LobbyTrigger : NetworkBehaviour
         if (numPlayersReady == NetworkManager.Singleton.ConnectedClientsList.Count)
         {
             Debug.Log("Loading Next Scene");
-            FadeTransitionClientRPC();
+
+            CountdownClientRPC();
+            // FadeTransitionClientRPC();
             // levelLoader.fadeTransition();
             // NetworkManager.Singleton.SceneManager.LoadScene(SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
     }
 
     [ClientRpc]
-    private void FadeTransitionClientRPC()
+    private void CountdownClientRPC()
     {
-        StartCoroutine(FadeTransition());
+        StopAllCoroutines();
+        StartCoroutine(Countdown());
     }
 
-    private void OnCollisionExit(Collision collision)
+    // [ClientRpc]
+    // private void FadeTransitionClientRPC()
+    // {
+    //     StartCoroutine(FadeTransition());
+    // }
+
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        PlayerUnreadyServerRpc();
+    //    }
+    //}
+
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             PlayerUnreadyServerRpc();
         }
@@ -76,6 +135,10 @@ public class LobbyTrigger : NetworkBehaviour
     private void PlayerUnreadyServerRpc()
     {
         numPlayersReady--;
+
+        if(numPlayersReady < 0)
+            numPlayersReady = 0;
+
         UpdateLobbyTextClientRpc(numPlayersReady ,NetworkManager.Singleton.ConnectedClientsList.Count);
     }
     [ClientRpc]

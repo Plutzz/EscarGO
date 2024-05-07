@@ -11,6 +11,7 @@ public class PlayerInteractVinh : PlayerInteractSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        
         stateMachine.inputManager.SwitchActionMap("MiniGames");
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().DisablePrompts();
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ButtonPromptCheck>().ClearUIItem();
@@ -32,6 +33,7 @@ public class PlayerInteractVinh : PlayerInteractSOBase
 
     public override void DoUpdateState()
     {
+        rb.velocity = Vector3.zero;
         base.DoUpdateState();
     }
 

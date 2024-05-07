@@ -174,7 +174,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 8fe1536dbf0041343a5d28341962350a, type: 2}
-  meshRenderer: {fileID: 1072015098976515782}
+  meshRenderers:
+  - {fileID: 1072015098976515782}
+  - {fileID: 8402157337185701691}
+  - {fileID: 7020247470783377085}
+  - {fileID: 383285519198050234}
 --- !u!114 &5794820753110969320
 MonoBehaviour:
   m_ObjectHideFlags: 0

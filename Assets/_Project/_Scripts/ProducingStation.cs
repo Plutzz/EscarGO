@@ -24,17 +24,14 @@ public class ProducingStation : InteractableSpace
     {
         if (amountLeft <= 0)
         {
-            TipsManager.Instance.SetTip("No more " + producedItem.itemName + " left", 2f);
         }
         else if (inventory.TryAddItemToInventory(producedItem) == true)
         {
             AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.ItemPickup, transform.position);
-            TipsManager.Instance.SetTip("Received a " + producedItem.itemName, 2f);
             RemoveModelFromShelfServerRpc();
         }
         else
         {
-            TipsManager.Instance.SetTip("Inventory full", 2f);
         }
     }
 
@@ -63,6 +60,13 @@ public class ProducingStation : InteractableSpace
 
             GameObject item_model = Instantiate(item.itemPrefab, transform);
             item_model.transform.SetLocalPositionAndRotation(new Vector3(randomX, item_model.GetComponentInChildren<MeshFilter>().mesh.bounds.size.y / 2), item_model.transform.localRotation);
+
+            foreach(var rend in item_model.GetComponentsInChildren<MeshRenderer>())
+            {
+                GetComponent<ButtonPromptSet>().meshRenderers.Add(rend);
+            }
+            
+            
         }
             
         

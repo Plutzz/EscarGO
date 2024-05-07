@@ -13,14 +13,12 @@ public class CraftingSpace : InteractableSpace
     {
         if(station.StationInUse)
         {
-            TipsManager.Instance.SetTip("Station in use", 3f);
             return;
         } else if (station.ActivityResult)
         {
             station.GetItem();
         }
         else if (inventory.GetNumSelectedItems() <= 0) {
-            TipsManager.Instance.SetTip("Please select items with F", 3f);
             return;
         }
         else

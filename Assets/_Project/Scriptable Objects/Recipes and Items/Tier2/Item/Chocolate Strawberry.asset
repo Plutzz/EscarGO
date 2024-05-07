@@ -21,7 +21,7 @@ MonoBehaviour:
   currentTimeInInventory: 0
   failedItem: {fileID: 11400000, guid: 983b3bc929645784eb09a704a39ef806, type: 2}
   requiredIngredients:
-  - item: {fileID: 11400000, guid: 47b3395b759a5c74c937d29226d107aa, type: 2}
-    requiredAmount: 1
   - item: {fileID: 11400000, guid: 7ccc21143493c9d45ac9ca964554d65c, type: 2}
+    requiredAmount: 1
+  - item: {fileID: 11400000, guid: 47b3395b759a5c74c937d29226d107aa, type: 2}
     requiredAmount: 1

@@ -33,6 +33,7 @@ public class InteractableTeleport : InteractableSpace
         // Teleport the player to the designated position
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Rigidbody>().position = teleportPosition;
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.DoorClose, transform.position);
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.DoorClose, teleportPosition);
         inventory.GetComponentInChildren<FirstPersonCamera>().rotation.x = teleportRotation.y;
         inventory.transform.Find("Orientation").eulerAngles = teleportRotation;
     }

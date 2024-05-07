@@ -14,6 +14,7 @@ public class PlayerEvent : PlayerEventSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        stateMachine.GetComponent<PlayerInteractions>().CloseRecipeBook();
         stunDuration = stunTime;
         isStunned = true;
         rb.velocity = Vector3.zero;

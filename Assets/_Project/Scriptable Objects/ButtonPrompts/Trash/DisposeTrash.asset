@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc01bb1192e3e147b4c5c1303a8ab63, type: 3}
   m_Name: DisposeTrash
   m_EditorClassIdentifier: 
-  keyboardPrompt: '[RMB]'
+  keyboardPrompt: '[LMB]'
   buttonImgPrompt: {fileID: 0}
   prompt: Dispose Item

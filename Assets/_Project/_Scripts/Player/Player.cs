@@ -35,6 +35,7 @@ public class Player : NetworkBehaviour
     #endregion
 
     [SerializeField] private SettingsMenu pauseMenu;
+    [SerializeField] private GameObject recipeBook;
     [SerializeField] private FirstPersonCamera cameraScript;
     [SerializeField] private Vector3 spawnPos;
 
@@ -42,6 +43,9 @@ public class Player : NetworkBehaviour
     [SerializeField] private Vector3 localCameraPosition;
     [SerializeField] private List<GameObject> toggledGameObjects;
     [SerializeField] private List<MonoBehaviour> toggledMonoBehaviours;
+
+    [Header("SFX")]
+    private StudioEventEmitter walkSFX;
 
     public override void OnNetworkSpawn()
     {
@@ -51,6 +55,7 @@ public class Player : NetworkBehaviour
             enabled = false;
             return;
         }
+        AudioManager.Instance.SetMusicArea(AudioManager.MusicArea.Lobby);
         Camera.main.GetComponent<StudioListener>().attenuationObject = gameObject;
         ClientConnectedServerRpc(NetworkManager.Singleton.LocalClientId);
         nameTag.enabled = false;
@@ -83,7 +88,7 @@ public class Player : NetworkBehaviour
 
     public void SetupName(string username)
     {
-        if (username == null)
+        if (username == null && AuthenticationService.Instance.PlayerName != null)
         {
             username = AuthenticationService.Instance.PlayerName.Substring(0, AuthenticationService.Instance.PlayerName.Length - 5);
         }
@@ -105,7 +110,7 @@ public class Player : NetworkBehaviour
         if (currentState == stateMachine.AirborneState) return;
         
 
-        if (sprinting && canSprint)
+        if (sprinting && canSprint && !inputManager.CrouchIsPressed)
         {
             stateMachine.moveSpeed = sprintSpeed;
         }
@@ -117,10 +122,47 @@ public class Player : NetworkBehaviour
         if(inputManager.PausePressedThisFrame && pauseMenu != null)
         {
             pauseMenu.OpenMenu();
+            recipeBook.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && recipeBook != null)
+        {
+            recipeBook.SetActive(!recipeBook.activeSelf);
         }
 
         if(orientation != null && cameraScript != null)
             orientation.eulerAngles = new Vector3 (0f, cameraScript.transform.eulerAngles.y, 0f);
 
+    }
+
+    /// <summary>
+    /// Play an emitter on all clients from this script
+    /// EMITTERS MUST BE INITIALIZED AND PLAYED BEFORE TRYING TO STOP THEM
+    /// MUST BE CALLED FROM THE SERVER
+    /// To play sound: play = true
+    /// To stop sound: play = false
+    /// <param name="sound"></param>
+    /// <param name="gameObj"></param>
+    /// <param name="play">/param>
+    /// </summary>
+
+    [ClientRpc]
+    private void PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if (play)
+        {
+            walkSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            walkSFX.Play();
+        }
+        else
+        {
+            walkSFX?.Stop();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayWalkSfxEmitterServerRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        PlayWalkSfxEmitterClientRpc(sound, gameObj, play);
     }
 }

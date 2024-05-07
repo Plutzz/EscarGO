@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goal: 2.5
-  goalRange: 0.1
+  goalRange: 0.2
   goalSizeOfBatter: 0.45
   cookTime: 5
   timeBeforeExpire: 5
@@ -617,7 +617,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 1b37c5de611fb244c9b5382331e9a294, type: 2}
-  meshRenderer: {fileID: 2334671616864621300}
+  meshRenderers:
+  - {fileID: 2334671616864621300}
+  - {fileID: 1280181889490285782}
 --- !u!1 &6520115595269549542
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,6 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     private float timer = 0;
     [HideInInspector] public int customerCount = 0;
     private bool isSpawning = true;
-    [SerializeField] private int numCustomerToSpawn;
 
     [Header("Chairs")]
     [SerializeField] public Chair[] playerOneChairs;
@@ -42,11 +41,6 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
         if (!IsServer) return;
 
         timer -= Time.deltaTime;
-
-        if (customerCount == numCustomerToSpawn)
-        {
-            isSpawning = false;
-        }
 
         if (isSpawning && timer <= 0)
         {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{2ad2306e-92bb-4bd6-bda1-08bdaf306816}">
+		<property name="name">
+			<value>Aera</value>
+		</property>
+		<relationship name="folder">
+			<destination>{a22a9520-526f-483d-a871-a85e6f17bdd7}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{be099c28-0b75-4d38-908b-1b08f2af5f7f}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{be099c28-0b75-4d38-908b-1b08f2af5f7f}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Menu</value>
+			<value>Lobby</value>
+			<value>Level</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
