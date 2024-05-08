@@ -2,6 +2,7 @@ using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -31,7 +32,8 @@ public class InteractableTeleport : InteractableSpace
         }
 
         // Teleport the player to the designated position
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Rigidbody>().position = teleportPosition;
+        // NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Rigidbody>().position = teleportPosition;
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ClientNetworkTransform>().Teleport(teleportPosition, Quaternion.identity, NetworkManager.Singleton.LocalClient.PlayerObject.transform.localScale);
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.DoorClose, transform.position);
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.DoorClose, teleportPosition);
         inventory.GetComponentInChildren<FirstPersonCamera>().rotation.x = teleportRotation.y;
