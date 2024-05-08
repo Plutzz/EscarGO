@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Unity.VisualScripting;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : Singleton<TutorialManager>
 {
     public static int currentTutorialStep;
     public static TutorialManager TutorialInstance { get; private set; }
@@ -23,8 +23,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private float letterSpeed = .1f;
 
     private Coroutine currentCoroutine;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
 
         TutorialInstance = this;
 
