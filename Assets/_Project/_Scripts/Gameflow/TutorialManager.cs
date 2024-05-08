@@ -8,6 +8,7 @@ using System.Threading;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Unity.VisualScripting;
+using Unity.Netcode;
 
 public class TutorialManager : Singleton<TutorialManager>
 {
@@ -21,8 +22,9 @@ public class TutorialManager : Singleton<TutorialManager>
     [SerializeField] private GameObject tutorialTextObject;
     [SerializeField] private float tutorialTextShowTime;
     [SerializeField] private float letterSpeed = .1f;
-
+    private PlayerInventory playerInventory;
     private Coroutine currentCoroutine;
+    private Customer customer;
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +37,11 @@ public class TutorialManager : Singleton<TutorialManager>
         }
 
         currentCoroutine = StartCoroutine(ShowCurrentMessage());
+    }
+
+    public void Start()
+    {
+        playerInventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
     }
 
     public void FinishedTutorialStep(int finishedStepIndex)
@@ -118,7 +125,12 @@ public class TutorialManager : Singleton<TutorialManager>
             FinishedTutorialStep(currentTutorialStep);
         }
     }
+    public void SpawnCustomer()
+    {
+        customer = CustomerSpawner.Instance.SpawnTutorialCustomer();
+    }
 }
+
 
 
 

@@ -12,7 +12,7 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
     [SerializeField] private float spawnTime = 5f;
     private float timer = 0;
     [HideInInspector] public int customerCount = 0;
-    private bool isSpawning = true;
+    public bool isSpawning = true;
 
     [Header("Chairs")]
     [SerializeField] public Chair[] playerOneChairs;
@@ -67,6 +67,49 @@ public class CustomerSpawner : NetworkSingleton<CustomerSpawner>
                 SpawnInOrder();
                 break;
         }
+    }
+
+    public Customer SpawnTutorialCustomer()
+    {
+
+        if (!IsServer) return null;
+
+        if (customerPrefab == null)
+        {
+            Debug.LogError("Customer prefab is not assigned!");
+            return null;
+        }
+
+        customerCount++;
+
+        // Instantiate the customer prefab
+        GameObject spawnedCustomer = Instantiate(customerPrefab, transform.position, Quaternion.identity);
+
+        // Pass the array of chairs to the customer for movement
+        CustomerMovement customerMovement = spawnedCustomer.GetComponent<CustomerMovement>();
+        if (customerMovement != null)
+        {
+            // Assigns a random ALIVE player to this customer
+            if (playerThatGetsCustomer > ScoringSingleton.Instance.alivePlayers.Count - 1)
+            {
+                playerThatGetsCustomer = 0;
+            }
+
+            int assignedPlayer = ScoringSingleton.Instance.alivePlayers[playerThatGetsCustomer].playerNumber;
+            Debug.Log($"assigned player {assignedPlayer} ");
+            customerMovement.assignedPlayer = assignedPlayer;
+            customerMovement.GetComponent<Customer>().assignedPlayer = assignedPlayer;
+            playerThatGetsCustomer += 1;
+        }
+        else
+        {
+            Debug.LogError("Customer prefab is missing CustomerMovement component!");
+        }
+
+        // Spawn Customer on the server
+        spawnedCustomer.GetComponent<NetworkObject>().Spawn(true);
+
+        return spawnedCustomer.GetComponent<Customer>();
     }
 
     public void SpawnRandom()
