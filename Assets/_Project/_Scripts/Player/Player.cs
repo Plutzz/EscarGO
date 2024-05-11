@@ -119,10 +119,17 @@ public class Player : NetworkBehaviour
             stateMachine.moveSpeed = moveSpeed;
         }
 
-        if(inputManager.PausePressedThisFrame && pauseMenu != null)
+        if(inputManager.PausePressedThisFrame)
         {
-            pauseMenu.OpenMenu();
-            recipeBook.SetActive(false);
+            if(GetComponentInChildren<RecipeBook>(true).isActiveAndEnabled)
+            {
+                GetComponentInChildren<RecipeBook>(true).gameObject.SetActive(false);
+            }
+            else if(pauseMenu != null)
+            {
+                pauseMenu.OpenMenu();
+                recipeBook.SetActive(false);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R) && recipeBook != null)
