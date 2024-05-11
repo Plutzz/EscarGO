@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 076d13dc661031d4cb1a8e0865e581c9, type: 2}
-  meshRenderer: {fileID: 0}
+  meshRenderers: []
 --- !u!114 &8334737824303400458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 076d13dc661031d4cb1a8e0865e581c9, type: 2}
-  meshRenderer: {fileID: 0}
+  meshRenderers: []
 --- !u!114 &3141608884912217590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 076d13dc661031d4cb1a8e0865e581c9, type: 2}
-  meshRenderer: {fileID: 0}
+  meshRenderers: []
 --- !u!114 &7195110148642198511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 825916672
+  GlobalObjectIdHash: 2032943181
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
   - {fileID: 7195110148642198511}
   - {fileID: 8334737824303400458}
   maxAmountOfItems: 5
-  lifeTime: 15
+  lifeTime: 10
   timeForShelfToDissolve: 1
 --- !u!114 &7580405334039265439
 MonoBehaviour:
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 076d13dc661031d4cb1a8e0865e581c9, type: 2}
-  meshRenderer: {fileID: 0}
+  meshRenderers: []
 --- !u!114 &4186973717068540473
 MonoBehaviour:
   m_ObjectHideFlags: 0
