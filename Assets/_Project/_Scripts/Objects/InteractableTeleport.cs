@@ -32,8 +32,8 @@ public class InteractableTeleport : InteractableSpace
         }
 
         // Teleport the player to the designated position
-        // NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Rigidbody>().position = teleportPosition;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ClientNetworkTransform>().Teleport(teleportPosition, Quaternion.identity, NetworkManager.Singleton.LocalClient.PlayerObject.transform.localScale);
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Rigidbody>().position = teleportPosition;
+        //NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<ClientNetworkTransform>().Teleport(teleportPosition, Quaternion.identity, NetworkManager.Singleton.LocalClient.PlayerObject.transform.localScale);
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.DoorClose, transform.position);
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.DoorClose, teleportPosition);
         inventory.GetComponentInChildren<FirstPersonCamera>().rotation.x = teleportRotation.y;
