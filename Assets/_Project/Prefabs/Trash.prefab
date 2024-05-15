@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4570529503755042140}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -108,7 +108,7 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6233286849869076764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 8820b91548213174f8acc22be4c5823a, type: 2}
-  meshRenderer: {fileID: 0}
+  meshRenderers:
+  - {fileID: 3277949398112135360}
 --- !u!1001 &4232266811809166404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,7 +156,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ac0705d12ab33164b8ee869786c324dc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.089999996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac0705d12ab33164b8ee869786c324dc,
         type: 3}
@@ -202,16 +203,37 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ac0705d12ab33164b8ee869786c324dc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ed44a955b9449c47b5202dc695af2b9, type: 2}
+    - target: {fileID: -7511558181221131132, guid: ac0705d12ab33164b8ee869786c324dc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2c12975a9619704188c08876a94ae9a, type: 2}
     - target: {fileID: 919132149155446097, guid: ac0705d12ab33164b8ee869786c324dc,
         type: 3}
       propertyPath: m_Name
       value: Trash
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ac0705d12ab33164b8ee869786c324dc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac0705d12ab33164b8ee869786c324dc, type: 3}
+--- !u!23 &3277949398112135360 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ac0705d12ab33164b8ee869786c324dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4232266811809166404}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4410907776011867055 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ac0705d12ab33164b8ee869786c324dc,

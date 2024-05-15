@@ -24,8 +24,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196456714566064806}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.5389913, z: 0, w: 0.8423114}
+  m_LocalPosition: {x: -5.02, y: 1.1550002, z: -0.069999695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 3968432988025269757}
   - {fileID: 2883453434164035021}
   m_Father: {fileID: 2480898060717128869}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 65.23, z: 0}
 --- !u!1 &691577909273633792
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 823458870
+  GlobalObjectIdHash: 942856873
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -312,6 +312,7 @@ MonoBehaviour:
     type: 3}
   chocolateParticles: {fileID: 3062853108842203539, guid: 6b51a52771022f74f8665c9506ac9e95,
     type: 3}
+  frostingBottles: {fileID: 196456714566064806}
   toppingCircleAmount: 5
   heightOfCircles: 0.75
   maxX: 0.37
@@ -321,6 +322,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d5da0cf9e624fe438ca449fa2c78943, type: 2}
   - {fileID: 11400000, guid: 121fd339eeaa4494695196efbadbb275, type: 2}
   - {fileID: 11400000, guid: 00a9ee1fd9c0e244bb09d7577394866c, type: 2}
+  - {fileID: 11400000, guid: 7ccc21143493c9d45ac9ca964554d65c, type: 2}
   itemOffsetY: 0.544
 --- !u!114 &3015414812899942628
 MonoBehaviour:
@@ -446,7 +448,7 @@ GameObject:
   - component: {fileID: 1372551910574786277}
   - component: {fileID: 8613138189675725861}
   - component: {fileID: 3219619108257971342}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +464,7 @@ Transform:
   m_GameObject: {fileID: 4082737458175292679}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -4.61, y: 0.8649998, z: 0.2800007}
+  m_LocalPosition: {x: 0.009999275, y: 0.07499981, z: 0.2800007}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -530,7 +532,7 @@ GameObject:
   - component: {fileID: 2883453434164035021}
   - component: {fileID: 6326373783806533277}
   - component: {fileID: 2054091593253755747}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Frosting (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,13 +547,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4273122060040709794}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6807259, y: 0.19134338, z: 0.19134338, w: 0.6807259}
-  m_LocalPosition: {x: -4.71, y: 0.7249999, z: -0.27000046}
+  m_LocalRotation: {x: 0.020053778, y: 0.26985633, z: 0.0713436, w: 0.96004456}
+  m_LocalPosition: {x: -0.09000015, y: -0.06, z: -0.27000046}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9038619608986482034}
-  m_LocalEulerAnglesHint: {x: -90, y: 31.4, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 31.4, z: 8.5}
 --- !u!33 &6326373783806533277
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -615,7 +617,7 @@ GameObject:
   - component: {fileID: 9040024262147319994}
   - component: {fileID: 327020850822340132}
   - component: {fileID: 8182972700368896763}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Frosting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,13 +632,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4973067216421807696}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6941858, y: 0.13455884, z: 0.13455884, w: 0.6941858}
-  m_LocalPosition: {x: -4.62, y: 0.7249999, z: -0.15999983}
+  m_LocalRotation: {x: 0.015757978, y: 0.18964137, z: 0.08129503, w: 0.9783552}
+  m_LocalPosition: {x: -0.00000052154064, y: -0.06000042, z: -0.15999965}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9038619608986482034}
-  m_LocalEulerAnglesHint: {x: -90, y: 21.94, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 21.94, z: 9.5}
 --- !u!33 &327020850822340132
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -700,7 +702,7 @@ GameObject:
   - component: {fileID: 8966133524535521865}
   - component: {fileID: 3641691928950158526}
   - component: {fileID: 4778027819322490758}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bottle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -716,7 +718,7 @@ Transform:
   m_GameObject: {fileID: 6890193886093985715}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -4.685, y: 0.8649998, z: 0.20000078}
+  m_LocalPosition: {x: -0.065000534, y: 0.07499981, z: 0.20000076}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -869,7 +871,7 @@ GameObject:
   - component: {fileID: 5641660834686302307}
   - component: {fileID: 8106257692665610838}
   - component: {fileID: 2478464661479408821}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bottle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -885,7 +887,7 @@ Transform:
   m_GameObject: {fileID: 7804390480850437177}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -4.565, y: 0.8649998, z: 0.09000017}
+  m_LocalPosition: {x: 0.05499935, y: 0.07499981, z: 0.09000015}
   m_LocalScale: {x: 18, y: 18, z: 18}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -953,7 +955,7 @@ GameObject:
   - component: {fileID: 3968432988025269757}
   - component: {fileID: 1316260231026204884}
   - component: {fileID: 7808196526515478252}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Frosting (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,13 +970,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7931774034412069843}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70710653, y: 0.0006170884, z: 0.0006170884, w: 0.70710653}
-  m_LocalPosition: {x: -4.6499996, y: 0.7249999, z: 0}
+  m_LocalRotation: {x: 0.000053124702, y: 0.00087107637, z: 0.060874294, w: 0.9981451}
+  m_LocalPosition: {x: -0.029999733, y: -0.06500006, z: -8.940617e-10}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9038619608986482034}
-  m_LocalEulerAnglesHint: {x: -90, y: 0.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0.1, z: 6.98}
 --- !u!33 &1316260231026204884
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1313,6 +1315,7 @@ GameObject:
   - component: {fileID: 5744844581472341148}
   - component: {fileID: 5534354843724923628}
   - component: {fileID: 4290843560394723585}
+  - component: {fileID: 3038279253452340977}
   m_Layer: 6
   m_Name: Counter
   m_TagString: Untagged
@@ -1386,6 +1389,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3038279253452340977
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861416735723346641}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7092986308522296380, guid: ba9862a8d29ac97489e90f9955dcdbc4, type: 3}
 --- !u!1 &9147250287558045668
 GameObject:
   m_ObjectHideFlags: 0

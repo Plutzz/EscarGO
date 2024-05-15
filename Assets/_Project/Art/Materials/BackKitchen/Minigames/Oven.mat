@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Oven
-  m_Shader: {fileID: -6465566751694194690, guid: 7382b9d9a50b13945990f0c20af4b9eb,
+  m_Shader: {fileID: -6465566751694194690, guid: 0a697112b1ca67f4286d0a562c57d9c6,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c146f0f859db3f1489d90eb347890bb7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -128,6 +128,7 @@ Material:
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Random_Steps: 1
     - _ReceiveShadows: 1
     - _SPECULAR: 1
     - _Smoothness: 8.39
@@ -141,9 +142,11 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColor: {r: 0.4245283, g: 0.41451585, b: 0.41451585, a: 0}
+    - _Color_Cutoff: {r: 0.5, g: 0.55, b: 0, a: 0}
+    - _DiffuseColor: {r: 0.48627454, g: 0.5372549, b: 0.5294118, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 0.254717, g: 0.23558582, b: 0.21026167, a: 0}
+    - _FresnelColor: {r: 0.6156863, g: 0.6901961, b: 0.65882355, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecularColor: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 0}
+    - _SpecularColor: {r: 0.3137255, g: 0.34509805, b: 0.33333334, a: 0}
+    - _Vector2: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
