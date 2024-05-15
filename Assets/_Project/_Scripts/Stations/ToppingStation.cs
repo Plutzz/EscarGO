@@ -13,6 +13,7 @@ public class ToppingStation : SuperStation
     [SerializeField] private GameObject toppingParticles;
     [SerializeField] private GameObject strawberryParticles;
     [SerializeField] private GameObject chocolateParticles;
+    [SerializeField] private GameObject frostingBottles;
     [SerializeField] private int toppingCircleAmount = 5;
     [SerializeField] private float heightOfCircles = 0.74f;
     [SerializeField] private float maxX = 0.37f;
@@ -38,6 +39,8 @@ public class ToppingStation : SuperStation
         isTopping = true;
 
         GetComponent<BoxCollider>().enabled = false;
+
+        frostingBottles.SetActive(false);
 
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
@@ -110,6 +113,8 @@ public class ToppingStation : SuperStation
         }
 
         GetComponent<BoxCollider>().enabled = true;
+
+        frostingBottles.SetActive(true);
 
         Destroy(baseItem);
 
