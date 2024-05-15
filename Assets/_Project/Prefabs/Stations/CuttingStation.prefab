@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3337270205
+  GlobalObjectIdHash: 3547796428
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   baseItems:
   - {fileID: 11400000, guid: 7ccc21143493c9d45ac9ca964554d65c, type: 2}
   - {fileID: 11400000, guid: 049618af02a5d5243ae363188f3c0441, type: 2}
-  itemOffsetY: 0.544
+  itemOffsetY: 0.5
 --- !u!114 &2602234188546771843
 MonoBehaviour:
   m_ObjectHideFlags: 0
