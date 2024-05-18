@@ -292,7 +292,7 @@ public class CuttingStation : SuperStation
     private void alignKnife()
     {
         knife.transform.position = cutIndicator.transform.position + knifeOffset;
-        knife.transform.rotation = Quaternion.Euler(0, cutIndicator.transform.rotation.eulerAngles.y, 0);
+        knife.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void ResetKnife()
