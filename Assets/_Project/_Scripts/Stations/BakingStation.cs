@@ -75,7 +75,9 @@ public class BakingStation : SuperStation
             Destroy(rightTarget);
         }
 
-        playerIndicator = Instantiate(bakingIndicator, transform.position + new Vector3(0, 0.5f, 0f), Quaternion.Euler(90f, 0f, 0f));
+        playerIndicator = Instantiate(bakingIndicator, transform.position + new Vector3(0, 0.5f, 0f), Quaternion.identity, transform);
+
+        playerIndicator.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
 
         SetTargets();
 
