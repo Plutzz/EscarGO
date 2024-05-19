@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundDrag: 2
   isStunned: 1
-  stunTime: 3
+  stunTime: 1
