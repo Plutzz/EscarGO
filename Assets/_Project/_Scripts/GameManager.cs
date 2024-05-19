@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class GameManager : NetworkSingleton<GameManager>
 {
-    [SerializeField] private Vector3 spawnPos;
     [SerializeField] private float roundTime = 180f;
+    [SerializeField] private Vector3[] spawnPositions;
     private float timeLeft;
     public override void OnNetworkSpawn()
     {
@@ -17,7 +17,14 @@ public class GameManager : NetworkSingleton<GameManager>
         if(!IsServer) return;
 
         ScoringSingleton.Instance.AssignPlayerNumbers();
-        teleportPlayersClientRpc();
+        
+
+        int index = 0;
+        foreach(var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            teleportPlayersClientRpc(spawnPositions[index], new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { client.ClientId } } });
+            index++;
+        }
         StartGameClientRpc();
     }
 
@@ -80,7 +87,7 @@ public class GameManager : NetworkSingleton<GameManager>
     }
 
     [ClientRpc]
-    private void teleportPlayersClientRpc()
+    private void teleportPlayersClientRpc(Vector3 spawnPos, ClientRpcParams param = default)
     {
         Transform _player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.transform;
 
