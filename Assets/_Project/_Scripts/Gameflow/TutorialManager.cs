@@ -22,9 +22,14 @@ public class TutorialManager : Singleton<TutorialManager>
     [SerializeField] private GameObject tutorialTextObject;
     [SerializeField] private float tutorialTextShowTime;
     [SerializeField] private float letterSpeed = .1f;
-    private PlayerInventory playerInventory;
+    [SerializeField] private List<SuperStation> stations = new List<SuperStation>();
     private Coroutine currentCoroutine;
+
+    private int playerInventoryCount;
+    private bool ready = false;
+    private PlayerInventory playerInventory;
     private Customer customer;
+    private Rigidbody playerRB;
     protected override void Awake()
     {
         base.Awake();
@@ -42,14 +47,83 @@ public class TutorialManager : Singleton<TutorialManager>
     public void Start()
     {
         playerInventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
+        StartCoroutine(waitForloading()); //need better way so that it only detects once everything has loaded or else passes step when player doesnt even move
+    }
+
+    private void Update()
+    {
+        if(playerInventoryCount < playerInventory.inventoryCount())
+        {
+            playerInventoryCount = playerInventory.inventoryCount();
+        }
+
+        switch (currentTutorialStep)
+        {
+            case 0:
+                if(ready)
+                {
+                    if (playerRB.velocity != Vector3.zero)
+                    {
+                        Debug.Log("moving.......");
+                        FinishedTutorialStep(0);
+                    }
+                }
+                break;
+
+            case 3:
+                if(Input.GetMouseButtonDown(1))
+                {
+                    FinishedTutorialStep(3);
+                }
+                break;
+            case 4:
+                if (Input.GetMouseButtonDown(1))
+                {
+                    FinishedTutorialStep(4);
+                }
+                break;
+            case 5:
+                if (playerInventory.inventoryCount() > 0)
+                {
+                    FinishedTutorialStep(5);
+                }
+                break;
+            case 6:
+                if (playerInventory.inventoryCount() < playerInventoryCount)
+                {
+                    FinishedTutorialStep(6);
+                }
+                break;
+            case 7:
+                if(Input.GetMouseButtonDown(0))
+                {
+                    foreach (SuperStation station in stations)
+                    {
+                        Debug.Log("stationing checking");
+                        if (station.StationInUse == true)
+                        {
+                            FinishedTutorialStep(7);
+                        }
+                    }
+                }
+                break;
+            case 9:
+                if (customer.eating == true)
+                {
+                    FinishedTutorialStep(9);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public void FinishedTutorialStep(int finishedStepIndex)
     {
         Debug.Log("Finished tutorial step: " + finishedStepIndex);
 
-
-        if (finishedStepIndex >= tutorialSteps.Count-1)
+        //end of tutorial
+        if (finishedStepIndex >= tutorialSteps.Count - 1)
         {
             PlayerPrefs.SetInt("FinishedTutorial", 1);
             SceneManager.LoadScene(0);
@@ -115,7 +189,7 @@ public class TutorialManager : Singleton<TutorialManager>
 
         yield return new WaitForSeconds(tutorialTextShowTime);
 
-        tutorialTextObject.SetActive(false);
+        //tutorialTextObject.SetActive(false);
 
         if (currentStep.autoplayNextStep) {
             if (currentStep.timeToNextStep > 0) {
@@ -128,6 +202,20 @@ public class TutorialManager : Singleton<TutorialManager>
     public void SpawnCustomer()
     {
         customer = CustomerSpawner.Instance.SpawnTutorialCustomer();
+        customer.setTimer(9999f);
+    }
+
+    public int getCurrentStep()
+    {
+        return currentTutorialStep;
+    }
+
+    IEnumerator waitForloading()
+    {
+        yield return new WaitForSeconds(6);
+
+        playerRB = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Rigidbody>();
+        ready = true;
     }
 }
 

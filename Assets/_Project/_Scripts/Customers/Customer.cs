@@ -237,6 +237,7 @@ public class Customer : NetworkBehaviour
         scoreText3DInstance.GetComponent<TextMeshPro>().text = "+" + pointsEarned.ToString();
     }
 
+
     /// <summary>
     /// Play an emitter on all clients from this script
     /// EMITTERS MUST BE INITIALIZED AND PLAYED BEFORE TRYING TO STOP THEM
@@ -260,6 +261,12 @@ public class Customer : NetworkBehaviour
         {
             eatSFX?.Stop();
         }
+    }
+
+    //for tutorial
+    public void setTimer(float seconds)
+    {
+        timer = seconds;
     }
 }
 
