@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7918818471551071794}
   - component: {fileID: 6289677730085565910}
   - component: {fileID: 186337299563007311}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SceneTransitioner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 3984236497829487262}
   - component: {fileID: 1441517384803580596}
   - component: {fileID: 7719406334656678337}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9068458963364082476}
   - component: {fileID: 2129236077887117641}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LevelLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}

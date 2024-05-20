@@ -18,9 +18,13 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     [SerializeField] private float moveSpeedMultiplier = .5f;
     [SerializeField] private float timeToChargeThrow = .75f;
+    [SerializeField] private float minThrowTime = .25f;
     private float chargeTimer = 0;
 
     [SerializeField] private FoodProjectile projectile;
+
+    [SerializeField] private float maxFOVIncrease;
+    [SerializeField] private float fOVRevertTime;
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
@@ -28,7 +32,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     }
     public override void DoEnterLogic()
     {
-        Debug.Log("Entered throwing state");
+        
         base.DoEnterLogic();
         chargeTimer = 0;
     }
@@ -36,6 +40,8 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        chargeTimer = float.MinValue;
+        stateMachine.LerpFOV(stateMachine.initialFOV, fOVRevertTime);
         currentFootstepSFXInstance.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
@@ -51,6 +57,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         
         chargeTimer += Time.deltaTime;
        
+        UpdateFOV();
         GetInput();
         base.DoUpdateState();
     }
@@ -62,16 +69,22 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
     public override void CheckTransitions()
     {
         // Throwing => Airborne
+        if (stateMachine.inputManager.SprintIsPressed || (chargeTimer < minThrowTime && !stateMachine.TryingThrow())) {
+            
+
+            stateMachine.ChangeState(stateMachine.MovingState);
+            return;
+        }
         
         if (!stateMachine.TryingThrow())
         {
-            if (chargeTimer > timeToChargeThrow) {
-                Throw();
-                chargeTimer = float.MinValue;
-            }
+            Throw();
+            
+            
             stateMachine.ChangeState(stateMachine.MovingState);
+            return;
         }
-        
+
 
     }
 
@@ -90,10 +103,9 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     #endregion
     private void Throw() {
-        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
-        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation);
-        return;
 
+        string itemName = "";
+        
         if (playerInventory == null)
         {
             
@@ -101,13 +113,23 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         }
         else if (playerInventory.CurrentlyHasItem() == false)
         {
-            //return;
+            return;
         }
-        else { 
+        else 
+        {
+            itemName = playerInventory.getCurrentItem().itemName;
             playerInventory.RemoveActiveItem();
         }
-        FoodProjectile newProjectile = Instantiate(projectile, gameObject.transform.position + stateMachine.orientation.forward, gameObject.transform.rotation);
-        //newProjectile.Launch();
+        AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
+        stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation, itemName, chargeTimer/timeToChargeThrow);
+
 
     }
+
+    private void UpdateFOV() {
+        float newFOV = stateMachine.initialFOV - Mathf.Lerp(0, maxFOVIncrease, Mathf.Clamp((chargeTimer/timeToChargeThrow), 0, 1));
+        stateMachine.cam.m_Lens.FieldOfView = newFOV;
+    }
+
+
 }

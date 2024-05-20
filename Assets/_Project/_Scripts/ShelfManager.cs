@@ -97,4 +97,11 @@ public class ShelfManager : NetworkBehaviour
         }
 
     }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        if(IsServer)
+            CartManager.Instance.cartsAlive--;
+    }
 }

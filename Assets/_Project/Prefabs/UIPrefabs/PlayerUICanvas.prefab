@@ -855,6 +855,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2336208902694167836}
     m_Modifications:
+    - target: {fileID: -6927925834671770388, guid: 142c67d90ebdb024da1f939ced4ac864,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1541138660
+      objectReference: {fileID: 0}
+    - target: {fileID: 614879149491628697, guid: 142c67d90ebdb024da1f939ced4ac864,
+        type: 3}
+      propertyPath: m_text
+      value: Left Windows/A/S/D
+      objectReference: {fileID: 0}
     - target: {fileID: 1415974360027351187, guid: 142c67d90ebdb024da1f939ced4ac864,
         type: 3}
       propertyPath: Canvas
@@ -890,6 +900,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2254914749324739895, guid: 142c67d90ebdb024da1f939ced4ac864,
+        type: 3}
+      propertyPath: m_Size
+      value: 0.81333333
+      objectReference: {fileID: 0}
     - target: {fileID: 2767158077982780141, guid: 142c67d90ebdb024da1f939ced4ac864,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -920,6 +935,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3202110310058220855, guid: 142c67d90ebdb024da1f939ced4ac864,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202110310058220855, guid: 142c67d90ebdb024da1f939ced4ac864,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3928607561615769185, guid: 142c67d90ebdb024da1f939ced4ac864,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -976,6 +1001,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4553115803970585442, guid: 142c67d90ebdb024da1f939ced4ac864,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5243518537103424252, guid: 142c67d90ebdb024da1f939ced4ac864,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -1150,6 +1180,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9035042520194897754, guid: 142c67d90ebdb024da1f939ced4ac864,
+        type: 3}
+      propertyPath: m_text
+      value: Left Windows/A/S/D
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1169,6 +1204,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2336208902694167836}
     m_Modifications:
+    - target: {fileID: -7437704191680405581, guid: 5ed60127e7687d64eb5d4dd2d49a5d00,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 84844350
+      objectReference: {fileID: 0}
     - target: {fileID: 5162559235385566167, guid: 5ed60127e7687d64eb5d4dd2d49a5d00,
         type: 3}
       propertyPath: m_Pivot.x

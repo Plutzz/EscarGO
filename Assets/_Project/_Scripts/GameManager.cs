@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : NetworkSingleton<GameManager>
 {
-    [SerializeField] private Vector3 spawnPos;
     [SerializeField] private float roundTime = 180f;
+    [SerializeField] private Vector3[] spawnPositions;
     private float timeLeft;
     public override void OnNetworkSpawn()
     {
@@ -16,7 +17,14 @@ public class GameManager : NetworkSingleton<GameManager>
         if(!IsServer) return;
 
         ScoringSingleton.Instance.AssignPlayerNumbers();
-        teleportPlayersClientRpc();
+        
+
+        int index = 0;
+        foreach(var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            teleportPlayersClientRpc(spawnPositions[index], new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { client.ClientId } } });
+            index++;
+        }
         StartGameClientRpc();
     }
 
@@ -43,8 +51,15 @@ public class GameManager : NetworkSingleton<GameManager>
     private void StartGameClientRpc()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().timerText.gameObject.SetActive(true);
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.gameObject.SetActive(true);
+        Player player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>();
+
+        // Reset player at start of game
+        player.timerText.gameObject.SetActive(true);
+        player.scoreText.gameObject.SetActive(true);
+        player.GetComponent<InputManager>().SwitchActionMap("Player");
+        PlayerStateMachine stateMachine = player.GetComponent<PlayerStateMachine>();
+        stateMachine.ChangeState(stateMachine.IdleState);
+
         timeLeft = roundTime;
     }
 
@@ -63,14 +78,16 @@ public class GameManager : NetworkSingleton<GameManager>
     [ClientRpc]
     private void EndGameClientRpc()
     {
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().SwitchActionMap("Player");
         Cursor.lockState = CursorLockMode.Confined;
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<Player>().scoreText.text = "0 Points";
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>().ClearInventory();
         NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<InputManager>().SwitchActionMap("Player");
+        AudioManager.Instance.SetMusicArea(AudioManager.MusicArea.Menu);
     }
 
     [ClientRpc]
-    private void teleportPlayersClientRpc()
+    private void teleportPlayersClientRpc(Vector3 spawnPos, ClientRpcParams param = default)
     {
         Transform _player = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject.transform;
 

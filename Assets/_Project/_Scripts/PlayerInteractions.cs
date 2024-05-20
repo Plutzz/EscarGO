@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteractions : NetworkBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerInteractions : NetworkBehaviour
 
     private PlayerInventory playerInventory;
     private InputManager inputManager;
-
+    [SerializeField] private RecipeBook recipeBook;
 
 
     public override void OnNetworkSpawn()
@@ -33,45 +34,36 @@ public class PlayerInteractions : NetworkBehaviour
 
         playerInventory = GetComponent<PlayerInventory>();
         inputManager = GetComponent<InputManager>();
+        recipeBook = GetComponentInChildren<RecipeBook>(true);
     }
     private void Update()
     {
-        if (inputManager.InteractPressedThisFrame)
+        PlayerStateMachine stateMachine = GetComponent<PlayerStateMachine>();
+        if (inputManager.InteractPressedThisFrame && !recipeBook.isActiveAndEnabled)
         {
             CheckForInteractable();
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
             CheckForTrash();
             CheckForCustomer();
         }
 
-        //Change book pages
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetMouseButtonDown(1) && stateMachine.currentState != stateMachine.InteractState && stateMachine.currentState != stateMachine.EventState)
         {
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
-        
-            if (Physics.Raycast(ray, out RaycastHit hit, raycastLength))
-            {
-
-                if (hit.collider.CompareTag("Book"))
-                {
-                    hit.collider.gameObject.GetComponent<Pages>().ChangePrevPage();
-                }
-            }
-        } else if (Input.GetKeyDown(KeyCode.E))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
-        
-            if (Physics.Raycast(ray, out RaycastHit hit, raycastLength))
-            {
-
-                if (hit.collider.CompareTag("Book"))
-                {
-                    hit.collider.gameObject.GetComponent<Pages>().ChangeNextPage();
-                }
-            }
+            recipeBook.gameObject.SetActive(!recipeBook.isActiveAndEnabled);
         }
+
+        //Change book pages
+        if(Input.GetKeyDown(KeyCode.Q) && recipeBook.isActiveAndEnabled)
+        {
+            recipeBook.ChangePrevPage();
+        } else if (Input.GetKeyDown(KeyCode.E) && recipeBook.isActiveAndEnabled)
+        {
+            recipeBook.ChangeNextPage();
+        }
+    }
+
+    public void CloseRecipeBook()
+    {
+        recipeBook.gameObject.SetActive(false);
     }
 
     private void CheckForInteractable()
@@ -94,10 +86,10 @@ public class PlayerInteractions : NetworkBehaviour
         if (trashColliders.Length > 0)
         {
             playerInventory.RemoveActiveItem();
+            AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.ItemTrash, transform.position);
         }
         else
         {
-            TipsManager.Instance.SetTip("No Trashcan here", 2f);
         }
     }
 

@@ -1,4 +1,5 @@
 using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -15,9 +16,9 @@ public class CustomerMovement : NetworkBehaviour
     private Chair assignedChair;
     private NavMeshAgent agent;
     private Customer customer;
-    private bool isLeaving;
+    public bool isLeaving { get; private set; } 
 
-    private EventInstance walkSFX;
+    private StudioEventEmitter walkSFX;
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
@@ -26,7 +27,7 @@ public class CustomerMovement : NetworkBehaviour
         }
 
         AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CustomerEnter, transform.position);
-        walkSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
+        //PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, true);
         customer = GetComponent<Customer>();
         agent = gameObject.AddComponent<NavMeshAgent>();
         SetNavMeshValues();
@@ -120,6 +121,7 @@ public class CustomerMovement : NetworkBehaviour
             // Assign this customer to the chair
             chair.currentCustomer = customer;
             assignedChair = chair;
+            GetComponent<ButtonPromptSet>().meshRenderers.Add(chair.GetComponentInChildren<MeshRenderer>());
             Debug.Log("Customer assigned to chair: " + chair.gameObject.name);
             return false; // Chair is not occupied
         }
@@ -127,8 +129,9 @@ public class CustomerMovement : NetworkBehaviour
 
     public void MoveToExit()
     {
-        walkSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.PlayerWalkWood);
+        //PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, true);
         isLeaving = true;
+        Destroy(GetComponent<ButtonPromptSet>());
         transform.position = assignedChair.exitPoint;
         SetAgentActive(true);
         SetDestination(CustomerSpawner.Instance.transform.position);
@@ -140,13 +143,13 @@ public class CustomerMovement : NetworkBehaviour
 
         if (other.gameObject == assignedChair.gameObject && !isLeaving)
         {
-            walkSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, false);
 
             SetAgentActive(false);
-            transform.position = (assignedChair.transform.position) + transform.up * sittingOffsetY;
+            transform.position = assignedChair.transform.position + transform.up * sittingOffsetY;
 
-            Vector3 localRight = transform.rotation * Vector3.forward;
-            transform.position += localRight * sittingOffsetX;
+            //Vector3 localRight = transform.rotation * Vector3.forward;
+            //transform.position += localRight * sittingOffsetX;
 
             Vector3 localForward = transform.rotation * Vector3.forward;
             transform.position += localForward * sittingOffsetZ;
@@ -169,8 +172,23 @@ public class CustomerMovement : NetworkBehaviour
 
         if (other.gameObject.name == "CustomerSpawnPoint" && isLeaving)
         {
-            walkSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName.PlayerWalkWood, gameObject, false);
+
             Destroy(gameObject);
+        }
+    }
+
+    [ClientRpc]
+    private void PlayWalkSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if (play)
+        {
+            walkSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            walkSFX.Play();
+        }
+        else
+        {
+            walkSFX?.Stop();
         }
     }
 }

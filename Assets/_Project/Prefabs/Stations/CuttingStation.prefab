@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3337270205
+  GlobalObjectIdHash: 3547796428
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   baseItems:
   - {fileID: 11400000, guid: 7ccc21143493c9d45ac9ca964554d65c, type: 2}
   - {fileID: 11400000, guid: 049618af02a5d5243ae363188f3c0441, type: 2}
-  itemOffsetY: 0.544
+  itemOffsetY: 0.5
 --- !u!114 &2602234188546771843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +259,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPromptSet:
   - {fileID: 11400000, guid: 3f1930bd82c7f1e43bbba09e0c628d4b, type: 2}
+  meshRenderers:
+  - {fileID: 1073897389145490103}
+  - {fileID: 3822269764397832702}
 --- !u!114 &7375462720320345558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,6 +1267,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8281e6f433013a24fab0679b0f957d07, type: 3}
+--- !u!23 &3822269764397832702 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7449912993678515345, guid: 8281e6f433013a24fab0679b0f957d07,
+    type: 3}
+  m_PrefabInstance: {fileID: 5938003238558123375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5291710094836178130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1947780688466893245, guid: 8281e6f433013a24fab0679b0f957d07,

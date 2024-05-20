@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
+using FMODUnity;
 
 public class Customer : NetworkBehaviour
 {
@@ -24,6 +25,7 @@ public class Customer : NetworkBehaviour
     [Header("Seating Variables")]
     public int assignedPlayer;
     public bool orderReceived;
+    public bool eating;
     private Chair currentChair;
 
     //[Header("UI")]
@@ -35,7 +37,7 @@ public class Customer : NetworkBehaviour
 
     private Animator animator;
 
-    private EventInstance eatSFX;
+    private StudioEventEmitter eatSFX;
 
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
@@ -118,10 +120,11 @@ public class Customer : NetworkBehaviour
     {
         LeaveClientRpc();
 
+        if (eating) return;
         
         if (gotOrder)
         {
-            eatSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.CustomerEat);
+            eating = true;
             Debug.Log("Singleton Instance " + ScoringSingleton.Instance);
             Debug.Log("assignedPlayer " + assignedPlayer);
             Debug.Log("critera " + criteria);
@@ -144,8 +147,10 @@ public class Customer : NetworkBehaviour
     }
     private IEnumerator FufillOrderWait(float seconds)
     {
+        PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject, true);
         yield return new WaitForSeconds(seconds);
-        eatSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName.CustomerEat, gameObject, false);
+        Destroy(GetComponent<StudioEventEmitter>());
         CustomerSpawner.Instance.customerCount--;
         Exit();
     }
@@ -180,7 +185,7 @@ public class Customer : NetworkBehaviour
 
     public bool TryCompleteOrder(PlayerInventory inventory)
     {
-        if (inventory.CurrentlyHasItem())
+        if (inventory.CurrentlyHasItem() || !GetComponent<CustomerMovement>().isLeaving)
         {
 
             foreach (Criteria.Required criteriaItem in criteria.objectPairs)
@@ -202,7 +207,6 @@ public class Customer : NetworkBehaviour
         }
         else
         {
-            TipsManager.Instance.SetTip("Incorrect Order", 2f);
             return false;
         }
     }
@@ -231,6 +235,31 @@ public class Customer : NetworkBehaviour
         scoreText3DInstance.transform.SetParent(orderObject.transform);
         scoreText3DInstance.transform.localPosition = Vector3.up;
         scoreText3DInstance.GetComponent<TextMeshPro>().text = "+" + pointsEarned.ToString();
+    }
+
+    /// <summary>
+    /// Play an emitter on all clients from this script
+    /// EMITTERS MUST BE INITIALIZED AND PLAYED BEFORE TRYING TO STOP THEM
+    /// MUST BE CALLED FROM THE SERVER
+    /// To play sound: play = true
+    /// To stop sound: play = false
+    /// <param name="sound"></param>
+    /// <param name="gameObj"></param>
+    /// <param name="play">/param>
+    /// </summary>
+
+    [ClientRpc]
+    private void PlayEatSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if(play)
+        {
+            eatSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            eatSFX.Play();
+        }
+        else
+        {
+            eatSFX?.Stop();
+        }
     }
 }
 

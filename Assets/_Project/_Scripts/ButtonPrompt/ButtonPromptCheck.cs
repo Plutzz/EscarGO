@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonPromptCheck : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class ButtonPromptCheck : MonoBehaviour
     [SerializeField] private Material defaultOutline;
     [SerializeField] private Material highlightOutline;
 
+    [SerializeField] private Sprite defaultCrosshair;
+    [SerializeField] private Sprite highlightCrosshair;
+    [SerializeField] private Image crosshair;
+
     private bool searchPrompts = true;
     private ButtonPromptSet currentBPSet;
+
 
 
     // Start is called before the first frame update
@@ -37,6 +43,8 @@ public class ButtonPromptCheck : MonoBehaviour
             currentBPSet.ChangeOutline(defaultOutline);
         }
 
+        crosshair.sprite = defaultCrosshair;
+
         foreach (Transform child in buttonPromptObj.transform)
         {
             Destroy(child.gameObject);
@@ -50,6 +58,8 @@ public class ButtonPromptCheck : MonoBehaviour
 
         bool foundButtonPrompt = false;
 
+
+
         if (Physics.Raycast(ray, out hit, rayLength))
         {
             foundButtonPrompt = true;
@@ -58,8 +68,15 @@ public class ButtonPromptCheck : MonoBehaviour
 
             if (col.GetComponent<ButtonPromptSet>() != null)
             {
+                
+                if (currentBPSet != null && currentBPSet.GetComponent<Collider>() != col)
+                {
+                    ClearUIItem();
+                }
+
+
                 currentBPSet = col.GetComponent<ButtonPromptSet>();
-                currentBPSet.ChangeOutline(highlightOutline);
+
 
                 // Add button prompts
                 List<ButtonPromptDetails> bpDetails = col.GetComponent<ButtonPromptSet>().buttonPromptSet;
@@ -68,7 +85,7 @@ public class ButtonPromptCheck : MonoBehaviour
                 {
                     if (bpDetails[0] != buttonPromptObj.transform.GetChild(0).GetComponent<BPDetailsUI>().bpDetails)
                     {
-                        ClearUIItem();  
+                        ClearUIItem();
                     }
                 }
 
@@ -80,7 +97,11 @@ public class ButtonPromptCheck : MonoBehaviour
                         details.GetComponent<BPDetailsUI>().bpDetails = bpDetail;
                     }
                 }
-                
+
+                currentBPSet.ChangeOutline(highlightOutline);
+                crosshair.sprite = highlightCrosshair;
+
+
             }
             else
             {

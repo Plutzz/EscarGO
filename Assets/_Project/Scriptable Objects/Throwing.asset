@@ -16,4 +16,5 @@ MonoBehaviour:
   timeToChargeThrow: 0.75
   projectile: {fileID: 7238422934952187408, guid: 06f57473d338a224d873b72b470e4b08,
     type: 3}
-  projectileStartOffset: {x: 0, y: 1, z: 1}
+  maxFOVIncrease: 20
+  fOVRevertTime: 0.15

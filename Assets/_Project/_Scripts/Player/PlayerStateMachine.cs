@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Unity.Netcode;
 using JetBrains.Annotations;
+using Cinemachine;
 
 
 public class PlayerStateMachine : NetworkBehaviour
@@ -56,7 +57,9 @@ public class PlayerStateMachine : NetworkBehaviour
     [SerializeField] private float crouchYScale = 0.5f;
     private float startYScale;
     public bool crouching { get; private set; }
-
+    [SerializeField] protected Transform hitboxPivot;
+    public CinemachineVirtualCamera cam;
+    public float initialFOV { get; private set; }
 
     #endregion
 
@@ -70,7 +73,6 @@ public class PlayerStateMachine : NetworkBehaviour
             enabled = false;
             return;
         }
-            
 
         rb = GetComponentInChildren<Rigidbody>();
         inputManager = GetComponent<InputManager>();
@@ -100,6 +102,9 @@ public class PlayerStateMachine : NetworkBehaviour
 
         initialState = IdleState;
         startYScale = gameObject.transform.localScale.y;
+
+        cam = GetComponentInChildren<CinemachineVirtualCamera>();
+        initialFOV = cam.m_Lens.FieldOfView;
     }
 
 
@@ -115,16 +120,18 @@ public class PlayerStateMachine : NetworkBehaviour
 
     private void Update()
     {
-        crouching = GetComponent<InputManager>().CrouchIsPressed;
+        crouching = inputManager.CrouchIsPressed;
         
-        if (crouching)
+        if (inputManager.CrouchPressedThisFrame)
         {
             rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
-            player.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
+            hitboxPivot.localScale = new Vector3(player.localScale.x, crouchYScale, gameObject.transform.localScale.z);
+            playerAnim.StartCrouch();
         }
-        else
+        else if(inputManager.CrouchReleasedThisFrame)
         {
-            player.localScale = new Vector3(player.localScale.x, startYScale, gameObject.transform.localScale.z);
+            hitboxPivot.localScale = new Vector3(player.localScale.x, startYScale, gameObject.transform.localScale.z);
+            playerAnim.StopCrouch();
         }
 
             
@@ -149,6 +156,7 @@ public class PlayerStateMachine : NetworkBehaviour
         currentState.EnterLogic();
     }
 
+
     #region Logic Checks
 
     //Consider adding core functionalities here
@@ -165,9 +173,32 @@ public class PlayerStateMachine : NetworkBehaviour
 
     public void Stunned()
     {
-        ChangeState(EventState);
+        if(currentState != InteractState)
+            ChangeState(EventState);
     }
 
     #endregion
 
+    #region Utility
+
+    public void LerpFOV(float finalFOV, float time) { 
+        StartCoroutine(ChangeFOV(finalFOV, time));
+    }
+
+    IEnumerator ChangeFOV(float finalFOV, float totalTime) {
+        float timer = 0;
+        float currentFOV = cam.m_Lens.FieldOfView;
+
+        while (timer < totalTime) { 
+            cam.m_Lens.FieldOfView = Mathf.Lerp(currentFOV, finalFOV, timer/ totalTime);
+            
+            timer += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        cam.m_Lens.FieldOfView = finalFOV;
+    }
+
+    #endregion
 }

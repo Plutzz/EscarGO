@@ -49,19 +49,25 @@ public class PlayerAnim : NetworkBehaviour
 
     public void StartCrouch()
     {
+
         if (playerStateMachine.currentState == playerStateMachine.IdleState)
         {
-            anim.SetTrigger("Crouch Idle");
+            anim.SetTrigger("Crouching");
         }
+        else if(playerStateMachine.currentState == playerStateMachine.MovingState || playerStateMachine.currentState == playerStateMachine.AirborneState)
+        {
+            anim.SetTrigger("Crouch Walking");
+        }
+
     }
 
     public void StopCrouch()
     {
-        if (playerStateMachine.currentState == playerStateMachine.MovingState)
+        if (playerStateMachine.currentState == playerStateMachine.MovingState || playerStateMachine.currentState == playerStateMachine.AirborneState)
         {
             anim.SetTrigger("Jogging");
         }
-        else if (currentState == playerStateMachine.IdleState)
+        else if (playerStateMachine.currentState == playerStateMachine.IdleState)
         {
             anim.SetTrigger("Idle");
         }
@@ -90,7 +96,7 @@ public class PlayerAnim : NetworkBehaviour
                 break;
             case PlayerMovingState _:
                 if (playerInputActions.CrouchIsPressed)
-                    anim.SetTrigger("Crouching");
+                    anim.SetTrigger("Crouch Walking");
                 else if (playerInputActions.SprintIsPressed)
                     anim.SetTrigger("Run");
                 else
@@ -102,9 +108,6 @@ public class PlayerAnim : NetworkBehaviour
             case PlayerEventState _:
                 break;
             case PlayerIdleState _:
-                if (playerInputActions.CrouchIsPressed)
-                    anim.SetTrigger("Crouching");
-                else
                     anim.SetTrigger("Idle");
                 break;
         }

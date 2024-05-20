@@ -5,6 +5,7 @@ using Cinemachine;
 using Unity.Netcode;
 using FMOD.Studio;
 using System;
+using FMODUnity;
 
 public class BatterShapingStation : SuperStation
 {
@@ -17,6 +18,7 @@ public class BatterShapingStation : SuperStation
     [SerializeField] private GameObject batterSpawnPoint;
     [SerializeField] private GameObject timerObject;
     [SerializeField] private GameObject waffleIronJoint;
+    public GameObject batterIndicator;
 
     [SerializeField] private CraftableItem batter;
     private PlayerInventory inventory;
@@ -27,6 +29,7 @@ public class BatterShapingStation : SuperStation
     private bool isBattering = false;
     private bool squeezing = false;
     private GameObject playerBatter;
+    private GameObject playerIndicator;
     private float playerHoldTimer = 0f;
 
     private Animator waffleIronAnimation;
@@ -34,8 +37,8 @@ public class BatterShapingStation : SuperStation
     private Material timerMaterial;
     private float fillValue;
     private bool timerActive;
-    private EventInstance waffleSFX;
-    private EventInstance tickingSFX;
+    private StudioEventEmitter waffleSFX;
+    private StudioEventEmitter tickingSFX;
     private bool isWaffleSFXPlaying;
 
     public override void Activate(CraftableItem successfulItem)
@@ -52,6 +55,8 @@ public class BatterShapingStation : SuperStation
 
         playerHoldTimer = 0;
 
+        playerIndicator = Instantiate(batterIndicator, batterSpawnPoint.transform.position, transform.rotation);
+
         if(IsServer)
         {
             UseStationClientRPC(true);
@@ -63,6 +68,9 @@ public class BatterShapingStation : SuperStation
 
         PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
         stateMachine.ChangeState(stateMachine.InteractState);
+
+        Cursor.lockState = CursorLockMode.None;
+        //Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 
         virtualCamera.enabled = true;
     }
@@ -101,7 +109,7 @@ public class BatterShapingStation : SuperStation
     
     public override void DeActivate()
     {
-        waffleSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        PlayWaffleSfxEmitterServerRpc(0, gameObject, false);
         isWaffleSFXPlaying = false;
 
         isBattering = false;
@@ -114,11 +122,18 @@ public class BatterShapingStation : SuperStation
         }
 
         Destroy(playerBatter);
+        if(playerIndicator != null)
+        {
+            Destroy(playerIndicator);
+        }
+        Debug.Log("Destroyed batter");
         playerHoldTimer = 0;
         
         PlayerStateMachine stateMachine = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerStateMachine>();
         stateMachine.ChangeState(stateMachine.IdleState);
 
+        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         virtualCamera.enabled = false;
     }
 
@@ -163,10 +178,11 @@ public class BatterShapingStation : SuperStation
                 
                 if(!isWaffleSFXPlaying)
                 {
-                    waffleSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.WafflePour);
+                    PlayWaffleSfxEmitterServerRpc(FMODEvents.NetworkSFXName.WafflePour, gameObject, true);
                     isWaffleSFXPlaying = true;
                 }
                 playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
+                
                 squeezing = true;
             }
             
@@ -187,7 +203,6 @@ public class BatterShapingStation : SuperStation
                     resultingItem = null;
                 }
 
-                squeezing = true;
             }
         } else if (timerActive)
         {
@@ -227,6 +242,8 @@ public class BatterShapingStation : SuperStation
             inventory.Craft(batter);
         }*/
 
+        Destroy(playerIndicator);
+
         StartCoroutine(Cook());
 
         DeActivate();
@@ -236,7 +253,7 @@ public class BatterShapingStation : SuperStation
     {
         playerHoldTimer = 0;
         Destroy(playerBatter);
-        playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
+        //playerBatter = Instantiate(batterCircle, batterSpawnPoint.transform.position, transform.rotation);
     }
 
     private IEnumerator Cook()
@@ -248,7 +265,8 @@ public class BatterShapingStation : SuperStation
                 WaffleIronAnimationServerRPC("Close");
             }
         timerActive = true;
-        tickingSFX = AudioManager.Instance.PlayLoopingSFX(FMODEvents.NetworkSFXName.StationTicking);
+        tickingSFX = AudioManager.Instance.InitializeEventEmitter(FMODEvents.NetworkSFXName.StationTicking, timerObject);
+        tickingSFX.Play();
         Debug.Log("cooking");
         timerObject.SetActive(true);
         timerMaterial.SetFloat("_Border_Thickness", 1);
@@ -256,7 +274,8 @@ public class BatterShapingStation : SuperStation
         timerMaterial.EnableKeyword("_USE_TEXTURE");
 
         yield return new WaitForSeconds(cookTime);
-        tickingSFX.stop(STOP_MODE.ALLOWFADEOUT);
+
+        tickingSFX.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.CompleteOrder, transform.position);
         timerMaterial.SetFloat("_Border_Thickness", 0.3f);
@@ -339,5 +358,25 @@ public class BatterShapingStation : SuperStation
     private void WaffleIronAnimationClientRPC(string trigger)
     {
         waffleIronAnimation.SetTrigger(trigger);
+    }
+
+    [ClientRpc]
+    private void PlayWaffleSfxEmitterClientRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        if (play)
+        {
+            waffleSFX = AudioManager.Instance.InitializeEventEmitter(sound, gameObj);
+            waffleSFX.Play();
+        }
+        else
+        {
+            waffleSFX?.Stop();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayWaffleSfxEmitterServerRpc(FMODEvents.NetworkSFXName sound, NetworkObjectReference gameObj, bool play)
+    {
+        PlayWaffleSfxEmitterClientRpc(sound, gameObj, play);
     }
 }

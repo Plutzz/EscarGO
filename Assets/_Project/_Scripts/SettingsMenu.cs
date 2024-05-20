@@ -8,6 +8,7 @@ public class SettingsMenu : NetworkBehaviour
 {
     [SerializeField] private InputManager inputManager;
     [SerializeField] private GameObject Canvas;
+    [SerializeField] private GameObject[] disableWithSettings;
 
     private LobbyAPI lobbyAPI;
 
@@ -27,6 +28,10 @@ public class SettingsMenu : NetworkBehaviour
     public void OpenMenu()
     {
         inputManager?.SwitchActionMap("UI");
+        foreach(var item in disableWithSettings)
+        {
+            item.SetActive(false);
+        }
         Cursor.lockState = CursorLockMode.Confined;
         gameObject.SetActive(true);
     }
@@ -34,6 +39,10 @@ public class SettingsMenu : NetworkBehaviour
     public void CloseMenu()
     {
         inputManager?.SwitchActionMap("Player");
+        foreach (var item in disableWithSettings)
+        {
+            item.SetActive(true);
+        }
         Cursor.lockState = CursorLockMode.Locked;
         gameObject.SetActive(false);
     }

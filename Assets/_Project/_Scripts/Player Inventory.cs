@@ -52,7 +52,19 @@ public class PlayerInventory : NetworkBehaviour
             UpdateInventory();
         }
 
-        if(Input.GetKey(KeyCode.G))
+        KeyCode[] keyCodes = { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5 };
+
+        for(int i = 0; i < keyCodes.Length; i++)
+        {
+            if (Input.GetKeyDown(keyCodes[i]))
+            {
+                activeItemIndex = i;
+                UpdateInventory();
+                break;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.G))
         {
             ClearInventory();
         }
@@ -199,11 +211,9 @@ public class PlayerInventory : NetworkBehaviour
 
     public void RemoveActiveItem() {
         if (currentItems.Count <= activeItemIndex) {
-            TipsManager.Instance.SetTip("No item selected", 2f);
             return;
         }
 
-        TipsManager.Instance.SetTip("Tossing the " + currentItems[activeItemIndex].item.itemName, 2f);
         EditDictionary(currentItems[activeItemIndex].item.itemName, -1);
         currentItems.RemoveAt(activeItemIndex);
         UpdateInventory();
@@ -227,7 +237,7 @@ public class PlayerInventory : NetworkBehaviour
     public bool CurrentlyHasItem()
     {
         if (currentItems.Count <= activeItemIndex) {
-            TipsManager.Instance.SetTip("No item selected", 2f);
+            //TipsManager.Instance.SetTip("No item selected", 2f);
             return false;
         }
 

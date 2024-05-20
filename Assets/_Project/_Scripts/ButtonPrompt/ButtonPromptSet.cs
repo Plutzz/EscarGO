@@ -6,15 +6,28 @@ using UnityEngine;
 public class ButtonPromptSet : MonoBehaviour
 {
     public List<ButtonPromptDetails> buttonPromptSet;
-    public MeshRenderer meshRenderer;
+    public List<MeshRenderer> meshRenderers;
 
     public void ChangeOutline(Material outline)
     {
-        if (meshRenderer != null)
+        foreach(MeshRenderer meshRenderer in meshRenderers)
         {
-            Material[] materials = meshRenderer.materials;
-            materials[1] = outline;
-            meshRenderer.materials = materials;
+            if (meshRenderer != null)
+            {
+                Material[] materials = meshRenderer.materials;
+                for(int i = 0; i < materials.Length; i++)
+                {
+                    if (materials[i].name.StartsWith("Outlines"))
+                    {
+                        materials[i] = outline;
+                        meshRenderer.materials = materials;
+                    }
+
+                }
+                
+                
+            }
         }
+
     }
 }

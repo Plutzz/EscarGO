@@ -13,6 +13,7 @@ public class ToppingStation : SuperStation
     [SerializeField] private GameObject toppingParticles;
     [SerializeField] private GameObject strawberryParticles;
     [SerializeField] private GameObject chocolateParticles;
+    [SerializeField] private GameObject frostingBottles;
     [SerializeField] private int toppingCircleAmount = 5;
     [SerializeField] private float heightOfCircles = 0.74f;
     [SerializeField] private float maxX = 0.37f;
@@ -39,6 +40,8 @@ public class ToppingStation : SuperStation
 
         GetComponent<BoxCollider>().enabled = false;
 
+        frostingBottles.SetActive(false);
+
         resultingItem = successfulItem;
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
 
@@ -64,14 +67,18 @@ public class ToppingStation : SuperStation
                 {
                     baseItem = Instantiate(x.itemPrefab, transform.position + new Vector3(0f, itemOffsetY, 0f), x.itemPrefab.transform.rotation);
                 }
-                else if (x.itemName == "Chopped Chocolate")
-                {
-                    toppingParticles = chocolateParticles;
-                }
-                else if (x.itemName == "Chopped Fruit")
-                {
-                    toppingParticles = strawberryParticles;
-                }
+            }
+
+            Debug.Log("Ingredient 1: " + successfulItem.requiredIngredients[0].item.itemName);
+            Debug.Log("Ingredient 2: " + successfulItem.requiredIngredients[1].item.itemName);
+
+            if (successfulItem.requiredIngredients[1].item.itemName == "Chopped Chocolate")
+            {
+                toppingParticles = chocolateParticles;
+            }
+            else if (successfulItem.requiredIngredients[1].item.itemName == "Chopped Fruit")
+            {
+                toppingParticles = strawberryParticles;
             }
         }
 
@@ -106,6 +113,8 @@ public class ToppingStation : SuperStation
         }
 
         GetComponent<BoxCollider>().enabled = true;
+
+        frostingBottles.SetActive(true);
 
         Destroy(baseItem);
 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chopped Fruit
   m_EditorClassIdentifier: 
   objectPairs:
-  - item: {fileID: 11400000, guid: 8b1fb003a14eb674e9758ff013e7475c, type: 2}
+  - item: {fileID: 11400000, guid: 355d210a7cd42b34487a9438d3655f0c, type: 2}
     need: 1
   score: 100

@@ -22,8 +22,8 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     private Bus ambienceBus;
     private Bus sfxBus;
 
-    private List<EventInstance> eventInstances;
-    private List<StudioEventEmitter> eventEmitters;
+    public List<EventInstance> eventInstances {  get; private set; }
+    public List<StudioEventEmitter> eventEmitters { get; private set; }
 
     private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
@@ -79,7 +79,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
 
     public void SetMusicArea(MusicArea area)
     {
-        musicEventInstance.setParameterByName("area", (float)area);
+        musicEventInstance.setParameterByName("Aera", (float)area);
     }
 
     public void PlayOneShot(FMODEvents.NetworkSFXName sound, Vector3 worldPos)
@@ -87,12 +87,7 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         RuntimeManager.PlayOneShot(FMODEvents.Instance.SfxArray[(int)sound], worldPos);
     }
 
-    public EventInstance PlayLoopingSFX(FMODEvents.NetworkSFXName sound)
-    {
-        EventInstance sfxEventInstance = CreateInstance(FMODEvents.Instance.SfxArray[(int)sound]);
-        sfxEventInstance.start();
-        return sfxEventInstance;
-    }
+
     
     // Asks the server to play a sfx on all clients *CLIENT AUTHORITATIVE
     [ServerRpc(RequireOwnership = false)]
@@ -107,11 +102,6 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     {
         PlayOneShot(sound, worldPos);
     }
-    [ClientRpc]
-    private void TestClientRpc(NetworkObjectReference networkObject)
-    {
-
-    }
 
     public EventInstance CreateInstance(EventReference eventReference)
     {
@@ -124,14 +114,15 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
     {
         if (emitterGameObject.TryGetComponent(out StudioEventEmitter emitter))
         {
-
+            emitter.Stop();
+            eventEmitters.Add(emitter);
         }
         else
         {
             emitter = emitterGameObject.AddComponent<StudioEventEmitter>();
         }
         emitter.EventReference = FMODEvents.Instance.SfxArray[(int)sound];
-        eventEmitters.Add(emitter);
+        
         return emitter;
     }
 
@@ -157,8 +148,9 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
 
     public enum MusicArea
     {
-        GRAY_AREA = 0,
-        BLUE_AREA = 1
+        Menu,
+        Lobby,
+        Level
     }
 
     public void SetMasterVolume(float volume)

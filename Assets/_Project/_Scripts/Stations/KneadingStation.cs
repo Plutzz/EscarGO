@@ -12,9 +12,12 @@ public class KneadingStation : SuperStation
     [SerializeField] private GameObject squareOfDough;
     [SerializeField] private GameObject rollingPin;
     [SerializeField] private Vector3 doughOffset = new Vector3(0, 0.52f, 0.018f);
+    [SerializeField] private Vector3 indicatorOffset = new Vector3(0, 0.52f, 0.018f);
 
     [SerializeField] private CraftableItem kneadedDough;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private GameObject kneadingIndicator;
+    [SerializeField] private KneadingIndicator kneadingIndicatorScript;
     private PlayerInventory inventory;
     private bool success;
 
@@ -30,6 +33,7 @@ public class KneadingStation : SuperStation
     private Quaternion rollingPinDefaultRotation;
 
     private GameObject playerDough;
+    private GameObject playerIndicator;
     private bool isKneading = false;
     private int[] keySequence;
     private int wantedKey = 0;
@@ -49,6 +53,10 @@ public class KneadingStation : SuperStation
         isKneading = true;
 
         resultingItem = successfulItem;
+
+        playerIndicator = Instantiate(kneadingIndicator, transform.position + indicatorOffset, Quaternion.Euler(90f, 0f, 0f));
+        kneadingIndicatorScript = playerIndicator.GetComponent<KneadingIndicator>();
+
         playerDough = Instantiate(squareOfDough, transform.position + doughOffset, transform.rotation);
 
         inventory = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerInventory>();
@@ -85,7 +93,9 @@ public class KneadingStation : SuperStation
         }
 
         wantedKey = 0;
+
         Destroy(playerDough);
+        Destroy(playerIndicator);
 
         rollingPin.transform.position = rollingPinDefaultPosition;
         rollingPin.transform.rotation = rollingPinDefaultRotation;
@@ -136,6 +146,8 @@ public class KneadingStation : SuperStation
                 {
                     noFirstKey = false;
                     wantedKey = 2;
+
+                    kneadingIndicatorScript.switchToKey(wantedKey + 1);
                 }
 
                 if(PressedSequence(2))
@@ -151,6 +163,8 @@ public class KneadingStation : SuperStation
                 {
                     noFirstKey = false;
                     wantedKey = 1;
+
+                    kneadingIndicatorScript.switchToKey(wantedKey + 1);
                 }
 
                 if(PressedSequence(1))
@@ -166,6 +180,8 @@ public class KneadingStation : SuperStation
                 {
                     noFirstKey = false;
                     wantedKey = 4;
+
+                    kneadingIndicatorScript.switchToKey(wantedKey + 1);
                 }
 
                 if(PressedSequence(4))
@@ -181,6 +197,8 @@ public class KneadingStation : SuperStation
                 {
                     noFirstKey = false;
                     wantedKey = 3;
+
+                    kneadingIndicatorScript.switchToKey(wantedKey + 1);
                 }
 
                 if(PressedSequence(3))
@@ -227,6 +245,9 @@ public class KneadingStation : SuperStation
             {
                 wantedKey = 1;
             }
+
+            kneadingIndicatorScript.switchToKey(wantedKey);
+            Debug.Log("wanted key: " + wantedKey);
 
             AudioManager.Instance.PlayOneShot(FMODEvents.NetworkSFXName.RollingPin, transform.position);
 
