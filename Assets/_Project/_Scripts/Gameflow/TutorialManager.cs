@@ -95,15 +95,12 @@ public class TutorialManager : Singleton<TutorialManager>
                 }
                 break;
             case 7:
-                if(Input.GetMouseButtonDown(0))
+                foreach (SuperStation station in stations)
                 {
-                    foreach (SuperStation station in stations)
+                    Debug.Log("stationing checking");
+                    if (station.StationInUse == true)
                     {
-                        Debug.Log("stationing checking");
-                        if (station.StationInUse == true)
-                        {
-                            FinishedTutorialStep(7);
-                        }
+                        FinishedTutorialStep(7);
                     }
                 }
                 break;
