@@ -82,6 +82,8 @@ public class PlayerAnim : NetworkBehaviour
         anim.ResetTrigger("Jogging");
         anim.ResetTrigger("Cooking");
         anim.ResetTrigger("Crouching");
+        anim.ResetTrigger("Throw");
+        anim.ResetTrigger("Fall");
 
 
         switch (_state)
@@ -106,6 +108,7 @@ public class PlayerAnim : NetworkBehaviour
                 anim.SetTrigger("Cooking");
                 break;
             case PlayerEventState _:
+                anim.SetTrigger("Fall");
                 break;
             case PlayerIdleState _:
                     anim.SetTrigger("Idle");

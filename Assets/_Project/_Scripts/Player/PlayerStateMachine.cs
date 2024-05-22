@@ -52,7 +52,7 @@ public class PlayerStateMachine : NetworkBehaviour
     public Transform player;
 
     public Transform projectilePosition;
-    private PlayerAnim playerAnim;
+    public PlayerAnim playerAnim;
     [Header("Crouching Variables")]
     [SerializeField] private float crouchYScale = 0.5f;
     private float startYScale;

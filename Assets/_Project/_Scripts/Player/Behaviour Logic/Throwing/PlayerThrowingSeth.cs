@@ -25,6 +25,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
 
     [SerializeField] private float maxFOVIncrease;
     [SerializeField] private float fOVRevertTime;
+    private bool animStarted;
 
     public override void Initialize(GameObject gameObject, PlayerStateMachine stateMachine)
     {
@@ -35,6 +36,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         
         base.DoEnterLogic();
         chargeTimer = 0;
+        animStarted = false;
     }
 
     public override void DoExitLogic()
@@ -57,6 +59,13 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         
         chargeTimer += Time.deltaTime;
        
+        if(chargeTimer > 0.1f && !animStarted)
+        {
+            stateMachine.playerAnim.anim.SetTrigger("Throw");
+            animStarted = true;
+        }
+            
+
         UpdateFOV();
         GetInput();
         base.DoUpdateState();
@@ -79,7 +88,6 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         if (!stateMachine.TryingThrow())
         {
             Throw();
-            
             
             stateMachine.ChangeState(stateMachine.MovingState);
             return;
@@ -122,7 +130,7 @@ public class PlayerThrowingSeth : PlayerThrowingSOBase
         }
         AudioManager.Instance.PlayOneShotAllServerRpc(FMODEvents.NetworkSFXName.PlayerThrow, rb.transform.position);
         stateMachine.GetComponent<PlayerProjectileManager>().ThrowProjectileServerRpc(stateMachine.projectilePosition.position, stateMachine.cameraTransform.rotation, itemName, chargeTimer/timeToChargeThrow);
-
+        
 
     }
 
