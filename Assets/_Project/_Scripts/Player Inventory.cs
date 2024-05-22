@@ -304,6 +304,11 @@ public class PlayerInventory : NetworkBehaviour
 
         return count;
     }
+
+    public int inventoryCount()
+    {
+        return currentItems.Count;
+    }
 }
 
 public class InventoryItem {

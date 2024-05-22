@@ -66,6 +66,11 @@ public class Player : NetworkBehaviour
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
+    public override void OnDestroy()
+    {
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+
     private void OnSceneChanged(Scene prevScene, Scene nextScene)
     {
         Camera.main.GetComponent<StudioListener>().attenuationObject = gameObject;
