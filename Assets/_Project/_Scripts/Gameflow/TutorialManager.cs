@@ -74,12 +74,14 @@ public class TutorialManager : Singleton<TutorialManager>
                 if(Input.GetMouseButtonDown(1))
                 {
                     FinishedTutorialStep(3);
+                    GetComponent<Canvas>().sortingOrder = 1;
                 }
                 break;
             case 4:
                 if (Input.GetMouseButtonDown(1))
                 {
                     FinishedTutorialStep(4);
+                    GetComponent<Canvas>().sortingOrder = -1;
                 }
                 break;
             case 5:

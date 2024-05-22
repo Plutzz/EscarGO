@@ -11,21 +11,26 @@ using UnityEngine.SceneManagement;
 public class TutorialController : MonoBehaviour
 {
     [SerializeField] private string tutorialSceneName;
-    public async void CheckTutorial()
+    public void CheckTutorial()
     {
         if (PlayerPrefs.GetInt("FinishedTutorial") < 1)
         {
-            // Host relay
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(1);
-            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-            NetworkManager.Singleton.StartHost();
-            TutorialManager.currentTutorialStep = 0;
-            NetworkManager.Singleton.SceneManager.LoadScene(tutorialSceneName, LoadSceneMode.Single);
+            StartTutorial();
         }
         else if (PlayerPrefs.GetInt("FinishedTutorial") == 1)
         {
             PlayerPrefs.SetInt("FinishedTutorial", 2);
         }
+    }
+
+    public async void StartTutorial()
+    {
+        // Host relay
+        Allocation allocation = await RelayService.Instance.CreateAllocationAsync(1);
+        RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+        NetworkManager.Singleton.StartHost();
+        TutorialManager.currentTutorialStep = 0;
+        NetworkManager.Singleton.SceneManager.LoadScene(tutorialSceneName, LoadSceneMode.Single);
     }
 }

@@ -15,6 +15,7 @@ public class InteractableTeleport : InteractableSpace
     [SerializeField] private int doorNumber = 0;
     public int lastDoor = 0;
     [SerializeField] private InteractableTeleport backKitchenDoor;
+    [SerializeField] private GameObject sunlight;
     public override void Interact(PlayerInventory inventory)
     {
         Vector3 teleportPosition;
@@ -23,12 +24,14 @@ public class InteractableTeleport : InteractableSpace
         {
             teleportPosition = teamTeleportPositions[lastDoor].position;
             teleportRotation = teamTeleportPositions[lastDoor].eulerAngles;
+            sunlight.transform.eulerAngles = new Vector3(45, 0, 0);
         }
         else
         {
             backKitchenDoor.lastDoor = doorNumber;
             teleportPosition = this.teleportPosition;
             teleportRotation = this.teleportRotation;
+            sunlight.transform.eulerAngles = new Vector3(89.5f, 0, 0);
         }
 
         // Teleport the player to the designated position

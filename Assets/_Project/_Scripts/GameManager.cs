@@ -22,7 +22,7 @@ public class GameManager : NetworkSingleton<GameManager>
         int index = 0;
         foreach(var client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            teleportPlayersClientRpc(spawnPositions[index], new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { client.ClientId } } });
+            teleportPlayersClientRpc(spawnPositions[index % spawnPositions.Length], new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { client.ClientId } } });
             index++;
         }
         StartGameClientRpc();

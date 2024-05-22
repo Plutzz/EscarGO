@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/NetworkLoop/NetworkResults.unity
     guid: fdb24288c73e1664f83249c142ea6871
   - enabled: 1
-    path: Assets/_Project/Scenes/NetworkLoop/Tutorial.unity
-    guid: 58a1b9933ae3d7748941504ad13a986a
+    path: Assets/_Project/Scenes/NetworkLoop/NewTutorial.unity
+    guid: dc739137598b38f4193fa02e0fb67e60
   m_configObjects: {}
