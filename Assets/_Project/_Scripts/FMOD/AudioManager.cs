@@ -146,6 +146,12 @@ public class AudioManager : NetworkSingletonPersistent<AudioManager>
         CleanUp();
     }
 
+    public override void OnNetworkDespawn()
+    {
+        CleanUp();
+        base.OnNetworkDespawn();
+    }
+
     public enum MusicArea
     {
         Menu,

@@ -20,7 +20,7 @@ public class TutorialManager : Singleton<TutorialManager>
     [SerializeField] private TextMeshProUGUI tutorialText;
     [SerializeField] private Image tutorialImage;
     [SerializeField] private GameObject tutorialTextObject;
-    [SerializeField] private float tutorialTextShowTime;
+    //[SerializeField] private float tutorialTextShowTime;
     [SerializeField] private float letterSpeed = .1f;
     [SerializeField] private List<SuperStation> stations = new List<SuperStation>();
     private Coroutine currentCoroutine;
@@ -124,6 +124,16 @@ public class TutorialManager : Singleton<TutorialManager>
         {
             PlayerPrefs.SetInt("FinishedTutorial", 1);
             SceneManager.LoadScene(0);
+
+            Cursor.lockState = CursorLockMode.None;
+            
+            Debug.Log("Left the lobby successfully.");
+            NetworkManager.Singleton.Shutdown();
+            Destroy(NetworkManager.Singleton?.gameObject);
+            Destroy(AudioManager.Instance?.gameObject);
+            Destroy(gameObject);
+            SceneManager.LoadSceneAsync("BenLobby");
+
             return;
         }
 
@@ -184,17 +194,22 @@ public class TutorialManager : Singleton<TutorialManager>
         tutorialText.text = currentStep.tutorialMessage;
 
 
-        yield return new WaitForSeconds(tutorialTextShowTime);
-
-        //tutorialTextObject.SetActive(false);
-
-        if (currentStep.autoplayNextStep) {
-            if (currentStep.timeToNextStep > 0) {
+        if (currentStep.autoplayNextStep)
+        {
+            if (currentStep.timeToNextStep > 0)
+            {
                 yield return new WaitForSeconds(currentStep.timeToNextStep);
             }
 
             FinishedTutorialStep(currentTutorialStep);
+            yield return null;
         }
+
+        //yield return new WaitForSeconds(tutorialTextShowTime);
+
+        //tutorialTextObject.SetActive(false);
+
+        
     }
     public void SpawnCustomer()
     {
