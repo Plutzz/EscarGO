@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000024F531708D8 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000001C6F2CA0748 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -21,10 +21,58 @@
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 295744
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 27424
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000B72A12F3A8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFDD8983F70
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFDD8983F30
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFDD8984050
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFDD8984110
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001C64F2C7698
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='ui_hover', format=5, channels=1, frequency=48000, lengthbytes=736, lengthpcm=2734, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.222260.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 295744
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 27424
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000B72A12F3A8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFDD8983F70
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFDD8983F30
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFDD8984050
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFDD8984110
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001C651FD13C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='ui_click', format=5, channels=1, frequency=48000, lengthbytes=3296, lengthpcm=16161, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.316132.
+[LOG] SoundI::release                          :  (000001C64EFF8648)
+[LOG] SoundI::release                          :     ship_ambience (000001C64F1501B8)
+[LOG] SoundI::release                          :  (000001C64EFF8088)
+[LOG] SoundI::release                          :     a prestine dish 3 (000001C64F151A18)
+[LOG] SoundI::release                          :  (000001C64EFF7C38)
+[LOG] SoundI::release                          :     The Menu, Please (000001C64F152A58)
+[LOG] SoundI::release                          :  (000001C64EFF7AC8)
+[LOG] SoundI::release                          :     orderup2 (000001C64F151398)
+[LOG] SoundI::release                          :  (000001C64EFF1798)
+[LOG] SoundI::release                          :     ui_hover (000001C64F154118)
+[LOG] SoundI::release                          :  (000001C64EFF25F8)
+[LOG] SoundI::release                          :     ui_click (000001C64F155978)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.
+[ERR] assert                                   : assertion: 'gSystemInitCount == 0' failed

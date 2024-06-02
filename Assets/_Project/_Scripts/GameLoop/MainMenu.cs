@@ -13,6 +13,7 @@ using Unity.Services.Core;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject playerSelectMenu;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject lobbyMenu;
     [SerializeField] private GameObject lobbyHud;
@@ -42,6 +43,17 @@ public class MainMenu : MonoBehaviour
     public void CloseSettings()
     {
         settingsMenu.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    public void OpenPlayerSelect()
+    {
+        playerSelectMenu.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+    public void ClosePlayerSelect()
+    {
+        playerSelectMenu.SetActive(false);
         mainMenu.SetActive(true);
     }
 
