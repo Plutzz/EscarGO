@@ -16,7 +16,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject lobbyMenu;
     [SerializeField] private GameObject lobbyHud;
-    [SerializeField] private GameObject playerSelectMenu;
 
 
     private void Start()
@@ -43,17 +42,6 @@ public class MainMenu : MonoBehaviour
     public void CloseSettings()
     {
         settingsMenu.SetActive(false);
-        mainMenu.SetActive(true);
-    }
-
-    public void OpenPlayerSelectMenu()
-    {
-        playerSelectMenu.SetActive(true);
-        mainMenu.SetActive(false);
-    }
-    public void ClosePLayerSelectMenu()
-    {
-        playerSelectMenu.SetActive(false);
         mainMenu.SetActive(true);
     }
 
