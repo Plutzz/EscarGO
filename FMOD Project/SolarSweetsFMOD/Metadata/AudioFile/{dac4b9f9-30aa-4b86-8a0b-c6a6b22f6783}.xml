@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{dac4b9f9-30aa-4b86-8a0b-c6a6b22f6783}">
+		<property name="assetPath">
+			<value>SFX/sad_horn.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.4236249999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2a48399c-b2e3-4dae-be76-62112029a967}</destination>
+		</relationship>
+	</object>
+</objects>
